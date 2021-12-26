@@ -129,3 +129,4 @@ maven 坐标
    <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="t-im" title="t-im"></a><br>
 
 ### 进群前先gitee上star ★
+   请看完再进群
