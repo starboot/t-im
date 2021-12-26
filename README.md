@@ -127,3 +127,5 @@ maven 坐标
    官方QQ群号：867691377 
    <a target="_blank"  href="https://jq.qq.com/?_wv=1027&k=Gd6P6BcT">
    <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="t-im" title="t-im"></a><br>
+
+### 进群前先gitee上star
