@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="t-im-server" />
+        <module name="t-im-client" />
+        <module name="t-im-server-demo" />
+        <module name="t-im-common" />
+        <module name="t-im-client-demo" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
