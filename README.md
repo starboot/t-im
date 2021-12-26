@@ -44,16 +44,9 @@ t-im 是用JAVA语言开发的轻量、高性能、单机支持几十万至百�
 ```
 请求:COMMAND_AUTH_REQ(3) 响应:COMMAND_AUTH_RESP(4)
 
- **3.握手请求消息结构** 
-```
-{
-    "cmd":"命令码(1)int类型",
-    "hbyte":"握手1个字节"
-}
-```
 说明:请求:COMMAND_HANDSHAKE_REQ(1) 响应:COMMAND_HANDSHAKE_RESP(2)
 
- **4.登录请求消息结构** 
+ **3.登录请求消息结构** 
 ```
 {
     "cmd":"命令码(5)int类型",
@@ -64,7 +57,7 @@ t-im 是用JAVA语言开发的轻量、高性能、单机支持几十万至百�
 ```
 请求:COMMAND_LOGIN_REQ(5) 响应:COMMAND_LOGIN_RESP(6)
 
- **5.心跳请求消息结构** 
+ **4.心跳请求消息结构** 
 ```
 {
     "cmd":"命令码(13)int类型",
@@ -73,7 +66,7 @@ t-im 是用JAVA语言开发的轻量、高性能、单机支持几十万至百�
 ```
 请求:COMMAND_HEARTBEAT_REQ(13) 响应:COMMAND_HEARTBEAT_REQ(13)
 
- **6.关闭、退出请求消息结构** 
+ **5.关闭、退出请求消息结构** 
 ```
 {
     "cmd":"命令码(14)int类型",
@@ -82,7 +75,7 @@ t-im 是用JAVA语言开发的轻量、高性能、单机支持几十万至百�
 ```
 请求:COMMAND_CLOSE_REQ(14) 响应:无
 
- **7.获取用户信息请求消息结构** 
+ **6.获取用户信息请求消息结构** 
 ```
 {
      "cmd":"命令码(17)int类型",
@@ -92,7 +85,7 @@ t-im 是用JAVA语言开发的轻量、高性能、单机支持几十万至百�
 ```
 请求:COMMAND_GET_USER_REQ(17) 响应:COMMAND_GET_USER_RESP(18)
 
-**8.获取持久化聊天消息(离线+历史+漫游)请求结构** 
+**7.获取持久化聊天消息(离线+历史+漫游)请求结构** 
 ```
 {
      "cmd":"命令码(19)int类型",
@@ -128,3 +121,9 @@ maven 坐标
     <version>1.0.0.v20211226-RELEASE</version>
 </dependency>
 ```
+
+## 联系方式
+
+   官方QQ群号：867691377 
+   <a target="_blank"  href="https://jq.qq.com/?_wv=1027&k=Gd6P6BcT">
+   <img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="t-im" title="t-im"></a><br>
