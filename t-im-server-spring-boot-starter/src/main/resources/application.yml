@@ -1,0 +1,7 @@
+logging:
+  level:
+    org:
+      tio: off
+      tim:
+        server: info
+
