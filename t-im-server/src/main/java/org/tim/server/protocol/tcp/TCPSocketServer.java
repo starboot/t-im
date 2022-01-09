@@ -1,5 +1,6 @@
 package org.tim.server.protocol.tcp;
 
+import cn.hutool.core.util.ObjectUtil;
 import org.tim.server.convert.tcpPackageConvert;
 import org.tim.server.protocol.IMServer;
 import org.tim.server.stat.TimGroupListener;
@@ -10,7 +11,6 @@ import org.tio.utils.jfinal.P;
 import org.tio.utils.time.Time;
 
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * Created by DELL(mxd) on 2021/12/23 20:28
@@ -25,7 +25,7 @@ public class TCPSocketServer extends IMServer {
     }
 
     public synchronized static TCPSocketServer getInstance() {
-        if (Objects.isNull(socketServer)){
+        if (ObjectUtil.isNull(socketServer)){
             socketServer = new TCPSocketServer();
         }
         return socketServer;

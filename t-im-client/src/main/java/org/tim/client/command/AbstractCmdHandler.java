@@ -2,15 +2,11 @@ package org.tim.client.command;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tim.client.TIMClient;
 import org.tim.client.TIMClientConfig;
 import org.tim.client.intf.DefaultMessageProcessor;
 import org.tim.client.intf.MessageProcessor;
 import org.tim.common.ImConst;
-import org.tim.common.ImPacket;
 import org.tim.common.command.CmdHandler;
-import org.tim.common.packets.ChatBody;
-import org.tim.common.packets.Command;
 import org.tio.core.ChannelContext;
 import org.tio.core.TioConfig;
 import org.tio.core.intf.Packet;

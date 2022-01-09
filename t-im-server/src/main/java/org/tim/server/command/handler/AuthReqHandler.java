@@ -15,8 +15,6 @@ import org.tim.server.protocol.IMServer;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
 
-import java.util.Objects;
-
 /**
  * 授权方式暂未限制
  * Created by DELL(mxd) on 2021/12/25 11:57
@@ -32,7 +30,7 @@ public class AuthReqHandler extends AbstractCmdHandler {
             log.error("消息包格式化出错");
             return null;
         }
-        if (Objects.nonNull(authReqBody) && authReqBody.getToken() != null && authReqBody.getToken().length() > 0) {
+        if (ObjectUtil.isNotEmpty(authReqBody) && authReqBody.getToken() != null && authReqBody.getToken().length() > 0) {
             String token = authReqBody.getToken() == null ? "" : authReqBody.getToken();
             String data = token +  ImConst.AUTH_KEY;
             authReqBody.setToken(data);

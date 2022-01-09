@@ -20,7 +20,6 @@ import org.tio.core.intf.Packet;
 import org.tio.utils.lock.MapWithLock;
 import org.tio.utils.lock.SetWithLock;
 
-import java.util.Objects;
 
 /**
  * 获取在线用户集合
@@ -56,7 +55,7 @@ public class UserReqHandler extends AbstractCmdHandler {
         }
         // 0:所有在线用户,1:所有离线用户,2:所有用户[在线+离线];  服务器只提供查询在线用户，其它查询请用httpAPI
         int type = userReqBody.getType();
-        if(Objects.isNull(UserStatusType.valueOf(type))){
+        if(ObjectUtil.isNull(UserStatusType.valueOf(type))){
             RespBody respBody = new RespBody(Command.COMMAND_GET_USER_RESP, ImStatus.C10004);
             Tio.send(channelContext, new ImPacket(Command.COMMAND_GET_MESSAGE_RESP, respBody.toByte()));
             return null;
@@ -68,7 +67,7 @@ public class UserReqHandler extends AbstractCmdHandler {
             resPacket.setData(cacheHelper.getUserByType(type));
         }else {
             MapWithLock<String, SetWithLock<ChannelContext>> map = channelContext.tioConfig.users.getMap();
-            log.info("在菲集群下查询在线人数为:{}", map.size());
+            log.info("在非集群下查询在线人数为:{}", map.size());
             resPacket.setData(map.size());
         }
         //在线用户

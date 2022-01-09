@@ -1,0 +1,41 @@
+2022-01-09 14:22:27,365 INFO  o.t.s.p.http.HttpServerInit[47]: HTTP:访问地址:http://127.0.0.1:80/api/index
+2022-01-09 14:22:27,365 INFO  o.t.s.p.http.HttpServerInit[48]: WebSocket:访问地址:http://127.0.0.1:80/api/websocket
+2022-01-09 14:22:27,365 INFO  o.tim.server.TIMServerStarter[61]: Server启动完毕,耗时:562ms
+2022-01-09 14:22:27,365 INFO  o.tim.server.TIMServerStarter[63]: TCP Socket Server on port: 8888, Websocket Server on port: 9999, HTTP Server on port: 80
+2022-01-09 14:22:51,276 INFO  o.t.c.c.CommandConfigurationFactory[80]: by standardClassloader:file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:22:51,276 INFO  o.t.c.c.CommandConfigurationFactory[54]: Configuring command from URL: file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:22:51,291 INFO  o.t.s.command.CommandManager[44]: load properties file successful
+2022-01-09 14:22:51,604 INFO  o.t.s.c.handler.ChatReqHandler[59]: 用户->119119:不在线,通过集群发送
+2022-01-09 14:22:53,634 INFO  o.t.s.c.handler.UserReqHandler[71]: 在菲集群下查询在线人数为:1
+2022-01-09 14:29:01,311 INFO  o.t.s.p.http.HttpServerInit[47]: HTTP:访问地址:http://127.0.0.1:80/api/index
+2022-01-09 14:29:01,311 INFO  o.t.s.p.http.HttpServerInit[48]: WebSocket:访问地址:http://127.0.0.1:80/api/websocket
+2022-01-09 14:29:01,327 INFO  o.tim.server.TIMServerStarter[61]: Server启动完毕,耗时:406ms
+2022-01-09 14:29:01,327 INFO  o.tim.server.TIMServerStarter[63]: TCP Socket Server on port: 8888, Websocket Server on port: 9999, HTTP Server on port: 80
+2022-01-09 14:29:12,559 INFO  o.t.c.c.CommandConfigurationFactory[80]: by standardClassloader:file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:29:12,559 INFO  o.t.c.c.CommandConfigurationFactory[54]: Configuring command from URL: file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:29:12,559 INFO  o.t.s.command.CommandManager[44]: load properties file successful
+2022-01-09 14:29:14,840 INFO  o.t.s.c.handler.UserReqHandler[71]: 在菲集群下查询在线人数为:1
+2022-01-09 14:34:43,706 INFO  o.t.s.p.http.HttpServerInit[47]: HTTP:访问地址:http://127.0.0.1:80/api/index
+2022-01-09 14:34:43,721 INFO  o.t.s.p.http.HttpServerInit[48]: WebSocket:访问地址:http://127.0.0.1:80/api/websocket
+2022-01-09 14:34:43,721 INFO  o.tim.server.TIMServerStarter[61]: Server启动完毕,耗时:375ms
+2022-01-09 14:34:43,721 INFO  o.tim.server.TIMServerStarter[63]: TCP Socket Server on port: 8888, Websocket Server on port: 9999, HTTP Server on port: 80
+2022-01-09 14:34:53,144 INFO  o.t.c.c.CommandConfigurationFactory[80]: by standardClassloader:file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:34:53,144 INFO  o.t.c.c.CommandConfigurationFactory[54]: Configuring command from URL: file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:34:53,144 INFO  o.t.s.command.CommandManager[44]: load properties file successful
+2022-01-09 14:34:55,487 INFO  o.t.s.c.handler.UserReqHandler[71]: 在菲集群下查询在线人数为:1
+2022-01-09 14:35:57,984 INFO  o.t.s.p.http.HttpServerInit[47]: HTTP:访问地址:http://127.0.0.1:80/api/index
+2022-01-09 14:35:57,984 INFO  o.t.s.p.http.HttpServerInit[48]: WebSocket:访问地址:http://127.0.0.1:80/api/websocket
+2022-01-09 14:35:57,984 INFO  o.tim.server.TIMServerStarter[61]: Server启动完毕,耗时:390ms
+2022-01-09 14:35:57,984 INFO  o.tim.server.TIMServerStarter[63]: TCP Socket Server on port: 8888, Websocket Server on port: 9999, HTTP Server on port: 80
+2022-01-09 14:36:05,901 INFO  o.t.c.c.CommandConfigurationFactory[80]: by standardClassloader:file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:36:05,901 INFO  o.t.c.c.CommandConfigurationFactory[54]: Configuring command from URL: file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:36:05,901 INFO  o.t.s.command.CommandManager[44]: load properties file successful
+2022-01-09 14:36:08,229 INFO  o.t.s.c.handler.UserReqHandler[71]: 在非集群下查询在线人数为:1
+2022-01-09 14:53:08,695 INFO  o.t.s.p.http.HttpServerInit[47]: HTTP:访问地址:http://127.0.0.1:80/api/index
+2022-01-09 14:53:08,695 INFO  o.t.s.p.http.HttpServerInit[48]: WebSocket:访问地址:http://127.0.0.1:80/api/websocket
+2022-01-09 14:53:08,710 INFO  o.tim.server.TIMServerStarter[59]: Server启动完毕,耗时:390ms
+2022-01-09 14:53:08,710 INFO  o.tim.server.TIMServerStarter[61]: TCP Socket Server on port: 8888, Websocket Server on port: 9999, HTTP Server on port: 80
+2022-01-09 14:53:16,619 INFO  o.t.c.c.CommandConfigurationFactory[80]: by standardClassloader:file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:53:16,619 INFO  o.t.c.c.CommandConfigurationFactory[54]: Configuring command from URL: file:/E:/IDEAWorkSpace/t-im/t-im-server/target/classes/org/tim/server/command/command.properties
+2022-01-09 14:53:16,619 INFO  o.t.s.command.CommandManager[44]: load properties file successful
+2022-01-09 14:53:18,962 INFO  o.t.s.c.handler.UserReqHandler[70]: 在非集群下查询在线人数为:1

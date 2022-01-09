@@ -2,12 +2,11 @@
 package org.tim.common.packets;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 
 /**
  * Created by DELL(mxd) on 2021/12/23 11:57
@@ -132,7 +131,7 @@ public class Group extends Message{
 			return this;
 		}
 		public Builder addUser(User user) {
-			if(Objects.isNull(users) || users.size() == 0){
+			if(ObjectUtil.isNull(users) || users.size() == 0){
 				users = new ArrayList<>();
 			}
 			users.add(user);

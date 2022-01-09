@@ -5,7 +5,6 @@ import org.tim.common.packets.Command;
 import org.tim.common.packets.HeartbeatBody;
 import org.tim.common.packets.RespBody;
 import org.tim.server.command.AbstractCmdHandler;
-import org.tim.server.helper.TIM;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
 

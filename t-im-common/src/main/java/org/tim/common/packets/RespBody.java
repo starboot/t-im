@@ -3,11 +3,11 @@ package org.tim.common.packets;
 
 
 
+import cn.hutool.core.util.ObjectUtil;
 import org.tim.common.Status;
 import org.tim.common.util.json.JsonKit;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * Created by DELL(mxd) on 2021/12/23 11:57
@@ -49,7 +49,7 @@ public class RespBody extends Message implements Serializable{
 	}
 
 	public RespBody(Status status){
-		if(Objects.nonNull(status)){
+		if(ObjectUtil.isNotEmpty(status)){
 			this.code = status.getCode();
 			this.msg = status.getMsg();
 		}

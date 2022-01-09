@@ -1,9 +1,6 @@
 package org.tim.client.intf;
 
 import org.tim.common.packets.ChatBody;
-import org.tim.common.packets.UserMessageData;
-
-import java.util.Set;
 
 /**
  * Created by DELL(mxd) on 2022/1/6 20:32

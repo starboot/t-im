@@ -10,8 +10,6 @@ import org.tim.common.ImStatus;
 import org.tim.common.exception.ImException;
 import org.tim.common.packets.Command;
 import org.tim.common.packets.RespBody;
-import org.tim.common.packets.UserMessageData;
-import org.tim.common.util.json.JsonKit;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
 

@@ -54,7 +54,10 @@ public class MessageReqHandler extends AbstractCmdHandler {
         String timelineId = messageReqBody.getTimelineId();
         //如果用户ID为空或者type格式不正确，获取消息失败; 0:离线消息,1:历史消息
         if(StrUtil.isEmpty(userId) || (0 != type && 1 != type)) {
-            return getMessageFailedPacket(channelContext);
+            return getMessageFailedPacket(channelContext, ImStatus.C10015);
+        }
+        if (!IMServer.isStore) {
+            return getMessageFailedPacket(channelContext, ImStatus.C10022);
         }
         if(type == 0){
             resPacket = new RespBody(Command.COMMAND_GET_MESSAGE_RESP,ImStatus.C10016);
@@ -81,8 +84,8 @@ public class MessageReqHandler extends AbstractCmdHandler {
 
 
 
-    public ImPacket getMessageFailedPacket(ChannelContext channelContext) {
-        RespBody resPacket = new RespBody(Command.COMMAND_GET_MESSAGE_RESP, ImStatus.C10015);
+    public ImPacket getMessageFailedPacket(ChannelContext channelContext, ImStatus status) {
+        RespBody resPacket = new RespBody(Command.COMMAND_GET_MESSAGE_RESP, status);
         TIM.send(channelContext, new ImPacket(Command.COMMAND_GET_MESSAGE_RESP, resPacket.toByte()));
         return null;
     }

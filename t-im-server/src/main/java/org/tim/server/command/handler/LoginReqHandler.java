@@ -18,7 +18,6 @@ import org.tio.core.Tio;
 import org.tio.core.intf.Packet;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by DELL(mxd) on 2021/12/25 15:01
@@ -40,7 +39,7 @@ public class LoginReqHandler extends AbstractCmdHandler {
         }
         LoginRespBody loginRespBody = LoginRespBody.success();
         User user = getUserByProcessor(channelContext, loginReqBody, loginRespBody);
-        if (Objects.nonNull(user)){
+        if (ObjectUtil.isNotEmpty(user)){
             TIM.bindUser(channelContext, user.getUserId());
             //初始化绑定或者解绑群组;
             initGroup(channelContext, user);
@@ -72,7 +71,7 @@ public class LoginReqHandler extends AbstractCmdHandler {
      * @return 用户组装的User信息
      */
     private User getUserByProcessor(ChannelContext imChannelContext, LoginReqBody loginReqBody, LoginRespBody loginRespBody) {
-        if (Objects.isNull(loginRespBody) || loginRespBody.getCode() != ImStatus.C10007.getCode()) {
+        if (ObjectUtil.isEmpty(loginRespBody) || loginRespBody.getCode() != ImStatus.C10007.getCode()) {
             log.error("login failed, userId:{}, password:{}", loginReqBody.getUserId(), loginReqBody.getPassword());
             return null;
         }

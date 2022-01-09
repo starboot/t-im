@@ -1,5 +1,6 @@
 package org.tim.common.codec;
 
+import cn.hutool.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tim.common.ImPacket;
@@ -13,7 +14,6 @@ import org.tio.websocket.common.WsResponse;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Objects;
 
 /**
  * Created by DELL(mxd) on 2021/12/24 20:52
@@ -89,7 +89,7 @@ public class TCPCodec implements Encoder, Decoder{
     }
 
     public static TCPCodec getInstance() {
-        if (Objects.isNull(tcpCodec)){
+        if (ObjectUtil.isNull(tcpCodec)){
             tcpCodec = new TCPCodec();
         }
         return tcpCodec;

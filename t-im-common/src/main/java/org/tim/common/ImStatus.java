@@ -25,7 +25,8 @@ public enum ImStatus implements Status {
 	C10017(10017,"cmd failed!","未知的cmd命令!"),
 	C10018(10018,"get user message ok!","获取历史消息成功!"),
 	C10020(10020,"Invalid verification!","不合法校验"),
-	C10021(10021,"close ok!","关闭成功");
+	C10021(10021,"close ok!","关闭成功"),
+	C10022(10022,"get user message failed!","为开启持久化，无法获取离线消息!");
 	
 	private int status;
 	

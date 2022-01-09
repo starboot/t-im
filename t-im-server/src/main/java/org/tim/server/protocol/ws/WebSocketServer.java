@@ -1,5 +1,6 @@
 package org.tim.server.protocol.ws;
 
+import cn.hutool.core.util.ObjectUtil;
 import org.tim.server.convert.websocketPackageConvert;
 import org.tim.server.protocol.IMServer;
 import org.tim.server.stat.TimGroupListener;
@@ -10,7 +11,6 @@ import org.tio.utils.time.Time;
 import org.tio.websocket.server.WsServerConfig;
 import org.tio.websocket.server.WsServerStarter;
 
-import java.util.Objects;
 
 /**
  * Created by DELL(mxd) on 2021/12/23 20:38
@@ -27,7 +27,7 @@ public class WebSocketServer extends IMServer {
     }
 
     public synchronized static WebSocketServer getInstance(ServerTioConfig tioConfig) {
-        if (Objects.isNull(webSocketServer)){
+        if (ObjectUtil.isNull(webSocketServer)){
             webSocketServer = new WebSocketServer(tioConfig);
         }
         return webSocketServer;

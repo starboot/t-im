@@ -14,8 +14,6 @@ import org.tim.server.util.ChatKit;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
 
-import java.util.Objects;
-
 /**
  * Created by DELL(mxd) on 2021/12/24 17:26
  */
@@ -35,7 +33,7 @@ public class ChatReqHandler extends AbstractCmdHandler {
             log.error("消息包格式化出错");
             return null;
         }
-        if (Objects.nonNull(body)){
+        if (ObjectUtil.isNotEmpty(body)){
             // 聊天类型int类型(0:未知,1:公聊,2:私聊
             if (body.getChatType() == 1 && body.getGroupId().length() != 0 && !body.getGroupId().equals("")) {
                 if (IMServer.isStore) {
@@ -55,10 +53,17 @@ public class ChatReqHandler extends AbstractCmdHandler {
                     IMServer.cacheHelper.writeMessage(s,body.getFrom(), body.getTo(), body, false, false);
                 }
                 // 私聊
-                if (ChatKit.isOnline(body.getTo())) {
+                if (ChatKit.isOnline(body.getTo()) && IMServer.cluster) {
                     log.info("用户->{}:不在线,通过集群发送", body.getTo());
+                    TIM.sendToUser(body, packet);
+                } else {
+                    if (IMServer.isStore) {
+                        // 做持久化处理
+                        String s = DateTime.now().toString("YYYY-MM-DD");
+                        IMServer.cacheHelper.writeMessage(s,body.getFrom(), body.getTo(), body, false, true);
+                    }
                 }
-                TIM.sendToUser(body, packet);
+
             }
             if (body.getChatType() == 0) {
                 log.debug("用户{}发送未知消息类型", body.getFrom());

@@ -18,8 +18,6 @@ import org.tio.core.Tio;
 import org.tio.utils.SystemTimer;
 import org.tio.utils.jfinal.P;
 
-import java.util.Objects;
-
 /**
  * Created by DELL(mxd) on 2021/12/23 20:45
  */
@@ -38,7 +36,7 @@ public class TIMServerStarter {
     private static TIMServerStarter timServerStarter;
 
     public static synchronized TIMServerStarter getInstance() {
-        if (Objects.isNull(timServerStarter)){
+        if (ObjectUtil.isNull(timServerStarter)){
             timServerStarter = new TIMServerStarter();
         }
         return timServerStarter;

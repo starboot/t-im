@@ -2,12 +2,12 @@
 package org.tim.common.packets;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by DELL(mxd) on 2021/12/23 11:57
@@ -191,14 +191,14 @@ public class User extends Message implements Serializable{
 			return this;
 		}
 		public Builder addFriend(User friend) {
-			if(Objects.isNull(friends) || friends.size() == 0){
+			if(ObjectUtil.isNull(friends) || friends.size() == 0){
 				friends = new ArrayList<>();
 			}
 			friends.add(friend);
 			return this;
 		}
 		public Builder addGroup(Group group) {
-			if(Objects.isNull(groups) || groups.size() == 0){
+			if(ObjectUtil.isNull(groups) || groups.size() == 0){
 				groups = new ArrayList<>();
 			}
 			groups.add(group);

@@ -11,7 +11,6 @@ import org.tio.client.intf.ClientAioListener;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
 
-import java.util.Date;
 
 
 /**

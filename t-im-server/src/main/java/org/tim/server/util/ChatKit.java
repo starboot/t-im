@@ -3,6 +3,7 @@ package org.tim.server.util;
 
 
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tim.common.ImConst;
@@ -14,7 +15,6 @@ import org.tio.core.Tio;
 import org.tio.utils.lock.SetWithLock;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 
 /**
@@ -58,7 +58,7 @@ public class ChatKit {
 				if(chatReqBody.getCreateTime() == null) {
 					chatReqBody.setCreateTime(System.currentTimeMillis());
 				}
-				if(Objects.isNull(chatReqBody.getId()) || chatReqBody.getId().equals("")) {
+				if(ObjectUtil.isNull(chatReqBody.getId()) || chatReqBody.getId().equals("")) {
 					chatReqBody.setId(IdUtil.randomUUID());
 				}
 				return chatReqBody;
@@ -93,7 +93,7 @@ public class ChatKit {
       */
      public static boolean isOnline(String userId){
 		 SetWithLock<ChannelContext> imChannelContexts = Tio.getByUserid(TCPSocketServer.getServerTioConfig(), userId);
-		 return Objects.isNull(imChannelContexts) || imChannelContexts.size() == 0;
+		 return ObjectUtil.isNull(imChannelContexts) || imChannelContexts.size() == 0;
 	 }
 
 	/**

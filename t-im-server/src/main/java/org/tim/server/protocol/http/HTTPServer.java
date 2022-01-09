@@ -1,11 +1,11 @@
 package org.tim.server.protocol.http;
 
 
+import cn.hutool.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tim.server.protocol.IMServer;
 
-import java.util.Objects;
 
 /**
  * Created by DELL(mxd) on 2021/12/24 14:45
@@ -21,7 +21,7 @@ public class HTTPServer extends IMServer {
     }
 
     public synchronized static HTTPServer getInstance() {
-        if (Objects.isNull(httpServer)){
+        if (ObjectUtil.isNull(httpServer)){
             httpServer = new HTTPServer();
         }
         return httpServer;

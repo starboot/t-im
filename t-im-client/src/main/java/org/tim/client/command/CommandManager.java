@@ -1,5 +1,6 @@
 package org.tim.client.command;
 
+import cn.hutool.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tim.common.IMConfig;
@@ -60,10 +61,10 @@ public class CommandManager {
             return;
         }
         int cmd_number = imCommandHandler.command().getNumber();
-        if(Objects.isNull(Command.forNumber(cmd_number))) {
+        if(ObjectUtil.isNull(Command.forNumber(cmd_number))) {
             throw new ImException("failed to register cmd handler, illegal cmd code:" + cmd_number + ",use Command.addAndGet () to add in the enumerated Command class!");
         }
-        if(Objects.isNull(handlerMap.get(cmd_number)))
+        if(ObjectUtil.isNull(handlerMap.get(cmd_number)))
         {
             handlerMap.put(cmd_number, imCommandHandler);
         }else{
