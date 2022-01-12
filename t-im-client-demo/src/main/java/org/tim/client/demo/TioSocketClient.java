@@ -16,7 +16,7 @@ public class TioSocketClient {
     public static void main(String[] args) throws Exception {
 
         // 初始化并登录
-        Options options = new Options();
+        Options options = new Options("127.0.0.1", 8888);
         TIMClient.start(options);
         TIMClient.login("888", "mi191919",(isSuccess, timClient) -> {
             if (isSuccess) {

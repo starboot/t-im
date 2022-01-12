@@ -3,8 +3,8 @@
 [![输开源协议](https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg "Apache")](https://www.apache.org/licenses/LICENSE-2.0)
 ## t-im简介
 
-t-im的t是t-io的t，t-im的im是J-IM的im，t-im的设计参考了J-IM的思想(一套业务逻辑代码解决所有协议的业务逻辑)，
-并且去掉了其握手处理器，采用了t-io的websocket生态,服务器处理多协议是监听了多端口，与监听相同端口再做协议判别其实是殊途同归，
+t-im通讯内核采用tio，t-im的设计思想(一套业务逻辑代码解决所有协议的业务逻辑)，
+采用了t-io的websocket生态,服务器处理多协议是监听了多端口，与监听相同端口再做协议判别其实是殊途同归，
 采用JAVA语言开发的轻量、高性能的IM服务器，Linux OS一核心CPU、2G内存可支持30万用户在线，
 主要目标降低即时通讯门槛，快速打造低成本接入在线IM系统，
 通过统一的的消息格式就可以实现不同协议间的消息发送，如内置(Http、Websocket、Tcp自定义IM协议)，
@@ -18,9 +18,8 @@ t-im的t是t-io的t，t-im的im是J-IM的im，t-im的设计参考了J-IM的思�
         5、消息格式为(JSON)
         6、支持可插拔多种协议(Socket自定义IM协议、Websocket、Http)，各协议可分别独立部署。
         7、内置消息持久化(离线、历史、漫游)，保证消息可靠性，高性能存储
-        8、各种丰富的API接口。
+        8、提供springboot依赖，方便使用spring生态的便利性。
         9、部署简单，一键轻松启动。
-        10、完全适配J-IM的消息格式。
 
 
 ## 消息格式
@@ -81,7 +80,7 @@ t-im的t是t-io的t，t-im的im是J-IM的im，t-im的设计参考了J-IM的思�
 ```
 请求:COMMAND_CLOSE_REQ(14) 响应:无
 
- **6.获取用户信息请求消息结构** 
+ **6.获取用户在线信息请求消息结构** 
 ```
 {
      "cmd":"命令码(17)int类型",
@@ -98,11 +97,8 @@ t-im的t是t-io的t，t-im的im是J-IM的im，t-im的设计参考了J-IM的思�
      "fromUserId":"消息发送用户id(此字段必须与userId一起使用,获取双方聊天消息),非必填",
      "userId":"当前用户id(必填字段),当只有此字段时,type必须为0，意思是获取当前用户所有离线消息(好友+群组)",
      "groupId":"群组id(此字段必须与userId一起使用,获取当前用户指定群组聊天消息),非必填",
-     "beginTime":"消息区间开始时间Date毫秒数double类型,非必填",
-     "endTime":"消息区间结束时间Date毫秒数double类型,非必填",
-     "offset":"分页偏移量int类型，类似Limit 0,10 中的0,非必填",
-     "count":"显示消息数量,类似Limit 0,10 中的10,非必填",
      "type":"消息类型(0:离线消息,1:历史消息)"
+     "timelineId":"消息时间，如：2022-01-12，则为获取当天的离线、历史消息"
 }
 ```
 请求:COMMAND_GET_MESSAGE_REQ(19) 响应:COMMAND_GET_MESSAGE_RESP(20)
@@ -115,7 +111,7 @@ maven 坐标
 <dependency>
     <groupId>io.github.mxd888</groupId>
     <artifactId>t-im-server</artifactId>
-    <version>2.1.1.v20220107-RELEASE</version>
+    <version>2.1.3.v20220112-RELEASE</version>
 </dependency>
 ```
 SpringBoot 开发
@@ -123,7 +119,7 @@ SpringBoot 开发
 <dependency>
     <groupId>io.github.mxd888</groupId>
     <artifactId>t-im-server-spring-boot-starter</artifactId>
-    <version>2.1.1.v20220107-RELEASE</version>
+    <version>2.1.3.v20220112-RELEASE</version>
 </dependency>
 ```
 
@@ -133,9 +129,18 @@ maven 坐标
 <dependency>
     <groupId>io.github.mxd888</groupId>
     <artifactId>t-im-client</artifactId>
-    <version>2.1.1.v20220107-RELEASE</version>
+    <version>2.1.3.v20220112-RELEASE</version>
 </dependency>
 ```
+
+## 本项目提供的UI
+### Android 
+Android端正在与本项目进行对接，目前只处于UI状态，完成后进行开源，与tim一起使用。尽情期待
+![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/2.jpg)
+![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/3.jpg)
+![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/4.jpg)
+![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/5.jpg)
+![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/6.jpg)
 
 ## 联系方式
 

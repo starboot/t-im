@@ -31,6 +31,7 @@ public class TIMClient {
     private boolean isLogin = false;
     public static HandlerProcessor processor = new TIMHandlerProcessorImpl();
     private static TioClient tioClient;
+    private static Node node;
 
     public static void start(Options option) throws Exception {
         start(option, null);
@@ -43,12 +44,14 @@ public class TIMClient {
         }
         TIMClientConfig clientTioConfig = new TIMClientConfig(new ImSocketClientAioHandler(), new ImSocketClientAioListener(), new ReconnConf(2000), processor);
         tioClient = new TioClient(clientTioConfig);
-        clientChannelContext = tioClient.connect(new Node("127.0.0.1", 8888));
+        clientChannelContext = tioClient.connect(node);
     }
 
     private static void init(Options option) {
         // 配置类
         IMConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "org\\tim\\client\\command\\command.properties";
+        node.setIp(option.getIp());
+        node.setPort(option.getPort());
     }
 
     public synchronized static void login(String userId, String password, Callback callback) {
