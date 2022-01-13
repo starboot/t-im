@@ -50,8 +50,7 @@ public class TIMClient {
     private static void init(Options option) {
         // 配置类
         IMConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "org\\tim\\client\\command\\command.properties";
-        node.setIp(option.getIp());
-        node.setPort(option.getPort());
+        node = option.getNode();
     }
 
     public synchronized static void login(String userId, String password, Callback callback) {

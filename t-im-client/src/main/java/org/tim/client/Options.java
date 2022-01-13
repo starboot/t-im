@@ -1,33 +1,23 @@
 package org.tim.client;
 
+import org.tio.core.Node;
+
 /**
  * Created by DELL(mxd) on 2022/1/6 13:31
  */
 public class Options {
-    private String ip;
-    private int port;
 
-    public Options(String ip, int port) {
-        this.ip = ip;
-        this.port = port;
+    private Node node;
+
+    public Options(Node node) {
+        this.node = node;
     }
 
-    public Options() {
+    public Node getNode() {
+        return node;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
+    public void setNode(Node node) {
+        this.node = node;
     }
 }

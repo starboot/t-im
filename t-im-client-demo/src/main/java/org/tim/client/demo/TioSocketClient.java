@@ -3,6 +3,7 @@ package org.tim.client.demo;
 import org.tim.client.Options;
 import org.tim.client.TIMClient;
 import org.tim.common.packets.ChatBody;
+import org.tio.core.Node;
 
 import java.util.Date;
 
@@ -16,7 +17,7 @@ public class TioSocketClient {
     public static void main(String[] args) throws Exception {
 
         // 初始化并登录
-        Options options = new Options("127.0.0.1", 8888);
+        Options options = new Options(new Node("127.0.0.1", 8888));
         TIMClient.start(options);
         TIMClient.login("888", "mi191919",(isSuccess, timClient) -> {
             if (isSuccess) {
