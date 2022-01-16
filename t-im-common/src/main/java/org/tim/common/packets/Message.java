@@ -22,7 +22,7 @@ public class Message implements Serializable {
      */
     protected String id;
     /**
-     * 该消息是否需要同步
+     * 该消息是否需要同步  true:返回对方ack， false 则为别人ack回复自己的，此时需要id存在， 如果id不存在 该消息为非同步消息
      */
     protected boolean isSyn;
     /**

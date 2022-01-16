@@ -93,7 +93,7 @@ public class ChatKit {
       */
      public static boolean isOnline(String userId){
 		 SetWithLock<ChannelContext> imChannelContexts = Tio.getByUserid(TCPSocketServer.getServerTioConfig(), userId);
-		 return ObjectUtil.isNull(imChannelContexts) || imChannelContexts.size() == 0;
+		 return ObjectUtil.isNotEmpty(imChannelContexts) && imChannelContexts.size() > 0;
 	 }
 
 	/**

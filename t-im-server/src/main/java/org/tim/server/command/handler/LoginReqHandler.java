@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tim.common.ImPacket;
 import org.tim.common.ImStatus;
-import org.tim.common.exception.ImException;
 import org.tim.common.packets.*;
 import org.tim.common.util.json.JsonKit;
 import org.tim.server.command.AbstractCmdHandler;
@@ -31,7 +30,7 @@ public class LoginReqHandler extends AbstractCmdHandler {
     }
 
     @Override
-    public Packet handler(Packet packet, ChannelContext channelContext) throws ImException {
+    public Packet handler(Packet packet, ChannelContext channelContext) {
         LoginReqBody loginReqBody = IMServer.handlerProcessor.instanceofHandler(packet, LoginReqBody.class);
         if (ObjectUtil.isEmpty(loginReqBody)) {
             log.error("消息包格式化出错");
@@ -39,12 +38,13 @@ public class LoginReqHandler extends AbstractCmdHandler {
         }
         LoginRespBody loginRespBody = LoginRespBody.success();
         User user = getUserByProcessor(channelContext, loginReqBody, loginRespBody);
-        if (ObjectUtil.isNotEmpty(user)){
+        if (user != null && ObjectUtil.isNotEmpty(user) && user.getUserId() != null) {
             TIM.bindUser(channelContext, user.getUserId());
             //初始化绑定或者解绑群组;
             initGroup(channelContext, user);
             LoginRespBody respBody = new LoginRespBody(ImStatus.C10007, user, "t-im token");
             respBody.setId("1");
+            respBody.setSyn(false);
             Tio.send(channelContext, new ImPacket(Command.COMMAND_LOGIN_RESP, respBody.toByte()));
             // 用户注册进集群
             if (user.getUserId().contains(":")) {
@@ -81,12 +81,12 @@ public class LoginReqHandler extends AbstractCmdHandler {
                 .nick("t-im user")
                 .sign("让天下没有难开发的即时通讯---米")
                 .addFriend(User.newBuilder()
-                        .userId("1551109")
-                        .nick("tcp端")
+                        .userId("15511090451")
+                        .nick("t-im author")
                         .build())
                 .addGroup(Group.newBuilder()
                         .groupId("100")
-                        .name("t-im 官方群")
+                        .name("t-im group with organization")
                         .build())
                 .build();
     }

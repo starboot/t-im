@@ -4,6 +4,7 @@ package org.tim.common.packets;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONObject;
+import org.tim.common.util.Cn2Spell;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by DELL(mxd) on 2021/12/23 11:57
  */
-public class User extends Message implements Serializable{
+public class User extends Message implements Comparable<User>, Serializable{
 
 	private static final long serialVersionUID = 2733850942159406228L;
 	/**
@@ -47,6 +48,14 @@ public class User extends Message implements Serializable{
 	 * 群组列表;
 	 */
 	private List<Group> groups;
+	/**
+	 * 姓名对应的拼音
+	 */
+	private String pinyin;
+	/**
+	 * 拼音的首字母
+	 */
+	private String firstLetter;
 	
 	private User(){}
 
@@ -60,6 +69,10 @@ public class User extends Message implements Serializable{
 		this.friends = friends;
 		this.groups = groups;
 		this.extras = extras;
+		this.pinyin = Cn2Spell.getPinYin(nick); // 根据姓名获取拼音
+		this.firstLetter = pinyin.substring(0, 1).toUpperCase(); // 获取拼音首字母并转成大写
+		if (!firstLetter.matches("[A-Z]")) { // 如果不在A-Z中则默认为“#”
+			firstLetter = "#";        }
 	}
 
 	public static Builder newBuilder(){
@@ -128,6 +141,34 @@ public class User extends Message implements Serializable{
 
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
+	}
+
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
+	}
+
+	public String getFirstLetter() {
+		return firstLetter;
+	}
+
+	public void setFirstLetter(String firstLetter) {
+		this.firstLetter = firstLetter;
+	}
+
+	@Override
+	public int compareTo(@SuppressWarnings("NullableProblems") User o) {
+		if (firstLetter.equals("#") && !o.getFirstLetter().equals("#")) {
+			return 1;
+		}
+		else if (!firstLetter.equals("#") && o.getFirstLetter().equals("#")){
+			return -1;
+		} else {
+			return pinyin.compareToIgnoreCase(o.getPinyin());
+		}
 	}
 
 	public static class Builder extends Message.Builder<User, Builder>{
@@ -216,10 +257,14 @@ public class User extends Message implements Serializable{
 
 	}
 
-	public User clone() {
+	@Override
+	public User clone() throws CloneNotSupportedException {
+		super.clone();
 		User cloneUser = new User();
 		BeanUtil.copyProperties(this, cloneUser,"friends","groups");
 		return cloneUser;
 	}
+
+
 
 }

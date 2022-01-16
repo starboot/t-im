@@ -38,12 +38,9 @@ public class JoinGroupReqHandler extends AbstractCmdHandler {
         String groupId = joinGroup.getGroupId();
         if (StrUtil.isBlank(groupId)) {
             log.error("group is null,{}", channelContext);
-            RespBody respBody = new JoinGroupRespBody().
-                    setResult(JoinGroupResult.JOIN_GROUP_RESULT_UNKNOWN)
-                    .setGroup(groupId)
-                    .setCommand(Command.COMMAND_JOIN_GROUP_RESP)
-                    .setCode(ImStatus.C10012.getCode())
-                    .setMsg("group is null when join group");
+            RespBody respBody = new JoinGroupRespBody(Command.COMMAND_JOIN_GROUP_RESP, ImStatus.C10012)
+                    .setResult(JoinGroupResult.JOIN_GROUP_RESULT_UNKNOWN)
+                    .setGroup(groupId);
             TIM.send(channelContext, new ImPacket(Command.COMMAND_JOIN_GROUP_RESP, respBody.toByte()));
             return null;
         }

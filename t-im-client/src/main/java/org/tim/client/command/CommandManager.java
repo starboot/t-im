@@ -27,23 +27,18 @@ public class CommandManager {
 
     static{
         try {
-            List<CommandConfiguration> configurations = CommandConfigurationFactory.parseConfiguration(IMConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE);
-            if (configurations.isEmpty()) {
-                // 未成功加载properties文件
-                log.warn("load properties file fail");
-                configurations = new ArrayList<>();
-                configurations.add(new CommandConfiguration(3, "org.tim.server.command.handler.AuthReqHandler"));
-                configurations.add(new CommandConfiguration(11, "org.tim.server.command.handler.ChatReqHandler"));
-                configurations.add(new CommandConfiguration(14, "org.tim.server.command.handler.CloseReqHandler"));
-                configurations.add(new CommandConfiguration(13, "org.tim.server.command.handler.HeartbeatReqHandler"));
-                configurations.add(new CommandConfiguration(7, "org.tim.server.command.handler.JoinGroupReqHandler"));
-                configurations.add(new CommandConfiguration(5, "org.tim.server.command.handler.LoginReqHandler"));
-                configurations.add(new CommandConfiguration(17, "org.tim.server.command.handler.UserReqHandler"));
-                configurations.add(new CommandConfiguration(19, "org.tim.server.command.handler.MessageReqHandler"));
-            }else {
-                log.info("load properties file successful");
-                init(configurations);
-            }
+            List<CommandConfiguration> configurations = new ArrayList<>();
+            // 登录响应
+            configurations.add(new CommandConfiguration(6, "org.tim.client.command.handler.LoginHandler"));
+            // 聊天请求
+            configurations.add(new CommandConfiguration(11, "org.tim.client.command.handler.ChatHandler"));
+            // 获取离线 漫游 历史 消息响应
+            configurations.add(new CommandConfiguration(20, "org.tim.client.command.handler.MessageDataHandler"));
+            // 获取在线用户响应
+            configurations.add(new CommandConfiguration(18, "org.tim.client.command.handler.OnlineUserHandler"));
+            // 鉴权响应
+            configurations.add(new CommandConfiguration(4, "org.tim.client.command.handler.AuthHandler"));
+            init(configurations);
         } catch (Exception e) {
             log.error(e.toString(),e);
         }

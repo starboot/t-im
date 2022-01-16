@@ -1,6 +1,8 @@
 package org.tim.server.protocol.tcp;
 
 import cn.hutool.core.util.ObjectUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tim.server.convert.tcpPackageConvert;
 import org.tim.server.protocol.IMServer;
 import org.tim.server.stat.TimGroupListener;
@@ -20,6 +22,8 @@ public class TCPSocketServer extends IMServer {
     private static ServerTioConfig serverTioConfig;
 
     private static TCPSocketServer socketServer;
+
+    private static final Logger log = LoggerFactory.getLogger(TCPSocketServer.class);
 
     private TCPSocketServer() {
     }
@@ -47,7 +51,8 @@ public class TCPSocketServer extends IMServer {
         server.getServerTioConfig().packetConverter = new tcpPackageConvert();
         // 设置心跳超时时间
         server.getServerTioConfig().setHeartbeatTimeout(HEARTBEAT_TIMEOUT);
-        server.start("127.0.0.1", Integer.parseInt(P.get("tcp.port")));
+        server.start(IMServer.ip, IMServer.port);
+        log.info("TCP服务器启动在：{}:{}", IMServer.ip, IMServer.port);
     }
 
     /**

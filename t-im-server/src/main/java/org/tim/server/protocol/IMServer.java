@@ -123,11 +123,10 @@ public abstract class IMServer {
         if (IMServer.cluster && IMServer.isStore) {
             // 配置集群助手  单例模式
             clusterHelper = Singleton.get(ClusterHelper.class);
-            ip = P.get("tim.use.ip");
         }else {
             clusterHelper = null;
-            ip = null;
         }
+        ip = P.get("tim.use.ip");
         PrintStream ps = new PrintStream(System.out){
             @Override
             public void println(String x) {

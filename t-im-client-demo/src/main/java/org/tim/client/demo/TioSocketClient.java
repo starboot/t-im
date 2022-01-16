@@ -2,7 +2,10 @@ package org.tim.client.demo;
 
 import org.tim.client.Options;
 import org.tim.client.TIMClient;
+import org.tim.client.intf.Callback;
+import org.tim.common.ImPacket;
 import org.tim.common.packets.ChatBody;
+import org.tim.common.packets.Command;
 import org.tio.core.Node;
 
 import java.util.Date;
@@ -12,19 +15,21 @@ import java.util.Date;
  */
 public class TioSocketClient {
 
-    static TIMClient client;
+    public static void main(String[] args) {
 
-    public static void main(String[] args) throws Exception {
+        TIMClient.getInstance().set("","");
 
         // 初始化并登录
-        Options options = new Options(new Node("127.0.0.1", 8888));
+        Options options = new Options(new Node("mixiaodong.xyz", 8888)); // mixiaodong.xyz  192.168.79.1
         TIMClient.start(options);
-        TIMClient.login("888", "mi191919",(isSuccess, timClient) -> {
-            if (isSuccess) {
-                // 登陆成功
-                client = timClient;
+        TIMClient.getInstance().login("888", "mi191919", new Callback() {
+            @Override
+            public void success() {
                 System.out.println("登陆成功");
-            }else {
+            }
+
+            @Override
+            public void fail() {
                 System.out.println("登陆失败");
             }
         });
@@ -34,23 +39,26 @@ public class TioSocketClient {
     }
 
     public static void doThing() {
-        client.authReq();
-        client.joinGroup("200");
+        TIMClient.getInstance().authReq();
+        TIMClient.getInstance().joinGroup("200");
         ChatBody.Builder builder = ChatBody.newBuilder();
         ChatBody body = builder.from("888")
-                .to("119119")
+                .to("999")
+                .setId("120")
+                .setIsSyn(true)
                 .content("集群私聊消息")
                 .msgType(0)
                 .chatType(2)
                 .setCreateTime(new Date().getTime())
                 .groupId(null)
                 .build();
-        client.sendChatBody(body);
+//        TIMClient.sendChatBody(body);
+        TIMClient.getInstance().ackSend(new ImPacket(Command.COMMAND_CHAT_REQ, body.toByte()), 120);
         try {
             Thread.sleep(2000);
-            client.messageReq("119119");
-            client.onlineUserId();
-            client.logout();
+            TIMClient.getInstance().messageReq("119119");
+            TIMClient.getInstance().onlineUserId();
+//            TIMClient.logout();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

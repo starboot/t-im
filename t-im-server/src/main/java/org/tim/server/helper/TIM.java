@@ -52,7 +52,7 @@ public class TIM {
             Tio.sendToUser(tioConfig, body.getTo(), packet);
         }else {
             // 用户不在线或者在其他集群服务器
-            log.debug("向集群中发送");
+            log.info("用户->{}:不在线,通过集群发送", body.getTo());
             // 1. 在缓存中央查询用户数否在线
             ClusterData cluster = IMServer.clusterHelper.getCluster();
             String TIMServerID = cluster.map.get(Long.decode(body.getTo()));
@@ -64,12 +64,11 @@ public class TIM {
                         false, true);
                 ChatBody build = ChatBody.newBuilder()
                         .setId(body.getId())
+                        .setIsSyn(false)
                         .setCmd(Command.COMMAND_CHAT_REQ.getNumber())
-                        .from(body.getFrom())
-                        .to(body.getTo())
                         .build();
                 ImPacket imPacket = new ImPacket(Command.COMMAND_CHAT_REQ, build.toByte());
-//                Tio.sendToUser(tioConfig, body.getTo(), imPacket);
+                Tio.sendToUser(tioConfig, body.getTo(), imPacket);
 
             }else {
                 // 发送到远程集群服务器

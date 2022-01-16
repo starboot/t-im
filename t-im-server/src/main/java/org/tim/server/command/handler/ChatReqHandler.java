@@ -47,21 +47,19 @@ public class ChatReqHandler extends AbstractCmdHandler {
                 }, false);
             }
             if (body.getChatType() == 2) {
+                String s = DateTime.now().toString("YYYY-MM-DD");
                 if (IMServer.isStore) {
                     log.debug("私聊消息--开启了持久化需要将消息保存");
-                    String s = DateTime.now().toString("YYYY-MM-DD");
                     IMServer.cacheHelper.writeMessage(s,body.getFrom(), body.getTo(), body, false, false);
                 }
                 // 私聊
-                if (ChatKit.isOnline(body.getTo()) && IMServer.cluster) {
-                    log.info("用户->{}:不在线,通过集群发送", body.getTo());
+                if (ChatKit.isOnline(body.getTo()) || IMServer.cluster) {
                     TIM.sendToUser(body, packet);
-                } else {
-                    if (IMServer.isStore) {
-                        // 做持久化处理
-                        String s = DateTime.now().toString("YYYY-MM-DD");
-                        IMServer.cacheHelper.writeMessage(s,body.getFrom(), body.getTo(), body, false, true);
-                    }
+                    return null;
+                }
+                if (IMServer.isStore) {
+                    // 做持久化处理
+                    IMServer.cacheHelper.writeMessage(s,body.getFrom(), body.getTo(), body, false, true);
                 }
 
             }

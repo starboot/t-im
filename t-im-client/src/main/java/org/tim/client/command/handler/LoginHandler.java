@@ -4,6 +4,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.tim.client.TIMClient;
 import org.tim.client.command.AbstractCmdHandler;
+import org.tim.client.intf.Callback;
 import org.tim.common.ImPacket;
 import org.tim.common.ImStatus;
 import org.tim.common.exception.ImException;
@@ -30,13 +31,16 @@ public class LoginHandler extends AbstractCmdHandler {
             byte[] body = imPacket.getBody();
             String s = new String(body, StandardCharsets.UTF_8);
             JSONObject jsonObject = JSONUtil.parseObj(s);
+            Callback loginCallback = (Callback) channelContext.get("loginCallback");
             if (imPacket.getCommand() == Command.COMMAND_LOGIN_RESP && jsonObject.getInt("code") == ImStatus.C10007.getCode()) {
-                TIMClient client = (TIMClient) channelContext.get(channelContext.userid);
-                client.setLogin(true);
+                loginCallback.success();
                 processor(channelContext).afterLogin();
+            }else {
+                loginCallback.fail();
             }
             Integer id = jsonObject.getInt("id");
-            if (id > 0) {
+            boolean isSyn = jsonObject.getBool("syn");
+            if (id > 0 && !isSyn) {
                 synHandler(channelContext, packet, id);
             }
         }

@@ -37,7 +37,7 @@ public class ChatHandler extends AbstractCmdHandler {
                 return null;
             }
             if (body.getChatType() == 2) {
-                Integer ack = Integer.valueOf(body.getId());
+                int ack = Integer.parseInt(body.getId());
                 boolean syn = body.isSyn();
                 if (ack > 0) {
                     if (syn) {
@@ -50,7 +50,7 @@ public class ChatHandler extends AbstractCmdHandler {
                                 .setCmd(Command.COMMAND_CHAT_RESP.getNumber())
                                 .chatType(2)
                                 .build();
-                        client.send(new ImPacket(Command.COMMAND_CHAT_REQ, build.toByte()));
+                        TIMClient.getInstance().send(new ImPacket(Command.COMMAND_CHAT_REQ, build.toByte()));
                     }else {
                         synHandler(channelContext, packet, ack);
                     }

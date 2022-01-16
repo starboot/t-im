@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tim.client.Runnable.ackSendRunnable;
 import org.tim.client.intf.*;
 import org.tim.common.IMConfig;
 import org.tim.common.ImPacket;
@@ -13,47 +14,77 @@ import org.tim.common.packets.*;
 import org.tio.client.ClientChannelContext;
 import org.tio.client.ReconnConf;
 import org.tio.client.TioClient;
-import org.tio.core.Node;
 import org.tio.core.Tio;
 import org.tio.core.intf.Packet;
-import org.tio.utils.lock.MapWithLock;
+import org.tio.utils.Threads;
+import org.tio.utils.prop.MapWithLockPropSupport;
+import org.tio.utils.thread.pool.SynThreadPoolExecutor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 /**
  * Created by DELL(mxd) on 2021/12/23 20:33
  */
-public class TIMClient {
+public class TIMClient extends MapWithLockPropSupport {
 
+    public static HandlerProcessor processor = new TIMHandlerProcessorImpl();
+    public static ThreadPoolExecutor executor;
+    public static SynThreadPoolExecutor synExecutor;
     private static final Logger log = LoggerFactory.getLogger(TIMClient.class);
     private static ClientChannelContext clientChannelContext;
-    private Options options;
+    private static Options options;
     private static TIMClient client;
-    private boolean isLogin = false;
-    public static HandlerProcessor processor = new TIMHandlerProcessorImpl();
     private static TioClient tioClient;
-    private static Node node;
+    private static ackSendRunnable ackSendRunnable;
+    private User user;
+    private final List<Map<String, Object>> list = new ArrayList<>();
+    private List<Object> extraList;
+    private Map<String, Object> extraMap;
+    private Object extraObject;
+    private Set<Object> extraSet;
 
-    public static void start(Options option) throws Exception {
+
+    public static void start(Options option) {
         start(option, null);
     }
 
-    public static void start(Options option, MessageProcessor processor) throws Exception {
+    public static void start(Options option, MessageProcessor processor) {
         init(option);
         if (ObjectUtil.isEmpty(processor)) {
             processor = new DefaultMessageProcessor();
         }
         TIMClientConfig clientTioConfig = new TIMClientConfig(new ImSocketClientAioHandler(), new ImSocketClientAioListener(), new ReconnConf(2000), processor);
-        tioClient = new TioClient(clientTioConfig);
-        clientChannelContext = tioClient.connect(node);
+        try {
+            tioClient = new TioClient(clientTioConfig);
+            clientChannelContext = tioClient.connect(options.getNode());
+            ackSendRunnable = new ackSendRunnable(synExecutor, clientChannelContext, option.getTimeout());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void init(Options option) {
         // 配置类
         IMConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "org\\tim\\client\\command\\command.properties";
-        node = option.getNode();
+        if (option.getExecutor() != null) {
+            executor = option.getExecutor();
+        }else {
+            executor = Threads.getGroupExecutor();
+        }
+        if (option.getSynExecutor() != null) {
+            synExecutor = option.getSynExecutor();
+        }else {
+            synExecutor = Threads.getTioExecutor();
+        }
+        options = option;
     }
 
-    public synchronized static void login(String userId, String password, Callback callback) {
+    public synchronized void login(String userId, String password, Callback callback) {
 
         if (ObjectUtil.isEmpty(client)) {
             client = new TIMClient();
@@ -64,8 +95,8 @@ public class TIMClient {
         body.setCreateTime(DateTime.now().getTime());
         body.setCmd(Command.COMMAND_LOGIN_REQ.getNumber());
         ImPacket loginPacket = new ImPacket(Command.COMMAND_LOGIN_REQ,body.toByte());
-        ackSend0(loginPacket, 5000L, 1);
-        callback.func(client.isLogin(), client.isLogin ? client : null);
+        ackSend0(loginPacket, 1);
+        clientChannelContext.set("loginCallback", callback);
     }
 
     public void authReq() {
@@ -75,6 +106,9 @@ public class TIMClient {
         send(new ImPacket(Command.COMMAND_AUTH_REQ, authReqBody.toByte()));
     }
 
+    /**
+     * 退出
+     */
     public void logout() {
         CloseReqBody closeReqBody = new CloseReqBody(clientChannelContext.userid);
         closeReqBody.setCreateTime(DateTime.now().getTime());
@@ -121,7 +155,11 @@ public class TIMClient {
         send(new ImPacket(Command.COMMAND_JOIN_GROUP_REQ, build.toByte()));
     }
 
-    public void sendChatBody(ChatBody chatBody) {
+    public void sendChatBody(ChatBody chatBody, Integer ack) {
+        if (ack != null) {
+            ackSend(new ImPacket(Command.COMMAND_CHAT_REQ, chatBody.toByte()), ack);
+            return;
+        }
         send(new ImPacket(Command.COMMAND_CHAT_REQ, chatBody.toByte()));
     }
 
@@ -129,56 +167,80 @@ public class TIMClient {
         send0(packet);
     }
 
-
-
-    public void ackSend(Packet packet, long timeout, Integer ack) {
-        ackSend0(packet, timeout, ack);
+    public void ackSend(Packet packet, Integer ack) {
+        ackSend0(packet, ack);
     }
 
-
-    private static void send0(Packet packet) {
+    private void send0(Packet packet) {
         Tio.send(clientChannelContext, packet);
     }
 
-    private static void ackSend0(Packet packet, long timeout, Integer ack) {
+    private void ackSend0(Packet packet, Integer ack) {
+
         // 需要ack的消息 同步发送
         if (ack == null || ack <= 0) {
             throw new RuntimeException("synSeq必须大于0");
         }
-        MapWithLock<Integer, Packet> waitingResps = clientChannelContext.tioConfig.getWaitingResps();
-        try {
-            waitingResps.put(ack, packet);
-            synchronized (packet) {
-                send0(packet);
-                try {
-                    packet.wait(timeout);
-                } catch (InterruptedException e) {
-                    log.error(e.toString(), e);
-                }
-            }
-        } catch (Throwable e) {
-            log.error(e.toString(), e);
-        } finally {
-            Packet respPacket = waitingResps.remove(ack);
-            if (respPacket == null) {
-                log.error("respPacket == null,{}", clientChannelContext);
-            }
-            if (respPacket == packet) {
-                log.error("{}, 同步发送超时, {}", clientChannelContext.tioConfig.getName(), clientChannelContext);
-            }else {
-                log.debug("同步消息ack:{} 同步成功", ack);
-            }
-        }
+        // 使用与通讯内核一样强大的同步线程池 哈哈
+        ackSendRunnable.addMsg(new ACKPacket(ack, packet));
+        // 发射！！！
+        ackSendRunnable.execute();
     }
+
+
 
     private TIMClient() {
     }
 
-    public boolean isLogin() {
-        return isLogin;
+    public static synchronized TIMClient getInstance() {
+        if (client == null) {
+            client = new TIMClient();
+        }
+        return client;
     }
 
-    public void setLogin(boolean login) {
-        isLogin = login;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Map<String, Object>> getList() {
+        return list;
+    }
+
+    public List<Object> getExtraList() {
+        return extraList;
+    }
+
+    public void setExtraList(List<Object> extraList) {
+        this.extraList = extraList;
+    }
+
+    public Map<String, Object> getExtraMap() {
+        return extraMap;
+    }
+
+    public void setExtraMap(Map<String, Object> extraMap) {
+        this.extraMap = extraMap;
+    }
+
+    public Object getExtraObject() {
+        return extraObject;
+    }
+
+    public void setExtraObject(Object extraObject) {
+        this.extraObject = extraObject;
+    }
+
+    public Set<Object> getExtraSet() {
+        return extraSet;
+    }
+
+    public void setExtraSet(Set<Object> extraSet) {
+        this.extraSet = extraSet;
     }
 }

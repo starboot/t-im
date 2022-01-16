@@ -36,7 +36,7 @@ public abstract class AbstractCmdHandler implements CmdHandler, ImConst {
         if (initPacket != null) {
             synchronized (initPacket) {
                 waitingResps.put(ack, packet);
-                initPacket.notify();
+                initPacket.notifyAll();
             }
         } else {
             log.warn("ack:{},被多次确认", ack);
