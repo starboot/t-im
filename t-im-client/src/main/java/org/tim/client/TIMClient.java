@@ -20,10 +20,7 @@ import org.tio.utils.Threads;
 import org.tio.utils.prop.MapWithLockPropSupport;
 import org.tio.utils.thread.pool.SynThreadPoolExecutor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadPoolExecutor;
 
 
@@ -42,7 +39,8 @@ public class TIMClient extends MapWithLockPropSupport {
     private static TioClient tioClient;
     private static ackSendRunnable ackSendRunnable;
     private User user;
-    private final List<Map<String, Object>> list = new ArrayList<>();
+    private final List<String> list = new ArrayList<>();
+    private final Map<String, Map<String, String>> map = new HashMap<>();
     private List<Object> extraList;
     private Map<String, Object> extraMap;
     private Object extraObject;
@@ -208,9 +206,6 @@ public class TIMClient extends MapWithLockPropSupport {
         this.user = user;
     }
 
-    public List<Map<String, Object>> getList() {
-        return list;
-    }
 
     public List<Object> getExtraList() {
         return extraList;
@@ -242,5 +237,13 @@ public class TIMClient extends MapWithLockPropSupport {
 
     public void setExtraSet(Set<Object> extraSet) {
         this.extraSet = extraSet;
+    }
+
+    public List<String> getList() {
+        return list;
+    }
+
+    public Map<String, Map<String, String>> getMap() {
+        return map;
     }
 }
