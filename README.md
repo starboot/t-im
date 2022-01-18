@@ -11,8 +11,8 @@ t-im通讯内核采用tio，t-im的设计思想(一套业务逻辑代码解决�
 并提供通过http协议的api接口进行消息发送无需关心接收端属于什么协议，一套后端业务逻辑处理器搞定一切！  
 
 ## 主要特点
-        1、高性能
-        2、轻量、可扩展
+        1、高性能服务器，采用异步非阻塞AIO通讯
+        2、轻量、可水平扩展
         3、支持集群多机部署
         4、支持SSL/TLS加密传输
         5、消息格式为(JSON)
@@ -106,20 +106,20 @@ t-im通讯内核采用tio，t-im的设计思想(一套业务逻辑代码解决�
 ## 开始使用
 
 ### 引入服务器
-maven 坐标
+maven 坐标，普通开发引入它即可
 ```text
 <dependency>
     <groupId>io.github.mxd888</groupId>
     <artifactId>t-im-server</artifactId>
-    <version>2.1.3.v20220112-RELEASE</version>
+    <version>2.1.7.v20220120-RELEASE</version>
 </dependency>
 ```
-SpringBoot 开发
+SpringBoot 开发：只需要引入springboot依赖，在启动类上添加注解@EnableIM，并将t-im-server-demo下的tim.properties文件拷贝至springboot项目的resources目录下
 ```text
 <dependency>
     <groupId>io.github.mxd888</groupId>
     <artifactId>t-im-server-spring-boot-starter</artifactId>
-    <version>2.1.3.v20220112-RELEASE</version>
+    <version>2.1.7.v20220120-RELEASE</version>
 </dependency>
 ```
 
@@ -129,19 +129,20 @@ maven 坐标
 <dependency>
     <groupId>io.github.mxd888</groupId>
     <artifactId>t-im-client</artifactId>
-    <version>2.1.3.v20220112-RELEASE</version>
+    <version>2.1.7.v20220120-RELEASE</version>
 </dependency>
 ```
 
 ## 本项目提供的UI
 ### Android 
-Android端正在与本项目进行对接，目前只处于UI状态，完成后进行开源，与tim一起使用。尽情期待
-![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/2.jpg)
-![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/3.jpg)
-![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/4.jpg)
-![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/5.jpg)
-![Image text](https://gitee.com/mxd_2022/smartboot/raw/master/images/6.jpg)
-
+以开源，请访问： https://gitee.com/mxd_2022/we-chat
+![Image text](https://gitee.com/mxd_2022/we-chat/raw/master/images/1.jpg)
+![Image text](https://gitee.com/mxd_2022/we-chat/raw/master/images/4.jpg)
+![Image text](https://gitee.com/mxd_2022/we-chat/raw/master/images/7.png)
+### 扫描下载APP
+![Image text](https://gitee.com/mxd_2022/we-chat/raw/master/images/APP_Download.png)
+### 本APP测试扫一扫功能专用二维码
+![Image text](https://gitee.com/mxd_2022/we-chat/raw/master/images/测试扫一扫专用二维码.png)
 ## 联系方式
 
    官方QQ群号：867691377 
@@ -154,10 +155,12 @@ Android端正在与本项目进行对接，目前只处于UI状态，完成后�
 ## 重要说明 ☆☆☆
 
    第一本项目完全开源免费，可以拥有其任何使用权，但不代表可以做非法乱纪的事情，本项目以质朴质简思想开发，意在打造最易读懂源码为主，并不是以高深的设计哲学为主，
-   并且还在开发中，还有自研集群方案没有实现，可用作学习或不重要的作业使用，切勿商用，商用出现后果概不负责！！！非常感谢配合
+   可用作学习或不重要的作业使用，切勿商用，商用出现后果概不负责！！！非常感谢配合
 
 ## 附上相关开源项目链接
-   J-IM：高性能IM，官网（暂时打不来，或许作者正在开发中，尽情期待）：  http://www.j-im.cn/ <br>  
+   
    t-io：稳如泰山，性能炸裂的Java通讯框架，官网：  https://www.tiocloud.com/tio/  <br>  
-   Hutool：是一个小而全的Java工具类库，官网：  https://www.hutool.cn/   <br>  
+   Hutool：一个小而全的Java工具类库，官网：  https://www.hutool.cn/   <br>  
+   smart-socket：高性能Aio通讯，官网： https://smartboot.gitee.io/book/smart-socket/    <br>  
+   J-IM：高性能IM，官网（暂时打不来，或许作者正在开发中，尽情期待）：  http://www.j-im.cn/ <br>  
    本项目如有侵犯到任何个人或组织的权益请联系邮箱：1191998028@qq.com （如有侵权请联系删除）
