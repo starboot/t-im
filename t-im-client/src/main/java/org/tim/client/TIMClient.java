@@ -112,7 +112,7 @@ public class TIMClient extends MapWithLockPropSupport {
         closeReqBody.setCreateTime(DateTime.now().getTime());
         closeReqBody.setCmd(Command.COMMAND_CLOSE_REQ.getNumber());
         ImPacket imPacket = new ImPacket(Command.COMMAND_CLOSE_REQ, closeReqBody.toByte());
-        send(imPacket);
+        bSend(imPacket);
         if (!clientChannelContext.getTioConfig().isStopped()) {
             tioClient.stop();
             log.info("goodbye.... ");
@@ -163,6 +163,10 @@ public class TIMClient extends MapWithLockPropSupport {
 
     public void send(Packet packet) {
         send0(packet);
+    }
+
+    public void bSend(Packet packet) {
+        Tio.bSend(clientChannelContext, packet);
     }
 
     public void ackSend(Packet packet, Integer ack) {

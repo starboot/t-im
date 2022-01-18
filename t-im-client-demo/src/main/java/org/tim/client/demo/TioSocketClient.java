@@ -55,10 +55,10 @@ public class TioSocketClient {
 //        TIMClient.sendChatBody(body);
         TIMClient.getInstance().ackSend(new ImPacket(Command.COMMAND_CHAT_REQ, body.toByte()), 120);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(8000);
             TIMClient.getInstance().messageReq("119119");
             TIMClient.getInstance().onlineUserId();
-//            TIMClient.logout();
+            TIMClient.getInstance().logout();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
