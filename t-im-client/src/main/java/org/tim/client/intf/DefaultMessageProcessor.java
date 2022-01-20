@@ -34,4 +34,13 @@ public class DefaultMessageProcessor implements MessageProcessor{
 
         System.out.println(ids);
     }
+
+    @Override
+    public void ackTimeOut(Integer id) {
+    }
+
+    @Override
+    public void connectException() {
+        System.out.println("连接错误");
+    }
 }

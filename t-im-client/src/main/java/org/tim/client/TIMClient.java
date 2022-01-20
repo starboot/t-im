@@ -60,8 +60,9 @@ public class TIMClient extends MapWithLockPropSupport {
         try {
             tioClient = new TioClient(clientTioConfig);
             clientChannelContext = tioClient.connect(options.getNode());
-            ackSendRunnable = new ackSendRunnable(synExecutor, clientChannelContext, option.getTimeout());
+            ackSendRunnable = new ackSendRunnable(synExecutor, clientChannelContext, option.getTimeout(), processor);
         } catch (Exception e) {
+            processor.connectException();
             e.printStackTrace();
         }
     }

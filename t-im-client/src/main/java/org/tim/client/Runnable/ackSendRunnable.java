@@ -3,6 +3,7 @@ package org.tim.client.Runnable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tim.client.intf.ACKPacket;
+import org.tim.client.intf.MessageProcessor;
 import org.tio.client.ClientChannelContext;
 import org.tio.core.Tio;
 import org.tio.core.intf.Packet;
@@ -28,12 +29,15 @@ public class ackSendRunnable extends AbstractQueueRunnable<Packet> {
 
     private final long timeout;
 
+    private final MessageProcessor processor;
 
-    public ackSendRunnable(Executor executor, ClientChannelContext client, long timeout) {
+
+    public ackSendRunnable(Executor executor, ClientChannelContext client, long timeout, MessageProcessor processor) {
         super(executor);
         this.clientChannelContext = client;
         this.waitingResp = client.tioConfig.getWaitingResps();
         this.timeout = timeout;
+        this.processor = processor;
         this.getMsgQueue();
     }
 
@@ -90,6 +94,7 @@ public class ackSendRunnable extends AbstractQueueRunnable<Packet> {
                     log.error("respPacket == null,{}", clientChannelContext);
                 }
                 if (respPacket == ackPacket.getPacket()) {
+                    processor.ackTimeOut(ackPacket.getAck());
                     log.error("{}, 同步发送超时, {}", clientChannelContext.tioConfig.getName(), clientChannelContext);
                 } else {
                     log.debug("同步消息ack:{} 同步成功", ackPacket.getAck());

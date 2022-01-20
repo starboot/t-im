@@ -16,4 +16,8 @@ public interface MessageProcessor {
     void getMessageDataAfter(String data);
 
     void getOnlineUserIdAfter(String ids);
+
+    void ackTimeOut(Integer id);
+
+    void connectException();
 }

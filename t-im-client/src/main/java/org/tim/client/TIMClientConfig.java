@@ -24,6 +24,7 @@ public class TIMClientConfig extends ClientTioConfig {
     public TIMClientConfig(ClientAioHandler aioHandler, ClientAioListener aioListener, ReconnConf reconnConf, MessageProcessor message) {
         super(aioHandler, aioListener, reconnConf);
         this.processor = message;
+        this.name = "t-im";
     }
 
     public TIMClientConfig(ClientAioHandler aioHandler, ClientAioListener aioListener, ReconnConf reconnConf, SynThreadPoolExecutor tioExecutor, ThreadPoolExecutor groupExecutor, MessageProcessor message) {
