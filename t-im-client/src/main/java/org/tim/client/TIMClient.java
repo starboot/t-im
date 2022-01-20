@@ -162,6 +162,10 @@ public class TIMClient extends MapWithLockPropSupport {
         send(new ImPacket(Command.COMMAND_CHAT_REQ, chatBody.toByte()));
     }
 
+    public void callVideo(String userId) {
+        // 视频通话
+    }
+
     public void send(Packet packet) {
         send0(packet);
     }
