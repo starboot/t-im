@@ -1,0 +1,29 @@
+syntax = "proto3";
+// 指定模板类的包路径
+option java_package = "cn.starboot.tim.common.packet.proto";
+// 指定模板类的名称，名称必须是有实际业务意义的
+option java_outer_classname = "BindPacketProto";
+
+// IM绑定、解绑消息包
+message BindPacket{
+    // 绑定ID
+    string bindId = 1;
+    enum BindType {
+        // 绑定用户（可以解除或者绑定用户的某一设备）
+        USER = 0;
+        // 绑定群组
+        GROUP = 1;
+        // 绑定token
+        TOKEN = 2;
+    };
+    // bind类型
+    BindType bindType = 3;
+    enum OptionType {
+        // 绑定
+        BIND = 0;
+        // 解绑
+        UNBIND = 1;
+    };
+    // 绑定、解绑
+    OptionType optionType = 4;
+}

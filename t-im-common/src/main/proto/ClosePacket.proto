@@ -1,0 +1,11 @@
+syntax = "proto3";
+// 指定模板类的包路径
+option java_package = "cn.starboot.tim.common.packet.proto";
+// 指定模板类的名称，名称必须是有实际业务意义的
+option java_outer_classname = "ClosePacketProto";
+
+// IM退出或关闭消息包
+message ClosePacket{
+    // 用户名ID
+    string userId = 1;
+}

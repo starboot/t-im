@@ -1,0 +1,41 @@
+syntax = "proto3";
+// 指定模板类的包路径
+option java_package = "cn.starboot.tim.common.packet.proto";
+// 指定模板类的名称，名称必须是有实际业务意义的
+option java_outer_classname = "MessagePacketProto";
+
+// IM获取持久化聊天消息(离线+历史+漫游)请求结构
+/*
+     "fromUserId":"目标用户id(此字段必须与userId一起使用,获取双方聊天消息),非必填",
+     "userId":"当前用户id(必填字段),当只有此字段时,type必须为0，意思是获取当前用户所有离线消息(好友+群组)",
+     "groupId":"群组id(此字段必须与userId一起使用,获取当前用户指定群组聊天消息),非必填",
+     "beginTime":"消息区间开始时间Date毫秒数double类型,非必填",
+     "endTime":"消息区间结束时间Date毫秒数double类型,非必填",
+     "offset":"分页偏移量int类型，类似Limit 0,10 中的0,非必填",
+     "count":"显示消息数量,类似Limit 0,10 中的10,非必填",
+     "type":"消息类型(0:离线消息,1:历史消息)"
+*/
+message MessagePacket{
+    // 目标用户ID
+    string fromUserId = 1;
+    // 当前用户ID
+    string userId = 2;
+    // 群组ID
+    string groupId = 3;
+    // 消息区间开始时间
+    int64 beginTime = 4;
+    // 消息区间结束时间
+    int64 endTime = 5;
+    // 分页偏移量
+    int32 offset = 6;
+    // 显示消息数量
+    int32 count = 7;
+    enum MessageType {
+        // 离线消息
+        OFF_LINE_MESSAGE = 0;
+        // 历史消息
+        HISTORY_MESSAGE = 1;
+    };
+    // 消息类型
+    MessageType messageType = 8;
+}
