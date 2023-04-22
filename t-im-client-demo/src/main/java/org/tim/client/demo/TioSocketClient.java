@@ -20,7 +20,7 @@ public class TioSocketClient {
         TIMClient.getInstance().set("","");
 
         // 初始化并登录
-        Options options = new Options(new Node("mixiaodong.xyz", 8888)); // mixiaodong.xyz  192.168.79.1
+        Options options = new Options(new Node("127.0.0.1", 8888)); // mixiaodong.xyz  192.168.79.1
         TIMClient.start(options);
         TIMClient.getInstance().login("888", "mi191919", new Callback() {
             @Override
