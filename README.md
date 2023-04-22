@@ -159,8 +159,5 @@ maven 坐标
 
 ## 附上相关开源项目链接
    
-   t-io：稳如泰山，性能炸裂的Java通讯框架，官网：  https://www.tiocloud.com/tio/  <br>  
-   Hutool：一个小而全的Java工具类库，官网：  https://www.hutool.cn/   <br>  
-   smart-socket：高性能Aio通讯，官网： https://smartboot.gitee.io/book/smart-socket/    <br>  
-   J-IM：高性能IM，官网（暂时打不来，或许作者正在开发中，尽情期待）：  http://www.j-im.cn/ <br>  
+   aio-socket：采用异步非阻塞线程模型开发的底层通讯内核，号称性能小怪兽，官网：https://gitee.com/starboot/aio-socket  <br>    
    本项目如有侵犯到任何个人或组织的权益请联系邮箱：1191998028@qq.com （如有侵权请联系删除）
