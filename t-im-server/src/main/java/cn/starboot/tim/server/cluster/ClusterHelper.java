@@ -1,9 +1,9 @@
 package cn.starboot.tim.server.cluster;
 
+import cn.starboot.socket.utils.cache.ICache;
+import cn.starboot.socket.utils.cache.redis.RedisCache;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.tio.utils.cache.ICache;
-import org.tio.utils.cache.redis.RedisCache;
 import java.util.concurrent.TimeUnit;
 
 /**

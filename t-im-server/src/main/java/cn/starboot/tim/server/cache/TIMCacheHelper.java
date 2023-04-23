@@ -11,7 +11,6 @@ import java.util.Set;
  */
 public interface TIMCacheHelper {
 
-
     /**
      * 持久化消息
      * @param timelineId 日期
