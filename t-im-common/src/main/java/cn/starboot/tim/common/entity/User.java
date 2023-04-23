@@ -1,5 +1,5 @@
 
-package cn.starboot.tim.common.packets;
+package cn.starboot.tim.common.entity;
 
 import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.util.Cn2Spell;

@@ -5,7 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.utils.cache.ICache;
 import cn.starboot.socket.utils.cache.redis.RedisCache;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
-import cn.starboot.tim.common.packets.UserMessageData;
+import cn.starboot.tim.common.entity.UserMessageData;
 import cn.starboot.tim.server.cache.TIMCacheHelper;
 import cn.starboot.tim.server.cluster.ClusterData;
 import org.redisson.api.RLock;

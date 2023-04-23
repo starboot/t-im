@@ -1,14 +1,12 @@
 package cn.starboot.tim.server.util;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.starboot.socket.core.ChannelContext;
-import cn.starboot.tim.common.packets.User;
+import cn.starboot.tim.common.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by DELL(mxd) on 2021/12/25 19:43

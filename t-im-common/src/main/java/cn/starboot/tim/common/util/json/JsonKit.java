@@ -1,6 +1,5 @@
 package cn.starboot.tim.common.util.json;
 
-import cn.starboot.tim.common.packets.Message;
 import cn.starboot.tim.common.util.json.serializer.IJsonSerializer;
 
 /**
@@ -10,13 +9,13 @@ public class JsonKit {
 
     private static final IJsonSerializer jsonSerializer = JSONFactory.createSerializer();
 
-    public static String toJSONString(Message message) {
-        return jsonSerializer.toJSON(message);
-    }
+//    public static String toJSONString(Message message) {
+//        return jsonSerializer.toJSON(message);
+//    }
 
-    public static byte[] toJsonBytes(Message message) {
-        return jsonSerializer.toByte(message);
-    }
+//    public static byte[] toJsonBytes(Message message) {
+//        return jsonSerializer.toByte(message);
+//    }
 
     public static byte[] toJsonBytes(Object message) {
         return jsonSerializer.toByte(message);

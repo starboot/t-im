@@ -1,4 +1,4 @@
-package cn.starboot.tim.common.packets;
+package cn.starboot.tim.common.entity;
 
 import cn.starboot.tim.common.util.json.JsonKit;
 import com.alibaba.fastjson.JSONObject;
@@ -74,9 +74,9 @@ public class Message implements Serializable {
         this.extras = extras;
     }
 
-    public String toJsonString() {
-        return JsonKit.toJSONString(this);
-    }
+//    public String toJsonString() {
+//        return JsonKit.toJSONString(this);
+//    }
 
     public byte[] toByte() {
         return JsonKit.toJsonBytes(this);

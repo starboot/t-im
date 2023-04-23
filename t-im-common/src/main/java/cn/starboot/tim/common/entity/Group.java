@@ -1,5 +1,5 @@
 
-package cn.starboot.tim.common.packets;
+package cn.starboot.tim.common.entity;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -10,25 +10,30 @@ import java.util.Objects;
 /**
  * Created by DELL(mxd) on 2021/12/23 11:57
  */
-public class Group extends Message{
+public class Group extends Message {
 
 	private static final long serialVersionUID = -4863065749746371699L;
+
 	/**
 	 * 群组ID
 	 */
 	private String groupId;
+
 	/**
 	 * 群组名称
 	 */
 	private String name;
+
 	/**
 	 * 群组头像
 	 */
 	private String avatar;
+
 	/**
 	 * 在线人数
 	 */
 	private Integer online;
+
 	/**
 	 * 组用户
 	 */
