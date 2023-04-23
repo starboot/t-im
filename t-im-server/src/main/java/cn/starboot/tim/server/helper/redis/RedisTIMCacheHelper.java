@@ -5,7 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.utils.cache.ICache;
 import cn.starboot.socket.utils.cache.redis.RedisCache;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
-import cn.starboot.tim.common.entity.UserMessageData;
+import cn.starboot.tim.common.entity.HistoryMessage;
 import cn.starboot.tim.server.cache.TIMCacheHelper;
 import cn.starboot.tim.server.cluster.ClusterData;
 import org.redisson.api.RLock;
@@ -67,8 +67,8 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
     }
 
     @Override
-    public UserMessageData getGroupHistoryMessage(String groupId, String timelineId) {
-        UserMessageData userMessageData = new UserMessageData(groupId);
+    public HistoryMessage getGroupHistoryMessage(String groupId, String timelineId) {
+        HistoryMessage historyMessage = HistoryMessage.newBuilder().setUserId(groupId).build();
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
         RMap<Object, Object> timMessage = redissonClient.getMap("TIMGroupMessage:" + timelineId);
         List<ChatPacketProto.ChatPacket> chatBodies;
@@ -83,13 +83,13 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
             chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
         }
         map.put(timelineId, chatBodies);
-        userMessageData.setFriends(map);
-        return userMessageData;
+        historyMessage.setFriends(map);
+        return historyMessage;
     }
 
     @Override
-    public UserMessageData getOfflineMessage(String userId, String timelineId) {
-        UserMessageData userMessageData = new UserMessageData(userId);
+    public HistoryMessage getOfflineMessage(String userId, String timelineId) {
+        HistoryMessage historyMessage = HistoryMessage.newBuilder().setUserId(userId).build();
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
         RMap<Object, Object> timMessage = redissonClient.getMap("TIMOfflineMessage:" + timelineId);
         List<ChatPacketProto.ChatPacket> chatBodies;
@@ -108,14 +108,14 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
             chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
         }
         map.put(userId, chatBodies);
-        userMessageData.setFriends(map);
-        return userMessageData;
+        historyMessage.setFriends(map);
+        return historyMessage;
     }
 
 
     @Override
-    public UserMessageData getFriendHistoryMessage(String userId, String fromUserId, String timelineId) {
-        UserMessageData userMessageData = new UserMessageData(userId);
+    public HistoryMessage getFriendHistoryMessage(String userId, String fromUserId, String timelineId) {
+        HistoryMessage historyMessage = HistoryMessage.newBuilder().setUserId(userId).build();
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
         RMap<Object, Object> timMessage = redissonClient.getMap("TIMMessage:" + timelineId);
         String key = userId + "-" + fromUserId;
@@ -135,8 +135,8 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
             chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
         }
         map.put(timelineId, chatBodies);
-        userMessageData.setFriends(map);
-        return userMessageData;
+        historyMessage.setFriends(map);
+        return historyMessage;
     }
 
     /**

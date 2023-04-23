@@ -226,7 +226,7 @@ public class User extends Message implements Comparable<User>, Serializable{
 		 */
 		private List<Group> groups;
 
-		public Builder(){};
+		private Builder(){};
 
 		public Builder userId(String userId) {
 			this.userId = userId;
