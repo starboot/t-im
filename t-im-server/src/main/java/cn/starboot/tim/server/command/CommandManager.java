@@ -2,12 +2,13 @@ package cn.starboot.tim.server.command;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.tim.common.command.CommandConfiguration;
+import cn.starboot.tim.common.command.CommandConfigurationFactory;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.CommandType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +29,20 @@ public class CommandManager {
 
     static{
         try {
-            List<CommandConfiguration> configurations = new ArrayList<>();
-            for (Command c : Command.values()
-                 ) {
-                configurations.add(new CommandConfiguration(c.getCmd(), c.getPath()));
+            List<CommandConfiguration> configurations = CommandConfigurationFactory.parseConfiguration();
+            if (configurations == null) {
+                System.out.println("使用路径获取配置文件");
+                configurations = CommandConfigurationFactory
+                        .parseConfiguration(new File("cn.starboot.tim.server.command.command.properties"));
+                if (configurations == null) {
+                    System.out.println("配置文件拿不到");
+                }
             }
+//            List<CommandConfiguration> configurations = new ArrayList<>();
+//            for (Command c : Command.values()
+//                 ) {
+//                configurations.add(new CommandConfiguration(c.getCmd(), c.getPath()));
+//            }
             init(configurations);
         } catch (Exception e) {
             log.error(e.toString(),e);
@@ -51,7 +61,7 @@ public class CommandManager {
             return;
         }
         CommandType command = imCommandHandler.command();
-        if(ObjectUtil.isNull(Command.forNumber(command))) {
+        if(ObjectUtil.isNull(CommandType.getCommandTypeByCode(command.getCode()))) {
             throw new ImException("failed to register cmd handler, illegal cmd code:" + command + ",use Command.addAndGet () to add in the enumerated Command class!");
         }
         if(ObjectUtil.isNull(handlerMap.get(command)))

@@ -1,11 +1,16 @@
 package cn.starboot.tim.client.command;
 
-import cn.hutool.core.util.ObjectUtil;
+import cn.starboot.tim.common.command.CommandConfiguration;
+import cn.starboot.tim.common.exception.ImException;
+import io.netty.util.internal.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tim.common.command.CommandConfiguration;
-import org.tim.common.exception.ImException;
-import org.tim.common.packets.Command;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * Created by DELL(mxd) on 2021/12/24 16:44

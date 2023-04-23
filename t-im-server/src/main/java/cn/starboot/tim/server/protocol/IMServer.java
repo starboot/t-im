@@ -1,21 +1,15 @@
 package cn.starboot.tim.server.protocol;
 
 import cn.hutool.core.lang.Singleton;
+import cn.starboot.tim.common.banner.TimBanner;
+import cn.starboot.tim.server.cluster.ClusterHelper;
+import cn.starboot.tim.server.cluster.ICluster;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import org.redisson.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tim.common.banner.TimBanner;
-import org.tim.common.command.common.HandlerProcessor;
-import org.tim.common.command.common.TIMHandlerProcessorImpl;
-import org.tim.server.cache.TIMCacheHelper;
-import org.tim.server.cluster.ClusterHelper;
-import org.tim.server.cluster.ICluster;
-import org.tim.server.helper.redis.RedisTIMCacheHelper;
-import org.tio.utils.cache.redis.RedisCache;
-import org.tio.utils.jfinal.P;
 
 import java.io.PrintStream;
 
@@ -39,7 +33,7 @@ public abstract class IMServer {
     /**
      * 持久化助手
      */
-    public static final TIMCacheHelper cacheHelper;
+//    public static final TIMCacheHelper cacheHelper;
 
     /**
      * 集群助手
@@ -49,7 +43,7 @@ public abstract class IMServer {
     /**
      * 包解析处理器
      */
-    public static final HandlerProcessor handlerProcessor;
+//    public static final HandlerProcessor handlerProcessor;
 
     /**
      * 开启SSL
@@ -79,7 +73,7 @@ public abstract class IMServer {
     static {
         TimBanner timBanner = new TimBanner();
         timBanner.printBanner(System.out);
-        isStore = P.getBoolean("tim.store");
+        isStore = false;
         if (isStore) {
             log.info("用户选择开启持久化，redis默认连接http://127.0.0.1:6379");
             try {
@@ -101,32 +95,32 @@ public abstract class IMServer {
                  */
                 RedissonClient redissonClient = Redisson.create(redisConfig);
                 // timeToLiveSeconds : 生存时间   timeToIdleSeconds 计时器，  设置一个即可
-                Long aLong = P.getLong("tim.redis.timeout");
+//                Long aLong = P.getLong("tim.redis.timeout");
                 // 注册TIMServer
-                RedisCache.register(redissonClient, "TIMServer", aLong, null);
-                RedisCache.register(redissonClient, "TIMCluster", aLong, null);
-                RedisCache.register(redissonClient, "TIMMessage", aLong, null);
-                RedisCache.register(redissonClient, "TIMOfflineMessage", aLong, null);
-                RedisCache.register(redissonClient, "TIMGroupMessage", aLong, null);
+//                RedisCache.register(redissonClient, "TIMServer", aLong, null);
+//                RedisCache.register(redissonClient, "TIMCluster", aLong, null);
+//                RedisCache.register(redissonClient, "TIMMessage", aLong, null);
+//                RedisCache.register(redissonClient, "TIMOfflineMessage", aLong, null);
+//                RedisCache.register(redissonClient, "TIMGroupMessage", aLong, null);
             } catch (RedisConnectionException redisConnectionException) {
                 log.error("Redis连接失败，持久化失效，请先启动本地Redis服务");
             }
-            cacheHelper = new RedisTIMCacheHelper();
+//            cacheHelper = new RedisTIMCacheHelper();
         }else {
-            cacheHelper = null;
+//            cacheHelper = null;
         }
-        isUseSSL = P.getBoolean("tim.use.ssl");
-        heartbeat = P.getBoolean("tim.use.heartbeat");
-        handlerProcessor = new TIMHandlerProcessorImpl();
-        cluster = P.getBoolean("tim.use.cluster");
-        port = P.getInt("tcp.port");
+        isUseSSL = false;
+        heartbeat = false;
+//        handlerProcessor = new TIMHandlerProcessorImpl();
+        cluster = false;
+        port = 888;
         if (IMServer.cluster && IMServer.isStore) {
             // 配置集群助手  单例模式
             clusterHelper = Singleton.get(ClusterHelper.class);
         }else {
             clusterHelper = null;
         }
-        ip = P.get("tim.use.ip");
+        ip = "127.0.0.1";
         PrintStream ps = new PrintStream(System.out){
             @Override
             public void println(String x) {
