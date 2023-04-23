@@ -103,13 +103,4 @@ public class HistoryMessage extends Message implements Serializable{
 			return new HistoryMessage(userId, friends, groups);
 		}
 	}
-
-	@Override
-	public String toString() {
-		return "UserMessageData{" +
-				"userId='" + userId + '\'' +
-				", friends=" + friends +
-				", groups=" + groups +
-				'}';
-	}
 }
