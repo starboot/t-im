@@ -7,7 +7,6 @@ import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * 授权方式暂未限制
  * Created by DELL(mxd) on 2021/12/25 11:57
