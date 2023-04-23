@@ -15,43 +15,56 @@ import java.util.Objects;
  */
 public class User extends Message implements Comparable<User>, Serializable{
 
-	private static final long serialVersionUID = 1249936074853123318L;
+	/**
+	 * 自行添加UID
+	 */
+	private static final long serialVersionUID = -1928818783284088736L;
+
 	/**
 	 * 用户id;
 	 */
 	private String userId;
+
 	/**
 	 * user nick
 	 */
 	private String nick;
+
 	/**
 	 * 用户头像
 	 */
 	private String avatar;
+
 	/**
 	 * 在线状态(online、offline)
 	 */
 	private String status = UserStatusType.OFFLINE.getStatus();
+
 	/**
 	 * 个性签名;
 	 */
 	private String sign;
+
 	/**
 	 * 用户所属终端;(ws、tcp、http、android、ios等)
 	 */
 	private String terminal;
+
 	/**
 	 * 好友列表;
 	 */
 	private List<User> friends;
+
 	/**
 	 * 群组列表;
 	 */
 	private List<Group> groups;
+
 	/**
 	 * 姓名对应的拼音
 	 */
 	private String pinyin;
+
 	/**
 	 * 拼音的首字母
 	 */
@@ -172,34 +185,42 @@ public class User extends Message implements Comparable<User>, Serializable{
 	}
 
 	public static class Builder extends Message.Builder<User, Builder>{
+
 		/**
 		 * 用户id;
 		 */
 		private String userId;
+
 		/**
 		 * user nick
 		 */
 		private String nick;
+
 		/**
 		 * 用户头像
 		 */
 		private String avatar;
+
 		/**
 		 * 在线状态(online、offline)
 		 */
 		private String status = UserStatusType.OFFLINE.getStatus();
+
 		/**
 		 * 个性签名;
 		 */
 		private String sign;
+
 		/**
 		 * 用户所属终端;(ws、tcp、http、android、ios等)
 		 */
 		private String terminal;
+
 		/**
 		 * 好友列表;
 		 */
 		private List<User> friends;
+
 		/**
 		 * 群组列表;
 		 */
@@ -260,7 +281,7 @@ public class User extends Message implements Comparable<User>, Serializable{
 	@Override
 	public User clone() throws CloneNotSupportedException {
 		super.clone();
-		User cloneUser = new User();
+		User cloneUser = User.newBuilder().build();
 //		BeanUtil.copyProperties(this, cloneUser,"friends","groups");
 		return cloneUser;
 	}

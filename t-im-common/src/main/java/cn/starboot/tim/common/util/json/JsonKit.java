@@ -9,16 +9,12 @@ public class JsonKit {
 
     private static final IJsonSerializer jsonSerializer = JSONFactory.createSerializer();
 
-//    public static String toJSONString(Message message) {
-//        return jsonSerializer.toJSON(message);
-//    }
+    public static String toJSONString(Object object) {
+        return jsonSerializer.toJSON(object);
+    }
 
-//    public static byte[] toJsonBytes(Message message) {
-//        return jsonSerializer.toByte(message);
-//    }
-
-    public static byte[] toJsonBytes(Object message) {
-        return jsonSerializer.toByte(message);
+    public static byte[] toJsonBytes(Object object) {
+        return jsonSerializer.toByte(object);
     }
 
     public static <T> T toBean(String text, Class<T> chatBodyClass) {

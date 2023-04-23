@@ -12,7 +12,10 @@ import java.util.Objects;
  */
 public class Group extends Message {
 
-	private static final long serialVersionUID = -4863065749746371699L;
+	/**
+	 * 自行添加UID
+	 */
+	private static final long serialVersionUID = -5652475498774105651L;
 
 	/**
 	 * 群组ID
@@ -95,22 +98,27 @@ public class Group extends Message {
 	}
 
 	public static class Builder extends Message.Builder<Group, Builder>{
+
 		/**
 		 * 群组ID
 		 */
 		private String groupId;
+
 		/**
 		 * 群组名称
 		 */
 		private String name;
+
 		/**
 		 * 群组头像
 		 */
 		private String avatar;
+
 		/**
 		 * 在线人数
 		 */
 		private Integer online;
+
 		/**
 		 * 组用户
 		 */
@@ -152,7 +160,9 @@ public class Group extends Message {
 		}
 	}
 
-	public Group clone(){
+	@Override
+	public Group clone() throws CloneNotSupportedException {
+		super.clone();
 		Group group = Group.newBuilder().build();
 //		BeanUtil.copyProperties(this, group,"users");
 		return group;
