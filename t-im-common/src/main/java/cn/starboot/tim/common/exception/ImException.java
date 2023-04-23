@@ -2,6 +2,7 @@ package cn.starboot.tim.common.exception;
 
 /**
  * 制定IM异常管理
+ *
  * Created by DELL(mxd) on 2021/12/24 16:56
  */
 public class ImException extends Exception {
@@ -25,6 +26,7 @@ public class ImException extends Exception {
     }
 
     protected ImException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-//        super(message, cause, enableSuppression, writableStackTrace);
+        super(message, cause, enableSuppression, writableStackTrace);
     }
+
 }

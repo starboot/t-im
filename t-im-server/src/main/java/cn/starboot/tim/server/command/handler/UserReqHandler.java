@@ -8,8 +8,6 @@ import cn.starboot.tim.common.packet.CommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.common.packet.proto.UsersPacketProto;
-import cn.starboot.tim.common.packets.Command;
-import cn.starboot.tim.common.packets.RespBody;
 import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
 import cn.starboot.tim.server.protocol.IMServer;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -56,7 +54,7 @@ public class UserReqHandler extends ServerAbstractCmdHandler {
         }
         // 0:所有在线用户,1:所有离线用户,2:所有用户[在线+离线];  服务器只提供查询在线用户，其它查询请用httpAPI
         final UsersPacketProto.UsersPacket.UsersType type = usersPacket.getType();
-        RespBody resPacket = new RespBody(Command.COMMAND_GET_USER_RESP);
+//        RespBody resPacket = new RespBody(Command.COMMAND_GET_USER_RESP);
         //是否开启持久化;
         boolean isStore = IMServer.isStore;
         if(isStore){
@@ -68,13 +66,13 @@ public class UserReqHandler extends ServerAbstractCmdHandler {
         }
         //在线用户
         if(UsersPacketProto.UsersPacket.UsersType.ONLINE == type){
-            resPacket.setCode(ImStatus.C10005.getCode()).setMsg(ImStatus.C10005.getMsg());
+//            resPacket.setCode(ImStatus.C10005.getCode()).setMsg(ImStatus.C10005.getMsg());
             //离线用户;
         }else if(UsersPacketProto.UsersPacket.UsersType.OFFLINE == type){
-            resPacket.setCode(ImStatus.C10006.getCode()).setMsg(ImStatus.C10006.getMsg());
+//            resPacket.setCode(ImStatus.C10006.getCode()).setMsg(ImStatus.C10006.getMsg());
             //在线+离线用户;
         }else if(UsersPacketProto.UsersPacket.UsersType.ALL == type){
-            resPacket.setCode(ImStatus.C10003.getCode()).setMsg(ImStatus.C10003.getMsg());
+//            resPacket.setCode(ImStatus.C10003.getCode()).setMsg(ImStatus.C10003.getMsg());
         }
         // 将响应包return，框架自动发送
         return null;

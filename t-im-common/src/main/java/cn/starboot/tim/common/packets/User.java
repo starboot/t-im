@@ -1,6 +1,7 @@
 
 package cn.starboot.tim.common.packets;
 
+import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.util.Cn2Spell;
 import com.alibaba.fastjson.JSONObject;
 
@@ -14,7 +15,7 @@ import java.util.Objects;
  */
 public class User extends Message implements Comparable<User>, Serializable{
 
-	private static final long serialVersionUID = 2733850942159406228L;
+	private static final long serialVersionUID = 1249936074853123318L;
 	/**
 	 * 用户id;
 	 */

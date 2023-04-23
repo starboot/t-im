@@ -1,14 +1,15 @@
 package cn.starboot.tim.common.command;
 
-
 import cn.starboot.tim.common.packet.CommandType;
 
 /**
  * Created by DELL(mxd) on 2021/12/24 16:44
  */
 public class CommandConfiguration {
-    private CommandType cmd ;
-    private  String cmdHandler ;
+
+    private CommandType cmd;
+
+    private  String cmdHandler;
 
     public CommandConfiguration(){}
 

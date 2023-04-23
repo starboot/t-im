@@ -8,9 +8,6 @@ import cn.starboot.tim.common.packet.CommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.MessagePacketProto;
 import cn.starboot.tim.common.packet.proto.UserMessagePacketProto;
-import cn.starboot.tim.common.packets.Command;
-import cn.starboot.tim.common.packets.RespBody;
-import cn.starboot.tim.server.cache.TIMCacheHelper;
 import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
 import cn.starboot.tim.server.protocol.IMServer;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -96,7 +93,7 @@ public class MessageReqHandler extends ServerAbstractCmdHandler {
 
 
     public ImPacket getMessageFailedPacket(ImChannelContext channelContext, ImStatus status) {
-        RespBody resPacket = new RespBody(Command.COMMAND_GET_MESSAGE_RESP, status);
+//        RespBody resPacket = new RespBody(Command.COMMAND_GET_MESSAGE_RESP, status);
 //        TIM.send(channelContext, new ImPacket(Command.COMMAND_GET_MESSAGE_RESP, resPacket.toByte()));
         return null;
     }

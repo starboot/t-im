@@ -1,0 +1,17 @@
+syntax = "proto3";
+// 指定模板类的包路径
+option java_package = "cn.starboot.tim.common.packet.proto";
+// 指定模板类的名称，名称必须是有实际业务意义的
+option java_outer_classname = "RespPacketProto";
+
+// IM私有协议包
+message RespPacket{
+    // 是否开启消息同步
+    bool isSyn = 1;
+    // 同步序列号
+    string syn = 2;
+    // 响应状态码;
+    int32 code = 3;
+    // 响应信息;
+    string msg = 4;
+}

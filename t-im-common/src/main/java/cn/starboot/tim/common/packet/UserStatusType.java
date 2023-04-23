@@ -1,4 +1,4 @@
-package cn.starboot.tim.common.packets;
+package cn.starboot.tim.common.packet;
 
 public enum UserStatusType {
     /**
