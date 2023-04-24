@@ -9,7 +9,7 @@ public class ImPacket extends Packet {
     private static final long serialVersionUID = -1586364817471781579L;
 
     // 消息命令码
-    private CommandType commandType;
+    private ReqCommandType reqCommandType;
 
     // 消息体
     private byte[] data;
@@ -17,17 +17,17 @@ public class ImPacket extends Packet {
     public ImPacket() {
     }
 
-    public ImPacket(CommandType commandType, byte[] data) {
-        this.commandType = commandType;
+    public ImPacket(ReqCommandType reqCommandType, byte[] data) {
+        this.reqCommandType = reqCommandType;
         this.data = data;
     }
 
-    public CommandType getCommandType() {
-        return commandType;
+    public ReqCommandType getReqCommandType() {
+        return reqCommandType;
     }
 
-    public ImPacket setCommandType(CommandType commandType) {
-        this.commandType = commandType;
+    public ImPacket setReqCommandType(ReqCommandType reqCommandType) {
+        this.reqCommandType = reqCommandType;
         return this;
     }
 
@@ -43,7 +43,7 @@ public class ImPacket extends Packet {
     @Override
     public String toString() {
         return "ImPacket{" +
-                " commandType=" + commandType +
+                " commandType=" + reqCommandType +
                 ", data=" + Arrays.toString(data) +
                 '}';
     }

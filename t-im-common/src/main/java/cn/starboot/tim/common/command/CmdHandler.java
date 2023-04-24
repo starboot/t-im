@@ -2,7 +2,7 @@ package cn.starboot.tim.common.command;
 
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.packet.CommandType;
+import cn.starboot.tim.common.packet.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -15,7 +15,7 @@ public interface CmdHandler {
      * 主键：判断各类socket请求的指令
      * @return 主键对象
      */
-    CommandType command();
+    ReqCommandType command();
 
     /**
      * 处理Cmd命令

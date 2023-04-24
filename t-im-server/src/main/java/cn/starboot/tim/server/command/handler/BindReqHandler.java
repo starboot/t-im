@@ -4,12 +4,11 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImStatus;
-import cn.starboot.tim.common.packet.CommandType;
+import cn.starboot.tim.common.packet.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.BindPacketProto;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
-import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +21,8 @@ public class BindReqHandler extends ServerAbstractCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(BindReqHandler.class);
 
     @Override
-    public CommandType command() {
-        return CommandType.COMMAND_BIND;
+    public ReqCommandType command() {
+        return ReqCommandType.COMMAND_BIND_REQ;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class BindReqHandler extends ServerAbstractCmdHandler {
                     .setDescription(ImStatus.C10011.getDescription())
                     .setText(ImStatus.C10011.getText())
                     .build();
-            imPacket.setCommandType(CommandType.COMMAND_BIND)
+            imPacket.setReqCommandType(ReqCommandType.COMMAND_BIND_REQ)
                     .setData(build1.toByteArray());
             // build发送出去
 //            TIM.send(channelContext, new ImPacket(Command.COMMAND_JOIN_GROUP_RESP, respBody.toByte()));

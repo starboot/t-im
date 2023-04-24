@@ -6,7 +6,7 @@ import cn.starboot.tim.common.ImStatus;
 import cn.starboot.tim.common.entity.Group;
 import cn.starboot.tim.common.entity.User;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.packet.CommandType;
+import cn.starboot.tim.common.packet.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
@@ -28,8 +28,8 @@ public class LoginReqHandler extends ServerAbstractCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(LoginReqHandler.class);
 
     @Override
-    public CommandType command() {
-        return CommandType.COMMAND_LOGIN;
+    public ReqCommandType command() {
+        return ReqCommandType.COMMAND_LOGIN_REQ;
     }
 
     @Override
@@ -117,7 +117,7 @@ public class LoginReqHandler extends ServerAbstractCmdHandler {
         for(Group group : groups){
 //            ImPacket groupPacket = new ImPacket(Command.COMMAND_JOIN_GROUP_REQ, JsonKit.toJsonBytes(group));
             try {
-                BindReqHandler bindReqHandler = CommandManager.getCommand(CommandType.COMMAND_BIND, BindReqHandler.class);
+                BindReqHandler bindReqHandler = CommandManager.getCommand(ReqCommandType.COMMAND_BIND_REQ, BindReqHandler.class);
                 if (bindReqHandler != null) {
 //                    joinGroupReqHandler.handler(groupPacket, imChannelContext);
                 }

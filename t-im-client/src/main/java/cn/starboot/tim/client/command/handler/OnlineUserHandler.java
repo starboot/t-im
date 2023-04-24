@@ -3,9 +3,8 @@ package cn.starboot.tim.client.command.handler;
 import cn.starboot.tim.client.command.AbstractClientCmdHandler;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.packet.CommandType;
+import cn.starboot.tim.common.packet.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
-import com.alibaba.fastjson.JSONArray;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +17,8 @@ public class OnlineUserHandler extends AbstractClientCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(OnlineUserHandler.class);
 
     @Override
-    public CommandType command() {
-        return CommandType.COMMAND_RESP;
+    public ReqCommandType command() {
+        return ReqCommandType.COMMAND_RESP_REQ;
     }
 
     @Override

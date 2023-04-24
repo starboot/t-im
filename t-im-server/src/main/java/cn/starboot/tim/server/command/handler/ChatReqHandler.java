@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.packet.CommandType;
+import cn.starboot.tim.common.packet.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
@@ -22,8 +22,8 @@ public class ChatReqHandler extends ServerAbstractCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(ChatReqHandler.class);
 
     @Override
-    public CommandType command() {
-        return CommandType.COMMAND_CHAT;
+    public ReqCommandType command() {
+        return ReqCommandType.COMMAND_CHAT_REQ;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ChatReqHandler extends ServerAbstractCmdHandler {
         }
         if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.PRIVATE) {
             System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
-            Aio.send(channelContext.getChannelContext(), new ImPacket(CommandType.COMMAND_CHAT, chatPacket.toByteArray()));
+            Aio.send(channelContext.getChannelContext(), new ImPacket(ReqCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray()));
             String s = DateTime.now().toString("YYYY-MM-DD");
             if (IMServer.isStore) {
                 log.debug("私聊消息--开启了持久化需要将消息保存");

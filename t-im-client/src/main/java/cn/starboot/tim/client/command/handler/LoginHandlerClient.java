@@ -4,11 +4,9 @@ package cn.starboot.tim.client.command.handler;
 import cn.starboot.tim.client.command.AbstractClientCmdHandler;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.packet.CommandType;
+import cn.starboot.tim.common.packet.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import com.google.protobuf.InvalidProtocolBufferException;
-
-import java.nio.charset.StandardCharsets;
 
 /**
  * Created by DELL(mxd) on 2022/1/6 17:14
@@ -16,8 +14,8 @@ import java.nio.charset.StandardCharsets;
 public class LoginHandlerClient extends AbstractClientCmdHandler {
 
     @Override
-    public CommandType command() {
-        return CommandType.COMMAND_LOGIN;
+    public ReqCommandType command() {
+        return ReqCommandType.COMMAND_LOGIN_REQ;
     }
 
     @Override

@@ -12,7 +12,7 @@ import cn.starboot.tim.client.intf.DefaultMessageProcessor;
 import cn.starboot.tim.client.intf.MessageProcessor;
 import cn.starboot.tim.common.IMConfig;
 import cn.starboot.tim.common.entity.User;
-import cn.starboot.tim.common.packet.CommandType;
+import cn.starboot.tim.common.packet.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import org.slf4j.Logger;
@@ -180,7 +180,7 @@ public class TIMClient {
 //            ackSend(new ImPacket(CommandType.COMMAND_CHAT, chatBody.toByteArray()), ack);
             return;
         }
-        send(new ImPacket(CommandType.COMMAND_CHAT, chatBody.toByteArray()));
+        send(new ImPacket(ReqCommandType.COMMAND_CHAT_REQ, chatBody.toByteArray()));
     }
 
     public void callVideo(String userId) {

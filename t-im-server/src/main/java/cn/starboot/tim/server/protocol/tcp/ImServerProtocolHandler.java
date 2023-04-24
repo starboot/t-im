@@ -7,7 +7,7 @@ import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
 import cn.starboot.tim.common.command.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.packet.CommandType;
+import cn.starboot.tim.common.packet.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.server.command.CommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -38,8 +38,8 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
         if (packet instanceof ImPacket) {
             // 消息处理
             ImPacket imPacket = (ImPacket) packet;
-            CommandType commandType = imPacket.getCommandType();
-            AbstractCmdHandler cmdHandler = CommandManager.getCommand(commandType);
+            ReqCommandType reqCommandType = imPacket.getReqCommandType();
+            AbstractCmdHandler cmdHandler = CommandManager.getCommand(reqCommandType);
             ImChannelContext imChannelContext = new ImChannelContext(channelContext);
             try {
                 cmdHandler.handler(imPacket, imChannelContext);
