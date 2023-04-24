@@ -77,8 +77,8 @@ public abstract class IMServer {
         if (isStore) {
             log.info("用户选择开启持久化，redis默认连接http://127.0.0.1:6379");
             try {
-                Config redisConfig = new Config();
-                redisConfig.useSingleServer().setTimeout(1000000).setAddress("redis://127.0.0.1:6379").setDatabase(0);
+//                Config redisConfig = new Config();
+//                redisConfig.useSingleServer().setTimeout(1000000).setAddress("redis://127.0.0.1:6379").setDatabase(0);
                 /*
                 哨兵
                 Config config = new Config();
@@ -93,7 +93,7 @@ public abstract class IMServer {
                         "redis://172.29.3.245:6378","redis://172.29.3.245:6379", "redis://172.29.3.245:6380")
                         .setPassword("a123456").setScanInterval(5000);
                  */
-                RedissonClient redissonClient = Redisson.create(redisConfig);
+//                RedissonClient redissonClient = Redisson.create(redisConfig);
                 // timeToLiveSeconds : 生存时间   timeToIdleSeconds 计时器，  设置一个即可
 //                Long aLong = P.getLong("tim.redis.timeout");
                 // 注册TIMServer
@@ -113,7 +113,7 @@ public abstract class IMServer {
         heartbeat = false;
 //        handlerProcessor = new TIMHandlerProcessorImpl();
         cluster = false;
-        port = 888;
+        port = 8888;
         if (IMServer.cluster && IMServer.isStore) {
             // 配置集群助手  单例模式
             clusterHelper = Singleton.get(ClusterHelper.class);

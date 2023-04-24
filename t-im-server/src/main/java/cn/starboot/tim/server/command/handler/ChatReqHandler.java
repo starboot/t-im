@@ -2,6 +2,7 @@ package cn.starboot.tim.server.command.handler;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
+import cn.starboot.socket.core.Aio;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.packet.CommandType;
 import cn.starboot.tim.common.packet.ImPacket;
@@ -9,7 +10,6 @@ import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
 import cn.starboot.tim.server.protocol.IMServer;
 import cn.starboot.tim.server.util.ChatKit;
-import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,12 +40,15 @@ public class ChatReqHandler extends ServerAbstractCmdHandler {
 //                IMServer.cacheHelper.writeMessage(DateTime.now().toString("YYYY-MM-DD"), chatPacket.getFromId(), chatPacket.getGroupId(), chatPacket, true, false);
             }
             // 群聊
+            System.out.println(chatPacket.getContent());
 //            TIM.sendToGroup(TCPSocketServer.getServerTioConfig(), chatPacket.getGroupId(), bytes, context -> {
 //                // 不发送自己  true:发送， false：不发送
 //                return channelContext != context;
 //            }, false);
         }
         if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.PRIVATE) {
+            System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
+            Aio.send(channelContext.getChannelContext(), new ImPacket(CommandType.COMMAND_CHAT, chatPacket.toByteArray()));
             String s = DateTime.now().toString("YYYY-MM-DD");
             if (IMServer.isStore) {
                 log.debug("私聊消息--开启了持久化需要将消息保存");

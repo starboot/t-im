@@ -1,5 +1,7 @@
 package cn.starboot.tim.client.intf;
 
+import cn.starboot.tim.common.packet.proto.ChatPacketProto;
+
 /**
  * Created by DELL(mxd) on 2022/1/6 20:32
  */
@@ -11,9 +13,10 @@ public class DefaultMessageProcessor implements MessageProcessor{
     }
 
     @Override
-    public void OnMessage(ChatBody body) {
+    public void OnMessage(ChatPacketProto.ChatPacket body) {
 
-        System.out.println("收到消息: " + body.toJsonString());
+//        System.out.println("收到消息: " + body.toString());
+        System.out.println("收到消息: " + body.getContent());
     }
 
     @Override
@@ -38,7 +41,7 @@ public class DefaultMessageProcessor implements MessageProcessor{
     }
 
     @Override
-    public void connectException() {
-        System.out.println("连接错误");
+    public void connectException(String s) {
+        System.out.println("连接错误: " + s);
     }
 }

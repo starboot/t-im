@@ -13,5 +13,7 @@ public class ImChannelContext {
         this.channelContext = channelContext;
     }
 
-
+    public ChannelContext getChannelContext() {
+        return channelContext;
+    }
 }

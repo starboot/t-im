@@ -6,6 +6,7 @@ import cn.starboot.socket.core.AioConfig;
 import cn.starboot.socket.core.ServerBootstrap;
 import cn.starboot.socket.plugins.HeartPlugin;
 import cn.starboot.socket.plugins.MonitorPlugin;
+import cn.starboot.socket.utils.pool.memory.MemoryPool;
 import cn.starboot.tim.server.protocol.IMServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,7 @@ public class TCPSocketServer extends IMServer {
     public void start() throws IOException {
 
         ServerBootstrap serverBootstrap = new ServerBootstrap(IMServer.ip, IMServer.port, ImServerProtocolHandler.getInstance());
-        serverBootstrap.setMemoryPoolFactory(() -> null)
+        serverBootstrap.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
                 .setThreadNum(1, 4)
                 .setReadBufferSize(1024 * 50)
                 .setWriteBufferSize(1024 * 10, 128)

@@ -17,7 +17,7 @@ public class AuthReqHandler extends ServerAbstractCmdHandler {
 
     @Override
     public CommandType command() {
-        return CommandType.COMMAND_LOGIN;
+        return CommandType.COMMAND_AUTH;
     }
 
     @Override

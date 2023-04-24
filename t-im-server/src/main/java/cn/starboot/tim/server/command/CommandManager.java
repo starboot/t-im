@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +30,14 @@ public class CommandManager {
 
     static{
         try {
-            List<CommandConfiguration> configurations = CommandConfigurationFactory.parseConfiguration();
+            URL resource = CommandManager.class.getResource("command.properties");
+            System.out.println(resource.toString());
+            System.out.println(resource.getPath());
+            List<CommandConfiguration> configurations = CommandConfigurationFactory.parseConfiguration(new File(resource.getPath()));
             if (configurations == null) {
                 System.out.println("使用路径获取配置文件");
                 configurations = CommandConfigurationFactory
-                        .parseConfiguration(new File("cn.starboot.tim.server.command.command.properties"));
+                        .parseConfiguration(new File(".\\cn\\starboot\\tim.server\\command\\command.properties"));
                 if (configurations == null) {
                     System.out.println("配置文件拿不到");
                 }

@@ -66,4 +66,10 @@ public class TIMServerStarter {
         IMConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "cn/starboot/tim/server/command/command.properties";
     }
 
+    public static void main(String[] args) {
+        TIMServerStarter timServerStarter = TIMServerStarter.getInstance();
+        timServerStarter.init();
+        timServerStarter.start();
+    }
+
 }
