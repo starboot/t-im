@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.nio.ByteBuffer;
 
 /**
- * 使用aio-socket，对Google的Protobuff进行解编码
+ * 使用aio-socket，对Google的Protobuf进行解编码
  *
  * Created by DELL(mxd) on 2021/12/24 20:52
  */

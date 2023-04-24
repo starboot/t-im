@@ -15,12 +15,7 @@ public class CommandConfigurationFactory {
 
     private static final String DEFAULT_CLASSPATH_CONFIGURATION_FILE = "command.properties";
 
-    /**
-     * Constructor.
-     */
-    private CommandConfigurationFactory() {
-
-    }
+    private CommandConfigurationFactory() { }
 
     /**
      * Configures a bean from an property file.
