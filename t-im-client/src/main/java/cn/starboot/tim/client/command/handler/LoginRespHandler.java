@@ -11,7 +11,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 /**
  * Created by DELL(mxd) on 2022/1/6 17:14
  */
-public class LoginHandlerClientAbstract extends ClientAbstractCmdHandler {
+public class LoginRespHandler extends ClientAbstractCmdHandler {
 
     @Override
     public ReqCommandType command() {

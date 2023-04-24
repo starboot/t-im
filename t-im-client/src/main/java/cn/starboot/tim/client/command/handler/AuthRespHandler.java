@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2022/1/6 22:38
  */
-public class AuthHandlerClientAbstract extends ClientAbstractCmdHandler {
+public class AuthRespHandler extends ClientAbstractCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthHandlerClientAbstract.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthRespHandler.class);
 
     @Override
     public ReqCommandType command() {

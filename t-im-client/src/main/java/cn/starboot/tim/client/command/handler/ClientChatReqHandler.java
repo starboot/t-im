@@ -15,9 +15,9 @@ import java.util.Objects;
 /**
  * Created by DELL(mxd) on 2021/12/24 17:26
  */
-public class ChatHandlerAbstract extends ClientAbstractCmdHandler {
+public class ClientChatReqHandler extends ClientAbstractCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ChatHandlerAbstract.class);
+    private static final Logger log = LoggerFactory.getLogger(ClientChatReqHandler.class);
 
     @Override
     public ReqCommandType command() {

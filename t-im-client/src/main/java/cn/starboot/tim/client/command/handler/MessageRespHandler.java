@@ -10,27 +10,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by DELL(mxd) on 2022/1/6 22:40
+ * Created by DELL(mxd) on 2022/1/6 22:39
  */
-public class OnlineUserHandlerAbstract extends ClientAbstractCmdHandler {
+public class MessageRespHandler extends ClientAbstractCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(OnlineUserHandlerAbstract.class);
+    private static final Logger log = LoggerFactory.getLogger(MessageRespHandler.class);
 
     @Override
     public ReqCommandType command() {
-        return ReqCommandType.COMMAND_RESP_REQ;
+        return ReqCommandType.COMMAND_MESSAGE_REQ;
     }
 
     @Override
     public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
-//        RespBody respBody = TIMClient.processor.instanceofHandler(packet, RespBody.class);
-//        if (ObjectUtil.isEmpty(respBody)) {
+//        RespBody body = TIMClient.processor.instanceofHandler(packet, RespBody.class);
+//        if (ObjectUtil.isEmpty(body)) {
 //            log.error("消息包格式化出错");
 //            return null;
 //        }
-//        if (respBody.getCode() == ImStatus.C10005.getCode()) {
-//            JSONArray convert = Convert.convert(JSONArray.class, respBody.getData());
-//            processor(channelContext).getOnlineUserIdAfter(convert.toJSONString());
+//        if (body.getCode() == ImStatus.C10016.getCode() || body.getCode() == ImStatus.C10018.getCode()) {
+//            if (ObjectUtil.isNotEmpty(body.getData())) {
+//                JSONObject data = (JSONObject) body.getData();
+//                processor(channelContext).getMessageDataAfter(data.toJSONString());
+//            }
 //        }
         return null;
     }
