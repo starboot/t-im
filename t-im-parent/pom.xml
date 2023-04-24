@@ -46,7 +46,7 @@
         <logback.version>1.2.9</logback.version>
         <lombok.version>1.18.20</lombok.version>
         <spring-boot.version>2.6.2</spring-boot.version>
-        <hutool.version>5.7.15</hutool.version>
+        <hutool.version>5.8.18</hutool.version>
         <protobuff.version>3.21.4</protobuff.version>
         <grpc.version>1.27.2</grpc.version>
         <redission.version>3.13.5</redission.version>

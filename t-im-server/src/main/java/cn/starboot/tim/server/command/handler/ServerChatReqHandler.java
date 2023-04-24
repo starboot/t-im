@@ -2,6 +2,7 @@ package cn.starboot.tim.server.command.handler;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.ReqCommandType;
@@ -32,8 +33,9 @@ public class ServerChatReqHandler extends ServerAbstractCmdHandler {
             log.error("消息包格式化出错");
             return null;
         }
-        // 聊天类型int类型(0:未知,1:公聊,2:私聊
+        // 聊天类型类型 (未知, 群聊, 私聊
         if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.GROUP
+				&& StrUtil.isEmpty(chatPacket.getGroupId())
 				&& chatPacket.getGroupId().length() != 0
 				&& !chatPacket.getGroupId().equals("")) {
             if (IMServer.isStore) {
