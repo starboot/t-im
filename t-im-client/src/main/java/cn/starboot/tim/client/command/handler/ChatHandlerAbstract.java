@@ -1,6 +1,6 @@
 package cn.starboot.tim.client.command.handler;
 
-import cn.starboot.tim.client.command.AbstractClientCmdHandler;
+import cn.starboot.tim.client.command.ClientAbstractCmdHandler;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqCommandType;
@@ -15,9 +15,9 @@ import java.util.Objects;
 /**
  * Created by DELL(mxd) on 2021/12/24 17:26
  */
-public class ChatHandler extends AbstractClientCmdHandler {
+public class ChatHandlerAbstract extends ClientAbstractCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ChatHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(ChatHandlerAbstract.class);
 
     @Override
     public ReqCommandType command() {

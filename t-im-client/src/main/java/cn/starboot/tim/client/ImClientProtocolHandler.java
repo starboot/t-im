@@ -3,7 +3,7 @@ package cn.starboot.tim.client;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.StateMachineEnum;
 import cn.starboot.socket.core.ChannelContext;
-import cn.starboot.tim.client.command.AbstractClientCmdHandler;
+import cn.starboot.tim.client.command.ClientAbstractCmdHandler;
 import cn.starboot.tim.client.command.CommandManager;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
@@ -41,7 +41,7 @@ public class ImClientProtocolHandler extends TIMPrivateTcpProtocol {
             // 消息处理
             ImPacket imPacket = (ImPacket) packet;
             ReqCommandType reqCommandType = imPacket.getReqCommandType();
-            AbstractClientCmdHandler cmdHandler = CommandManager.getCommand(reqCommandType);
+            ClientAbstractCmdHandler cmdHandler = CommandManager.getCommand(reqCommandType);
             ImChannelContext imChannelContext = new ImChannelContext(channelContext);
             try {
                 cmdHandler.handler(imPacket, imChannelContext);

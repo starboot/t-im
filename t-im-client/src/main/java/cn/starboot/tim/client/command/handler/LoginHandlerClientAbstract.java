@@ -1,7 +1,7 @@
 package cn.starboot.tim.client.command.handler;
 
 
-import cn.starboot.tim.client.command.AbstractClientCmdHandler;
+import cn.starboot.tim.client.command.ClientAbstractCmdHandler;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqCommandType;
@@ -11,7 +11,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 /**
  * Created by DELL(mxd) on 2022/1/6 17:14
  */
-public class LoginHandlerClient extends AbstractClientCmdHandler {
+public class LoginHandlerClientAbstract extends ClientAbstractCmdHandler {
 
     @Override
     public ReqCommandType command() {

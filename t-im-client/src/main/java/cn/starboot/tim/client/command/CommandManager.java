@@ -22,7 +22,7 @@ public class CommandManager {
     /**
      * 通用cmd处理命令
      */
-    private static final Map<Integer, AbstractClientCmdHandler> handlerMap = new HashMap<>();
+    private static final Map<Integer, ClientAbstractCmdHandler> handlerMap = new HashMap<>();
     private static final Logger log = LoggerFactory.getLogger(CommandManager.class);
 
     private CommandManager(){};
@@ -60,12 +60,12 @@ public class CommandManager {
 
     private static void init(List<CommandConfiguration> configurations) throws Exception{
         for(CommandConfiguration configuration : configurations){
-            AbstractClientCmdHandler cmdHandler = (AbstractClientCmdHandler) (Class.forName(configuration.getCmdHandler())).newInstance();
+            ClientAbstractCmdHandler cmdHandler = (ClientAbstractCmdHandler) (Class.forName(configuration.getCmdHandler())).newInstance();
             registerCommand(cmdHandler);
         }
     }
 
-    public static void registerCommand(AbstractClientCmdHandler imCommandHandler) throws Exception{
+    public static void registerCommand(ClientAbstractCmdHandler imCommandHandler) throws Exception{
         if(imCommandHandler == null || imCommandHandler.command() == null) {
             return;
         }
@@ -81,7 +81,7 @@ public class CommandManager {
         }
     }
 
-    public static AbstractClientCmdHandler removeCommand(ReqCommandType command){
+    public static ClientAbstractCmdHandler removeCommand(ReqCommandType command){
         if(command == null) {
             return null;
         }
@@ -94,14 +94,14 @@ public class CommandManager {
     }
 
     public static <T> T getCommand(ReqCommandType command, Class<T> clazz){
-        AbstractClientCmdHandler cmdHandler = getCommand(command);
+        ClientAbstractCmdHandler cmdHandler = getCommand(command);
         if(cmdHandler != null){
             return (T) cmdHandler;
         }
         return null;
     }
 
-    public static AbstractClientCmdHandler getCommand(ReqCommandType command){
+    public static ClientAbstractCmdHandler getCommand(ReqCommandType command){
         if(command == null) {
             return null;
         }

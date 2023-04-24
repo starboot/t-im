@@ -1,6 +1,6 @@
 package cn.starboot.tim.client.command.handler;
 
-import cn.starboot.tim.client.command.AbstractClientCmdHandler;
+import cn.starboot.tim.client.command.ClientAbstractCmdHandler;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqCommandType;
@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2022/1/6 22:39
  */
-public class MessageDataHandler extends AbstractClientCmdHandler {
+public class MessageDataHandlerAbstract extends ClientAbstractCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(MessageDataHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(MessageDataHandlerAbstract.class);
 
     @Override
     public ReqCommandType command() {
