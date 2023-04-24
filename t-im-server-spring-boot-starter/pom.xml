@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>t-im-parent</artifactId>
-        <groupId>io.github.mxd888</groupId>
+        <groupId>cn.starboot.tim</groupId>
         <version>3.0.0.v20221001-RELEASE</version>
         <relativePath>../t-im-parent/pom.xml</relativePath>
     </parent>
@@ -20,7 +20,7 @@
             <version>2.6.2</version>
         </dependency>
         <dependency>
-            <groupId>io.github.mxd888</groupId>
+            <groupId>cn.starboot.tim</groupId>
             <artifactId>t-im-server</artifactId>
         </dependency>
     </dependencies>
