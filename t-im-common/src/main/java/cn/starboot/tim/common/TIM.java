@@ -1,19 +1,13 @@
-package cn.starboot.tim.server.helper;
+package cn.starboot.tim.common;
 
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
-import cn.starboot.tim.server.protocol.tcp.TCPSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 /**
- * 封装tio，使得集群发送和单体发送集中管理
+ * 封装AIO实体类，使得集群发送和单体发送集中管理
  * Created by DELL(mxd) on 2021/12/25 23:21
  */
 public class TIM {
