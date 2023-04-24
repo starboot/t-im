@@ -32,10 +32,7 @@ public enum ReqCommandType {
     COMMAND_USERS_REQ(107,   "获取用户情况"),
 
     // 获取持久化聊天消息
-    COMMAND_MESSAGE_REQ(108, "获取持久化聊天消息"),
-
-    // 响应命令码
-    COMMAND_RESP_REQ(109,    "响应命令码");
+    COMMAND_MESSAGE_REQ(108, "获取持久化聊天消息");
 
     /**
      * 命令码数字索引
@@ -94,7 +91,6 @@ public enum ReqCommandType {
             case 106: reqCommandType = COMMAND_ACK_REQ;     break;
             case 107: reqCommandType = COMMAND_USERS_REQ;   break;
             case 108: reqCommandType = COMMAND_MESSAGE_REQ; break;
-            case 109: reqCommandType = COMMAND_RESP_REQ;    break;
         }
         return reqCommandType;
     }
