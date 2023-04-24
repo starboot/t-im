@@ -1,13 +1,13 @@
 package cn.starboot.tim.common.banner;
 
-import cn.starboot.tim.common.ImConst;
+import cn.starboot.tim.common.ImConfig;
 
 import java.io.PrintStream;
 
 /**
  * Created by DELL(mxd) on 2021/12/24 13:13
  */
-public class TimBanner implements Banner, ImConst {
+public class TimBanner implements Banner {
 
     private static final String BANNER =
             "  _______       _____  ____    ____  \n" +
@@ -18,13 +18,20 @@ public class TimBanner implements Banner, ImConst {
             "    |_|        |_____||_____||_____| \n" +
             " ";
 
-    private static final String TIM = "\033[036m :: "+ImConst.name+" :: \033[0m";
+    private final ImConfig config;
 
-    @Override
+	public TimBanner(ImConfig config) {
+		this.config = config;
+	}
+
+	@Override
     public void printBanner(PrintStream printStream) {
         printStream.println(BANNER);
-        String version  = " (\033[030m" + ImConst.Version + "\033[0m)";
-        printStream.println(TIM+version+"\n");
+        printStream.println(getTimVersion(this.config.getName(), this.config.getVersion()));
     }
+
+    private String getTimVersion(String name, String version) {
+		return "\033[036m :: "+name+" :: \033[0m" + version;
+	}
 
 }

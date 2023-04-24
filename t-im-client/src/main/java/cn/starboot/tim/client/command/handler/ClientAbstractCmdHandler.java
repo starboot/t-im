@@ -5,7 +5,6 @@ import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.client.intf.DefaultMessageProcessor;
 import cn.starboot.tim.client.intf.MessageProcessor;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImConst;
 import cn.starboot.tim.common.command.handler.CmdHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:45
  */
-public abstract class ClientAbstractCmdHandler implements CmdHandler, ImConst {
+public abstract class ClientAbstractCmdHandler implements CmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ClientAbstractCmdHandler.class);
 

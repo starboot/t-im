@@ -34,10 +34,8 @@ public class ServerChatReqHandler extends ServerAbstractCmdHandler {
             return null;
         }
         // 聊天类型类型 (未知, 群聊, 私聊
-        if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.GROUP
-				&& StrUtil.isEmpty(chatPacket.getGroupId())
-				&& chatPacket.getGroupId().length() != 0
-				&& !chatPacket.getGroupId().equals("")) {
+        if (ObjectUtil.equals(chatPacket.getChatType(), ChatPacketProto.ChatPacket.ChatType.GROUP)
+				&& StrUtil.isNotEmpty(chatPacket.getGroupId())) {
             if (IMServer.isStore) {
                 log.debug("群聊消息--开启了持久化需要将消息保存");
             }
@@ -48,11 +46,10 @@ public class ServerChatReqHandler extends ServerAbstractCmdHandler {
 //                return channelContext != context;
 //            }, false);
         }
-        if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.PRIVATE
-				&& chatPacket.getToId().length() != 0) {
+        if (ObjectUtil.equals(chatPacket.getChatType(), ChatPacketProto.ChatPacket.ChatType.PRIVATE)
+				&& StrUtil.isNotEmpty(chatPacket.getToId())) {
             System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
-            Aio.send(channelContext.getChannelContext(), new ImPacket(ReqCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray()));
-            String s = DateTime.now().toString("YYYY-MM-DD");
+            send(channelContext, ReqCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray());
             if (IMServer.isStore) {
                 log.debug("私聊消息--开启了持久化需要将消息保存");
             }

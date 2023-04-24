@@ -10,7 +10,7 @@ import cn.starboot.socket.utils.pool.memory.MemoryPool;
 import cn.starboot.tim.client.intf.Callback;
 import cn.starboot.tim.client.intf.DefaultMessageProcessor;
 import cn.starboot.tim.client.intf.MessageProcessor;
-import cn.starboot.tim.common.IMConfig;
+import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.entity.User;
 import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
@@ -90,7 +90,7 @@ public class TIMClient {
     }
     private static void init(Options option) {
         // 配置类
-        IMConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "org\\tim\\client\\command\\command.properties";
+//        ImConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "org\\tim\\client\\command\\command.properties";
 //        if (option.getExecutor() != null) {
 //            executor = option.getExecutor();
 //        }else {

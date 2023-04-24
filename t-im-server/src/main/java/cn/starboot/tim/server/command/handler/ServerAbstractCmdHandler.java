@@ -7,4 +7,5 @@ import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
  */
 public abstract class ServerAbstractCmdHandler extends AbstractCmdHandler {
 
+
 }

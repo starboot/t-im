@@ -20,8 +20,8 @@ public interface CmdHandler {
     /**
      * 处理Cmd命令
      * @param imPacket          IM消息包
-     * @param channelContext 通道上下文
+     * @param imChannelContext  通道上下文
      * @return .
      */
-    ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException;
+    ImPacket handler(ImPacket imPacket, ImChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException;
 }

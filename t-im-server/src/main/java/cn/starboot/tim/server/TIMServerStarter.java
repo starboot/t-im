@@ -2,7 +2,7 @@ package cn.starboot.tim.server;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.utils.SystemTimer;
-import cn.starboot.tim.common.IMConfig;
+import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.server.protocol.IMServer;
 import cn.starboot.tim.server.protocol.tcp.TCPSocketServer;
 import org.slf4j.Logger;
@@ -63,7 +63,7 @@ public class TIMServerStarter {
             log.debug("开启心跳发送");
         }
         // 配置服务器读取command的路径
-        IMConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "cn/starboot/tim/server/command/command.properties";
+//        ImConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "cn/starboot/tim/server/command/command.properties";
     }
 
     public static void main(String[] args) {

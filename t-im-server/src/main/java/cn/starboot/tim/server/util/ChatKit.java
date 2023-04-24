@@ -1,11 +1,8 @@
 
 package cn.starboot.tim.server.util;
 
-
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.core.ChannelContext;
-import cn.starboot.tim.common.ImConst;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.util.json.JsonKit;
 import org.slf4j.Logger;
@@ -19,7 +16,7 @@ import java.nio.charset.StandardCharsets;
  *
  */
 public class ChatKit {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(ChatKit.class);
 
 	/**
