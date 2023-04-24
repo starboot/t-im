@@ -1,6 +1,7 @@
 package cn.starboot.tim.common.packet;
 
 import cn.starboot.socket.Packet;
+import cn.starboot.tim.common.command.ReqCommandType;
 
 import java.util.Arrays;
 

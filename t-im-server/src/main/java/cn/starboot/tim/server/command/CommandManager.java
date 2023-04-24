@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.tim.common.command.CommandConfiguration;
 import cn.starboot.tim.common.command.CommandConfigurationFactory;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.packet.ReqCommandType;
+import cn.starboot.tim.common.command.ReqCommandType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

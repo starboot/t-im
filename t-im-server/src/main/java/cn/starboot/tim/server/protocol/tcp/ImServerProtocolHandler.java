@@ -7,7 +7,7 @@ import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
 import cn.starboot.tim.common.command.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.packet.ReqCommandType;
+import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.server.command.CommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;

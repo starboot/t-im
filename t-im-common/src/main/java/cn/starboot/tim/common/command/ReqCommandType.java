@@ -1,4 +1,4 @@
-package cn.starboot.tim.common.packet;
+package cn.starboot.tim.common.command;
 
 /**
  * TIM系统内置命令状态码

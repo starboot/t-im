@@ -6,7 +6,7 @@ import cn.starboot.tim.common.ImStatus;
 import cn.starboot.tim.common.entity.Group;
 import cn.starboot.tim.common.entity.User;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.packet.ReqCommandType;
+import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;

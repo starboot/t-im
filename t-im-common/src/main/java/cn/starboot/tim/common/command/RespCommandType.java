@@ -1,4 +1,4 @@
-package cn.starboot.tim.common.packet;
+package cn.starboot.tim.common.command;
 
 /**
  * TIM消息响应命令码

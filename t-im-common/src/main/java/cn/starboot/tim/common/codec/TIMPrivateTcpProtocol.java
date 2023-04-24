@@ -10,7 +10,7 @@ import cn.starboot.socket.exception.AioEncoderException;
 import cn.starboot.socket.intf.AioHandler;
 import cn.starboot.socket.utils.AIOUtil;
 import cn.starboot.socket.utils.pool.memory.MemoryUnit;
-import cn.starboot.tim.common.packet.ReqCommandType;
+import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

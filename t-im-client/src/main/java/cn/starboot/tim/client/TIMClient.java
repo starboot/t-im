@@ -12,7 +12,7 @@ import cn.starboot.tim.client.intf.DefaultMessageProcessor;
 import cn.starboot.tim.client.intf.MessageProcessor;
 import cn.starboot.tim.common.IMConfig;
 import cn.starboot.tim.common.entity.User;
-import cn.starboot.tim.common.packet.ReqCommandType;
+import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import org.slf4j.Logger;

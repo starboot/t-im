@@ -3,7 +3,7 @@ package cn.starboot.tim.server.command.handler;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.packet.ReqCommandType;
+import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ClosePacketProto;
 import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
