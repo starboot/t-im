@@ -3,6 +3,7 @@ package cn.starboot.tim.server.command.handler;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,15 @@ public class AuthReqHandler extends ServerAbstractCmdHandler {
 //            RespBody respBody = new RespBody(Command.COMMAND_AUTH_RESP, ImStatus.C10010);
 //            TIM.send(channelContext, new ImPacket(Command.COMMAND_AUTH_RESP, respBody.toByte()));
 //        }
-        return null;
+        return new ImPacket(ReqCommandType.COMMAND_REQ_RESP,
+				RespPacketProto
+						.RespPacket
+						.newBuilder()
+						.setIsSyn(false)
+						.setCode(1)
+						.setMsg("")
+						.build()
+						.toByteArray());
     }
 
 }
