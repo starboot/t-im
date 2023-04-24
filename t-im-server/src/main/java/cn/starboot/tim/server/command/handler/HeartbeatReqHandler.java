@@ -8,6 +8,9 @@ import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
 import com.google.protobuf.ByteString;
 
 /**
+ * 虽然aio-socket在TCP层面带有心跳插件
+ * 但是如果客户端未使用aio-socket的client端，则需要定时发送心跳请求
+ *
  * Created by DELL(mxd) on 2021/12/25 14:08
  */
 public class HeartbeatReqHandler extends ServerAbstractCmdHandler {
