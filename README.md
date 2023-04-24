@@ -3,12 +3,19 @@
 [![输开源协议](https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg "Apache")](https://www.apache.org/licenses/LICENSE-2.0)
 ## t-im简介
 
-t-im通讯内核采用tio，t-im的设计思想(一套业务逻辑代码解决所有协议的业务逻辑)，
-采用了t-io的websocket生态,服务器处理多协议是监听了多端口，与监听相同端口再做协议判别其实是殊途同归，
+t-im通讯内核采用自研通讯内核aio-socket，t-im的设计思想(一套业务逻辑代码解决所有协议的业务逻辑)，
+采用了aio-socket的生态,服务器处理多协议是监听了多端口，与监听相同端口再做协议判别其实是殊途同归，
 采用JAVA语言开发的轻量、高性能的IM服务器，Linux OS一核心CPU、2G内存可支持30万用户在线，
 主要目标降低即时通讯门槛，快速打造低成本接入在线IM系统，
 通过统一的的消息格式就可以实现不同协议间的消息发送，如内置(Http、Websocket、Tcp自定义IM协议)，
 并提供通过http协议的api接口进行消息发送无需关心接收端属于什么协议，一套后端业务逻辑处理器搞定一切！  
+
+## 新版本重大更新
+最新版本v3.0将采用全新自研AIO通讯组件aio-socket，对底层知根知底精准可控。aio-socket号称性能小怪兽，
+单击流量并发1.1GB/s，消息处理速度800w/s；未来aio-socket也会针对IM做底层优化，任何功能模块在适合TIM
+的情况下都将会从(底层内核:aio-socket) + (IM框架：t-im)联动升级。为t-im带来前所未有的内核使用体验。
+<br>
+第三代t-im仍在继续开发中，不久将会与大家见面，尽情期待......
 
 ## 主要特点
         1、高性能服务器，采用异步非阻塞AIO通讯
@@ -109,17 +116,17 @@ t-im通讯内核采用tio，t-im的设计思想(一套业务逻辑代码解决�
 maven 坐标，普通开发引入它即可
 ```text
 <dependency>
-    <groupId>io.github.mxd888</groupId>
+    <groupId>cn.starboot.tim</groupId>
     <artifactId>t-im-server</artifactId>
-    <version>2.1.7.v20220120-RELEASE</version>
+    <version>3.0.0.v20221001-RELEASE</version>
 </dependency>
 ```
 SpringBoot 开发：只需要引入springboot依赖，在启动类上添加注解@EnableIM，并将t-im-server-demo下的tim.properties文件拷贝至springboot项目的resources目录下
 ```text
 <dependency>
-    <groupId>io.github.mxd888</groupId>
+    <groupId>cn.starboot.tim</groupId>
     <artifactId>t-im-server-spring-boot-starter</artifactId>
-    <version>2.1.7.v20220120-RELEASE</version>
+    <version>3.0.0.v20221001-RELEASE</version>
 </dependency>
 ```
 
@@ -127,9 +134,9 @@ SpringBoot 开发：只需要引入springboot依赖，在启动类上添加注�
 maven 坐标
 ```text
 <dependency>
-    <groupId>io.github.mxd888</groupId>
+    <groupId>cn.starboot.tim</groupId>
     <artifactId>t-im-client</artifactId>
-    <version>2.1.7.v20220120-RELEASE</version>
+    <version>3.0.0.v20221001-RELEASE</version>
 </dependency>
 ```
 
