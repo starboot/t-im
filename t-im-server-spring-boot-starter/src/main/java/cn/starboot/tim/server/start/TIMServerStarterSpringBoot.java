@@ -1,6 +1,5 @@
 package cn.starboot.tim.server.start;
 
-
 import cn.starboot.tim.server.TIMServerStarter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
