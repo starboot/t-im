@@ -20,37 +20,33 @@ import java.util.Map;
  */
 public class CommandManager {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(CommandManager.class);
 
     /**
-     * 通用cmd处理命令
+     * 通用cmd处理命令与命令码的Map映射
      */
     private static final Map<ReqCommandType, ServerAbstractCmdHandler> handlerMap = new HashMap<>();
-    private static final Logger log = LoggerFactory.getLogger(CommandManager.class);
 
     private CommandManager(){};
 
     static{
         try {
-            URL resource = CommandManager.class.getResource("command.properties");
-            System.out.println(resource.toString());
-            System.out.println(resource.getPath());
-            List<CommandConfiguration> configurations = CommandConfigurationFactory.parseConfiguration(new File(resource.getPath()));
+            URL url = CommandManager.class.getResource("command.properties");
+			if (LOGGER.isInfoEnabled()) {
+				LOGGER.info("Configuring command from path: {}", url.getPath());
+			}
+            List<CommandConfiguration> configurations = CommandConfigurationFactory.parseConfiguration(url);
             if (configurations == null) {
-                System.out.println("使用路径获取配置文件");
-                configurations = CommandConfigurationFactory
-                        .parseConfiguration(new File(".\\cn\\starboot\\tim.server\\command\\command.properties"));
-                if (configurations == null) {
-                    System.out.println("配置文件拿不到");
+                configurations = CommandConfigurationFactory.parseConfiguration(new File(url.getPath()));
+                if (configurations == null && LOGGER.isErrorEnabled()) {
+					LOGGER.error("Configuring command get failed");
                 }
             }
-//            List<CommandConfiguration> configurations = new ArrayList<>();
-//            for (Command c : Command.values()
-//                 ) {
-//                configurations.add(new CommandConfiguration(c.getCmd(), c.getPath()));
-//            }
-            init(configurations);
+            if (configurations != null) {
+				init(configurations);
+			}
         } catch (Exception e) {
-            log.error(e.toString(),e);
+			LOGGER.error(e.toString());
         }
     }
 
@@ -69,10 +65,9 @@ public class CommandManager {
         if(ObjectUtil.isNull(ReqCommandType.getCommandTypeByCode(command.getCode()))) {
             throw new ImException("failed to register cmd handler, illegal cmd code:" + command + ",use Command.addAndGet () to add in the enumerated Command class!");
         }
-        if(ObjectUtil.isNull(handlerMap.get(command)))
-        {
+        if(ObjectUtil.isNull(handlerMap.get(command))) {
             handlerMap.put(command, imCommandHandler);
-        }else{
+        }else {
             throw new ImException("cmd code:"+command+",has been registered, please correct!");
         }
     }
@@ -81,8 +76,7 @@ public class CommandManager {
         if(command == null) {
             return null;
         }
-        if(handlerMap.get(command) != null)
-        {
+        if(handlerMap.get(command) != null) {
             return handlerMap.remove(command);
         }
         return null;

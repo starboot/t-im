@@ -30,7 +30,7 @@ public class CommandConfigurationFactory {
             throw new Exception("Attempt to configure command from null file.");
         }
         LOG.debug("Configuring command from file: {}", file);
-        List<CommandConfiguration> configurations  = null;
+        List<CommandConfiguration> configurations;
         InputStream input = null;
         try {
             input = new BufferedInputStream(new FileInputStream(file));
@@ -71,6 +71,7 @@ public class CommandConfigurationFactory {
         }
         return configurations;
     }
+
     /**
      * Configures a bean from an property file in the classpath.
      */
@@ -90,8 +91,7 @@ public class CommandConfigurationFactory {
                     + " found in the classpath: {}", url);
 
         }
-        List<CommandConfiguration> configurations = parseConfiguration(url);
-        return configurations;
+        return parseConfiguration(url);
     }
 
     /**
