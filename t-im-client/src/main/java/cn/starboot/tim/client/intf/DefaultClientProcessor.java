@@ -5,7 +5,7 @@ import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 /**
  * Created by DELL(mxd) on 2022/1/6 20:32
  */
-public class DefaultMessageProcessor implements MessageProcessor{
+public class DefaultClientProcessor implements ClientProcessor {
 
     @Override
     public void afterLogin() {

@@ -9,7 +9,18 @@ import cn.starboot.tim.common.ImConfig;
  */
 public class ImServerChannelContext extends ImChannelContext {
 
-	public ImServerChannelContext(ChannelContext channelContext, ImConfig config) {
-		super(channelContext, config);
+	/**
+	 * TIM 服务器配置信息
+	 */
+	private final ImServerConfig config;
+
+	public ImServerChannelContext(ChannelContext channelContext, ImServerConfig config) {
+		super(channelContext);
+		this.config = config;
+	}
+
+	@Override
+	public ImConfig getConfig() {
+		return this.config;
 	}
 }

@@ -1,8 +1,10 @@
-package cn.starboot.tim.client;
+package cn.starboot.tim.client.protocol;
 
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.StateMachineEnum;
 import cn.starboot.socket.core.ChannelContext;
+import cn.starboot.tim.client.ImClientChannelContext;
+import cn.starboot.tim.client.ImClientConfig;
 import cn.starboot.tim.client.command.handler.ClientAbstractCmdHandler;
 import cn.starboot.tim.client.command.CommandManager;
 import cn.starboot.tim.common.ImChannelContext;
@@ -42,7 +44,7 @@ public class ImClientProtocolHandler extends TIMPrivateTcpProtocol {
             ImPacket imPacket = (ImPacket) packet;
             ReqCommandType reqCommandType = imPacket.getReqCommandType();
             ClientAbstractCmdHandler cmdHandler = CommandManager.getCommand(reqCommandType);
-            ImChannelContext imChannelContext = new ImChannelContext(channelContext);
+            ImChannelContext imChannelContext = new ImClientChannelContext(channelContext, new ImClientConfig(null));
             try {
                 cmdHandler.handler(imPacket, imChannelContext);
             } catch (ImException | InvalidProtocolBufferException e) {

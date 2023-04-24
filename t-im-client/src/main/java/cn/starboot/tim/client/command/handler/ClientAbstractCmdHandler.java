@@ -2,8 +2,8 @@ package cn.starboot.tim.client.command.handler;
 
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.ChannelContext;
-import cn.starboot.tim.client.intf.DefaultMessageProcessor;
-import cn.starboot.tim.client.intf.MessageProcessor;
+import cn.starboot.tim.client.intf.DefaultClientProcessor;
+import cn.starboot.tim.client.intf.ClientProcessor;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.handler.CmdHandler;
 import org.slf4j.Logger;
@@ -17,14 +17,14 @@ public abstract class ClientAbstractCmdHandler implements CmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ClientAbstractCmdHandler.class);
 
-    protected MessageProcessor processor(ImChannelContext channelContext){
+    protected ClientProcessor processor(ImChannelContext channelContext){
 //        TioConfig tioConfig = channelContext.getTioConfig();
 //        if (tioConfig instanceof TIMClientConfig) {
 //            TIMClientConfig clientConfig = (TIMClientConfig) tioConfig;
 //            return clientConfig.getProcessor();
 //        }
 //        log.error("未获取到MessageProcessor实现类");
-        return new DefaultMessageProcessor();
+        return new DefaultClientProcessor();
     }
 
     protected void synHandler(ChannelContext channelContext, Packet packet, Integer ack) {

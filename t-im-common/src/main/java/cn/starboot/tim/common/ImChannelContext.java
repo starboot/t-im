@@ -5,30 +5,22 @@ import cn.starboot.socket.core.ChannelContext;
 /**
  * Created by DELL(mxd) on 2022/9/4 17:02
  */
-public class ImChannelContext {
+public abstract class ImChannelContext {
 
 	/**
 	 * 通讯对象
 	 */
     private final ChannelContext channelContext;
 
-	/**
-	 * TIM的配置信息
-	 */
-	private final ImConfig config;
-
-	public ImChannelContext(ChannelContext channelContext, ImConfig config) {
+	public ImChannelContext(ChannelContext channelContext) {
 		this.channelContext = channelContext;
-		this.config = config;
 	}
 
 	public ChannelContext getChannelContext() {
         return this.channelContext;
     }
 
-	public ImConfig getConfig() {
-		return this.config;
-	}
+	public abstract ImConfig getConfig();
 
 	public String getImChannelContextId() {
 		return this.channelContext.getId();
