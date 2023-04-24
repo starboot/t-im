@@ -6,7 +6,7 @@ import cn.starboot.tim.client.intf.DefaultMessageProcessor;
 import cn.starboot.tim.client.intf.MessageProcessor;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImConst;
-import cn.starboot.tim.common.command.CmdHandler;
+import cn.starboot.tim.common.command.handler.CmdHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

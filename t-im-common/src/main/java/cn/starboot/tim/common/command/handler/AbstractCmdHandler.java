@@ -1,4 +1,4 @@
-package cn.starboot.tim.common.command;
+package cn.starboot.tim.common.command.handler;
 
 
 import cn.starboot.tim.common.ImConst;

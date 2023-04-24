@@ -5,7 +5,7 @@ import cn.starboot.socket.StateMachineEnum;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
-import cn.starboot.tim.common.command.AbstractCmdHandler;
+import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
