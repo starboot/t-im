@@ -4,7 +4,6 @@ import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.HeartPacketProto;
-import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
 import com.google.protobuf.ByteString;
 
 /**

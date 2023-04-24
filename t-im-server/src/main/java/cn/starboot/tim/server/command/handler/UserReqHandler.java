@@ -8,7 +8,6 @@ import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.common.packet.proto.UsersPacketProto;
-import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
 import cn.starboot.tim.server.protocol.IMServer;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;

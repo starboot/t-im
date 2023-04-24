@@ -1,4 +1,4 @@
-package cn.starboot.tim.server.command;
+package cn.starboot.tim.server.command.handler;
 
 import cn.starboot.tim.common.command.AbstractCmdHandler;
 

@@ -5,6 +5,7 @@ import cn.starboot.tim.common.command.CommandConfiguration;
 import cn.starboot.tim.common.command.CommandConfigurationFactory;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.server.command.handler.ServerAbstractCmdHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

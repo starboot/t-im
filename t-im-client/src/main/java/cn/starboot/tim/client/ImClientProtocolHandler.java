@@ -3,7 +3,7 @@ package cn.starboot.tim.client;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.StateMachineEnum;
 import cn.starboot.socket.core.ChannelContext;
-import cn.starboot.tim.client.command.ClientAbstractCmdHandler;
+import cn.starboot.tim.client.command.handler.ClientAbstractCmdHandler;
 import cn.starboot.tim.client.command.CommandManager;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;

@@ -1,5 +1,6 @@
 package cn.starboot.tim.client.command;
 
+import cn.starboot.tim.client.command.handler.ClientAbstractCmdHandler;
 import cn.starboot.tim.common.command.CommandConfiguration;
 import cn.starboot.tim.common.command.CommandConfigurationFactory;
 import cn.starboot.tim.common.exception.ImException;

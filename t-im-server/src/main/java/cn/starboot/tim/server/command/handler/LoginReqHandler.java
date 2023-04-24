@@ -12,7 +12,6 @@ import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.common.packet.proto.LoginPacketProto;
 import cn.starboot.tim.server.command.CommandManager;
-import cn.starboot.tim.server.command.ServerAbstractCmdHandler;
 import cn.starboot.tim.server.protocol.IMServer;
 import cn.starboot.tim.server.protocol.tcp.TCPSocketServer;
 import com.google.protobuf.InvalidProtocolBufferException;

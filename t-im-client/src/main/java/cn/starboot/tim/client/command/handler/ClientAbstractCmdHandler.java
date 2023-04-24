@@ -1,4 +1,4 @@
-package cn.starboot.tim.client.command;
+package cn.starboot.tim.client.command.handler;
 
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.ChannelContext;
