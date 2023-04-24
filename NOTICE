@@ -25,6 +25,14 @@ the 'license' directory of the distribution file, for the license terms of the
 components that this product depends on.
 
 -------------------------------------------------------------------------------
+This product contains a modified version of high performance network
+application framework based on Java AIO, which can be obtained at:
+
+  * LICENSE:
+    * license/LICENSE.aio-socket.txt (Public Domain)
+  * HOMEPAGE:
+    * https://gitee.com/starboot/aio-socket/
+
 This product contains the extensions to Java Collections Framework which has
 been derived from the works by JSR-166 EG, Doug Lea, and Jason T. Greene:
 
