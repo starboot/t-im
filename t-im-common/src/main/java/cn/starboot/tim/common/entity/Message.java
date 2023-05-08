@@ -1,6 +1,6 @@
 package cn.starboot.tim.common.entity;
 
-import cn.starboot.tim.common.util.json.JsonKit;
+import cn.starboot.socket.utils.json.JsonUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
@@ -29,11 +29,11 @@ public class Message implements Serializable {
     }
 
     public String toJsonString() {
-        return JsonKit.toJSONString(this);
+        return JsonUtil.toJSONString(this);
     }
 
     public byte[] toByte() {
-        return JsonKit.toJsonBytes(this);
+        return JsonUtil.toJsonBytes(this);
     }
 
     public abstract static class Builder<T extends Message, B extends Builder<T, B>> {

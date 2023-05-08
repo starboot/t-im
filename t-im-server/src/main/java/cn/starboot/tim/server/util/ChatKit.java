@@ -3,8 +3,8 @@ package cn.starboot.tim.server.util;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.core.ChannelContext;
+import cn.starboot.socket.utils.json.JsonUtil;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
-import cn.starboot.tim.common.util.json.JsonKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,7 @@ public class ChatKit {
 		ChatPacketProto.ChatPacket chatReqBody = null;
 		try{
 			String text = new String(body, StandardCharsets.UTF_8);
-		    chatReqBody = JsonKit.toBean(text,ChatPacketProto.ChatPacket.class);
+		    chatReqBody = JsonUtil.toBean(text,ChatPacketProto.ChatPacket.class);
 			if(chatReqBody != null){
 				if(chatReqBody.getCreateTime() == 0) {
 //					chatReqBody.setCreateTime(System.currentTimeMillis());

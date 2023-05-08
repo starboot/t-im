@@ -1,7 +1,6 @@
 package cn.starboot.tim.server.command;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.starboot.socket.maintain.MaintainManager;
 import cn.starboot.socket.utils.config.Configuration;
 import cn.starboot.socket.utils.config.ConfigurationFactory;
 import cn.starboot.tim.common.exception.ImException;
