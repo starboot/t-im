@@ -1,8 +1,9 @@
 package cn.starboot.tim.server.command;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.starboot.tim.common.command.CommandConfiguration;
-import cn.starboot.tim.common.command.CommandConfigurationFactory;
+import cn.starboot.socket.maintain.MaintainManager;
+import cn.starboot.socket.utils.config.Configuration;
+import cn.starboot.socket.utils.config.ConfigurationFactory;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.server.command.handler.ServerAbstractCmdHandler;
@@ -22,78 +23,81 @@ public class CommandManager {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommandManager.class);
 
-    /**
-     * 通用cmd处理命令与命令码的Map映射
-     */
-    private static final Map<ReqCommandType, ServerAbstractCmdHandler> handlerMap = new HashMap<>();
+	/**
+	 * 待装配的配置文件名字
+	 */
+	private static final String DEFAULT_CLASSPATH_CONFIGURATION_FILE = "command.properties";
 
-    private CommandManager(){};
+	/**
+	 * 通用cmd处理命令与命令码的Map映射
+	 */
+	private static final Map<ReqCommandType, ServerAbstractCmdHandler> handlerMap = new HashMap<>();
 
-    static{
-        try {
-            URL url = CommandManager.class.getResource("command.properties");
+	private CommandManager() {
+	}
+
+	static {
+		try {
+			URL url = CommandManager.class.getResource(DEFAULT_CLASSPATH_CONFIGURATION_FILE);
 			if (LOGGER.isInfoEnabled()) {
 				LOGGER.info("Configuring command from path: {}", url.getPath());
 			}
-            List<CommandConfiguration> configurations = CommandConfigurationFactory.parseConfiguration(url);
-            if (configurations == null) {
-                configurations = CommandConfigurationFactory.parseConfiguration(new File(url.getPath()));
-                if (configurations == null && LOGGER.isErrorEnabled()) {
-					LOGGER.error("Configuring command get failed");
-                }
-            }
-            if (configurations != null) {
+			List<Configuration> configurations = ConfigurationFactory.parseConfiguration(url);
+			if (configurations.size() == 0) {
+				configurations = ConfigurationFactory.parseConfiguration(new File(url.getPath()));
+			}
+			if (configurations.size() > 0) {
 				init(configurations);
 			}
-        } catch (Exception e) {
-			LOGGER.error(e.toString());
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    private static void init(List<CommandConfiguration> configurations) throws Exception{
-        for(CommandConfiguration configuration : configurations){
-            ServerAbstractCmdHandler cmdHandler = (ServerAbstractCmdHandler) (Class.forName(configuration.getCmdHandler())).newInstance();
-            registerCommand(cmdHandler);
-        }
-    }
+	private static void init(List<Configuration> configurations) throws Exception {
+		for (Configuration configuration : configurations) {
+			ServerAbstractCmdHandler cmdHandler = (ServerAbstractCmdHandler) (Class.forName(configuration.getPath())).newInstance();
+			registerCommand(cmdHandler);
+		}
+	}
 
-    public static void registerCommand(ServerAbstractCmdHandler imCommandHandler) throws Exception{
-        if(imCommandHandler == null || imCommandHandler.command() == null) {
-            return;
-        }
-        ReqCommandType command = imCommandHandler.command();
-        if(ObjectUtil.isNull(ReqCommandType.getCommandTypeByCode(command.getCode()))) {
-            throw new ImException("failed to register cmd handler, illegal cmd code:" + command + ",use Command.addAndGet () to add in the enumerated Command class!");
-        }
-        if(ObjectUtil.isNull(handlerMap.get(command))) {
-            handlerMap.put(command, imCommandHandler);
-        }else {
-            throw new ImException("cmd code:"+command+",has been registered, please correct!");
-        }
-    }
+	public static void registerCommand(ServerAbstractCmdHandler imCommandHandler) throws Exception {
+		if (imCommandHandler == null || imCommandHandler.command() == null) {
+			return;
+		}
+		ReqCommandType command = imCommandHandler.command();
+		if (ObjectUtil.isNull(ReqCommandType.getCommandTypeByCode(command.getCode()))) {
+			throw new ImException("failed to register cmd handler, illegal cmd code:" + command + ",use Command.addAndGet () to add in the enumerated Command class!");
+		}
+		if (ObjectUtil.isNull(handlerMap.get(command))) {
+			handlerMap.put(command, imCommandHandler);
+		} else {
+			throw new ImException("cmd code:" + command + ",has been registered, please correct!");
+		}
+	}
 
-    public static ServerAbstractCmdHandler removeCommand(ReqCommandType command){
-        if(command == null) {
-            return null;
-        }
-        if(handlerMap.get(command) != null) {
-            return handlerMap.remove(command);
-        }
-        return null;
-    }
+	public static ServerAbstractCmdHandler removeCommand(ReqCommandType command) {
+		if (command == null) {
+			return null;
+		}
+		if (handlerMap.get(command) != null) {
+			return handlerMap.remove(command);
+		}
+		return null;
+	}
 
-    public static <T> T getCommand(ReqCommandType command, Class<T> clazz){
-        ServerAbstractCmdHandler cmdHandler = getCommand(command);
-        if(cmdHandler != null){
-            return (T) cmdHandler;
-        }
-        return null;
-    }
+	public static <T> T getCommand(ReqCommandType command, Class<T> clazz) {
+		ServerAbstractCmdHandler cmdHandler = getCommand(command);
+		if (cmdHandler != null) {
+			return (T) cmdHandler;
+		}
+		return null;
+	}
 
-    public static ServerAbstractCmdHandler getCommand(ReqCommandType command){
-        if(command == null) {
-            return null;
-        }
-        return handlerMap.get(command);
-    }
+	public static ServerAbstractCmdHandler getCommand(ReqCommandType command) {
+		if (command == null) {
+			return null;
+		}
+		return handlerMap.get(command);
+	}
 }

@@ -10,7 +10,7 @@ public enum DeviceType{
   /**
    * <code>DEVICE_TYPE_UNKNOW = 0;</code>
    */
-  DEVICE_TYPE_UNKNOW(0),
+  DEVICE_TYPE_UNKNOWN(0),
   /**
    * <pre>
    *PC
@@ -35,6 +35,14 @@ public enum DeviceType{
    * <code>DEVICE_TYPE_IOS = 3;</code>
    */
   DEVICE_TYPE_IOS(3),
+	/**
+	 * <pre>
+	 *IOS
+	 * </pre>
+	 *
+	 * <code>DEVICE_TYPE_WEB = 4;</code>
+	 */
+	DEVICE_TYPE_WEB(4)
   ;
 
   public final int getNumber() {
@@ -47,17 +55,18 @@ public enum DeviceType{
 
   public static DeviceType forNumber(int value) {
     switch (value) {
-      case 0: return DEVICE_TYPE_UNKNOW;
+      case 0: return DEVICE_TYPE_UNKNOWN;
       case 1: return DEVICE_TYPE_PC;
       case 2: return DEVICE_TYPE_ANDROID;
       case 3: return DEVICE_TYPE_IOS;
+      case 4: return DEVICE_TYPE_WEB;
       default: return null;
     }
   }
 
   private final int value;
 
-  private DeviceType(int value) {
+  DeviceType(int value) {
     this.value = value;
   }
 }

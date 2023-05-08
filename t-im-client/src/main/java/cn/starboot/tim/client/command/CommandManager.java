@@ -1,8 +1,9 @@
 package cn.starboot.tim.client.command;
 
+import cn.starboot.socket.utils.config.Configuration;
+import cn.starboot.socket.utils.config.ConfigurationFactory;
 import cn.starboot.tim.client.command.handler.ClientAbstractCmdHandler;
-import cn.starboot.tim.common.command.CommandConfiguration;
-import cn.starboot.tim.common.command.CommandConfigurationFactory;
+
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqCommandType;
 
@@ -21,6 +22,11 @@ public class CommandManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommandManager.class);
 
 	/**
+	 * 待装配的配置文件名字
+	 */
+	private static final String DEFAULT_CLASSPATH_CONFIGURATION_FILE = "command.properties";
+
+	/**
 	 * 通用cmd处理命令与命令码的Map映射
 	 */
     private static final Map<ReqCommandType, ClientAbstractCmdHandler> handlerMap = new HashMap<>();
@@ -29,28 +35,25 @@ public class CommandManager {
 
 	static{
 		try {
-			URL url = CommandManager.class.getResource("command.properties");
+			URL url = CommandManager.class.getResource(DEFAULT_CLASSPATH_CONFIGURATION_FILE);
 			if (LOGGER.isInfoEnabled()) {
 				LOGGER.info("Configuring command from path: {}", url.getPath());
 			}
-			List<CommandConfiguration> configurations = CommandConfigurationFactory.parseConfiguration(url);
-			if (configurations == null) {
-				configurations = CommandConfigurationFactory.parseConfiguration(new File(url.getPath()));
-				if (configurations == null && LOGGER.isErrorEnabled()) {
-					LOGGER.error("Configuring command get failed");
-				}
+			List<Configuration> configurations = ConfigurationFactory.parseConfiguration(url);
+			if (configurations.size() == 0) {
+				configurations = ConfigurationFactory.parseConfiguration(new File(url.getPath()));
 			}
-			if (configurations != null) {
+			if (configurations.size() > 0) {
 				init(configurations);
 			}
 		} catch (Exception e) {
-			LOGGER.error(e.toString());
+			e.printStackTrace();
 		}
 	}
 
-    private static void init(List<CommandConfiguration> configurations) throws Exception{
-        for(CommandConfiguration configuration : configurations){
-            ClientAbstractCmdHandler cmdHandler = (ClientAbstractCmdHandler) (Class.forName(configuration.getCmdHandler())).newInstance();
+    private static void init(List<Configuration> configurations) throws Exception{
+        for(Configuration configuration : configurations){
+            ClientAbstractCmdHandler cmdHandler = (ClientAbstractCmdHandler) (Class.forName(configuration.getPath())).newInstance();
             registerCommand(cmdHandler);
         }
     }
