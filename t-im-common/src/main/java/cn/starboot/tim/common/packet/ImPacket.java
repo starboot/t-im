@@ -1,9 +1,8 @@
 package cn.starboot.tim.common.packet;
 
 import cn.starboot.socket.Packet;
+import cn.starboot.socket.utils.json.JsonUtil;
 import cn.starboot.tim.common.command.ReqCommandType;
-
-import java.util.Arrays;
 
 public class ImPacket extends Packet {
 
@@ -15,13 +14,14 @@ public class ImPacket extends Packet {
     // 消息体
     private byte[] data;
 
-    public ImPacket() {
-    }
-
     public ImPacket(ReqCommandType reqCommandType, byte[] data) {
         this.reqCommandType = reqCommandType;
         this.data = data;
     }
+
+	public static Builder newBuilder(){
+		return new Builder();
+	}
 
     public ReqCommandType getReqCommandType() {
         return reqCommandType;
@@ -41,11 +41,36 @@ public class ImPacket extends Packet {
         return this;
     }
 
+	public static class Builder {
+
+		private ReqCommandType reqCommandType;
+
+		private byte[] data;
+
+		private Builder() {
+		}
+
+		public Builder setReqCommandType(ReqCommandType reqCommandType) {
+			this.reqCommandType = reqCommandType;
+			return this;
+		}
+
+		public Builder setData(byte[] data) {
+			this.data = data;
+			return this;
+		}
+
+		protected Builder getThis() {
+			return this;
+		}
+
+		public ImPacket build(){
+			return new ImPacket(reqCommandType, data);
+		}
+	}
+
     @Override
     public String toString() {
-        return "ImPacket{" +
-                " commandType=" + reqCommandType +
-                ", data=" + Arrays.toString(data) +
-                '}';
+        return JsonUtil.toJSONString(this);
     }
 }
