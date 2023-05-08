@@ -1,10 +1,10 @@
 package cn.starboot.tim.common.codec;
 
 import cn.starboot.socket.Packet;
-import cn.starboot.socket.ProtocolEnum;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.core.WriteBuffer;
+import cn.starboot.socket.enums.ProtocolEnum;
 import cn.starboot.socket.exception.AioDecoderException;
 import cn.starboot.socket.exception.AioEncoderException;
 import cn.starboot.socket.intf.AioHandler;
@@ -87,7 +87,7 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler {
             return null;
         }
         // 获取消息体
-        byte[] b = AIOUtil.getBytesFromByteBuffer(dataLength, readBuffer, channelContext);
+        byte[] b = AIOUtil.getBytesFromByteBuffer(readBuffer, dataLength, 10, channelContext);
         if (b == null) {
             buffer.reset();
             return null;

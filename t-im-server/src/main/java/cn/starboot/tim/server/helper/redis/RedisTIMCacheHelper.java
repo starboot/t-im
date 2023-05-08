@@ -8,9 +8,6 @@ import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.entity.HistoryMessage;
 import cn.starboot.tim.server.cache.TIMCacheHelper;
 import cn.starboot.tim.server.cluster.ClusterData;
-import org.redisson.api.RLock;
-import org.redisson.api.RMap;
-import org.redisson.api.RedissonClient;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -23,11 +20,11 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
 
     private static final ICache cache;
 
-    private static final RedissonClient redissonClient;
+//    private static final RedissonClient redissonClient;
 
     static {
         cache = RedisCache.getCache("TIMCluster");
-        redissonClient = RedisCache.getCache("TIMMessage").getRedisson();
+//        redissonClient = RedisCache.getCache("TIMMessage").getRedisson();
     }
 
     @Override
@@ -36,19 +33,19 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
         String key = fromUserId + "-" + toUserId;
         if (isGroup) {
             // 群消息  userId:群ID
-            RMap<Object, Object> timGroupMessage = redissonClient.getMap("TIMGroupMessage:" + timelineId);
-            saveMessage(toUserId, "TIMGroupMessage", timGroupMessage, chatPacket);
+//            RMap<Object, Object> timGroupMessage = redissonClient.getMap("TIMGroupMessage:" + timelineId);
+//            saveMessage(toUserId, "TIMGroupMessage", timGroupMessage, chatPacket);
             return;
         }
         if (isOffline) {
             // 存储离线消息
-            RMap<Object, Object> timOfflineMessage = redissonClient.getMap("TIMOfflineMessage:" + timelineId);
-            saveMessage(toUserId, "TIMOfflineMessage:" + timelineId, timOfflineMessage, chatPacket);
+//            RMap<Object, Object> timOfflineMessage = redissonClient.getMap("TIMOfflineMessage:" + timelineId);
+//            saveMessage(toUserId, "TIMOfflineMessage:" + timelineId, timOfflineMessage, chatPacket);
             return;
         }
         // 存储其他消息
-        RMap<Object, Object> timMessage = redissonClient.getMap("TIMMessage:" + timelineId);
-        saveMessage(key, "TIMMessage", timMessage, chatPacket);
+//        RMap<Object, Object> timMessage = redissonClient.getMap("TIMMessage:" + timelineId);
+//        saveMessage(key, "TIMMessage", timMessage, chatPacket);
 
 //        Convert.toList(ChatBody.class, timMessage.get(key)).forEach(o -> {
 //            ChatBody convert = Convert.convert(ChatBody.class, o);
@@ -70,19 +67,19 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
     public HistoryMessage getGroupHistoryMessage(String groupId, String timelineId) {
         HistoryMessage historyMessage = HistoryMessage.newBuilder().setUserId(groupId).build();
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
-        RMap<Object, Object> timMessage = redissonClient.getMap("TIMGroupMessage:" + timelineId);
+//        RMap<Object, Object> timMessage = redissonClient.getMap("TIMGroupMessage:" + timelineId);
         List<ChatPacketProto.ChatPacket> chatBodies;
-        Object o = timMessage.get(groupId);
+//        Object o = timMessage.get(groupId);
         if ("*".equals(timelineId)) {
             // 获取所有时间的历史记录
             System.out.println("获取*的群历史记录");
         }
-        if (ObjectUtil.isEmpty(o)) {
-            chatBodies = new ArrayList<>();
-        }else {
-            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
-        }
-        map.put(timelineId, chatBodies);
+//        if (ObjectUtil.isEmpty(o)) {
+//            chatBodies = new ArrayList<>();
+//        }else {
+//            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
+//        }
+//        map.put(timelineId, chatBodies);
         historyMessage.setFriends(map);
         return historyMessage;
     }
@@ -91,23 +88,23 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
     public HistoryMessage getOfflineMessage(String userId, String timelineId) {
         HistoryMessage historyMessage = HistoryMessage.newBuilder().setUserId(userId).build();
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
-        RMap<Object, Object> timMessage = redissonClient.getMap("TIMOfflineMessage:" + timelineId);
+//        RMap<Object, Object> timMessage = redissonClient.getMap("TIMOfflineMessage:" + timelineId);
         List<ChatPacketProto.ChatPacket> chatBodies;
         // 取出并删除 分布式服务器加锁处理
-        RLock lock = redissonClient.getLock("TIMOfflineMessage:" + timelineId);
+//        RLock lock = redissonClient.getLock("TIMOfflineMessage:" + timelineId);
         Object o;
         try {
-            lock.lock(5L, TimeUnit.SECONDS);
-            o = timMessage.remove(userId);
+//            lock.lock(5L, TimeUnit.SECONDS);
+//            o = timMessage.remove(userId);
         } finally {
-            lock.unlock();
+//            lock.unlock();
         }
-        if (ObjectUtil.isEmpty(o)) {
-            chatBodies = new ArrayList<>();
-        }else {
-            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
-        }
-        map.put(userId, chatBodies);
+//        if (ObjectUtil.isEmpty(o)) {
+//            chatBodies = new ArrayList<>();
+//        }else {
+//            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
+//        }
+//        map.put(userId, chatBodies);
         historyMessage.setFriends(map);
         return historyMessage;
     }
@@ -117,24 +114,24 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
     public HistoryMessage getFriendHistoryMessage(String userId, String fromUserId, String timelineId) {
         HistoryMessage historyMessage = HistoryMessage.newBuilder().setUserId(userId).build();
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
-        RMap<Object, Object> timMessage = redissonClient.getMap("TIMMessage:" + timelineId);
+//        RMap<Object, Object> timMessage = redissonClient.getMap("TIMMessage:" + timelineId);
         String key = userId + "-" + fromUserId;
         String key1 = userId + "-" + fromUserId;
         List<ChatPacketProto.ChatPacket> chatBodies;
-        Object o = timMessage.get(key);
+//        Object o = timMessage.get(key);
         if ("*".equals(timelineId)) {
             // 获取所有时间的历史记录
             System.out.println("获取*的历史记录");
         }
-        if (ObjectUtil.isEmpty(o)) {
-            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, timMessage.get(key1));
-            if (ObjectUtil.isEmpty(chatBodies) || chatBodies == null){
-                chatBodies = new ArrayList<>();
-            }
-        }else {
-            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
-        }
-        map.put(timelineId, chatBodies);
+//        if (ObjectUtil.isEmpty(o)) {
+//            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, timMessage.get(key1));
+//            if (ObjectUtil.isEmpty(chatBodies) || chatBodies == null){
+//                chatBodies = new ArrayList<>();
+//            }
+//        }else {
+//            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, o);
+//        }
+//        map.put(timelineId, chatBodies);
         historyMessage.setFriends(map);
         return historyMessage;
     }
@@ -146,28 +143,28 @@ public class RedisTIMCacheHelper implements TIMCacheHelper {
      * @param message 缓存中的消息
      * @param chatPacket 本次存入的消息体
      */
-    private void saveMessage(String key, String LockName, RMap<Object, Object> message, ChatPacketProto.ChatPacket chatPacket) {
-        RLock rLock = redissonClient.getLock(LockName);
-        try {
-            rLock.lock(5L, TimeUnit.SECONDS);
-            if (ObjectUtil.isEmpty(message.get(key))) {
-                List<ChatPacketProto.ChatPacket> chatBodies = null;
-                if (chatPacket.getMsgType() == ChatPacketProto.ChatPacket.MsgType.TEXT) {
-                    chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, message.get(chatPacket.getToId() + "-" + chatPacket.getFromId()));
-                }
-                if (ObjectUtil.isEmpty(chatBodies) || chatBodies == null){
-                    chatBodies = new ArrayList<>();
-                }
-                chatBodies.add(chatPacket);
-                message.put(key, chatBodies);
-            }else {
-                List<ChatPacketProto.ChatPacket> arrayLists = Convert.toList(ChatPacketProto.ChatPacket.class, message.get(key));
-                arrayLists.add(chatPacket);
-                message.put(key, arrayLists);
-            }
-        } finally {
-            rLock.unlock();
-        }
-    }
+//    private void saveMessage(String key, String LockName, RMap<Object, Object> message, ChatPacketProto.ChatPacket chatPacket) {
+//        RLock rLock = redissonClient.getLock(LockName);
+//        try {
+//            rLock.lock(5L, TimeUnit.SECONDS);
+//            if (ObjectUtil.isEmpty(message.get(key))) {
+//                List<ChatPacketProto.ChatPacket> chatBodies = null;
+//                if (chatPacket.getMsgType() == ChatPacketProto.ChatPacket.MsgType.TEXT) {
+//                    chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, message.get(chatPacket.getToId() + "-" + chatPacket.getFromId()));
+//                }
+//                if (ObjectUtil.isEmpty(chatBodies) || chatBodies == null){
+//                    chatBodies = new ArrayList<>();
+//                }
+//                chatBodies.add(chatPacket);
+//                message.put(key, chatBodies);
+//            }else {
+//                List<ChatPacketProto.ChatPacket> arrayLists = Convert.toList(ChatPacketProto.ChatPacket.class, message.get(key));
+//                arrayLists.add(chatPacket);
+//                message.put(key, arrayLists);
+//            }
+//        } finally {
+//            rLock.unlock();
+//        }
+//    }
 
 }

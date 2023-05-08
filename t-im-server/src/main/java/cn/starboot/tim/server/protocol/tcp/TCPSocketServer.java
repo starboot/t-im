@@ -44,7 +44,7 @@ public class TCPSocketServer extends IMServer {
                 .setReadBufferSize(1024 * 50)
                 .setWriteBufferSize(1024 * 10, 128)
                 .addPlugin(new MonitorPlugin(60))
-                .addPlugin(new HeartPlugin(60, TimeUnit.SECONDS) {
+                .addPlugin(new HeartPlugin(60, 20, TimeUnit.SECONDS) {
                     @Override
                     public boolean isHeartMessage(Packet packet) {
                         return false;

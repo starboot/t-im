@@ -17,7 +17,7 @@ public class OnlineUserRespHandler extends ClientAbstractCmdHandler {
 
     @Override
     public ReqCommandType command() {
-        return ReqCommandType.COMMAND_RESP_REQ;
+        return ReqCommandType.COMMAND_REQ_RESP;
     }
 
     @Override

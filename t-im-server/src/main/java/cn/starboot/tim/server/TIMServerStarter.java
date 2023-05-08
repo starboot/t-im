@@ -1,7 +1,6 @@
 package cn.starboot.tim.server;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.starboot.socket.utils.SystemTimer;
 import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.server.protocol.IMServer;
 import cn.starboot.tim.server.protocol.tcp.TCPSocketServer;
@@ -32,15 +31,15 @@ public class TIMServerStarter {
 
     public void start() {
         try {
-            long start = SystemTimer.currTime;
+//            long start = SystemTimer.currTime;
             tcpSocketServer.start();
-            long end = SystemTimer.currTime;
-            long iv = end - start;
+//            long end = SystemTimer.currTime;
+//            long iv = end - start;
             if (IMServer.cluster && IMServer.isStore) {
 //                IMServer.clusterHelper.registerCluster(IMServer.ip, IMServer.port);
             }
             if (log.isInfoEnabled()) {
-                log.info("Server启动完毕,耗时:{}ms", iv);
+//                log.info("Server启动完毕,耗时:{}ms", iv);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,8 +52,6 @@ public class TIMServerStarter {
 //        P.use("tim.properties");
         // 实例化TCP服务器
         tcpSocketServer = TCPSocketServer.getInstance();
-
-
 
         if (IMServer.isUseSSL) {
             log.debug("开启ssl");

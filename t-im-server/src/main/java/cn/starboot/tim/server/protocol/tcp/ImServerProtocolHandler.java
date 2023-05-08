@@ -1,8 +1,8 @@
 package cn.starboot.tim.server.protocol.tcp;
 
 import cn.starboot.socket.Packet;
-import cn.starboot.socket.StateMachineEnum;
 import cn.starboot.socket.core.ChannelContext;
+import cn.starboot.socket.enums.StateMachineEnum;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;

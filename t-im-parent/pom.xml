@@ -8,7 +8,7 @@
     <artifactId>t-im-parent</artifactId>
     <packaging>pom</packaging>
     <version>3.0.0.v20221001-RELEASE</version>
-    <url>https://gitee.com/mxd_2022/t-im.git</url>
+    <url>https://gitee.com/starboot/t-im</url>
     <description>a little but strong IM server</description>
     <modules>
         <module>../t-im-server</module>
@@ -23,14 +23,14 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:https://gitee.com/mxd_2022/t-im.git</connection>
-        <developerConnection>scm:git:https://gitee.com/mxd_2022/t-im.git</developerConnection>
-        <url>git:https://gitee.com/mxd_2022/t-im.git</url>
+        <connection>scm:git:https://gitee.com/starboot/t-im</connection>
+        <developerConnection>scm:git:https://gitee.com/starboot/t-im</developerConnection>
+        <url>git:https://gitee.com/starboot/t-im</url>
     </scm>
     <developers>
         <developer>
             <name>MDong</name>
-            <url>https://gitee.com/mxd_2022/</url>
+            <url>https://gitee.com/starboot/</url>
             <email>1191998028@qq.com</email>
             <organization>individual</organization>
             <roles>
@@ -40,18 +40,14 @@
         </developer>
     </developers>
     <properties>
-        <aio-socket.version>1.2.2</aio-socket.version>
+        <aio-socket.version>2.0.0</aio-socket.version>
         <tim.version>3.0.0.v20221001-RELEASE</tim.version>
-        <slf4j.version>1.7.36</slf4j.version>
         <logback.version>1.2.9</logback.version>
         <lombok.version>1.18.20</lombok.version>
         <spring-boot.version>2.6.2</spring-boot.version>
         <hutool.version>5.8.18</hutool.version>
-        <protobuff.version>3.21.4</protobuff.version>
-        <grpc.version>1.27.2</grpc.version>
-        <redission.version>3.13.5</redission.version>
+        <protobuff.version>3.21.12</protobuff.version>
         <pinyin.version>2.5.0</pinyin.version>
-        <fastjson.version>1.2.78</fastjson.version>
         <javacpp.platform.android-arm>android-arm</javacpp.platform.android-arm>
         <javacpp.platform.android-arm64>android-arm64</javacpp.platform.android-arm64>
         <javacpp.platform.android-x86>android-x86</javacpp.platform.android-x86>
@@ -83,29 +79,30 @@
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
-                <artifactId>protobuf-java</artifactId>
-                <version>${protobuff.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java-util</artifactId>
                 <version>${protobuff.version}</version>
-                <scope>runtime</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>com.google.errorprone</groupId>
+						<artifactId>error_prone_annotations</artifactId>
+					</exclusion>
+				</exclusions>
             </dependency>
-            <dependency>
-                <groupId>io.grpc</groupId>
-                <artifactId>grpc-all</artifactId>
-                <version>${grpc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.google.errorprone</groupId>
+				<artifactId>error_prone_annotations</artifactId>
+				<version>2.18.0</version>
+			</dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+				</exclusions>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -143,19 +140,9 @@
                 <version>${tim.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson</artifactId>
-                <version>${redission.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>${pinyin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -225,6 +212,18 @@
     </build>
 
     <profiles>
+		<profile>
+			<id>jdk-1.8</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<jdk>1.8</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.source>1.8</maven.compiler.source>
+				<maven.compiler.target>1.8</maven.compiler.target>
+				<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+			</properties>
+		</profile>
         <profile>
             <id>release</id>
             <build>

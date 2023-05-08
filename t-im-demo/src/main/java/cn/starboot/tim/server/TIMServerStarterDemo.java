@@ -1,7 +1,6 @@
 package cn.starboot.tim.server;
 
 import cn.hutool.core.lang.Singleton;
-import org.tim.server.TIMServerStarter;
 
 
 /**

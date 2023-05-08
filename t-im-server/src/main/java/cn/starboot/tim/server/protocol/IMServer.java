@@ -1,16 +1,14 @@
 package cn.starboot.tim.server.protocol;
 
 import cn.hutool.core.lang.Singleton;
+import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.banner.TimBanner;
 import cn.starboot.tim.server.cluster.ClusterHelper;
 import cn.starboot.tim.server.cluster.ICluster;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.redisson.client.RedisConnectionException;
-import org.redisson.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.io.PrintStream;
 
 /**
@@ -71,12 +69,11 @@ public abstract class IMServer {
     public static final int port;
 
     static {
-        TimBanner timBanner = new TimBanner(null);
+        TimBanner timBanner = new TimBanner(new ImConfig());
         timBanner.printBanner(System.out);
         isStore = false;
         if (isStore) {
             log.info("用户选择开启持久化，redis默认连接http://127.0.0.1:6379");
-            try {
 //                Config redisConfig = new Config();
 //                redisConfig.useSingleServer().setTimeout(1000000).setAddress("redis://127.0.0.1:6379").setDatabase(0);
                 /*
@@ -102,9 +99,7 @@ public abstract class IMServer {
 //                RedisCache.register(redissonClient, "TIMMessage", aLong, null);
 //                RedisCache.register(redissonClient, "TIMOfflineMessage", aLong, null);
 //                RedisCache.register(redissonClient, "TIMGroupMessage", aLong, null);
-            } catch (RedisConnectionException redisConnectionException) {
                 log.error("Redis连接失败，持久化失效，请先启动本地Redis服务");
-            }
 //            cacheHelper = new RedisTIMCacheHelper();
         }else {
 //            cacheHelper = null;
