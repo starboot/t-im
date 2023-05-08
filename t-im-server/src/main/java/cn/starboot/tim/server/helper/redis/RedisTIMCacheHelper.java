@@ -1,7 +1,5 @@
 package cn.starboot.tim.server.helper.redis;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.utils.cache.ICache;
 import cn.starboot.socket.utils.cache.redis.RedisCache;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
@@ -10,7 +8,6 @@ import cn.starboot.tim.server.cache.TIMCacheHelper;
 import cn.starboot.tim.server.cluster.ClusterData;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 持久到 redis
