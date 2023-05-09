@@ -3,6 +3,9 @@ package cn.starboot.tim.common;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
+import cn.starboot.socket.enums.MaintainEnum;
+import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,17 +15,65 @@ import org.slf4j.LoggerFactory;
  */
 public class TIM {
 
-    private static final Logger log = LoggerFactory.getLogger(TIM.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TIM.class);
 
-    public static void send(ChannelContext channelContext, Packet packet) {
-        Aio.send(channelContext, packet);
+    private static boolean bind(MaintainEnum maintainEnum, String maintainId, ImChannelContext imChannelContext) {
+		ChannelContext channelContext = imChannelContext.getChannelContext();
+		boolean result = false;
+		switch (maintainEnum) {
+			case Bs_ID: {
+				result = Aio.bindBsId(maintainId, channelContext);
+				break;
+			}
+			case CLU_ID: {
+				result = Aio.bindCluId(maintainId, channelContext);
+				break;
+			}
+			case CLIENT_NODE_ID: {
+//				Aio.bindCliNode(maintainId, channelContext);
+				break;
+			}
+			case GROUP_ID: {
+				result = Aio.bindGroup(maintainId, channelContext);
+				break;
+			}
+			case ID: {
+				result = Aio.bindId(maintainId, channelContext);
+				break;
+			}
+			case IP: {
+				result = Aio.bindIp(maintainId, channelContext);
+				break;
+			}
+			case USER: {
+				result = Aio.bindUser(maintainId, channelContext);
+				break;
+			}
+			case TOKEN: {
+				result = Aio.bindToken(maintainId, channelContext);
+				break;
+			}
+			default: {
+				TIMLogUtil.error(LOGGER, "绑定类型未知");
+			}
+		}
+		return result;
+	}
+
+	public static boolean bindUser(String userId, ImChannelContext imChannelContext) {
+		return bind(MaintainEnum.USER, userId, imChannelContext);
+	}
+
+	public static boolean bindGroup(String groupId, ImChannelContext imChannelContext) {
+		return bind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
+	}
+
+
+    public static void send(ImChannelContext channelContext, ImPacket packet) {
+        Aio.send(channelContext.getChannelContext(), packet);
     }
-
 
     public static void sendToUser(String to, Packet packet) {
-
-    }
-    public static void sendToUser( Packet packet) {
 
     }
 
@@ -51,10 +102,5 @@ public class TIM {
     }
 
     private TIM() {
-    }
-
-    public static void bindUser(ChannelContext channelContext, String userId) {
-        // 绑定用户的时候 顺便把userId绑定在了 channelContext.user id
-
     }
 }
