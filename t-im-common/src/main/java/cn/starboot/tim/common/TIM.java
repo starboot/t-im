@@ -1,5 +1,6 @@
 package cn.starboot.tim.common;
 
+import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
@@ -17,7 +18,45 @@ public class TIM {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TIM.class);
 
-    private static boolean bind(MaintainEnum maintainEnum, String maintainId, ImChannelContext imChannelContext) {
+	public static boolean bindUser(String userId, ImChannelContext imChannelContext) {
+		return bind(MaintainEnum.USER, userId, imChannelContext);
+	}
+
+	public static boolean bindGroup(String groupId, ImChannelContext imChannelContext) {
+		return bind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
+	}
+
+
+    public static void send(ImChannelContext channelContext, ImPacket packet) {
+        Aio.send(channelContext.getChannelContext(), packet);
+    }
+
+    public static void sendToUser(String to, Packet packet) {
+
+    }
+
+    public static void bindGroup(ChannelContext channelContext, String group) {
+
+    }
+
+    public static void remove(ChannelContext channelContext, String userId) {
+
+    }
+
+    public static void remove(ChannelContext channelContext) {
+    }
+
+
+    public static void sendToGroup() {
+
+    }
+
+    public static void ackSend(ChannelContext channelContext,Packet packet, long timeout, Integer ack) {
+
+    }
+
+
+	private static boolean bind(MaintainEnum maintainEnum, String maintainId, ImChannelContext imChannelContext) {
 		ChannelContext channelContext = imChannelContext.getChannelContext();
 		boolean result = false;
 		switch (maintainEnum) {
@@ -60,47 +99,54 @@ public class TIM {
 		return result;
 	}
 
-	public static boolean bindUser(String userId, ImChannelContext imChannelContext) {
-		return bind(MaintainEnum.USER, userId, imChannelContext);
+	private static void multiObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, ChannelContextFilter channelContextFilter) {
+		switch (maintainEnum) {
+			case CLU_ID: {
+				//
+				break;
+			}
+			case CLIENT_NODE_ID: {
+				//
+				break;
+			}
+			case GROUP_ID: {
+				//
+				break;
+			}
+			case IP: {
+				//
+				break;
+			}
+			case TOKEN: {
+				//
+				break;
+			}
+			default: {
+				TIMLogUtil.error(LOGGER, "");
+			}
+		}
 	}
 
-	public static boolean bindGroup(String groupId, ImChannelContext imChannelContext) {
-		return bind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
+	private static void singleObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, ChannelContextFilter channelContextFilter) {
+		switch (maintainEnum) {
+			case Bs_ID: {
+				//
+				break;
+			}
+			case ID: {
+				//
+				break;
+			}
+			case USER: {
+				//
+				break;
+			}
+			default: {
+				TIMLogUtil.error(LOGGER, "");
+			}
+		}
 	}
 
-
-    public static void send(ImChannelContext channelContext, ImPacket packet) {
-        Aio.send(channelContext.getChannelContext(), packet);
-    }
-
-    public static void sendToUser(String to, Packet packet) {
-
-    }
-
-    public static void bindGroup(ChannelContext channelContext, String group) {
-
-    }
-
-    public static void remove(ChannelContext channelContext, String userId) {
-
-    }
-
-    public static void remove(ChannelContext channelContext) {
-    }
-
-
-    public static void sendToGroup() {
-
-    }
-
-    public static void bSend() {
-        // 阻塞发送
-    }
-
-    public static void ackSend(ChannelContext channelContext,Packet packet, long timeout, Integer ack) {
-
-    }
-
-    private TIM() {
-    }
+	private TIM() {
+	}
 }
