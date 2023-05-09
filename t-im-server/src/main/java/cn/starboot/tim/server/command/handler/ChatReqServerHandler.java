@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ChatReqServerHandler extends AbstractServerCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ChatReqServerHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ChatReqServerHandler.class);
 
     @Override
     public ReqCommandType command() {
@@ -28,43 +28,47 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
     public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws InvalidProtocolBufferException {
         ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(chatPacket)) {
-            log.error("消息包格式化出错");
+			LOGGER.error("消息包格式化出错");
             return null;
         }
-        // 聊天类型类型 (未知, 群聊, 私聊
-        if (ObjectUtil.equals(chatPacket.getChatType(), ChatPacketProto.ChatPacket.ChatType.GROUP)
-				&& StrUtil.isNotEmpty(chatPacket.getGroupId())) {
-            if (IMServer.isStore) {
-                log.debug("群聊消息--开启了持久化需要将消息保存");
-            }
-            // 群聊
-            System.out.println(chatPacket.getContent());
+		// 聊天类型类型 (未知, 群聊, 私聊
+        switch (chatPacket.getChatType()) {
+			case PRIVATE: {
+				if (StrUtil.isNotEmpty(chatPacket.getToId())) {
+					System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
+					send(channelContext, ReqCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray());
+					if (IMServer.isStore) {
+						LOGGER.debug("私聊消息--开启了持久化需要将消息保存");
+					}
+					// 私聊
+					if (ChatKit.isOnline(chatPacket.getToId()) || IMServer.cluster) {
+//                TIM.sendToUser(body, packet);
+						return null;
+					}
+				}
+				break;
+			}
+			case GROUP: {
+				if (StrUtil.isNotEmpty(chatPacket.getGroupId())) {
+					if (IMServer.isStore) {
+						LOGGER.debug("群聊消息--开启了持久化需要将消息保存");
+					}
+					// 群聊
+					System.out.println(chatPacket.getContent());
 //            TIM.sendToGroup(TCPSocketServer.getServerTioConfig(), chatPacket.getGroupId(), bytes, context -> {
 //                // 不发送自己  true:发送， false：不发送
 //                return channelContext != context;
 //            }, false);
-        }
-        if (ObjectUtil.equals(chatPacket.getChatType(), ChatPacketProto.ChatPacket.ChatType.PRIVATE)
-				&& StrUtil.isNotEmpty(chatPacket.getToId())) {
-            System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
-            send(channelContext, ReqCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray());
-            if (IMServer.isStore) {
-                log.debug("私聊消息--开启了持久化需要将消息保存");
-            }
-            // 私聊
-            if (ChatKit.isOnline(chatPacket.getToId()) || IMServer.cluster) {
-//                TIM.sendToUser(body, packet);
-                return null;
-            }
-            if (IMServer.isStore) {
-                // 做持久化处理
-//                IMServer.cacheHelper.writeMessage(s,chatPacket.getFromId(), chatPacket.getToId(), chatPacket, false, true);
-            }
-
-        }
-        if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.UNKNOWN) {
-            log.debug("用户{}发送未知消息类型", chatPacket.getFromId());
-        }
+				}
+				break;
+			}
+			case UNKNOWN: {
+				LOGGER.debug("用户{}发送未知消息类型", chatPacket.getFromId());
+				break;
+			}
+			default:
+				break;
+		}
         return null;
     }
 }
