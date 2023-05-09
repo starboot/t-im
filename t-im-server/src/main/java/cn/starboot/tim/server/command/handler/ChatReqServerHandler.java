@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2021/12/24 17:26
  */
-public class ServerChatReqHandler extends AbstractServerCmdHandler {
+public class ChatReqServerHandler extends AbstractServerCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ServerChatReqHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(ChatReqServerHandler.class);
 
     @Override
     public ReqCommandType command() {
