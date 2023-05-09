@@ -31,15 +31,12 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			LOGGER.error("消息包格式化出错");
             return null;
         }
-		// 聊天类型类型 (未知, 群聊, 私聊
+		// 聊天类型类型 (私聊, 群聊, 未知)
         switch (chatPacket.getChatType()) {
 			case PRIVATE: {
 				if (StrUtil.isNotEmpty(chatPacket.getToId())) {
 					System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
 					send(channelContext, ReqCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray());
-					if (IMServer.isStore) {
-						LOGGER.debug("私聊消息--开启了持久化需要将消息保存");
-					}
 					// 私聊
 					if (ChatKit.isOnline(chatPacket.getToId()) || IMServer.cluster) {
 //                TIM.sendToUser(body, packet);
@@ -63,11 +60,17 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 				break;
 			}
 			case UNKNOWN: {
-				LOGGER.debug("用户{}发送未知消息类型", chatPacket.getFromId());
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("用户{}发送未知消息类型", chatPacket.getFromId());
+				}
 				break;
 			}
-			default:
+			default: {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("用户{}发送错误消息", chatPacket.getFromId());
+				}
 				break;
+			}
 		}
         return null;
     }
