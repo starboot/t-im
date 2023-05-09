@@ -6,6 +6,7 @@ import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.protocol.IMServer;
 import cn.starboot.tim.server.util.ChatKit;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -28,7 +29,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
     public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws InvalidProtocolBufferException {
         ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(chatPacket)) {
-			LOGGER.error("消息包格式化出错");
+			TIMLogUtil.error(LOGGER, "消息包格式化出错");
             return null;
         }
 		// 聊天类型类型 (私聊, 群聊, 未知)
@@ -48,7 +49,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			case GROUP: {
 				if (StrUtil.isNotEmpty(chatPacket.getGroupId())) {
 					if (IMServer.isStore) {
-						LOGGER.debug("群聊消息--开启了持久化需要将消息保存");
+						TIMLogUtil.debug(LOGGER, "群聊消息--开启了持久化需要将消息保存");
 					}
 					// 群聊
 					System.out.println(chatPacket.getContent());
@@ -60,15 +61,11 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 				break;
 			}
 			case UNKNOWN: {
-				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("用户{}发送未知消息类型", chatPacket.getFromId());
-				}
+				TIMLogUtil.debug(LOGGER, "用户{}发送未知消息类型", chatPacket.getFromId());
 				break;
 			}
 			default: {
-				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("用户{}发送错误消息", chatPacket.getFromId());
-				}
+				TIMLogUtil.debug(LOGGER, "用户{}发送错误消息", chatPacket.getFromId());
 				break;
 			}
 		}
