@@ -5,7 +5,7 @@ import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:45
  */
-public abstract class ServerAbstractCmdHandler extends AbstractCmdHandler {
+public abstract class AbstractServerCmdHandler extends AbstractCmdHandler {
 
 
 }

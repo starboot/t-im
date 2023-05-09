@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by DELL(mxd) on 2021/12/25 15:01
  */
-public class LoginReqHandler extends ServerAbstractCmdHandler {
+public class LoginReqHandler extends AbstractServerCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(LoginReqHandler.class);
 
     @Override

@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2021/12/25 14:48
  */
-public class CloseReqHandler extends ServerAbstractCmdHandler {
+public class CloseReqHandler extends AbstractServerCmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CloseReqHandler.class);
 

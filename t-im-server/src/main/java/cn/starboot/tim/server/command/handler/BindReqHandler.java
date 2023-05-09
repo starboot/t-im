@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2021/12/25 15:29
  */
-public class BindReqHandler extends ServerAbstractCmdHandler {
+public class BindReqHandler extends AbstractServerCmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(BindReqHandler.class);
 

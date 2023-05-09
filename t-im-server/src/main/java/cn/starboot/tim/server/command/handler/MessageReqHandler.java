@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by DELL(mxd) on 2021/12/25 16:32
  */
-public class MessageReqHandler extends ServerAbstractCmdHandler {
+public class MessageReqHandler extends AbstractServerCmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(MessageReqHandler.class);
 

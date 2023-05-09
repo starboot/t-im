@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * 授权方式暂未限制
  * Created by DELL(mxd) on 2021/12/25 11:57
  */
-public class AuthReqHandler extends ServerAbstractCmdHandler {
+public class AuthReqHandler extends AbstractServerCmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(AuthReqHandler.class);
 

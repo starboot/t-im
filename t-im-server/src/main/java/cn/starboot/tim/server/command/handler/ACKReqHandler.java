@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  *
  * Created by DELL(mxd) on 2022/9/6 12:39
  */
-public class ACKReqHandler extends ServerAbstractCmdHandler {
+public class ACKReqHandler extends AbstractServerCmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ACKReqHandler.class);
 

@@ -12,7 +12,7 @@ import com.google.protobuf.ByteString;
  *
  * Created by DELL(mxd) on 2021/12/25 14:08
  */
-public class HeartbeatReqHandler extends ServerAbstractCmdHandler {
+public class HeartbeatReqHandler extends AbstractServerCmdHandler {
 
     @Override
     public ReqCommandType command() {
