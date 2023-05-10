@@ -12,8 +12,6 @@ import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.common.packet.proto.LoginPacketProto;
 import cn.starboot.tim.server.command.CommandManager;
-import cn.starboot.tim.server.protocol.IMServer;
-import cn.starboot.tim.server.protocol.tcp.TCPSocketServer;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,11 +57,11 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 //                TIM.bindGroup(channelContext, "clusterGroup");
                 return null;
             }
-            if (IMServer.cluster && IMServer.isStore) {
+//            if (IMServer.cluster && IMServer.isStore) {
                 // 将用户注册进集群中间件
 //                IMServer.clusterHelper.pushCluster(Long.decode(user.getUserId()),
 //                        IMServer.ip + ":" + IMServer.port);
-            }
+//            }
 
         }
 
@@ -107,11 +105,11 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
         if(groups == null || groups.isEmpty()) {
             return;
         }
-        boolean isStore = TCPSocketServer.isStore;
+//        boolean isStore = TCPSocketServer.isStore;
         List<String> groupIds = null;
-        if(isStore){
-            log.debug("从存储介质中读取groupIds");
-        }
+//        if(isStore){
+//            log.debug("从存储介质中读取groupIds");
+//        }
         //绑定群组
         for(Group group : groups){
 //            ImPacket groupPacket = new ImPacket(Command.COMMAND_JOIN_GROUP_REQ, JsonKit.toJsonBytes(group));

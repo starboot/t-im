@@ -8,7 +8,6 @@ import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.common.packet.proto.UsersPacketProto;
-import cn.starboot.tim.server.protocol.IMServer;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,14 +52,14 @@ public class UserReqHandler extends AbstractServerCmdHandler {
         final UsersPacketProto.UsersPacket.UsersType type = usersPacket.getType();
 //        RespBody resPacket = new RespBody(Command.COMMAND_GET_USER_RESP);
         //是否开启持久化;
-        boolean isStore = IMServer.isStore;
-        if(isStore){
+//        boolean isStore = IMServer.isStore;
+//        if(isStore){
 //            resPacket.setData(cacheHelper.getUserByType(type));
-        }else {
+//        }else {
 //            MapWithLock<String, SetWithLock<ChannelContext>> map = channelContext.tioConfig.users.getMap();
 //            log.info("在非集群下查询在线人数为:{}", map.size());
 //            resPacket.setData(map.size());
-        }
+//        }
         //在线用户
         if(UsersPacketProto.UsersPacket.UsersType.ONLINE == type){
 //            resPacket.setCode(ImStatus.C10005.getCode()).setMsg(ImStatus.C10005.getMsg());

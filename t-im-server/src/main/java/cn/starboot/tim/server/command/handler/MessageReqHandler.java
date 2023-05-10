@@ -8,7 +8,6 @@ import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.MessagePacketProto;
 import cn.starboot.tim.common.packet.proto.UserMessagePacketProto;
-import cn.starboot.tim.server.protocol.IMServer;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,32 +59,32 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
             // 返回失败消息
             return getMessageFailedPacket(channelContext, ImStatus.C10015);
         }
-        if (!IMServer.isStore) {
+//        if (!IMServer.isStore) {
             return getMessageFailedPacket(channelContext, ImStatus.C10022);
-        }
-        if(MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE == messageType){
+//        }
+//        if(MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE == messageType){
             // 设置响应包状态为离线消息
 //            resPacket = new RespBody(Command.COMMAND_GET_MESSAGE_RESP,ImStatus.C10016);
-        } else {
+//        } else {
             // 设置响应包状态为历史消息
 //            resPacket = new RespBody(Command.COMMAND_GET_MESSAGE_RESP,ImStatus.C10018);
-        }
+//        }
         //获取与指定用户离线消息;
-        if(MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE == messageType){
+//        if(MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE == messageType){
 //            messageData = cacheHelper.getOfflineMessage(userId, timelineId);
             //获取与指定用户历史消息;
-        }else {
+//        }else {
             // 获取好友历史消息
-            if (StrUtil.isEmpty(groupId) && StrUtil.isNotEmpty(fromUserId)) {
+//            if (StrUtil.isEmpty(groupId) && StrUtil.isNotEmpty(fromUserId)) {
 //                messageData = cacheHelper.getFriendHistoryMessage(userId, fromUserId, timelineId);
-            }else {
+//            }else {
                 // 获取群聊历史消息
 //                messageData = cacheHelper.getGroupHistoryMessage(groupId, timelineId);
-            }
-        }
+//            }
+//        }
 //        resPacket.setData(messageData);
 //        Tio.send(channelContext, new ImPacket(Command.COMMAND_GET_MESSAGE_RESP, resPacket.toByte()));
-        return null;
+//        return null;
     }
 
 

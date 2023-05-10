@@ -10,7 +10,6 @@ import cn.starboot.socket.utils.pool.memory.MemoryPool;
 import cn.starboot.tim.common.ImChannelContextFactory;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.ImServerConfig;
-import cn.starboot.tim.server.protocol.IMServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,11 +19,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by DELL(mxd) on 2021/12/23 20:28
  */
-public class TCPSocketServer extends IMServer {
+public class TCPSocketServer {
+
+	private static final Logger log = LoggerFactory.getLogger(TCPSocketServer.class);
+
+	private ImServerConfig imServerConfig;
 
     private static TCPSocketServer socketServer;
-
-    private static final Logger log = LoggerFactory.getLogger(TCPSocketServer.class);
 
     private TCPSocketServer() {
     }
@@ -36,13 +37,9 @@ public class TCPSocketServer extends IMServer {
         return socketServer;
     }
 
-    private ImServerConfig imServerConfig;
-
     private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory = (channelContext) -> new ImServerChannelContext(channelContext, getImServerConfig());
 
-    @Override
     public void start() throws IOException {
-
         ServerBootstrap serverBootstrap = new ServerBootstrap("127.0.0.1", 8888, ImServerProtocolHandler.getInstance(serverImChannelContextFactory));
         serverBootstrap.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
                 .setThreadNum(1, 4)

@@ -7,7 +7,6 @@ import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.util.TIMLogUtil;
-import cn.starboot.tim.server.protocol.IMServer;
 import cn.starboot.tim.server.util.ChatKit;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -39,7 +38,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 					System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
 					send(channelContext, ReqCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray());
 					// 私聊
-					if (ChatKit.isOnline(chatPacket.getToId()) || IMServer.cluster) {
+					if (ChatKit.isOnline(chatPacket.getToId())) {
 //                TIM.sendToUser(body, packet);
 						return null;
 					}
@@ -48,9 +47,9 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			}
 			case GROUP: {
 				if (StrUtil.isNotEmpty(chatPacket.getGroupId())) {
-					if (IMServer.isStore) {
-						TIMLogUtil.debug(LOGGER, "群聊消息--开启了持久化需要将消息保存");
-					}
+//					if (IMServer.isStore) {
+//						TIMLogUtil.debug(LOGGER, "群聊消息--开启了持久化需要将消息保存");
+//					}
 					// 群聊
 					System.out.println(chatPacket.getContent());
 //            TIM.sendToGroup(TCPSocketServer.getServerTioConfig(), chatPacket.getGroupId(), bytes, context -> {

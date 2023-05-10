@@ -1,9 +1,7 @@
 package cn.starboot.tim.server;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.banner.TimBanner;
-import cn.starboot.tim.server.protocol.IMServer;
 import cn.starboot.tim.server.protocol.tcp.TCPSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
