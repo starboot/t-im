@@ -4,6 +4,7 @@ import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
+import cn.starboot.socket.enums.CloseCode;
 import cn.starboot.socket.enums.MaintainEnum;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.util.TIMLogUtil;
@@ -55,7 +56,6 @@ public class TIM {
 
     }
 
-
 	private static boolean bind(MaintainEnum maintainEnum, String maintainId, ImChannelContext imChannelContext) {
 		ChannelContext channelContext = imChannelContext.getChannelContext();
 		boolean result = false;
@@ -97,6 +97,50 @@ public class TIM {
 			}
 		}
 		return result;
+	}
+
+	private static void close(ImChannelContext imChannelContext, CloseCode closeCode) {
+		Aio.close(imChannelContext.getChannelContext(), closeCode);
+	}
+
+	private static void close(MaintainEnum maintainEnum, ImConfig imConfig, String maintainId, CloseCode closeCode) {
+		switch (maintainEnum) {
+			case Bs_ID: {
+				Aio.closeBsId(imConfig.getAioConfig(), maintainId, closeCode);
+				break;
+			}
+			case CLU_ID: {
+				Aio.closeClu(imConfig.getAioConfig(), maintainId, closeCode);
+				break;
+			}
+			case CLIENT_NODE_ID: {
+//				Aio.bindCliNode(maintainId, channelContext);
+				break;
+			}
+			case GROUP_ID: {
+				Aio.closeGroup(imConfig.getAioConfig(), maintainId, closeCode);
+				break;
+			}
+			case ID: {
+				Aio.closeId(imConfig.getAioConfig(), maintainId, closeCode);
+				break;
+			}
+			case IP: {
+				Aio.closeIp(imConfig.getAioConfig(), maintainId, closeCode);
+				break;
+			}
+			case USER: {
+				Aio.closeUser(imConfig.getAioConfig(), maintainId, closeCode);
+				break;
+			}
+			case TOKEN: {
+				Aio.closeToken(imConfig.getAioConfig(), maintainId, closeCode);
+				break;
+			}
+			default: {
+				TIMLogUtil.error(LOGGER, "绑定类型未知");
+			}
+		}
 	}
 
 	private static void multiObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
@@ -145,6 +189,78 @@ public class TIM {
 				TIMLogUtil.error(LOGGER, "");
 			}
 		}
+	}
+
+	private static boolean unbind(MaintainEnum maintainEnum,ImConfig imConfig, String maintainId, ImChannelContext imChannelContext) {
+		boolean result = false;
+		switch (maintainEnum) {
+			case Bs_ID: {
+				result = Aio.unbindBsId(imConfig.getAioConfig(), maintainId, imChannelContext.getChannelContext());
+				break;
+			}
+			case CLU_ID: {
+				result = Aio.unbindClu(maintainId, imChannelContext.getChannelContext());
+				break;
+			}
+			case CLIENT_NODE_ID: {
+//				Aio.bindCliNode(maintainId, channelContext);
+				break;
+			}
+			case GROUP_ID: {
+				result = Aio.unbindGroup(maintainId, imChannelContext.getChannelContext());
+				break;
+			}
+			case ID: {
+				result = Aio.unbindId(imConfig.getAioConfig(), maintainId, imChannelContext.getChannelContext());
+				break;
+			}
+			case IP: {
+				result = Aio.unbindIp(maintainId, imChannelContext.getChannelContext());
+				break;
+			}
+			case USER: {
+				result = Aio.unbindUser(maintainId, imChannelContext.getChannelContext());
+				break;
+			}
+			case TOKEN: {
+				result = Aio.unbindToken(maintainId, imChannelContext.getChannelContext());
+				break;
+			}
+			default: {
+				TIMLogUtil.error(LOGGER, "绑定类型未知");
+			}
+		}
+		return result;
+	}
+
+	private static boolean unbindFromAll(MaintainEnum maintainEnum, ImChannelContext imChannelContext) {
+		boolean result = false;
+		switch (maintainEnum) {
+			case CLU_ID: {
+				result = Aio.unbindFromAllClu(imChannelContext.getChannelContext());
+				break;
+			}
+			case GROUP_ID: {
+				result = Aio.unbindFromAllGroup(imChannelContext.getChannelContext());
+				break;
+			}
+			case IP: {
+				result = Aio.unbindFromAllIp(imChannelContext.getChannelContext());
+				break;
+			}
+			case USER: {
+				result = Aio.unbindFromAllUser(imChannelContext.getChannelContext());
+				break;
+			}
+			case TOKEN: {
+				result = Aio.unbindFromAllToken(imChannelContext.getChannelContext());
+				break;
+			}
+			default: {
+				TIMLogUtil.error(LOGGER, "绑定类型未知");
+			}
+		}
+		return result;
 	}
 
 	private TIM() {
