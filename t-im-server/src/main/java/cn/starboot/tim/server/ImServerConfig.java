@@ -29,8 +29,7 @@ public class ImServerConfig extends ImConfig {
 	 */
 	public static final int HEARTBEAT_TIMEOUT = 1000 * 60;
 
-	public ImServerConfig(ServerProcessor serverProcessor, AioConfig aioConfig) {
-		super(aioConfig);
+	public ImServerConfig(ServerProcessor serverProcessor) {
 		this.serverProcessor = serverProcessor;
 	}
 

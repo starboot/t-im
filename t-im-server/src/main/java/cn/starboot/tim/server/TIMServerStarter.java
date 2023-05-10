@@ -8,6 +8,7 @@ import cn.starboot.socket.plugins.MonitorPlugin;
 import cn.starboot.socket.utils.pool.memory.MemoryPool;
 import cn.starboot.tim.common.ImChannelContextFactory;
 import cn.starboot.tim.common.banner.TimBanner;
+import cn.starboot.tim.server.intf.ServerProcessor;
 import cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class TIMServerStarter {
 
     private static TIMServerStarter timServerStarter;
 
-	private ImServerConfig imServerConfig;
+	private final ImServerConfig imServerConfig;
 
 	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory
 			= (channelContext) -> new ImServerChannelContext(channelContext, getImServerConfig());
@@ -33,11 +34,17 @@ public class TIMServerStarter {
 		timBanner.printBanner(System.out);
 	}
 
-	protected TIMServerStarter() {}
+	protected TIMServerStarter(ServerProcessor serverProcessor) {
+		this.imServerConfig = new ImServerConfig(serverProcessor);
+	}
 
-    public static synchronized TIMServerStarter getInstance() {
+	public static TIMServerStarter getInstance() {
+		return getInstance(null);
+	}
+
+    public static synchronized TIMServerStarter getInstance(ServerProcessor serverProcessor) {
         if (ObjectUtil.isNull(timServerStarter)){
-            timServerStarter = new TIMServerStarter();
+            timServerStarter = new TIMServerStarter(serverProcessor);
         }
         return timServerStarter;
     }
@@ -61,12 +68,13 @@ public class TIMServerStarter {
     private void init() {
         //加载配置信息
 //        P.use("tim.properties");
+
     }
 
 	private void start0() {
 		ServerBootstrap serverBootstrap
-				= new ServerBootstrap("127.0.0.1",
-				8888,
+				= new ServerBootstrap(getImServerConfig().getAioConfig().getHost(),
+				getImServerConfig().getAioConfig().getPort(),
 				ImServerProtocolHandler.getInstance(serverImChannelContextFactory));
 		serverBootstrap
 				.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
@@ -81,12 +89,12 @@ public class TIMServerStarter {
 					}
 				})
 				.start();
-		imServerConfig = new ImServerConfig(null, serverBootstrap.getConfig());
+		getImServerConfig().setAioConfig(serverBootstrap.getConfig());
 		log.info("TCP服务器启动在：{}:{}", "127.0.0.1", 8888);
 	}
 
 	public ImServerConfig getImServerConfig() {
-		return imServerConfig;
+		return this.imServerConfig;
 	}
 
     public static void main(String[] args) {

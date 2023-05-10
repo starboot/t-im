@@ -15,7 +15,7 @@ public abstract class ImConfig {
 
 	public static final String authKey = "authKey";
 
-	private final AioConfig aioConfig;
+	private AioConfig aioConfig;
 
 	/**
 	 * 本机IP
@@ -32,7 +32,7 @@ public abstract class ImConfig {
 	 */
 	public static boolean isUseSSL;
 
-	public ImConfig(AioConfig aioConfig) {
+	public void setAioConfig(AioConfig aioConfig) {
 		this.aioConfig = aioConfig;
 	}
 
