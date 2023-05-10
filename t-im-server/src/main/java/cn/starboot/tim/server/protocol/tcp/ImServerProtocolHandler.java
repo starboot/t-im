@@ -1,9 +1,11 @@
 package cn.starboot.tim.server.protocol.tcp;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.enums.StateMachineEnum;
 import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.ImChannelContextFactory;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
@@ -23,14 +25,17 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
     // TIM系统定制私有TCP通讯协议的服务器对象
     private static ImServerProtocolHandler imServerProtocolHandler;
 
+	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory;
+
     // 此对象不让用户自己实例化
-    private ImServerProtocolHandler() {
+    private ImServerProtocolHandler(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory) {
+    	this.serverImChannelContextFactory = serverImChannelContextFactory;
     }
 
     // 采用面向对象设计模式的单例模式创建
-    public synchronized static TIMPrivateTcpProtocol getInstance() {
+    public synchronized static TIMPrivateTcpProtocol getInstance(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory) {
         if (imServerProtocolHandler == null){
-            imServerProtocolHandler = new ImServerProtocolHandler();
+            imServerProtocolHandler = new ImServerProtocolHandler(serverImChannelContextFactory);
         }
 
         return imServerProtocolHandler;
@@ -38,14 +43,18 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
 
     @Override
     public Packet handle(ChannelContext channelContext, Packet packet) {
+		ImServerChannelContext imServerChannelContext = channelContext.getAttr(Key.IM_CHANNEL_CONTEXT_KEY, ImServerChannelContext.class);
+		if (ObjectUtil.isEmpty(imServerChannelContext)) {
+			imServerChannelContext = serverImChannelContextFactory.createImChannelContext(channelContext);
+			channelContext.attr(Key.IM_CHANNEL_CONTEXT_KEY, imServerChannelContext);
+		}
         if (packet instanceof ImPacket) {
             // 消息处理
             ImPacket imPacket = (ImPacket) packet;
             ReqCommandType reqCommandType = imPacket.getReqCommandType();
             AbstractCmdHandler cmdHandler = CommandManager.getCommand(reqCommandType);
-            ImChannelContext imChannelContext = new ImServerChannelContext(channelContext, new ImServerConfig(null, channelContext.getAioConfig()));
             try {
-                cmdHandler.handler(imPacket, imChannelContext);
+                cmdHandler.handler(imPacket, imServerChannelContext);
             } catch (ImException | InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }

@@ -42,12 +42,12 @@ public class TCPSocketServer extends IMServer {
 
     private ImServerConfig imServerConfig;
 
-    private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory = (channelContext, imConfig) -> new ImServerChannelContext(channelContext, getImServerConfig());
+    private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory = (channelContext) -> new ImServerChannelContext(channelContext, getImServerConfig());
 
     @Override
     public void start() throws IOException {
 
-        ServerBootstrap serverBootstrap = new ServerBootstrap(IMServer.ip, IMServer.port, ImServerProtocolHandler.getInstance());
+        ServerBootstrap serverBootstrap = new ServerBootstrap(IMServer.ip, IMServer.port, ImServerProtocolHandler.getInstance(serverImChannelContextFactory));
         serverBootstrap.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
                 .setThreadNum(1, 4)
                 .setReadBufferSize(1024 * 50)

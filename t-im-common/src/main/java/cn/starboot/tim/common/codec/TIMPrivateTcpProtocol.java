@@ -10,6 +10,7 @@ import cn.starboot.socket.exception.AioEncoderException;
 import cn.starboot.socket.intf.AioHandler;
 import cn.starboot.socket.utils.AIOUtil;
 import cn.starboot.socket.utils.pool.memory.MemoryUnit;
+import cn.starboot.tim.common.ImConst;
 import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ import java.nio.ByteBuffer;
  *
  * Created by DELL(mxd) on 2021/12/24 20:52
  */
-public abstract class TIMPrivateTcpProtocol implements AioHandler {
+public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TIMPrivateTcpProtocol.class);
 
