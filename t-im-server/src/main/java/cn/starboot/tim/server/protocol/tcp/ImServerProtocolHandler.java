@@ -35,6 +35,7 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
         if (imServerProtocolHandler == null){
             imServerProtocolHandler = new ImServerProtocolHandler(null);
         }
+
         return imServerProtocolHandler;
     }
 

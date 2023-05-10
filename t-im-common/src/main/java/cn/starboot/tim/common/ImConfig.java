@@ -24,4 +24,8 @@ public abstract class ImConfig {
 	public AioConfig getAioConfig() {
 		return this.aioConfig;
 	}
+
+	public boolean isServer() {
+		return this.aioConfig.isServer();
+	}
 }
