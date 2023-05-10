@@ -3,10 +3,15 @@ package cn.starboot.tim.server.protocol.tcp;
 import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.AioConfig;
+import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.core.ServerBootstrap;
 import cn.starboot.socket.plugins.HeartPlugin;
 import cn.starboot.socket.plugins.MonitorPlugin;
 import cn.starboot.socket.utils.pool.memory.MemoryPool;
+import cn.starboot.tim.common.ImChannelContextFactory;
+import cn.starboot.tim.common.ImConfig;
+import cn.starboot.tim.server.ImServerChannelContext;
+import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.protocol.IMServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +40,10 @@ public class TCPSocketServer extends IMServer {
         return socketServer;
     }
 
+    private ImServerConfig imServerConfig;
+
+    private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory = (channelContext, imConfig) -> new ImServerChannelContext(channelContext, getImServerConfig());
+
     @Override
     public void start() throws IOException {
 
@@ -51,6 +60,7 @@ public class TCPSocketServer extends IMServer {
                     }
                 })
                 .start();
+        imServerConfig = new ImServerConfig(null, serverBootstrap.getConfig());
         log.info("TCP服务器启动在：{}:{}", IMServer.ip, IMServer.port);
     }
 
@@ -59,7 +69,7 @@ public class TCPSocketServer extends IMServer {
      * 获取websocket和TCP协议共享的ServerTioConfig
      * @return .
      */
-    public static AioConfig getServerTIMConfig() {
-        return serverTioConfig;
+    public ImServerConfig getImServerConfig() {
+        return imServerConfig;
     }
 }

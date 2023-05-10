@@ -1,6 +1,8 @@
 package cn.starboot.tim.common;
 
-public interface ImChannelContextFactory {
+import cn.starboot.socket.core.ChannelContext;
 
-	ImChannelContext createImChannelContext(ImConfig imConfig);
+public interface ImChannelContextFactory<T extends ImChannelContext> {
+
+	T createImChannelContext(ChannelContext channelContext, ImConfig imConfig);
 }
