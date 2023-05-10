@@ -1,5 +1,6 @@
 package cn.starboot.tim.client;
 
+import cn.starboot.socket.core.AioConfig;
 import cn.starboot.tim.client.intf.ClientProcessor;
 import cn.starboot.tim.common.ImConfig;
 
@@ -17,4 +18,9 @@ public class ImClientConfig extends ImConfig {
 	public ClientProcessor getProcessor() {
         return this.clientProcessor;
     }
+
+	@Override
+	protected AioConfig getAioConfig() {
+		return null;
+	}
 }

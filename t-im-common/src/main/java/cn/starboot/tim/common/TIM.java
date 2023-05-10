@@ -99,26 +99,26 @@ public class TIM {
 		return result;
 	}
 
-	private static void multiObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, ChannelContextFilter channelContextFilter) {
+	private static void multiObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		switch (maintainEnum) {
 			case CLU_ID: {
-				//
-				break;
-			}
-			case CLIENT_NODE_ID: {
-				//
+				Aio.sendToCluId(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
 				break;
 			}
 			case GROUP_ID: {
-				//
+				Aio.sendToGroup(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
 				break;
 			}
 			case IP: {
-				//
+				Aio.sendToIp(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
 				break;
 			}
 			case TOKEN: {
-				//
+				Aio.sendToToken(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
+				break;
+			}
+			case USER: {
+				Aio.sendToUser(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
 				break;
 			}
 			default: {
@@ -127,18 +127,18 @@ public class TIM {
 		}
 	}
 
-	private static void singleObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, ChannelContextFilter channelContextFilter) {
+	private static void singleObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, String toId, ImPacket imPacket) {
 		switch (maintainEnum) {
 			case Bs_ID: {
-				//
+				Aio.sendToBsId(imConfig.getAioConfig(), toId, imPacket);
+				break;
+			}
+			case CLIENT_NODE_ID: {
+//				Aio.sendToClientNode(imConfig.getAioConfig(), toId, imPacket);
 				break;
 			}
 			case ID: {
-				//
-				break;
-			}
-			case USER: {
-				//
+				Aio.sendToId(imConfig.getAioConfig(), toId, imPacket);
 				break;
 			}
 			default: {

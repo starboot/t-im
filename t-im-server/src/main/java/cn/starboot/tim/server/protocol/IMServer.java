@@ -69,7 +69,7 @@ public abstract class IMServer {
     public static final int port;
 
     static {
-        TimBanner timBanner = new TimBanner(new ImConfig());
+        TimBanner timBanner = new TimBanner();
         timBanner.printBanner(System.out);
         isStore = false;
         if (isStore) {

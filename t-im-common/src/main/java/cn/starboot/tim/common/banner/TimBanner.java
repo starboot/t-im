@@ -18,20 +18,14 @@ public class TimBanner implements Banner {
             "    |_|        |_____||_____||_____| \n" +
             " ";
 
-    private final ImConfig config;
-
-	public TimBanner(ImConfig config) {
-		this.config = config;
-	}
-
 	@Override
     public void printBanner(PrintStream printStream) {
         printStream.println(BANNER);
-        printStream.println(getTimVersion(this.config.getName(), this.config.getVersion()));
+        printStream.println(getTimVersion());
     }
 
-    private String getTimVersion(String name, String version) {
-		return "\033[036m :: "+name+" :: \033[0m" + version;
+    private String getTimVersion() {
+		return "\033[036m :: "+ ImConfig.name +" :: \033[0m" + ImConfig.version;
 	}
 
 }
