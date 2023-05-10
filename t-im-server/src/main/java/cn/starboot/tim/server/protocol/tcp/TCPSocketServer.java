@@ -3,13 +3,11 @@ package cn.starboot.tim.server.protocol.tcp;
 import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.AioConfig;
-import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.core.ServerBootstrap;
 import cn.starboot.socket.plugins.HeartPlugin;
 import cn.starboot.socket.plugins.MonitorPlugin;
 import cn.starboot.socket.utils.pool.memory.MemoryPool;
 import cn.starboot.tim.common.ImChannelContextFactory;
-import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.protocol.IMServer;
@@ -23,8 +21,6 @@ import java.util.concurrent.TimeUnit;
  * Created by DELL(mxd) on 2021/12/23 20:28
  */
 public class TCPSocketServer extends IMServer {
-
-    private static AioConfig serverTioConfig;
 
     private static TCPSocketServer socketServer;
 
