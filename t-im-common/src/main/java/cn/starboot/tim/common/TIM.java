@@ -258,6 +258,6 @@ public class TIM {
 		return result;
 	}
 
-	private TIM() {
+	protected TIM() {
 	}
 }
