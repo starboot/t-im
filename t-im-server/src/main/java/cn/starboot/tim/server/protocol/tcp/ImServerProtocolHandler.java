@@ -4,7 +4,6 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.enums.StateMachineEnum;
-import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImChannelContextFactory;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
@@ -12,7 +11,6 @@ import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.command.CommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -46,6 +44,9 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
 		ImServerChannelContext imServerChannelContext = channelContext.getAttr(Key.IM_CHANNEL_CONTEXT_KEY, ImServerChannelContext.class);
 		if (ObjectUtil.isEmpty(imServerChannelContext)) {
 			imServerChannelContext = serverImChannelContextFactory.createImChannelContext(channelContext);
+			if (imServerChannelContext.getConfig() == null) {
+				System.out.println("cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：没有加载到配置文件...");
+			}
 			channelContext.attr(Key.IM_CHANNEL_CONTEXT_KEY, imServerChannelContext);
 		}
         if (packet instanceof ImPacket) {
