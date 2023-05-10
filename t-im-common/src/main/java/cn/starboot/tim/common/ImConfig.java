@@ -15,5 +15,13 @@ public abstract class ImConfig {
 
 	public static final String authKey = "authKey";
 
-	protected abstract AioConfig getAioConfig();
+	private final AioConfig aioConfig;
+
+	public ImConfig(AioConfig aioConfig) {
+		this.aioConfig = aioConfig;
+	}
+
+	public AioConfig getAioConfig() {
+		return this.aioConfig;
+	}
 }

@@ -11,16 +11,12 @@ public class ImClientConfig extends ImConfig {
 
     private final ClientProcessor clientProcessor;
 
-	public ImClientConfig(ClientProcessor clientProcessor) {
+	public ImClientConfig(ClientProcessor clientProcessor, AioConfig aioConfig) {
+		super(aioConfig);
 		this.clientProcessor = clientProcessor;
 	}
 
 	public ClientProcessor getProcessor() {
         return this.clientProcessor;
     }
-
-	@Override
-	protected AioConfig getAioConfig() {
-		return null;
-	}
 }
