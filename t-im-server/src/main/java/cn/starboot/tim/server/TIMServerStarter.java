@@ -1,10 +1,18 @@
 package cn.starboot.tim.server;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.starboot.socket.Packet;
+import cn.starboot.socket.core.ServerBootstrap;
+import cn.starboot.socket.plugins.HeartPlugin;
+import cn.starboot.socket.plugins.MonitorPlugin;
+import cn.starboot.socket.utils.pool.memory.MemoryPool;
+import cn.starboot.tim.common.ImChannelContextFactory;
 import cn.starboot.tim.common.banner.TimBanner;
-import cn.starboot.tim.server.protocol.tcp.TCPSocketServer;
+import cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by DELL(mxd) on 2021/12/23 20:45
@@ -13,9 +21,12 @@ public class TIMServerStarter {
 
     private static final Logger log = LoggerFactory.getLogger(TIMServerStarter.class);
 
-    private static TCPSocketServer tcpSocketServer;
-
     private static TIMServerStarter timServerStarter;
+
+	private ImServerConfig imServerConfig;
+
+	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory
+			= (channelContext) -> new ImServerChannelContext(channelContext, getImServerConfig());
 
 	static {
 		TimBanner timBanner = new TimBanner();
@@ -35,7 +46,7 @@ public class TIMServerStarter {
         try {
 			init();
 			long start = System.currentTimeMillis();
-            tcpSocketServer.start();
+            start0();
             long end = System.currentTimeMillis();
             long iv = end - start;
             if (log.isInfoEnabled()) {
@@ -50,9 +61,33 @@ public class TIMServerStarter {
     private void init() {
         //加载配置信息
 //        P.use("tim.properties");
-        // 实例化TCP服务器
-        tcpSocketServer = TCPSocketServer.getInstance();
     }
+
+	private void start0() {
+		ServerBootstrap serverBootstrap
+				= new ServerBootstrap("127.0.0.1",
+				8888,
+				ImServerProtocolHandler.getInstance(serverImChannelContextFactory));
+		serverBootstrap
+				.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
+				.setThreadNum(1, 4)
+				.setReadBufferSize(1024 * 50)
+				.setWriteBufferSize(1024 * 10, 128)
+				.addPlugin(new MonitorPlugin(60))
+				.addPlugin(new HeartPlugin(60, 20, TimeUnit.SECONDS) {
+					@Override
+					public boolean isHeartMessage(Packet packet) {
+						return false;
+					}
+				})
+				.start();
+		imServerConfig = new ImServerConfig(null, serverBootstrap.getConfig());
+		log.info("TCP服务器启动在：{}:{}", "127.0.0.1", 8888);
+	}
+
+	public ImServerConfig getImServerConfig() {
+		return imServerConfig;
+	}
 
     public static void main(String[] args) {
         TIMServerStarter timServerStarter = TIMServerStarter.getInstance();
