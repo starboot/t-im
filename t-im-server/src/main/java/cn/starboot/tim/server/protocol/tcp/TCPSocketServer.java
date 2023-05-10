@@ -43,7 +43,7 @@ public class TCPSocketServer extends IMServer {
     @Override
     public void start() throws IOException {
 
-        ServerBootstrap serverBootstrap = new ServerBootstrap(IMServer.ip, IMServer.port, ImServerProtocolHandler.getInstance(serverImChannelContextFactory));
+        ServerBootstrap serverBootstrap = new ServerBootstrap("127.0.0.1", 8888, ImServerProtocolHandler.getInstance(serverImChannelContextFactory));
         serverBootstrap.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
                 .setThreadNum(1, 4)
                 .setReadBufferSize(1024 * 50)
@@ -57,7 +57,7 @@ public class TCPSocketServer extends IMServer {
                 })
                 .start();
         imServerConfig = new ImServerConfig(null, serverBootstrap.getConfig());
-        log.info("TCP服务器启动在：{}:{}", IMServer.ip, IMServer.port);
+        log.info("TCP服务器启动在：{}:{}", "127.0.0.1", 8888);
     }
 
     /**

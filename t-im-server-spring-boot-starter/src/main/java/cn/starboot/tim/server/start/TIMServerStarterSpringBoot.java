@@ -14,7 +14,6 @@ import org.springframework.core.io.ResourceLoader;
 public class TIMServerStarterSpringBoot extends TIMServerStarter implements SmartInitializingSingleton, BeanFactoryAware, ResourceLoaderAware {
     @Override
     public void afterSingletonsInstantiated() {
-        init();
         start();
     }
 

@@ -13,7 +13,7 @@ public class TIMServerStarterDemo {
         // 启动方式：推荐使用
         TIMServerStarter timServerStarter = Singleton.get(TIMServerStarter.class);
         // 初始化服务器
-        timServerStarter.init();
+//        timServerStarter.init();
         // 启动
         timServerStarter.start();
 

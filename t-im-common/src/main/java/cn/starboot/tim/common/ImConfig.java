@@ -17,6 +17,21 @@ public abstract class ImConfig {
 
 	private final AioConfig aioConfig;
 
+	/**
+	 * 本机IP
+	 */
+	public static String ip = "127.0.0.1";
+
+	/**
+	 * 本地tcp端口
+	 */
+	public static int port = 8888;
+
+	/**
+	 * 开启SSL
+	 */
+	public static boolean isUseSSL;
+
 	public ImConfig(AioConfig aioConfig) {
 		this.aioConfig = aioConfig;
 	}
