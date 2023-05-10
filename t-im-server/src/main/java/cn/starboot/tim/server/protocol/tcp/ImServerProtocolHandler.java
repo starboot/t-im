@@ -23,14 +23,17 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
     // TIM系统定制私有TCP通讯协议的服务器对象
     private static ImServerProtocolHandler imServerProtocolHandler;
 
+    private final ImServerConfig imServerConfig;
+
     // 此对象不让用户自己实例化
-    private ImServerProtocolHandler() {
+    private ImServerProtocolHandler(ImServerConfig imServerConfig) {
+    	this.imServerConfig = imServerConfig;
     }
 
     // 采用面向对象设计模式的单例模式创建
     public synchronized static TIMPrivateTcpProtocol getInstance() {
         if (imServerProtocolHandler == null){
-            imServerProtocolHandler = new ImServerProtocolHandler();
+            imServerProtocolHandler = new ImServerProtocolHandler(null);
         }
         return imServerProtocolHandler;
     }
