@@ -28,7 +28,7 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
     }
 
     // 采用面向对象设计模式的单例模式创建
-    public static TIMPrivateTcpProtocol getInstance() {
+    public synchronized static TIMPrivateTcpProtocol getInstance() {
         if (imServerProtocolHandler == null){
             imServerProtocolHandler = new ImServerProtocolHandler();
         }
