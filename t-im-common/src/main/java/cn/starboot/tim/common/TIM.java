@@ -47,12 +47,7 @@ public class TIM {
     public static void remove(ChannelContext channelContext) {
     }
 
-
     public static void sendToGroup() {
-
-    }
-
-    public static void ackSend(ChannelContext channelContext,Packet packet, long timeout, Integer ack) {
 
     }
 
