@@ -1,4 +1,4 @@
-package cn.starboot.tim.common;
+package cn.starboot.tim.server;
 
 import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.socket.Packet;
@@ -6,6 +6,8 @@ import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.enums.CloseCode;
 import cn.starboot.socket.enums.MaintainEnum;
+import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import org.slf4j.Logger;
