@@ -4,6 +4,7 @@ import cn.starboot.socket.utils.config.Configuration;
 import cn.starboot.socket.utils.config.ConfigurationFactory;
 import cn.starboot.tim.client.command.handler.AbstractClientCmdHandler;
 
+import cn.starboot.tim.common.command.ReqClientCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqServerCommandType;
 
@@ -29,7 +30,7 @@ public class CommandManager {
 	/**
 	 * 通用cmd处理命令与命令码的Map映射
 	 */
-    private static final Map<ReqServerCommandType, AbstractClientCmdHandler> handlerMap = new HashMap<>();
+    private static final Map<ReqClientCommandType, AbstractClientCmdHandler> handlerMap = new HashMap<>();
 
     private CommandManager(){};
 
@@ -62,7 +63,7 @@ public class CommandManager {
         if(imCommandHandler == null || imCommandHandler.command() == null) {
             return;
         }
-		ReqServerCommandType command = imCommandHandler.command();
+		ReqClientCommandType command = imCommandHandler.command();
 		if(Objects.isNull(ReqServerCommandType.getCommandTypeByCode(command.getCode()))) {
             throw new ImException("failed to register cmd handler, illegal cmd code:" + command.getCode() + ",use Command.addAndGet () to add in the enumerated Command class!");
         }
