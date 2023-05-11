@@ -1,7 +1,7 @@
 package cn.starboot.tim.client.command.handler;
 
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.command.ReqClientCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
@@ -19,8 +19,8 @@ public class ClientChatReqHandler extends AbstractClientCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(ClientChatReqHandler.class);
 
     @Override
-    public ReqClientCommandType command() {
-        return ReqClientCommandType.COMMAND_CHAT_REQ;
+    public TIMCommandType command() {
+        return TIMCommandType.COMMAND_CHAT_REQ;
     }
 
     @Override

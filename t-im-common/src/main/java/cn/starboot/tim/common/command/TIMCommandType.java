@@ -35,7 +35,36 @@ public enum TIMCommandType {
     COMMAND_MESSAGE_REQ(108, "获取持久化聊天消息"),
 
 	// 请求响应命令码
-	COMMAND_REQ_RESP(109,  "请求响应命令码");
+	COMMAND_REQ_RESP(109,  "请求响应命令码"),
+
+	// ----------------------------------------------------
+
+	// 鉴权响应命令码
+	COMMAND_AUTH_RESP(200,    "鉴权响应命令码"),
+
+	// 聊天响应命令码
+	COMMAND_CHAT_RESP(201,    "聊天响应命令码"),
+
+	// 登录响应命令码
+	COMMAND_LOGIN_RESP(202,   "登录响应命令码"),
+
+	// 绑定、解绑响应命令码
+	COMMAND_BIND_RESP(203,    "绑定、解绑响应命令码"),
+
+	// 心跳响应命令码
+	COMMAND_HEART_RESP(204,   "心跳响应命令码"),
+
+	// 关闭响应命令码
+	COMMAND_CLOSE_RESP(205,   "关闭响应命令码"),
+
+	// ACK响应命令码
+	COMMAND_ACK_RESP(206,     "ACK响应命令码"),
+
+	// 获取用户情况响应
+	COMMAND_USERS_RESP(207,   "获取用户情况响应"),
+
+	// 获取持久化聊天消息响应
+	COMMAND_MESSAGE_RESP(208, "获取持久化聊天消息响应");
 
     /**
      * 命令码数字索引
@@ -95,6 +124,15 @@ public enum TIMCommandType {
             case 107: TIMCommandType = COMMAND_USERS_REQ;   break;
             case 108: TIMCommandType = COMMAND_MESSAGE_REQ; break;
 			case 109: TIMCommandType = COMMAND_REQ_RESP;    break;
+			case 200: TIMCommandType = COMMAND_AUTH_RESP;   break;
+			case 201: TIMCommandType = COMMAND_CHAT_RESP;   break;
+			case 202: TIMCommandType = COMMAND_LOGIN_RESP;  break;
+			case 203: TIMCommandType = COMMAND_BIND_RESP;   break;
+			case 204: TIMCommandType = COMMAND_HEART_RESP;  break;
+			case 205: TIMCommandType = COMMAND_CLOSE_RESP;  break;
+			case 206: TIMCommandType = COMMAND_ACK_RESP;    break;
+			case 207: TIMCommandType = COMMAND_USERS_RESP;  break;
+			case 208: TIMCommandType = COMMAND_MESSAGE_RESP;break;
         }
         return TIMCommandType;
     }

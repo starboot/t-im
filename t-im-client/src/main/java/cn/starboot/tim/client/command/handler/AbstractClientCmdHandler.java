@@ -7,7 +7,6 @@ import cn.starboot.tim.client.intf.DefaultClientProcessor;
 import cn.starboot.tim.client.intf.ClientProcessor;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImConfig;
-import cn.starboot.tim.common.command.ReqClientCommandType;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import org.slf4j.Logger;
@@ -26,7 +25,7 @@ public abstract class AbstractClientCmdHandler extends AbstractCmdHandler {
 	 * 主键：判断各类socket请求的指令
 	 * @return 主键对象
 	 */
-	public abstract ReqClientCommandType command();
+	public abstract TIMCommandType command();
 
 	@Override
 	protected void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data) {

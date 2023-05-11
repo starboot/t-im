@@ -1,7 +1,7 @@
 package cn.starboot.tim.client.command.handler;
 
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.command.ReqClientCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -16,8 +16,8 @@ public class AuthRespHandler extends AbstractClientCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(AuthRespHandler.class);
 
     @Override
-    public ReqClientCommandType command() {
-        return ReqClientCommandType.COMMAND_AUTH_RESP;
+    public TIMCommandType command() {
+        return TIMCommandType.COMMAND_AUTH_RESP;
     }
 
     @Override
