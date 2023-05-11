@@ -44,7 +44,7 @@ public class ImClientProtocolHandler extends TIMPrivateTcpProtocol {
             ImPacket imPacket = (ImPacket) packet;
             ReqCommandType reqCommandType = imPacket.getReqCommandType();
             ClientAbstractCmdHandler cmdHandler = CommandManager.getCommand(reqCommandType);
-            ImChannelContext imChannelContext = new ImClientChannelContext(channelContext, new ImClientConfig(null, channelContext.getAioConfig()));
+            ImChannelContext imChannelContext = new ImClientChannelContext(channelContext, new ImClientConfig(null));
             try {
                 cmdHandler.handler(imPacket, imChannelContext);
             } catch (ImException | InvalidProtocolBufferException e) {

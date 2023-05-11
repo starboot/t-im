@@ -73,8 +73,8 @@ public class TIMServerStarter {
 
 	private void start0() {
 		ServerBootstrap serverBootstrap
-				= new ServerBootstrap(getImServerConfig().getAioConfig().getHost(),
-				getImServerConfig().getAioConfig().getPort(),
+				= new ServerBootstrap("127.0.0.1",
+				8888,
 				ImServerProtocolHandler.getInstance(serverImChannelContextFactory));
 		serverBootstrap
 				.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))

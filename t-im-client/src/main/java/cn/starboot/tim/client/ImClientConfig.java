@@ -11,8 +11,7 @@ public class ImClientConfig extends ImConfig {
 
     private final ClientProcessor clientProcessor;
 
-	public ImClientConfig(ClientProcessor clientProcessor, AioConfig aioConfig) {
-		super(aioConfig);
+	public ImClientConfig(ClientProcessor clientProcessor) {
 		this.clientProcessor = clientProcessor;
 	}
 
