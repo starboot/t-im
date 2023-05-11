@@ -11,11 +11,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
  */
 public interface CmdHandler {
 
-    /**
-     * 主键：判断各类socket请求的指令
-     * @return 主键对象
-     */
-    ReqServerCommandType command();
 
     /**
      * 处理Cmd命令

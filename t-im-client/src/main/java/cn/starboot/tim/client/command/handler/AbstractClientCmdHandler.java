@@ -5,7 +5,9 @@ import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.client.intf.DefaultClientProcessor;
 import cn.starboot.tim.client.intf.ClientProcessor;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.command.handler.CmdHandler;
+import cn.starboot.tim.common.command.ReqClientCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
+import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,9 +15,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:45
  */
-public abstract class AbstractClientCmdHandler implements CmdHandler {
+public abstract class AbstractClientCmdHandler extends AbstractCmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractClientCmdHandler.class);
+
+
+	/**
+	 * 主键：判断各类socket请求的指令
+	 * @return 主键对象
+	 */
+	public abstract ReqClientCommandType command();
 
     protected ClientProcessor processor(ImChannelContext channelContext){
 //        TioConfig tioConfig = channelContext.getTioConfig();

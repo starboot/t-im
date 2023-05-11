@@ -2,6 +2,7 @@ package cn.starboot.tim.client.command.handler;
 
 
 import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.command.ReqClientCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
@@ -13,8 +14,8 @@ import com.google.protobuf.InvalidProtocolBufferException;
 public class LoginRespHandler extends AbstractClientCmdHandler {
 
     @Override
-    public ReqServerCommandType command() {
-        return ReqServerCommandType.COMMAND_LOGIN_REQ;
+    public ReqClientCommandType command() {
+        return ReqClientCommandType.COMMAND_LOGIN_RESP;
     }
 
     @Override

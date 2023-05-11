@@ -11,7 +11,7 @@ public enum ReqClientCommandType {
     COMMAND_AUTH_RESP(200,    "鉴权响应命令码"),
 
     // 聊天响应命令码
-    COMMAND_CHAT_RESP(201,    "聊天响应命令码"),
+    COMMAND_CHAT_REQ(201,    "聊天响应命令码"),
 
     // 登录响应命令码
     COMMAND_LOGIN_RESP(202,   "登录响应命令码"),
@@ -83,7 +83,7 @@ public enum ReqClientCommandType {
         ReqClientCommandType reqClientCommandType = null;
         switch (code) {
             case 200: reqClientCommandType = COMMAND_AUTH_RESP;    break;
-            case 201: reqClientCommandType = COMMAND_CHAT_RESP;    break;
+            case 201: reqClientCommandType = COMMAND_CHAT_REQ;     break;
             case 202: reqClientCommandType = COMMAND_LOGIN_RESP;   break;
             case 203: reqClientCommandType = COMMAND_BIND_RESP;    break;
             case 204: reqClientCommandType = COMMAND_HEART_RESP;   break;
