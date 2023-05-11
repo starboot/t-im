@@ -2,9 +2,11 @@ package cn.starboot.tim.common.command.handler;
 
 import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.ImChannelContextFactory;
 import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.ImPacketFactory;
 
 /**
  * 抽象命令处理器
@@ -12,7 +14,11 @@ import cn.starboot.tim.common.packet.ImPacket;
  */
 public abstract class AbstractCmdHandler implements CmdHandler {
 
-
+	private static final ImPacketFactory imPacketFactory = (timCommandType, data) -> ImPacket
+			.newBuilder()
+			.setTIMCommandType(timCommandType)
+			.setData(data)
+			.build();
 
 	/**
 	 * 命令处理器自带发送方法
@@ -29,11 +35,7 @@ public abstract class AbstractCmdHandler implements CmdHandler {
 
 	protected abstract void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data, ChannelContextFilter channelContextFilter);
 
-	protected ImPacket getImPacket(TIMCommandType TIMCommandType, byte[] data) {
-		return ImPacket
-				.newBuilder()
-				.setTIMCommandType(TIMCommandType)
-				.setData(data)
-				.build();
+	protected ImPacket getImPacket(TIMCommandType timCommandType, byte[] data) {
+		return imPacketFactory.createImPacket(timCommandType, data);
 	}
 }

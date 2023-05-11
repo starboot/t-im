@@ -1,6 +1,8 @@
 package cn.starboot.tim.common.packet;
 
-public interface ImPacketFactory<T> {
+import cn.starboot.tim.common.command.TIMCommandType;
 
-	ImPacket createImPacket(T t, byte[] data);
+public interface ImPacketFactory {
+
+	ImPacket createImPacket(TIMCommandType timCommandType, byte[] data);
 }
