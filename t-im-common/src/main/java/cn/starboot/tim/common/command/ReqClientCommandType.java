@@ -5,7 +5,7 @@ package cn.starboot.tim.common.command;
  *
  * @author MDong
  */
-public enum RespCommandType {
+public enum ReqClientCommandType {
 
     // 鉴权响应命令码
     COMMAND_AUTH_RESP(200,    "鉴权响应命令码"),
@@ -50,7 +50,7 @@ public enum RespCommandType {
      * @param code 索引
      * @param msg  msg
      */
-    RespCommandType(int code, String msg) {
+    ReqClientCommandType(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -79,19 +79,19 @@ public enum RespCommandType {
      * @param code 索引数字
      * @return     CommandType
      */
-    public static RespCommandType getCommandTypeByCode(int code) {
-        RespCommandType respCommandType = null;
+    public static ReqClientCommandType getCommandTypeByCode(int code) {
+        ReqClientCommandType reqClientCommandType = null;
         switch (code) {
-            case 200: respCommandType = COMMAND_AUTH_RESP;    break;
-            case 201: respCommandType = COMMAND_CHAT_RESP;    break;
-            case 202: respCommandType = COMMAND_LOGIN_RESP;   break;
-            case 203: respCommandType = COMMAND_BIND_RESP;    break;
-            case 204: respCommandType = COMMAND_HEART_RESP;   break;
-            case 205: respCommandType = COMMAND_CLOSE_RESP;   break;
-            case 206: respCommandType = COMMAND_ACK_RESP;     break;
-            case 207: respCommandType = COMMAND_USERS_RESP;   break;
-            case 208: respCommandType = COMMAND_MESSAGE_RESP; break;
+            case 200: reqClientCommandType = COMMAND_AUTH_RESP;    break;
+            case 201: reqClientCommandType = COMMAND_CHAT_RESP;    break;
+            case 202: reqClientCommandType = COMMAND_LOGIN_RESP;   break;
+            case 203: reqClientCommandType = COMMAND_BIND_RESP;    break;
+            case 204: reqClientCommandType = COMMAND_HEART_RESP;   break;
+            case 205: reqClientCommandType = COMMAND_CLOSE_RESP;   break;
+            case 206: reqClientCommandType = COMMAND_ACK_RESP;     break;
+            case 207: reqClientCommandType = COMMAND_USERS_RESP;   break;
+            case 208: reqClientCommandType = COMMAND_MESSAGE_RESP; break;
         }
-        return respCommandType;
+        return reqClientCommandType;
     }
 }
