@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImStatus;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.BindPacketProto;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
@@ -20,8 +20,8 @@ public class BindReqHandler extends AbstractServerCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(BindReqHandler.class);
 
     @Override
-    public ReqCommandType command() {
-        return ReqCommandType.COMMAND_BIND_REQ;
+    public ReqServerCommandType command() {
+        return ReqServerCommandType.COMMAND_BIND_REQ;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
                     .setDescription(ImStatus.C10011.getDescription())
                     .setText(ImStatus.C10011.getText())
                     .build();
-            imPacket.setReqCommandType(ReqCommandType.COMMAND_BIND_REQ)
+            imPacket.setReqServerCommandType(ReqServerCommandType.COMMAND_BIND_REQ)
                     .setData(build1.toByteArray());
             // build发送出去
 //            TIM.send(channelContext, new ImPacket(Command.COMMAND_JOIN_GROUP_RESP, respBody.toByte()));

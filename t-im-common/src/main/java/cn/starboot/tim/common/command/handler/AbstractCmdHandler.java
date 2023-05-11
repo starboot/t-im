@@ -2,9 +2,8 @@ package cn.starboot.tim.common.command.handler;
 
 import cn.starboot.socket.core.Aio;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
-import org.slf4j.Logger;
 
 /**
  * 抽象命令处理器
@@ -16,11 +15,11 @@ public abstract class AbstractCmdHandler implements CmdHandler {
 	 * 命令处理器自带发送方法
 	 *
 	 * @param imChannelContext 用户上下文信息
-	 * @param reqCommandType   协议命令码
+	 * @param reqServerCommandType   协议命令码
 	 * @param data             待发送数据
 	 */
-	protected void send(ImChannelContext imChannelContext, ReqCommandType reqCommandType, byte[] data) {
-		Aio.send(imChannelContext.getChannelContext(), new ImPacket(reqCommandType, data));
+	protected void send(ImChannelContext imChannelContext, ReqServerCommandType reqServerCommandType, byte[] data) {
+		Aio.send(imChannelContext.getChannelContext(), new ImPacket(reqServerCommandType, data));
 	}
 
 }

@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImStatus;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.common.packet.proto.UsersPacketProto;
@@ -22,8 +22,8 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 
 
     @Override
-    public ReqCommandType command() {
-        return ReqCommandType.COMMAND_USERS_REQ;
+    public ReqServerCommandType command() {
+        return ReqServerCommandType.COMMAND_USERS_REQ;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserReqHandler extends AbstractServerCmdHandler {
                     .setDescription(ImStatus.C10004.getDescription())
                     .setText(ImStatus.C10004.getText())
                     .build();
-            imPacket.setReqCommandType(ReqCommandType.COMMAND_USERS_REQ)
+            imPacket.setReqServerCommandType(ReqServerCommandType.COMMAND_USERS_REQ)
                     .setData(build1.toByteArray());
             // 发送build
 //            TIM.send(channelContext, new ImPacket(Command.COMMAND_GET_MESSAGE_RESP, respBody.toByte()));

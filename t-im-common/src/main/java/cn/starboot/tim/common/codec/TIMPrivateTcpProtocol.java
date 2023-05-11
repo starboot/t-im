@@ -11,7 +11,7 @@ import cn.starboot.socket.intf.AioHandler;
 import cn.starboot.socket.utils.AIOUtil;
 import cn.starboot.socket.utils.pool.memory.MemoryUnit;
 import cn.starboot.tim.common.ImConst;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +68,7 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
         // 获取命令码数字索引
         final int commandType = buffer.getInt();
         // 获取命令码
-        ReqCommandType command = ReqCommandType.getCommandTypeByCode(commandType);
+        ReqServerCommandType command = ReqServerCommandType.getCommandTypeByCode(commandType);
         // 判断是否为异常命令
         if (command == null) {
             // 用户发送未知命令码
@@ -104,7 +104,7 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
             // 开始编码
             ImPacket imPacket = (ImPacket) packet;
             // 消息命令码
-            ReqCommandType reqCommandType = imPacket.getReqCommandType();
+            ReqServerCommandType reqServerCommandType = imPacket.getReqServerCommandType();
             // 消息体
             byte[] data = imPacket.getData();
             // 拿到输入流
@@ -114,7 +114,7 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
             // 写入协议的特殊标识
             writeBuffer.writeByte(timProtocolMark);
             // 写入命令码
-            writeBuffer.writeInt(reqCommandType.getCode());
+            writeBuffer.writeInt(reqServerCommandType.getCode());
             // 写入消息体长度
             writeBuffer.writeInt(data.length);
             // 写入消息体

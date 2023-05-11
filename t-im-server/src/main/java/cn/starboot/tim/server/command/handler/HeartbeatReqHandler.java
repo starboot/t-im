@@ -1,7 +1,7 @@
 package cn.starboot.tim.server.command.handler;
 
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.HeartPacketProto;
 import com.google.protobuf.ByteString;
@@ -15,8 +15,8 @@ import com.google.protobuf.ByteString;
 public class HeartbeatReqHandler extends AbstractServerCmdHandler {
 
     @Override
-    public ReqCommandType command() {
-        return ReqCommandType.COMMAND_HEART_REQ;
+    public ReqServerCommandType command() {
+        return ReqServerCommandType.COMMAND_HEART_REQ;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class HeartbeatReqHandler extends AbstractServerCmdHandler {
         HeartPacketProto.HeartPacket.Builder builder = HeartPacketProto.HeartPacket.newBuilder();
         HeartPacketProto.HeartPacket build = builder.setHeartByte(ByteString.copyFrom(new byte[]{(byte) 0xff}))
                 .build();
-        imPacket.setReqCommandType(ReqCommandType.COMMAND_HEART_REQ)
+        imPacket.setReqServerCommandType(ReqServerCommandType.COMMAND_HEART_REQ)
                 .setData(build.toByteArray());
         // 将build1发送给客户端
 //        TIM.send(channelContext, heartbeatPacket);

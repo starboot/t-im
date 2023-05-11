@@ -2,20 +2,20 @@ package cn.starboot.tim.common.packet;
 
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.utils.json.JsonUtil;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 
 public class ImPacket extends Packet {
 
     private static final long serialVersionUID = -1586364817471781579L;
 
     // 消息命令码
-    private ReqCommandType reqCommandType;
+    private ReqServerCommandType reqServerCommandType;
 
     // 消息体
     private byte[] data;
 
-    public ImPacket(ReqCommandType reqCommandType, byte[] data) {
-        this.reqCommandType = reqCommandType;
+    public ImPacket(ReqServerCommandType reqServerCommandType, byte[] data) {
+        this.reqServerCommandType = reqServerCommandType;
         this.data = data;
     }
 
@@ -23,12 +23,12 @@ public class ImPacket extends Packet {
 		return new Builder();
 	}
 
-    public ReqCommandType getReqCommandType() {
-        return reqCommandType;
+    public ReqServerCommandType getReqServerCommandType() {
+        return reqServerCommandType;
     }
 
-    public ImPacket setReqCommandType(ReqCommandType reqCommandType) {
-        this.reqCommandType = reqCommandType;
+    public ImPacket setReqServerCommandType(ReqServerCommandType reqServerCommandType) {
+        this.reqServerCommandType = reqServerCommandType;
         return this;
     }
 
@@ -43,15 +43,15 @@ public class ImPacket extends Packet {
 
 	public static class Builder {
 
-		private ReqCommandType reqCommandType;
+		private ReqServerCommandType reqServerCommandType;
 
 		private byte[] data;
 
 		private Builder() {
 		}
 
-		public Builder setReqCommandType(ReqCommandType reqCommandType) {
-			this.reqCommandType = reqCommandType;
+		public Builder setReqServerCommandType(ReqServerCommandType reqServerCommandType) {
+			this.reqServerCommandType = reqServerCommandType;
 			return this;
 		}
 
@@ -65,7 +65,7 @@ public class ImPacket extends Packet {
 		}
 
 		public ImPacket build(){
-			return new ImPacket(reqCommandType, data);
+			return new ImPacket(reqServerCommandType, data);
 		}
 	}
 

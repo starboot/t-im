@@ -5,7 +5,7 @@ package cn.starboot.tim.common.command;
  *
  * @author MDong
  */
-public enum ReqCommandType {
+public enum ReqServerCommandType {
 
     // 鉴权命令码
     COMMAND_AUTH_REQ(100,    "鉴权命令码"),
@@ -53,7 +53,7 @@ public enum ReqCommandType {
      * @param code 索引
      * @param msg  msg
      */
-    ReqCommandType(int code, String msg) {
+    ReqServerCommandType(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -82,20 +82,20 @@ public enum ReqCommandType {
      * @param code 索引数字
      * @return     CommandType
      */
-    public static ReqCommandType getCommandTypeByCode(int code) {
-        ReqCommandType reqCommandType = null;
+    public static ReqServerCommandType getCommandTypeByCode(int code) {
+        ReqServerCommandType reqServerCommandType = null;
         switch (code) {
-            case 100: reqCommandType = COMMAND_AUTH_REQ;    break;
-            case 101: reqCommandType = COMMAND_CHAT_REQ;    break;
-            case 102: reqCommandType = COMMAND_LOGIN_REQ;   break;
-            case 103: reqCommandType = COMMAND_BIND_REQ;    break;
-            case 104: reqCommandType = COMMAND_HEART_REQ;   break;
-            case 105: reqCommandType = COMMAND_CLOSE_REQ;   break;
-            case 106: reqCommandType = COMMAND_ACK_REQ;     break;
-            case 107: reqCommandType = COMMAND_USERS_REQ;   break;
-            case 108: reqCommandType = COMMAND_MESSAGE_REQ; break;
-			case 109: reqCommandType = COMMAND_REQ_RESP;    break;
+            case 100: reqServerCommandType = COMMAND_AUTH_REQ;    break;
+            case 101: reqServerCommandType = COMMAND_CHAT_REQ;    break;
+            case 102: reqServerCommandType = COMMAND_LOGIN_REQ;   break;
+            case 103: reqServerCommandType = COMMAND_BIND_REQ;    break;
+            case 104: reqServerCommandType = COMMAND_HEART_REQ;   break;
+            case 105: reqServerCommandType = COMMAND_CLOSE_REQ;   break;
+            case 106: reqServerCommandType = COMMAND_ACK_REQ;     break;
+            case 107: reqServerCommandType = COMMAND_USERS_REQ;   break;
+            case 108: reqServerCommandType = COMMAND_MESSAGE_REQ; break;
+			case 109: reqServerCommandType = COMMAND_REQ_RESP;    break;
         }
-        return reqCommandType;
+        return reqServerCommandType;
     }
 }

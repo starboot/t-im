@@ -5,7 +5,7 @@ import cn.starboot.socket.utils.config.ConfigurationFactory;
 import cn.starboot.tim.client.command.handler.AbstractClientCmdHandler;
 
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class CommandManager {
 	/**
 	 * 通用cmd处理命令与命令码的Map映射
 	 */
-    private static final Map<ReqCommandType, AbstractClientCmdHandler> handlerMap = new HashMap<>();
+    private static final Map<ReqServerCommandType, AbstractClientCmdHandler> handlerMap = new HashMap<>();
 
     private CommandManager(){};
 
@@ -62,8 +62,8 @@ public class CommandManager {
         if(imCommandHandler == null || imCommandHandler.command() == null) {
             return;
         }
-		ReqCommandType command = imCommandHandler.command();
-		if(Objects.isNull(ReqCommandType.getCommandTypeByCode(command.getCode()))) {
+		ReqServerCommandType command = imCommandHandler.command();
+		if(Objects.isNull(ReqServerCommandType.getCommandTypeByCode(command.getCode()))) {
             throw new ImException("failed to register cmd handler, illegal cmd code:" + command.getCode() + ",use Command.addAndGet () to add in the enumerated Command class!");
         }
         if(Objects.isNull(handlerMap.get(command))) {
@@ -73,7 +73,7 @@ public class CommandManager {
         }
     }
 
-    public static AbstractClientCmdHandler removeCommand(ReqCommandType command){
+    public static AbstractClientCmdHandler removeCommand(ReqServerCommandType command){
         if(command == null) {
             return null;
         }
@@ -83,7 +83,7 @@ public class CommandManager {
         return null;
     }
 
-    public static <T> T getCommand(ReqCommandType command, Class<T> clazz){
+    public static <T> T getCommand(ReqServerCommandType command, Class<T> clazz){
         AbstractClientCmdHandler cmdHandler = getCommand(command);
         if(cmdHandler != null){
             return (T) cmdHandler;
@@ -91,7 +91,7 @@ public class CommandManager {
         return null;
     }
 
-    public static AbstractClientCmdHandler getCommand(ReqCommandType command){
+    public static AbstractClientCmdHandler getCommand(ReqServerCommandType command){
         if(command == null) {
             return null;
         }

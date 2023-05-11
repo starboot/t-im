@@ -3,7 +3,7 @@ package cn.starboot.tim.server.command.handler;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ClosePacketProto;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -18,8 +18,8 @@ public class CloseReqHandler extends AbstractServerCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(CloseReqHandler.class);
 
     @Override
-    public ReqCommandType command() {
-        return ReqCommandType.COMMAND_CLOSE_REQ;
+    public ReqServerCommandType command() {
+        return ReqServerCommandType.COMMAND_CLOSE_REQ;
     }
 
     @Override

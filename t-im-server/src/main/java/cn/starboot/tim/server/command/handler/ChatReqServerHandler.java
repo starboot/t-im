@@ -3,7 +3,7 @@ package cn.starboot.tim.server.command.handler;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.command.ReqCommandType;
+import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.util.TIMLogUtil;
@@ -20,8 +20,8 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatReqServerHandler.class);
 
     @Override
-    public ReqCommandType command() {
-        return ReqCommandType.COMMAND_CHAT_REQ;
+    public ReqServerCommandType command() {
+        return ReqServerCommandType.COMMAND_CHAT_REQ;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			case PRIVATE: {
 				if (StrUtil.isNotEmpty(chatPacket.getToId())) {
 					System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
-					send(channelContext, ReqCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray());
+					send(channelContext, ReqServerCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray());
 					// 私聊
 					if (ChatKit.isOnline(chatPacket.getToId())) {
 //                TIM.sendToUser(body, packet);
