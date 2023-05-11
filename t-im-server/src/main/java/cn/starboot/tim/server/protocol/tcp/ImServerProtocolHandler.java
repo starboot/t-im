@@ -11,7 +11,7 @@ import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.command.CommandManager;
+import cn.starboot.tim.server.command.TIMServerTIMCommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,7 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
             // 消息处理
             ImPacket imPacket = (ImPacket) packet;
             TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
-            AbstractCmdHandler cmdHandler = CommandManager.getCommand(TIMCommandType);
+            AbstractCmdHandler cmdHandler = TIMServerTIMCommandManager.getTIMServerCommandManagerInstance().getCommand(TIMCommandType);
             try {
                 cmdHandler.handler(imPacket, imServerChannelContext);
             } catch (ImException | InvalidProtocolBufferException e) {

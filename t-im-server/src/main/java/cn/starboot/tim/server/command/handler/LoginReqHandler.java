@@ -11,7 +11,7 @@ import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.common.packet.proto.LoginPacketProto;
-import cn.starboot.tim.server.command.CommandManager;
+import cn.starboot.tim.server.command.TIMServerTIMCommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,7 +114,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
         for(Group group : groups){
 //            ImPacket groupPacket = new ImPacket(Command.COMMAND_JOIN_GROUP_REQ, JsonKit.toJsonBytes(group));
             try {
-                BindReqHandler bindReqHandler = CommandManager.getCommand(TIMCommandType.COMMAND_BIND_REQ, BindReqHandler.class);
+                BindReqHandler bindReqHandler = TIMServerTIMCommandManager.getCommand(TIMCommandType.COMMAND_BIND_REQ, BindReqHandler.class);
                 if (bindReqHandler != null) {
 //                    joinGroupReqHandler.handler(groupPacket, imChannelContext);
                 }
