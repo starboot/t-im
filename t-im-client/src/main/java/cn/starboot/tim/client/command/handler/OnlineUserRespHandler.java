@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2022/1/6 22:40
  */
-public class OnlineUserRespHandler extends ClientAbstractCmdHandler {
+public class OnlineUserRespHandler extends AbstractClientCmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(OnlineUserRespHandler.class);
 

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2022/1/6 22:39
  */
-public class MessageRespHandler extends ClientAbstractCmdHandler {
+public class MessageRespHandler extends AbstractClientCmdHandler {
 
     private static final Logger log = LoggerFactory.getLogger(MessageRespHandler.class);
 

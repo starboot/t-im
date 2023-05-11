@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:45
  */
-public abstract class ClientAbstractCmdHandler implements CmdHandler {
+public abstract class AbstractClientCmdHandler implements CmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ClientAbstractCmdHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractClientCmdHandler.class);
 
     protected ClientProcessor processor(ImChannelContext channelContext){
 //        TioConfig tioConfig = channelContext.getTioConfig();

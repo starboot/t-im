@@ -6,7 +6,7 @@ import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-public class ClientRespHandler extends ClientAbstractCmdHandler {
+public class ClientRespHandler extends AbstractClientCmdHandler {
 
 	@Override
 	public ReqCommandType command() {
