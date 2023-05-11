@@ -2,11 +2,10 @@ package cn.starboot.tim.common.command.handler;
 
 import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImChannelContextFactory;
 import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
-import cn.starboot.tim.common.packet.ImPacketFactory;
+import cn.starboot.tim.common.factory.ImPacketFactory;
 
 /**
  * 抽象命令处理器
