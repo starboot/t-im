@@ -12,13 +12,6 @@ import cn.starboot.tim.server.TIM;
  */
 public abstract class AbstractServerCmdHandler extends AbstractCmdHandler {
 
-
-	/**
-	 * 主键：判断各类socket请求的指令
-	 * @return 主键对象
-	 */
-	public abstract TIMCommandType command();
-
 	@Override
 	protected void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data) {
 		TIM.send(imChannelContext, getImPacket(TIMCommandType, data));
