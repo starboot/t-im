@@ -23,6 +23,7 @@ public class TIMServerTIMCommandManager extends AbstractTIMCommandManager<Abstra
 	private static final String DEFAULT_CLASSPATH_CONFIGURATION_FILE = "command.properties";
 
 	private static TIMServerTIMCommandManager timServerTIMCommandManager;
+
 	/**
 	 * 通用cmd处理命令与命令码的Map映射
 	 */
