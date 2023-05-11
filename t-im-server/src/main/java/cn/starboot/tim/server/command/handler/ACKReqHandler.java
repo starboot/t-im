@@ -2,7 +2,7 @@ package cn.starboot.tim.server.command.handler;
 
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.command.ReqServerCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -18,8 +18,8 @@ public class ACKReqHandler extends AbstractServerCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(ACKReqHandler.class);
 
     @Override
-    public ReqServerCommandType command() {
-        return ReqServerCommandType.COMMAND_ACK_REQ;
+    public TIMCommandType command() {
+        return TIMCommandType.COMMAND_ACK_REQ;
     }
 
     @Override

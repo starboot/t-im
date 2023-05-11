@@ -6,7 +6,7 @@ import cn.starboot.tim.client.command.handler.AbstractClientCmdHandler;
 
 import cn.starboot.tim.common.command.ReqClientCommandType;
 import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.command.ReqServerCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +64,7 @@ public class CommandManager {
             return;
         }
 		ReqClientCommandType command = imCommandHandler.command();
-		if(Objects.isNull(ReqServerCommandType.getCommandTypeByCode(command.getCode()))) {
+		if(Objects.isNull(TIMCommandType.getCommandTypeByCode(command.getCode()))) {
             throw new ImException("failed to register cmd handler, illegal cmd code:" + command.getCode() + ",use Command.addAndGet () to add in the enumerated Command class!");
         }
         if(Objects.isNull(handlerMap.get(command))) {
@@ -74,7 +74,7 @@ public class CommandManager {
         }
     }
 
-    public static AbstractClientCmdHandler removeCommand(ReqServerCommandType command){
+    public static AbstractClientCmdHandler removeCommand(TIMCommandType command){
         if(command == null) {
             return null;
         }
@@ -84,7 +84,7 @@ public class CommandManager {
         return null;
     }
 
-    public static <T> T getCommand(ReqServerCommandType command, Class<T> clazz){
+    public static <T> T getCommand(TIMCommandType command, Class<T> clazz){
         AbstractClientCmdHandler cmdHandler = getCommand(command);
         if(cmdHandler != null){
             return (T) cmdHandler;
@@ -92,7 +92,7 @@ public class CommandManager {
         return null;
     }
 
-    public static AbstractClientCmdHandler getCommand(ReqServerCommandType command){
+    public static AbstractClientCmdHandler getCommand(TIMCommandType command){
         if(command == null) {
             return null;
         }

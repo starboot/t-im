@@ -8,7 +8,7 @@ import cn.starboot.tim.client.intf.ClientProcessor;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.ReqClientCommandType;
-import cn.starboot.tim.common.command.ReqServerCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,22 +29,22 @@ public abstract class AbstractClientCmdHandler extends AbstractCmdHandler {
 	public abstract ReqClientCommandType command();
 
 	@Override
-	protected void send(ImChannelContext imChannelContext, ReqServerCommandType reqServerCommandType, byte[] data) {
+	protected void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data) {
 
 	}
 
 	@Override
-	protected void sendToId(ImConfig imConfig, String toId, ReqServerCommandType reqServerCommandType, byte[] data) {
+	protected void sendToId(ImConfig imConfig, String toId, TIMCommandType TIMCommandType, byte[] data) {
 
 	}
 
 	@Override
-	protected void sendToGroup(ImConfig imConfig, String toGroupId, ReqServerCommandType reqServerCommandType, byte[] data) {
+	protected void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data) {
 
 	}
 
 	@Override
-	protected void sendToGroup(ImConfig imConfig, String toGroupId, ReqServerCommandType reqServerCommandType, byte[] data, ChannelContextFilter channelContextFilter) {
+	protected void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data, ChannelContextFilter channelContextFilter) {
 
 	}
 

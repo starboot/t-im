@@ -1,7 +1,7 @@
 package cn.starboot.tim.server.command.handler;
 
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.command.ReqServerCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import org.slf4j.Logger;
@@ -16,8 +16,8 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(AuthReqHandler.class);
 
     @Override
-    public ReqServerCommandType command() {
-        return ReqServerCommandType.COMMAND_AUTH_REQ;
+    public TIMCommandType command() {
+        return TIMCommandType.COMMAND_AUTH_REQ;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
 //            RespBody respBody = new RespBody(Command.COMMAND_AUTH_RESP, ImStatus.C10010);
 //            TIM.send(channelContext, new ImPacket(Command.COMMAND_AUTH_RESP, respBody.toByte()));
 //        }
-        return new ImPacket(ReqServerCommandType.COMMAND_REQ_RESP,
+        return new ImPacket(TIMCommandType.COMMAND_REQ_RESP,
 				RespPacketProto
 						.RespPacket
 						.newBuilder()

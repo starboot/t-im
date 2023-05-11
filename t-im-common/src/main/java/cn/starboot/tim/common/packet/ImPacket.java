@@ -2,20 +2,20 @@ package cn.starboot.tim.common.packet;
 
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.utils.json.JsonUtil;
-import cn.starboot.tim.common.command.ReqServerCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 
 public class ImPacket extends Packet {
 
     private static final long serialVersionUID = -1586364817471781579L;
 
     // 消息命令码
-    private ReqServerCommandType reqServerCommandType;
+    private TIMCommandType TIMCommandType;
 
     // 消息体
     private byte[] data;
 
-    public ImPacket(ReqServerCommandType reqServerCommandType, byte[] data) {
-        this.reqServerCommandType = reqServerCommandType;
+    public ImPacket(TIMCommandType TIMCommandType, byte[] data) {
+        this.TIMCommandType = TIMCommandType;
         this.data = data;
     }
 
@@ -23,12 +23,12 @@ public class ImPacket extends Packet {
 		return new Builder();
 	}
 
-    public ReqServerCommandType getReqServerCommandType() {
-        return reqServerCommandType;
+    public TIMCommandType getTIMCommandType() {
+        return TIMCommandType;
     }
 
-    public ImPacket setReqServerCommandType(ReqServerCommandType reqServerCommandType) {
-        this.reqServerCommandType = reqServerCommandType;
+    public ImPacket setTIMCommandType(TIMCommandType TIMCommandType) {
+        this.TIMCommandType = TIMCommandType;
         return this;
     }
 
@@ -43,15 +43,15 @@ public class ImPacket extends Packet {
 
 	public static class Builder {
 
-		private ReqServerCommandType reqServerCommandType;
+		private TIMCommandType TIMCommandType;
 
 		private byte[] data;
 
 		private Builder() {
 		}
 
-		public Builder setReqServerCommandType(ReqServerCommandType reqServerCommandType) {
-			this.reqServerCommandType = reqServerCommandType;
+		public Builder setTIMCommandType(TIMCommandType TIMCommandType) {
+			this.TIMCommandType = TIMCommandType;
 			return this;
 		}
 
@@ -65,7 +65,7 @@ public class ImPacket extends Packet {
 		}
 
 		public ImPacket build(){
-			return new ImPacket(reqServerCommandType, data);
+			return new ImPacket(TIMCommandType, data);
 		}
 	}
 

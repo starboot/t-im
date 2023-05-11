@@ -1,10 +1,9 @@
 package cn.starboot.tim.common.command.handler;
 
 import cn.starboot.socket.ChannelContextFilter;
-import cn.starboot.socket.core.Aio;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImConfig;
-import cn.starboot.tim.common.command.ReqServerCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 
 /**
@@ -19,21 +18,21 @@ public abstract class AbstractCmdHandler implements CmdHandler {
 	 * 命令处理器自带发送方法
 	 *
 	 * @param imChannelContext 用户上下文信息
-	 * @param reqServerCommandType   协议命令码
+	 * @param TIMCommandType   协议命令码
 	 * @param data             待发送数据
 	 */
-	protected abstract void send(ImChannelContext imChannelContext, ReqServerCommandType reqServerCommandType, byte[] data);
+	protected abstract void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data);
 
-	protected abstract void sendToId(ImConfig imConfig,String toId, ReqServerCommandType reqServerCommandType, byte[] data);
+	protected abstract void sendToId(ImConfig imConfig, String toId, TIMCommandType TIMCommandType, byte[] data);
 
-	protected abstract void sendToGroup(ImConfig imConfig,String toGroupId, ReqServerCommandType reqServerCommandType, byte[] data);
+	protected abstract void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data);
 
-	protected abstract void sendToGroup(ImConfig imConfig,String toGroupId, ReqServerCommandType reqServerCommandType, byte[] data, ChannelContextFilter channelContextFilter);
+	protected abstract void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data, ChannelContextFilter channelContextFilter);
 
-	protected ImPacket getImPacket(ReqServerCommandType reqServerCommandType, byte[] data) {
+	protected ImPacket getImPacket(TIMCommandType TIMCommandType, byte[] data) {
 		return ImPacket
 				.newBuilder()
-				.setReqServerCommandType(reqServerCommandType)
+				.setTIMCommandType(TIMCommandType)
 				.setData(data)
 				.build();
 	}

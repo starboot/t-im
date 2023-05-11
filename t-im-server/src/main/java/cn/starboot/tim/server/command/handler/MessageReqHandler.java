@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImStatus;
-import cn.starboot.tim.common.command.ReqServerCommandType;
+import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.MessagePacketProto;
 import cn.starboot.tim.common.packet.proto.UserMessagePacketProto;
@@ -23,8 +23,8 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
     private static final Logger log = LoggerFactory.getLogger(MessageReqHandler.class);
 
     @Override
-    public ReqServerCommandType command() {
-        return ReqServerCommandType.COMMAND_MESSAGE_REQ;
+    public TIMCommandType command() {
+        return TIMCommandType.COMMAND_MESSAGE_REQ;
     }
 
     @Override
