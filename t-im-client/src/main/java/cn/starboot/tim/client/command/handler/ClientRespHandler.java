@@ -11,7 +11,7 @@ public class ClientRespHandler extends AbstractClientCmdHandler {
 
 	@Override
 	public ReqClientCommandType command() {
-		return ReqClientCommandType.COMMAND_ACK_RESP;
+		return ReqClientCommandType.COMMAND_REQ_RESP;
 	}
 
 	@Override
