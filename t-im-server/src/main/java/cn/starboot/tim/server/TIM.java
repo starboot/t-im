@@ -1,7 +1,6 @@
 package cn.starboot.tim.server;
 
 import cn.starboot.socket.ChannelContextFilter;
-import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.enums.CloseCode;
@@ -29,29 +28,57 @@ public class TIM {
 		return bind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
 	}
 
+	public static boolean bindId(String id, ImChannelContext imChannelContext) {
+		return bind(MaintainEnum.ID, id, imChannelContext);
+	}
 
     public static void send(ImChannelContext channelContext, ImPacket packet) {
         Aio.send(channelContext.getChannelContext(), packet);
     }
 
-    public static void sendToUser(String to, Packet packet) {
+	public static void sendToId(ImConfig imConfig, String toId, ImPacket imPacket) {
+		singleObjectiveSend(MaintainEnum.ID, imConfig, toId, imPacket);
+	}
 
+	public static void sendToGroup(ImConfig imConfig, String toId, ImPacket imPacket) {
+		sendToGroup(imConfig, toId, imPacket, null);
+	}
+	public static void sendToGroup(ImConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+		multiObjectiveSend(MaintainEnum.GROUP_ID, imConfig, toId, imPacket, channelContextFilter);
+	}
+
+	public static void sendToUser(ImConfig imConfig, String toId, ImPacket imPacket) {
+		sendToUser(imConfig, toId, imPacket, null);
+	}
+
+    public static void sendToUser(ImConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+		multiObjectiveSend(MaintainEnum.USER, imConfig, toId, imPacket, channelContextFilter);
     }
 
-    public static void bindGroup(ChannelContext channelContext, String group) {
 
+	public static void remove(ImChannelContext imChannelContext) {
+		remove(imChannelContext, null);
+	}
+
+    public static void remove(ImChannelContext imChannelContext, CloseCode closeCode) {
+		close(imChannelContext, closeCode);
     }
 
-    public static void remove(ChannelContext channelContext, String userId) {
+	public static void removeGroup(ImConfig imConfig, String maintainId) {
+		removeGroup(imConfig, maintainId, null);
+	}
 
-    }
+	public static void removeGroup(ImConfig imConfig, String maintainId, CloseCode closeCode) {
+		close(MaintainEnum.GROUP_ID, imConfig, maintainId, closeCode);
+	}
 
-    public static void remove(ChannelContext channelContext) {
-    }
+	public static void removeUser(ImConfig imConfig, String maintainId) {
+		removeUser(imConfig, maintainId, null);
+	}
 
-    public static void sendToGroup() {
-
-    }
+	public static void removeUser(ImConfig imConfig, String maintainId, CloseCode closeCode) {
+		close(MaintainEnum.USER, imConfig, maintainId, closeCode);
+	}
 
 	private static boolean bind(MaintainEnum maintainEnum, String maintainId, ImChannelContext imChannelContext) {
 		ChannelContext channelContext = imChannelContext.getChannelContext();
@@ -260,6 +287,6 @@ public class TIM {
 		return result;
 	}
 
-	protected TIM() {
+	private TIM() {
 	}
 }
