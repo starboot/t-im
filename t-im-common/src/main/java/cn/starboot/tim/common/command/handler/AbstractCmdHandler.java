@@ -1,7 +1,9 @@
 package cn.starboot.tim.common.command.handler;
 
+import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 
@@ -11,6 +13,8 @@ import cn.starboot.tim.common.packet.ImPacket;
  */
 public abstract class AbstractCmdHandler implements CmdHandler {
 
+
+
 	/**
 	 * 命令处理器自带发送方法
 	 *
@@ -18,8 +22,19 @@ public abstract class AbstractCmdHandler implements CmdHandler {
 	 * @param reqServerCommandType   协议命令码
 	 * @param data             待发送数据
 	 */
-	protected void send(ImChannelContext imChannelContext, ReqServerCommandType reqServerCommandType, byte[] data) {
-		Aio.send(imChannelContext.getChannelContext(), new ImPacket(reqServerCommandType, data));
-	}
+	protected abstract void send(ImChannelContext imChannelContext, ReqServerCommandType reqServerCommandType, byte[] data);
 
+	protected abstract void sendToId(ImConfig imConfig,String toId, ReqServerCommandType reqServerCommandType, byte[] data);
+
+	protected abstract void sendToGroup(ImConfig imConfig,String toGroupId, ReqServerCommandType reqServerCommandType, byte[] data);
+
+	protected abstract void sendToGroup(ImConfig imConfig,String toGroupId, ReqServerCommandType reqServerCommandType, byte[] data, ChannelContextFilter channelContextFilter);
+
+	protected ImPacket getImPacket(ReqServerCommandType reqServerCommandType, byte[] data) {
+		return ImPacket
+				.newBuilder()
+				.setReqServerCommandType(reqServerCommandType)
+				.setData(data)
+				.build();
+	}
 }

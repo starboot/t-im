@@ -1,10 +1,12 @@
 package cn.starboot.tim.client.command.handler;
 
+import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.client.intf.DefaultClientProcessor;
 import cn.starboot.tim.client.intf.ClientProcessor;
 import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.ReqClientCommandType;
 import cn.starboot.tim.common.command.ReqServerCommandType;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
@@ -26,7 +28,27 @@ public abstract class AbstractClientCmdHandler extends AbstractCmdHandler {
 	 */
 	public abstract ReqClientCommandType command();
 
-    protected ClientProcessor processor(ImChannelContext channelContext){
+	@Override
+	protected void send(ImChannelContext imChannelContext, ReqServerCommandType reqServerCommandType, byte[] data) {
+
+	}
+
+	@Override
+	protected void sendToId(ImConfig imConfig, String toId, ReqServerCommandType reqServerCommandType, byte[] data) {
+
+	}
+
+	@Override
+	protected void sendToGroup(ImConfig imConfig, String toGroupId, ReqServerCommandType reqServerCommandType, byte[] data) {
+
+	}
+
+	@Override
+	protected void sendToGroup(ImConfig imConfig, String toGroupId, ReqServerCommandType reqServerCommandType, byte[] data, ChannelContextFilter channelContextFilter) {
+
+	}
+
+	protected ClientProcessor processor(ImChannelContext channelContext){
 //        TioConfig tioConfig = channelContext.getTioConfig();
 //        if (tioConfig instanceof TIMClientConfig) {
 //            TIMClientConfig clientConfig = (TIMClientConfig) tioConfig;

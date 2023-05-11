@@ -11,7 +11,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
  */
 public interface CmdHandler {
 
-
     /**
      * 处理Cmd命令
      * @param imPacket          IM消息包

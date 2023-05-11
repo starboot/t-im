@@ -36,7 +36,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			case PRIVATE: {
 				if (StrUtil.isNotEmpty(chatPacket.getToId())) {
 					System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
-					send(channelContext, ReqServerCommandType.COMMAND_CHAT_REQ, chatPacket.toByteArray());
+					send(channelContext, ReqServerCommandType.COMMAND_CHAT_REQ, imPacket.getData());
 					// 私聊
 					if (ChatKit.isOnline(chatPacket.getToId())) {
 //                TIM.sendToUser(body, packet);
