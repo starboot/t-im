@@ -10,7 +10,6 @@ import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.RespPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
-import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.TIM;
 import cn.starboot.tim.server.util.ChatKit;
@@ -38,10 +37,6 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			TIM.remove(imChannelContext, CloseCode.READ_ERROR);
 			return null;
 		}
-		final boolean isSyn = ObjectUtil.isNotEmpty(imPacket.getReq());
-		final RespPacketProto.RespPacket.Builder respPacketBuilder = RespPacketProto.RespPacket.newBuilder();
-		respPacketBuilder.setIsSyn(isSyn);
-
 		ImPacket packet = ImPacket.newBuilder()
 				.setReq(null)
 				.setResp(imPacket.getResp())
@@ -55,9 +50,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 					if (ChatKit.isOnline(imChannelContext.getConfig(), chatPacket.getToId())) {
 						System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
 						send(imChannelContext, TIMCommandType.COMMAND_CHAT_REQ, imPacket.getData());
-						RespPacketProto.RespPacket build = respPacketBuilder.setCode(ImStatus.C10000.getCode()).build();
-						RespPacket.newBuilder().setStatus(ImStatus.C10000).build();
-						return null;
+						packet.setData(RespPacket.newBuilder().setStatus(ImStatus.C10000).build().toByte());
 					}
 				}
 				break;
