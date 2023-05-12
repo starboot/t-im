@@ -3,11 +3,9 @@ package cn.starboot.tim.server.command.handler;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImStatus;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.BindPacketProto;
-import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +31,13 @@ public class BindReqHandler extends AbstractServerCmdHandler {
         }
         if (StrUtil.isBlank(packet.getBindId())) {
             log.error("bindID is null,{}", channelContext);
-            ImStatusPacketProto.ImStatusPacket.Builder builder1 = ImStatusPacketProto.ImStatusPacket.newBuilder();
-            ImStatusPacketProto.ImStatusPacket build1 = builder1.setStatus(ImStatus.C10011.getCode())
-                    .setDescription(ImStatus.C10011.getDescription())
-                    .setText(ImStatus.C10011.getText())
-                    .build();
+//            ImStatusPacketProto.ImStatusPacket.Builder builder1 = ImStatusPacketProto.ImStatusPacket.newBuilder();
+//            ImStatusPacketProto.ImStatusPacket build1 = builder1.setStatus(ImStatus.C10011.getCode())
+//                    .setDescription(ImStatus.C10011.getDescription())
+//                    .setText(ImStatus.C10011.getText())
+//                    .build();
             imPacket.setTIMCommandType(TIMCommandType.COMMAND_BIND_REQ)
-                    .setData(build1.toByteArray());
+                    .setData(null);
             // build发送出去
 //            TIM.send(channelContext, new ImPacket(Command.COMMAND_JOIN_GROUP_RESP, respBody.toByte()));
             return null;
