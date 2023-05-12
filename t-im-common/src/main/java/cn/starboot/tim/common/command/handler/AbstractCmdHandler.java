@@ -28,12 +28,6 @@ public abstract class AbstractCmdHandler implements CmdHandler {
 	 */
 	protected abstract void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data);
 
-	protected abstract void sendToId(ImConfig imConfig, String toId, TIMCommandType TIMCommandType, byte[] data);
-
-	protected abstract void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data);
-
-	protected abstract void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data, ChannelContextFilter channelContextFilter);
-
 	protected ImPacket getImPacket(TIMCommandType timCommandType, byte[] data) {
 		return imPacketFactory.createImPacket(timCommandType, data);
 	}

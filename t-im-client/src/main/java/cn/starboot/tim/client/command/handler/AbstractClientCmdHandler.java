@@ -26,21 +26,6 @@ public abstract class AbstractClientCmdHandler extends AbstractCmdHandler {
 
 	}
 
-	@Override
-	protected void sendToId(ImConfig imConfig, String toId, TIMCommandType TIMCommandType, byte[] data) {
-
-	}
-
-	@Override
-	protected void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data) {
-
-	}
-
-	@Override
-	protected void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data, ChannelContextFilter channelContextFilter) {
-
-	}
-
 	protected ClientProcessor processor(ImChannelContext channelContext){
 //        TioConfig tioConfig = channelContext.getTioConfig();
 //        if (tioConfig instanceof TIMClientConfig) {

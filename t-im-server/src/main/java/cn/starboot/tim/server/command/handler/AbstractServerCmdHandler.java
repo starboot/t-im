@@ -17,17 +17,14 @@ public abstract class AbstractServerCmdHandler extends AbstractCmdHandler {
 		TIM.send(imChannelContext, getImPacket(TIMCommandType, data));
 	}
 
-	@Override
 	protected void sendToId(ImConfig imConfig, String toId, TIMCommandType TIMCommandType, byte[] data) {
 		TIM.sendToId(imConfig, toId, getImPacket(TIMCommandType, data));
 	}
 
-	@Override
 	protected void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data) {
 		TIM.sendToGroup(imConfig, toGroupId, getImPacket(TIMCommandType, data));
 	}
 
-	@Override
 	protected void sendToGroup(ImConfig imConfig, String toGroupId, TIMCommandType TIMCommandType, byte[] data, ChannelContextFilter channelContextFilter) {
 		TIM.sendToGroup(imConfig, toGroupId, getImPacket(TIMCommandType, data), channelContextFilter);
 	}
