@@ -30,7 +30,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 	}
 
 	@Override
-	protected ImPacket handler(ImChannelContext imChannelContext, ImPacket imPacket) throws ImException, InvalidProtocolBufferException {
+	public ImPacket handler(ImPacket imPacket, ImChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(chatPacket)) {
 			TIMLogUtil.error(LOGGER, "消息包格式化出错");

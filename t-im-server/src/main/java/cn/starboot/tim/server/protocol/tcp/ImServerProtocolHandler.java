@@ -10,6 +10,7 @@ import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.plugin.TIMPlugin;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.command.TIMServerCommandManager;
@@ -27,6 +28,8 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
 	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory;
 
 	private final TIMServerCommandManager timServerTIMCommandManager;
+
+	private final TIMPlugin timPlugin = new TIMPlugin();
 
     // 此对象不让用户自己实例化
     private ImServerProtocolHandler(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory) {
@@ -58,7 +61,9 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
             TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
             AbstractCmdHandler cmdHandler = this.timServerTIMCommandManager.getCommand(TIMCommandType);
             try {
-                cmdHandler.handler(imPacket, imServerChannelContext);
+            	if (timPlugin.beforeProcess(imPacket, imServerChannelContext)) {
+					cmdHandler.handler(imPacket, imServerChannelContext);
+				}
             } catch (ImException | InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }

@@ -31,7 +31,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 
     @Override
     public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
-        LoginPacketProto.LoginPacket loginPacket = LoginPacketProto.LoginPacket.parseFrom(imPacket.getData());
+    	LoginPacketProto.LoginPacket loginPacket = LoginPacketProto.LoginPacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(loginPacket)) {
             log.error("消息包格式化出错");
             return null;
@@ -67,11 +67,6 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 
         return null;
     }
-
-	@Override
-	protected ImPacket handler(ImChannelContext imChannelContext, ImPacket imPacket) throws ImException, InvalidProtocolBufferException {
-		return null;
-	}
 
 	/**
      * 根据用户配置的自定义登录处理器获取业务组装的User信息

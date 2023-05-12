@@ -20,15 +20,6 @@ public abstract class AbstractCmdHandler implements CmdHandler {
 			.setTIMCommandType(timCommandType)
 			.setData(data)
 			.build();
-
-	@Override
-	public ImPacket handler(ImPacket imPacket, ImChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
-		byte[] data = imPacket.getData();
-		return (Objects.isNull(data) || data.length == 0) ? null : handler(imChannelContext, imPacket);
-	}
-
-	protected abstract ImPacket handler(ImChannelContext imChannelContext, ImPacket imPacket) throws ImException, InvalidProtocolBufferException;
-
 	/**
 	 * 命令处理器自带发送方法
 	 *
