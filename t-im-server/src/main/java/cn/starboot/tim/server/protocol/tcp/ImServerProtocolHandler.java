@@ -11,6 +11,7 @@ import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.factory.ImPacketFactory;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.command.TIMServerTIMCommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -48,7 +49,7 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
 		if (ObjectUtil.isEmpty(imServerChannelContext)) {
 			imServerChannelContext = serverImChannelContextFactory.createImChannelContext(channelContext);
 			if (imServerChannelContext.getConfig() == null) {
-				System.out.println("cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：没有加载到配置文件...");
+				TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：没有加载到配置文件...");
 			}
 			channelContext.attr(Key.IM_CHANNEL_CONTEXT_KEY, imServerChannelContext);
 		}
@@ -63,7 +64,7 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
                 e.printStackTrace();
             }
         }else {
-            LOGGER.error("收到异常包裹");
+			TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：收到异常包裹...");
         }
         return null;
 
