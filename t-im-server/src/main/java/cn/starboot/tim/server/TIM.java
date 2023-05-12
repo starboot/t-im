@@ -5,6 +5,7 @@ import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.enums.CloseCode;
 import cn.starboot.socket.enums.MaintainEnum;
+import cn.starboot.socket.utils.lock.SetWithLock;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.packet.ImPacket;
@@ -30,6 +31,14 @@ public class TIM {
 
 	public static boolean bindId(String id, ImChannelContext imChannelContext) {
 		return bind(MaintainEnum.ID, id, imChannelContext);
+	}
+
+	public static ChannelContext getChannelContextById(ImConfig imConfig, String id) {
+		return Aio.getChannelContextById(imConfig.getAioConfig(), id);
+	}
+
+	public static SetWithLock<ChannelContext> getChannelContextByUserId(ImConfig imConfig, String userId) {
+		return Aio.getByUser(imConfig.getAioConfig(), userId);
 	}
 
     public static void send(ImChannelContext channelContext, ImPacket packet) {

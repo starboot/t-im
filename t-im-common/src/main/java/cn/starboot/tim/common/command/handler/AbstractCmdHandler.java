@@ -1,11 +1,13 @@
 package cn.starboot.tim.common.command.handler;
 
-import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.TIMCommandType;
+import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.factory.ImPacketFactory;
+import com.google.protobuf.InvalidProtocolBufferException;
+
+import java.util.Objects;
 
 /**
  * 抽象命令处理器
@@ -18,6 +20,14 @@ public abstract class AbstractCmdHandler implements CmdHandler {
 			.setTIMCommandType(timCommandType)
 			.setData(data)
 			.build();
+
+	@Override
+	public ImPacket handler(ImPacket imPacket, ImChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
+		byte[] data = imPacket.getData();
+		return (Objects.isNull(data) || data.length == 0) ? null : handler(imChannelContext, data);
+	}
+
+	protected abstract ImPacket handler(ImChannelContext imChannelContext, byte[] data) throws ImException, InvalidProtocolBufferException;
 
 	/**
 	 * 命令处理器自带发送方法
