@@ -3,7 +3,7 @@ package cn.starboot.tim.common;
 
 
 public enum ImStatus implements Status {
-	
+
 	C10000(10000,"ok",     "SEND SUCCESS"),
 	C10001(10001,"offline","USER OFFLINE"),
 	C10019(10019,"online", "USER ONLINE"),
@@ -27,11 +27,11 @@ public enum ImStatus implements Status {
 	C10020(10020,"failed", "INVALID VERIFICATION"),
 	C10021(10021,"ok",     "CLOSE SUCCESS"),
 	C10022(10022,"failed", "YOU ARE NOT START SAVE, MESSAGE SAVE ARE FAILED");
-	
+
 	private final int status;
-	
+
 	private final String description;
-	
+
 	private final String text;
 
 	ImStatus(int status, String description, String text) {
@@ -39,19 +39,19 @@ public enum ImStatus implements Status {
 		this.description = description;
 		this.text = text;
 	}
-	
+
 	public int getStatus() {
 		return status;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public String getText() {
 		return text;
 	}
-	
+
 	@Override
 	public int getCode() {
 		return this.status;
@@ -59,6 +59,6 @@ public enum ImStatus implements Status {
 
 	@Override
 	public String getMsg() {
-		return this.getDescription()+" "+this.getText();
+		return this.getDescription()+", "+this.getText();
 	}
 }

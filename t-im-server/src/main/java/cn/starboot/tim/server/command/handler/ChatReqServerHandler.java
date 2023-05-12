@@ -8,6 +8,7 @@ import cn.starboot.tim.common.ImStatus;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.RespPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.common.util.TIMLogUtil;
@@ -40,6 +41,12 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 		final boolean isSyn = ObjectUtil.isNotEmpty(imPacket.getReq());
 		final RespPacketProto.RespPacket.Builder respPacketBuilder = RespPacketProto.RespPacket.newBuilder();
 		respPacketBuilder.setIsSyn(isSyn);
+
+		ImPacket packet = ImPacket.newBuilder()
+				.setReq(null)
+				.setResp(imPacket.getResp())
+				.setTIMCommandType(TIMCommandType.COMMAND_CHAT_RESP)
+				.build();
 		// 聊天类型类型 (私聊, 群聊, 未知)
 		switch (chatPacket.getChatType()) {
 			case PRIVATE: {
@@ -49,6 +56,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 						System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
 						send(imChannelContext, TIMCommandType.COMMAND_CHAT_REQ, imPacket.getData());
 						RespPacketProto.RespPacket build = respPacketBuilder.setCode(ImStatus.C10000.getCode()).build();
+						RespPacket.newBuilder().setStatus(ImStatus.C10000).build();
 						return null;
 					}
 				}
@@ -78,6 +86,6 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 				break;
 			}
 		}
-		return null;
+		return packet;
 	}
 }

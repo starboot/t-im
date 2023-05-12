@@ -14,7 +14,7 @@ public class ImPacket extends Packet {
     // 消息体
     private byte[] data;
 
-    public ImPacket(TIMCommandType TIMCommandType, byte[] data) {
+    private ImPacket(TIMCommandType TIMCommandType, byte[] data) {
         this.TIMCommandType = TIMCommandType;
         this.data = data;
     }
@@ -41,7 +41,7 @@ public class ImPacket extends Packet {
         return this;
     }
 
-	public static class Builder {
+	public static class Builder extends Packet.Builder<ImPacket, Builder> {
 
 		private TIMCommandType TIMCommandType;
 
@@ -60,17 +60,14 @@ public class ImPacket extends Packet {
 			return this;
 		}
 
+		@Override
 		protected Builder getThis() {
 			return this;
 		}
 
+		@Override
 		public ImPacket build(){
 			return new ImPacket(TIMCommandType, data);
 		}
 	}
-
-    @Override
-    public String toString() {
-        return JsonUtil.toJSONString(this);
-    }
 }

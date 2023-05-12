@@ -39,15 +39,19 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
 //            RespBody respBody = new RespBody(Command.COMMAND_AUTH_RESP, ImStatus.C10010);
 //            TIM.send(channelContext, new ImPacket(Command.COMMAND_AUTH_RESP, respBody.toByte()));
 //        }
-        return new ImPacket(TIMCommandType.COMMAND_REQ_RESP,
-				RespPacketProto
+
+        return ImPacket
+				.newBuilder()
+				.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP)
+				.setData(RespPacketProto
 						.RespPacket
 						.newBuilder()
 						.setIsSyn(false)
 						.setCode(1)
 						.setMsg("")
 						.build()
-						.toByteArray());
+						.toByteArray())
+				.build();
     }
 
 }

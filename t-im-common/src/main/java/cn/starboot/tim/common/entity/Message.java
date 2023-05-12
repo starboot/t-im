@@ -1,7 +1,7 @@
 package cn.starboot.tim.common.entity;
 
 import cn.starboot.socket.utils.json.JsonUtil;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 
 import java.io.Serializable;
 
@@ -20,7 +20,11 @@ public class Message implements Serializable {
      */
     protected JSONObject extras;
 
-    public JSONObject getExtras() {
+	public Message(JSONObject extras) {
+		this.extras = extras;
+	}
+
+	public JSONObject getExtras() {
         return extras;
     }
 

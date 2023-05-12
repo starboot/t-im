@@ -183,7 +183,7 @@ public class TIMClient {
 //            ackSend(new ImPacket(CommandType.COMMAND_CHAT, chatBody.toByteArray()), ack);
 			return;
 		}
-		send(new ImPacket(TIMCommandType.COMMAND_CHAT_REQ, chatBody.toByteArray()));
+		send(ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_CHAT_REQ).setData(chatBody.toByteArray()).build());
 	}
 
 	public void callVideo(String userId) {

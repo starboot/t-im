@@ -3,7 +3,7 @@ package cn.starboot.tim.common.entity;
 
 import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.util.Cn2Spell;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -69,10 +69,9 @@ public class User extends Message implements Comparable<User>, Serializable{
 	 * 拼音的首字母
 	 */
 	private String firstLetter;
-	
-	private User(){}
 
 	private User(String userId, String nick, String avatar, String status, String sign, String terminal, List<User> friends, List<Group> groups, JSONObject extras){
+		super(extras);
 		this.userId = userId;
 		this.nick = nick;
 		this.avatar = avatar;
@@ -81,7 +80,6 @@ public class User extends Message implements Comparable<User>, Serializable{
 		this.terminal = terminal;
 		this.friends = friends;
 		this.groups = groups;
-		this.extras = extras;
 		this.pinyin = Cn2Spell.getPinYin(nick); // 根据姓名获取拼音
 		this.firstLetter = pinyin.substring(0, 1).toUpperCase(); // 获取拼音首字母并转成大写
 		if (!firstLetter.matches("[A-Z]")) { // 如果不在A-Z中则默认为“#”
@@ -226,7 +224,7 @@ public class User extends Message implements Comparable<User>, Serializable{
 		 */
 		private List<Group> groups;
 
-		private Builder(){};
+		private Builder(){}
 
 		public Builder userId(String userId) {
 			this.userId = userId;

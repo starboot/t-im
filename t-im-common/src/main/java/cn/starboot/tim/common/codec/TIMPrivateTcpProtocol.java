@@ -94,7 +94,7 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
             return null;
         }
         // 解码成功
-        return new ImPacket(command, b);
+        return ImPacket.newBuilder().setTIMCommandType(command).setData(b).build();
     }
 
     @Override
