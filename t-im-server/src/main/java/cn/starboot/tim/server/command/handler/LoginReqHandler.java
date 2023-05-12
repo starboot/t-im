@@ -11,7 +11,7 @@ import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.packet.proto.ImStatusPacketProto;
 import cn.starboot.tim.common.packet.proto.LoginPacketProto;
-import cn.starboot.tim.server.command.TIMServerTIMCommandManager;
+import cn.starboot.tim.server.command.TIMServerCommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +68,12 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
         return null;
     }
 
-    /**
+	@Override
+	protected ImPacket handler(ImChannelContext imChannelContext, ImPacket imPacket) throws ImException, InvalidProtocolBufferException {
+		return null;
+	}
+
+	/**
      * 根据用户配置的自定义登录处理器获取业务组装的User信息
      * @param imChannelContext 通道上下文
      * @param loginReqBody 登录请求体
@@ -114,10 +119,10 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
         for(Group group : groups){
 //            ImPacket groupPacket = new ImPacket(Command.COMMAND_JOIN_GROUP_REQ, JsonKit.toJsonBytes(group));
             try {
-                BindReqHandler bindReqHandler = TIMServerTIMCommandManager.getCommand(TIMCommandType.COMMAND_BIND_REQ, BindReqHandler.class);
-                if (bindReqHandler != null) {
+//                BindReqHandler bindReqHandler = TIMServerCommandManager.getCommand(TIMCommandType.COMMAND_BIND_REQ, BindReqHandler.class);
+//                if (bindReqHandler != null) {
 //                    joinGroupReqHandler.handler(groupPacket, imChannelContext);
-                }
+//                }
             } catch (Exception e) {
                 log.error("JoinGroupReqHandler is not contain");
             }

@@ -9,11 +9,10 @@ import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.TIMCommandType;
-import cn.starboot.tim.common.factory.ImPacketFactory;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.command.TIMServerTIMCommandManager;
+import cn.starboot.tim.server.command.TIMServerCommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +26,12 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
 
 	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory;
 
-	private final TIMServerTIMCommandManager timServerTIMCommandManager;
+	private final TIMServerCommandManager timServerTIMCommandManager;
 
     // 此对象不让用户自己实例化
     private ImServerProtocolHandler(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory) {
     	this.serverImChannelContextFactory = serverImChannelContextFactory;
-    	this.timServerTIMCommandManager = TIMServerTIMCommandManager.getTIMServerCommandManagerInstance();
+    	this.timServerTIMCommandManager = TIMServerCommandManager.getTIMServerCommandManagerInstance();
     }
 
     // 采用面向对象设计模式的单例模式创建

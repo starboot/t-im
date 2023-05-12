@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class AbstractTIMCommandManager<V extends AbstractCmdHandler> {
+public abstract class AbstractCommandManager<V extends AbstractCmdHandler> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTIMCommandManager.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCommandManager.class);
 
 	protected abstract Map<TIMCommandType, V> getTIMCommandHandler();
 
@@ -38,7 +38,7 @@ public abstract class AbstractTIMCommandManager<V extends AbstractCmdHandler> {
 
 	private void init0(List<Configuration> configurations) throws Exception {
 		for (Configuration configuration : configurations) {
-			V cmdHandler = (V) (Class.forName(configuration.getPath())).newInstance();
+			V cmdHandler = (V) (Class.forName(configuration.getValue()[0])).newInstance();
 			registerCommand(cmdHandler);
 		}
 	}
