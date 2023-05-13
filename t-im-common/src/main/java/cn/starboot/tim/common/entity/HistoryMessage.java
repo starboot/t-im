@@ -31,9 +31,8 @@ public class HistoryMessage extends Message implements Serializable{
 	 */
 	private Map<String,List<ChatPacketProto.ChatPacket>> groups;
 
-	private HistoryMessage(){}
-
 	private HistoryMessage(String userId, Map<String, List<ChatPacketProto.ChatPacket>> friends, Map<String, List<ChatPacketProto.ChatPacket>> groups) {
+		super(null);
 		this.userId = userId;
 		this.friends = friends;
 		this.groups = groups;

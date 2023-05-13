@@ -4,13 +4,13 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.socket.enums.CloseCode;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImStatus;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
-import cn.starboot.tim.common.packet.RespPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
+import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.common.util.TIMLogUtil;
+import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.TIM;
 import cn.starboot.tim.server.util.ChatKit;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -30,7 +30,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 	}
 
 	@Override
-	public ImPacket handler(ImPacket imPacket, ImChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
+	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(chatPacket)) {
 			TIMLogUtil.error(LOGGER, "消息包格式化出错");
@@ -47,10 +47,10 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			case PRIVATE: {
 				if (StrUtil.isNotEmpty(chatPacket.getToId())) {
 					// 私聊
-					if (ChatKit.isOnline(imChannelContext.getConfig(), chatPacket.getToId())) {
-						System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
-						send(imChannelContext, TIMCommandType.COMMAND_CHAT_REQ, imPacket.getData());
-						packet.setData(RespPacket.newBuilder().setStatus(ImStatus.C10000).build().toByte());
+					if (ChatKit.isOnline(imChannelContext.getConfig(), chatPacket.getToId())
+							&& imChannelContext.getConfig().getProcessor().handleChatPacket(chatPacket)) {
+						sendToId(imChannelContext.getConfig(), chatPacket.getToId(), imPacket);
+						setSendSuccess(packet);
 					}
 				}
 				break;
@@ -58,15 +58,16 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			case GROUP: {
 				if (StrUtil.isNotEmpty(chatPacket.getGroupId())) {
 					// 群聊
-					System.out.println(chatPacket.getContent());
-					sendToGroup(imChannelContext.getConfig(),
-							chatPacket.getGroupId(),
-							TIMCommandType.COMMAND_CHAT_REQ,
-							imPacket.getData(),
-							channelContext -> {
-								// 不发送自己  true:发送， false：不发送
-								return channelContext != imChannelContext.getChannelContext();
-							});
+					if (imChannelContext.getConfig().getProcessor().handleChatPacket(chatPacket)) {
+						sendToGroup(imChannelContext.getConfig(),
+								chatPacket.getGroupId(),
+								imPacket,
+								channelContext -> {
+									// 不发送自己  true:发送， false：不发送
+									return channelContext != imChannelContext.getChannelContext();
+								});
+						setSendSuccess(packet);
+					}
 				}
 				break;
 			}
@@ -79,6 +80,20 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 				break;
 			}
 		}
-		return packet;
+		return imChannelContext.getConfig().getProcessor().beforeSend(imPacket) ? packet : null;
+	}
+
+	private void setSendSuccess(ImPacket packet) {
+		packet.setData(RespPacketProto.RespPacket.newBuilder()
+				.setImStatus(RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS)
+				.build()
+				.toByteArray());
+	}
+
+	private void setSendFailed(ImPacket packet) {
+		packet.setData(RespPacketProto.RespPacket.newBuilder()
+				.setImStatus(RespPacketProto.RespPacket.ImStatus.SEND_FAILED)
+				.build()
+				.toByteArray());
 	}
 }

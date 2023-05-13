@@ -8,8 +8,8 @@ import cn.starboot.socket.core.ClientBootstrap;
 import cn.starboot.socket.plugins.ReconnectPlugin;
 import cn.starboot.socket.utils.pool.memory.MemoryPool;
 import cn.starboot.tim.client.intf.Callback;
-import cn.starboot.tim.client.intf.DefaultClientProcessor;
-import cn.starboot.tim.client.intf.ClientProcessor;
+import cn.starboot.tim.client.intf.DefaultClientTIMProcessor;
+import cn.starboot.tim.client.intf.ClientTIMProcessor;
 import cn.starboot.tim.client.protocol.ImClientProtocolHandler;
 import cn.starboot.tim.common.entity.User;
 import cn.starboot.tim.common.command.TIMCommandType;
@@ -71,10 +71,10 @@ public class TIMClient {
 		start(options, null);
 	}
 
-	public static void start(Options option, ClientProcessor processor) {
+	public static void start(Options option, ClientTIMProcessor processor) {
 		init(option);
 		if (Objects.isNull(processor)) {
-			processor = new DefaultClientProcessor();
+			processor = new DefaultClientTIMProcessor();
 		}
 		ClientBootstrap bootstrap = new ClientBootstrap(option.ip, option.port, ImClientProtocolHandler.getInstance());
 		try {

@@ -3,6 +3,7 @@ package cn.starboot.tim.server;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImConfig;
+import cn.starboot.tim.server.intf.ServerTIMProcessor;
 
 /**
  * 服务器TIM通道上下文
@@ -20,7 +21,7 @@ public class ImServerChannelContext extends ImChannelContext {
 	}
 
 	@Override
-	public ImConfig getConfig() {
+	public ImConfig<ServerTIMProcessor> getConfig() {
 		return this.config;
 	}
 }

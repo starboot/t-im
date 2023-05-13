@@ -1,11 +1,12 @@
 package cn.starboot.tim.common;
 
 import cn.starboot.socket.core.AioConfig;
+import cn.starboot.tim.common.intf.TIMProcessor;
 
 /**
  * Created by DELL(mxd) on 2022/1/6 17:07
  */
-public abstract class ImConfig {
+public abstract class ImConfig<P extends TIMProcessor> {
 
 	public static final String name = "TIM";
 
@@ -43,4 +44,6 @@ public abstract class ImConfig {
 	public boolean isServer() {
 		return this.aioConfig.isServer();
 	}
+
+	public abstract P getProcessor();
 }

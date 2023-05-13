@@ -6,12 +6,59 @@ option java_outer_classname = "RespPacketProto";
 
 // IM私有协议包
 message RespPacket{
-    // 是否开启消息同步
-    bool isSyn = 1;
-    // 同步序列号
-    string syn = 2;
-    // 响应状态码;
-    int32 code = 3;
-    // 响应信息;
-    string msg = 4;
+
+	// IM状态响应
+	enum ImStatus {
+		// TIM status: send success
+		SEND_FAILED = 0;
+		// TIM status: send failed
+		SEND_SUCCESS = 1;
+		// TIM status: auth failed
+		AUTH_FAILED = 2;
+		// TIM status: auth success
+		AUTH_SUCCESS = 3;
+		// TIM status: login failed
+		LOGIN_FAILED = 4;
+		// TIM status: login success
+		LOGIN_SUCCESS = 5;
+		// TIM status: close success
+		CLOSE_SUCCESS = 6;
+		// TIM status: join group failed
+		JOIN_GROUP_FAILED = 7;
+		// TIM status: join group success
+		JOIN_GROUP_SUCCESS = 8;
+		// TIM status: exit group failed
+		EXIT_GROUP_FAILED = 9;
+		// TIM status: exit group success
+		EXIT_GROUP_SUCCESS = 10;
+		// TIM status: unsupported cmd command
+		UNSUPPORTED_CMD_COMMAND = 11;
+		// TIM status: invalid verification
+		INVALID_VERIFICATION = 12;
+		// TIM status: get user information failed
+		GET_USER_INFORMATION_FAILED = 13;
+		// TIM status: get user information success
+		GET_USER_INFORMATION_SUCCESS = 14;
+		// TIM status: protocol version not match
+		PROTOCOL_VERSION_NOT_MATCH = 15;
+		// TIM status: get user history message failed
+		GET_USER_HISTORY_MESSAGE_FAILED = 16;
+		// TIM status: get user history message success
+		GET_USER_HISTORY_MESSAGE_SUCCESS = 17;
+		// TIM status: get user offline message failed
+		GET_USER_OFFLINE_MESSAGE_FAILED = 18;
+		// TIM status: get user offline message success
+		GET_USER_OFFLINE_MESSAGE_SUCCESS = 19;
+		C10020 = 20;
+		C10021 = 21;
+		C10022 = 22;
+		C10023 = 23;
+		C10024 = 24;
+		C10025 = 25;
+		C10026 = 26;
+		C10027 = 27;
+		C10028 = 28;
+		C10029 = 29;
+	};
+	ImStatus imStatus = 1;
 }

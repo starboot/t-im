@@ -9,7 +9,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:40
  */
-public interface CmdHandler {
+public interface CmdHandler<C extends ImChannelContext> {
 
 	/**
 	 * 主键：判断各类socket请求的指令
@@ -23,5 +23,5 @@ public interface CmdHandler {
      * @param imChannelContext  通道上下文
      * @return .
      */
-    ImPacket handler(ImPacket imPacket, ImChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException;
+    ImPacket handler(ImPacket imPacket, C imChannelContext) throws ImException, InvalidProtocolBufferException;
 }

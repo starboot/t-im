@@ -1,7 +1,7 @@
 
 package cn.starboot.tim.common.entity;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,15 +42,13 @@ public class Group extends Message {
 	 */
 	private List<User> users;
 
-	private Group(){}
-
 	private Group(String groupId , String name, String avatar, Integer online, List<User> users, JSONObject extras){
+		super(extras);
 		this.groupId = groupId;
 		this.name = name;
 		this.avatar = avatar;
 		this.online = online;
 		this.users = users;
-		this.extras = extras;
 	}
 
 	public static Builder newBuilder(){

@@ -1,13 +1,13 @@
 package cn.starboot.tim.server;
 
-import cn.starboot.socket.core.AioConfig;
 import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.server.cluster.ICluster;
-import cn.starboot.tim.server.intf.ServerProcessor;
+import cn.starboot.tim.server.intf.DefaultServerTIMProcessor;
+import cn.starboot.tim.server.intf.ServerTIMProcessor;
 
-public class ImServerConfig extends ImConfig {
+public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 
-	private final ServerProcessor serverProcessor;
+	private final ServerTIMProcessor serverProcessor;
 
 	/**
 	 * 开启持久化
@@ -29,11 +29,12 @@ public class ImServerConfig extends ImConfig {
 	 */
 	public static final int HEARTBEAT_TIMEOUT = 1000 * 60;
 
-	public ImServerConfig(ServerProcessor serverProcessor) {
+	public ImServerConfig(ServerTIMProcessor serverProcessor) {
 		this.serverProcessor = serverProcessor;
 	}
 
-	public ServerProcessor getServerProcessor() {
+	@Override
+	public ServerTIMProcessor getProcessor() {
 		return this.serverProcessor;
 	}
 }

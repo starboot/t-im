@@ -46,8 +46,10 @@
         <lombok.version>1.18.20</lombok.version>
         <spring-boot.version>2.6.2</spring-boot.version>
         <hutool.version>5.8.18</hutool.version>
+		<grpc.version>1.27.2</grpc.version>
         <protobuff.version>3.21.12</protobuff.version>
         <pinyin.version>2.5.0</pinyin.version>
+
         <javacpp.platform.android-arm>android-arm</javacpp.platform.android-arm>
         <javacpp.platform.android-arm64>android-arm64</javacpp.platform.android-arm64>
         <javacpp.platform.android-x86>android-x86</javacpp.platform.android-x86>

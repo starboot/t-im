@@ -8,7 +8,7 @@ import cn.starboot.socket.plugins.MonitorPlugin;
 import cn.starboot.socket.utils.pool.memory.MemoryPool;
 import cn.starboot.tim.common.factory.ImChannelContextFactory;
 import cn.starboot.tim.common.banner.TimBanner;
-import cn.starboot.tim.server.intf.ServerProcessor;
+import cn.starboot.tim.server.intf.ServerTIMProcessor;
 import cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class TIMServerStarter {
 		timBanner.printBanner(System.out);
 	}
 
-	protected TIMServerStarter(ServerProcessor serverProcessor) {
+	protected TIMServerStarter(ServerTIMProcessor serverProcessor) {
 		this.imServerConfig = new ImServerConfig(serverProcessor);
 	}
 
@@ -42,7 +42,7 @@ public class TIMServerStarter {
 		return getInstance(null);
 	}
 
-    public static synchronized TIMServerStarter getInstance(ServerProcessor serverProcessor) {
+    public static synchronized TIMServerStarter getInstance(ServerTIMProcessor serverProcessor) {
         if (ObjectUtil.isNull(timServerStarter)){
             timServerStarter = new TIMServerStarter(serverProcessor);
         }

@@ -4,12 +4,13 @@ import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.factory.ImPacketFactory;
+import org.checkerframework.checker.units.qual.C;
 
 /**
  * 抽象命令处理器
  * Created by DELL(mxd) on 2022/9/6 13:04
  */
-public abstract class AbstractCmdHandler implements CmdHandler {
+public abstract class AbstractCmdHandler<C extends ImChannelContext> implements CmdHandler<C> {
 
 	private static final ImPacketFactory imPacketFactory = (timCommandType, data) -> ImPacket
 			.newBuilder()
@@ -23,7 +24,7 @@ public abstract class AbstractCmdHandler implements CmdHandler {
 	 * @param TIMCommandType   协议命令码
 	 * @param data             待发送数据
 	 */
-	protected abstract void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data);
+//	protected abstract void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data);
 
 	protected ImPacket getImPacket(TIMCommandType timCommandType, byte[] data) {
 		return imPacketFactory.createImPacket(timCommandType, data);
