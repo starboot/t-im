@@ -4,8 +4,10 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
+import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.UsersPacketProto;
+import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +26,8 @@ public class UserReqHandler extends AbstractServerCmdHandler {
         return TIMCommandType.COMMAND_USERS_REQ;
     }
 
-    @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws InvalidProtocolBufferException {
+	@Override
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 
         UsersPacketProto.UsersPacket usersPacket = UsersPacketProto.UsersPacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(usersPacket)) {

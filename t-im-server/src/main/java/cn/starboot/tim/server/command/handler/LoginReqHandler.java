@@ -9,6 +9,7 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.packet.proto.LoginPacketProto;
+import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +27,8 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
         return TIMCommandType.COMMAND_LOGIN_REQ;
     }
 
-    @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
+	@Override
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
     	LoginPacketProto.LoginPacket loginPacket = LoginPacketProto.LoginPacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(loginPacket)) {
             log.error("消息包格式化出错");
@@ -39,11 +40,11 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 //                .setDescription(ImStatus.C10007.getDescription())
 //                .setText(ImStatus.C10007.getText())
 //                .build();
-        User user = getUserByProcessor(channelContext, loginPacket);
+        User user = getUserByProcessor(imChannelContext, loginPacket);
         if (user != null && ObjectUtil.isNotEmpty(user) && user.getUserId() != null) {
 //            TIM.bindUser(channelContext, user.getUserId());
             //初始化绑定或者解绑群组;
-            initGroup(channelContext, user);
+            initGroup(imChannelContext, user);
 //            LoginRespBody respBody = new LoginRespBody(ImStatus.C10007, user, "t-im token");
 //            respBody.setId("1");
 //            respBody.setSyn(false);

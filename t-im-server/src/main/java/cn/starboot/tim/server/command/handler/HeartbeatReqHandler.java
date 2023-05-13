@@ -2,9 +2,12 @@ package cn.starboot.tim.server.command.handler;
 
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
+import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.HeartPacketProto;
+import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * 虽然aio-socket在TCP层面带有心跳插件
@@ -19,8 +22,9 @@ public class HeartbeatReqHandler extends AbstractServerCmdHandler {
         return TIMCommandType.COMMAND_HEART_REQ;
     }
 
-    @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) {
+
+	@Override
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) {
         HeartPacketProto.HeartPacket.Builder builder = HeartPacketProto.HeartPacket.newBuilder();
         HeartPacketProto.HeartPacket build = builder.setHeartByte(ByteString.copyFrom(new byte[]{(byte) 0xff}))
                 .build();

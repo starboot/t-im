@@ -25,7 +25,7 @@ public class ACKReqHandler extends AbstractServerCmdHandler {
 
 
 	@Override
-    public ImPacket handler(ImPacket imPacket, ImServerChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
         return null;
     }
 }

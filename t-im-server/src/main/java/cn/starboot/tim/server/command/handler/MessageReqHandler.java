@@ -5,9 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImStatus;
 import cn.starboot.tim.common.command.TIMCommandType;
+import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.MessagePacketProto;
 import cn.starboot.tim.common.packet.proto.UserMessagePacketProto;
+import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +29,8 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
         return TIMCommandType.COMMAND_MESSAGE_REQ;
     }
 
-    @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws InvalidProtocolBufferException {
+	@Override
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 
         MessagePacketProto.MessagePacket messagePacket = MessagePacketProto.MessagePacket.parseFrom(imPacket.getData());
 //        final ImPacketProto.ImPacket.Builder imPacket = ImPacketProto.ImPacket.newBuilder();
@@ -57,10 +59,10 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
                 || (MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE != messageType
                 && MessagePacketProto.MessagePacket.MessageType.HISTORY_MESSAGE != messageType)) {
             // 返回失败消息
-            return getMessageFailedPacket(channelContext, ImStatus.C10015);
+            return getMessageFailedPacket(imChannelContext, ImStatus.C10015);
         }
 //        if (!IMServer.isStore) {
-            return getMessageFailedPacket(channelContext, ImStatus.C10022);
+            return getMessageFailedPacket(imChannelContext, ImStatus.C10022);
 //        }
 //        if(MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE == messageType){
             // 设置响应包状态为离线消息

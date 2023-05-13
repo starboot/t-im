@@ -23,7 +23,7 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
     }
 
 	@Override
-    public ImPacket handler(ImPacket imPacket, ImServerChannelContext channelContext) {
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) {
 
 //        AuthReqBody authReqBody = new AuthReqBody();
 //        if (ObjectUtil.isEmpty(authReqBody)) {

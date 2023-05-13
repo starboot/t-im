@@ -4,6 +4,7 @@ import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class RespServerHandler extends AbstractServerCmdHandler {
@@ -14,7 +15,7 @@ public class RespServerHandler extends AbstractServerCmdHandler {
 	}
 
 	@Override
-	public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
+	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
 		return null;
 	}
 }
