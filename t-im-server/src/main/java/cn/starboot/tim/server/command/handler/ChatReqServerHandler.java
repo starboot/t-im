@@ -46,7 +46,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 				if (StrUtil.isNotEmpty(chatPacket.getToId())) {
 					// 私聊
 					if (ChatKit.isOnline(imChannelContext.getConfig(), chatPacket.getToId())
-							&& imChannelContext.getConfig().getProcessor().handleChatPacket(chatPacket)) {
+							&& imChannelContext.getConfig().getProcessor().handleChatPacket(imChannelContext, chatPacket)) {
 						sendToId(imChannelContext.getConfig(), chatPacket.getToId(), imPacket);
 						setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS);
 					}
@@ -58,7 +58,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			case GROUP: {
 				if (StrUtil.isNotEmpty(chatPacket.getGroupId())) {
 					// 群聊
-					if (imChannelContext.getConfig().getProcessor().handleChatPacket(chatPacket)) {
+					if (imChannelContext.getConfig().getProcessor().handleChatPacket(imChannelContext, chatPacket)) {
 						sendToGroup(imChannelContext.getConfig(),
 								chatPacket.getGroupId(),
 								imPacket,
@@ -84,6 +84,6 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 				break;
 			}
 		}
-		return imChannelContext.getConfig().getProcessor().beforeSend(imPacket) ? packet : null;
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket) ? packet : null;
 	}
 }

@@ -40,7 +40,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 		setRespPacketImStatus(build,
 				verify(StrUtil.isNotBlank(loginPacket.getUserId()),
 						StrUtil.isNotBlank(loginPacket.getToken()),
-						imChannelContext.getConfig().getProcessor().handleLoginPacket(loginPacket)
+						imChannelContext.getConfig().getProcessor().handleLoginPacket(imChannelContext, loginPacket)
 				) ? RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS : RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED);
 
 		User user = imChannelContext.getConfig().getProcessor().getUserByProcessor(imChannelContext, loginPacket);
