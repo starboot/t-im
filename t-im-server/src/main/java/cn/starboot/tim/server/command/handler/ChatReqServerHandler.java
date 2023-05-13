@@ -3,9 +3,7 @@ package cn.starboot.tim.server.command.handler;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.socket.enums.CloseCode;
-import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
-import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
@@ -30,7 +28,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 	}
 
 	@Override
-	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
+	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(chatPacket)) {
 			TIMLogUtil.error(LOGGER, "消息包格式化出错");
@@ -52,6 +50,8 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 						sendToId(imChannelContext.getConfig(), chatPacket.getToId(), imPacket);
 						setSendSuccess(packet);
 					}
+				} else {
+					setSendFailed(packet);
 				}
 				break;
 			}
@@ -68,14 +68,18 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 								});
 						setSendSuccess(packet);
 					}
+				} else {
+					setSendFailed(packet);
 				}
 				break;
 			}
 			case UNKNOWN: {
+				setSendFailed(packet);
 				TIMLogUtil.debug(LOGGER, "用户{}发送未知消息类型", chatPacket.getFromId());
 				break;
 			}
 			default: {
+				setSendFailed(packet);
 				TIMLogUtil.debug(LOGGER, "用户{}发送消息未携带类型", chatPacket.getFromId());
 				break;
 			}
