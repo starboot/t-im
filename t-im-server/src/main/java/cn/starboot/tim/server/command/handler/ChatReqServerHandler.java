@@ -48,10 +48,10 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 					if (ChatKit.isOnline(imChannelContext.getConfig(), chatPacket.getToId())
 							&& imChannelContext.getConfig().getProcessor().handleChatPacket(chatPacket)) {
 						sendToId(imChannelContext.getConfig(), chatPacket.getToId(), imPacket);
-						setSendSuccess(packet);
+						setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS);
 					}
 				} else {
-					setSendFailed(packet);
+					setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_FAILED);
 				}
 				break;
 			}
@@ -66,38 +66,24 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 									// 不发送自己  true:发送， false：不发送
 									return channelContext != imChannelContext.getChannelContext();
 								});
-						setSendSuccess(packet);
+						setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS);
 					}
 				} else {
-					setSendFailed(packet);
+					setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_FAILED);
 				}
 				break;
 			}
 			case UNKNOWN: {
-				setSendFailed(packet);
+				setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_FAILED);
 				TIMLogUtil.debug(LOGGER, "用户{}发送未知消息类型", chatPacket.getFromId());
 				break;
 			}
 			default: {
-				setSendFailed(packet);
+				setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_FAILED);
 				TIMLogUtil.debug(LOGGER, "用户{}发送消息未携带类型", chatPacket.getFromId());
 				break;
 			}
 		}
 		return imChannelContext.getConfig().getProcessor().beforeSend(imPacket) ? packet : null;
-	}
-
-	private void setSendSuccess(ImPacket packet) {
-		packet.setData(RespPacketProto.RespPacket.newBuilder()
-				.setImStatus(RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS)
-				.build()
-				.toByteArray());
-	}
-
-	private void setSendFailed(ImPacket packet) {
-		packet.setData(RespPacketProto.RespPacket.newBuilder()
-				.setImStatus(RespPacketProto.RespPacket.ImStatus.SEND_FAILED)
-				.build()
-				.toByteArray());
 	}
 }

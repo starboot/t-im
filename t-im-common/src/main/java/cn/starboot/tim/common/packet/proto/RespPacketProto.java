@@ -244,21 +244,37 @@ public final class RespPacketProto {
        */
       GET_USER_OFFLINE_MESSAGE_SUCCESS(19),
       /**
-       * <code>C10020 = 20;</code>
+       * <pre>
+       * TIM status: bind failed
+       * </pre>
+       *
+       * <code>BIND_FAILED = 20;</code>
        */
-      C10020(20),
+      BIND_FAILED(20),
       /**
-       * <code>C10021 = 21;</code>
+       * <pre>
+       * TIM status: bind success
+       * </pre>
+       *
+       * <code>BIND_SUCCESS = 21;</code>
        */
-      C10021(21),
+      BIND_SUCCESS(21),
       /**
-       * <code>C10022 = 22;</code>
+       * <pre>
+       * TIM status: unbind failed
+       * </pre>
+       *
+       * <code>UNBIND_FAILED = 22;</code>
        */
-      C10022(22),
+      UNBIND_FAILED(22),
       /**
-       * <code>C10023 = 23;</code>
+       * <pre>
+       * TIM status: unbind success
+       * </pre>
+       *
+       * <code>UNBIND_SUCCESS = 23;</code>
        */
-      C10023(23),
+      UNBIND_SUCCESS(23),
       /**
        * <code>C10024 = 24;</code>
        */
@@ -447,21 +463,37 @@ public final class RespPacketProto {
        */
       public static final int GET_USER_OFFLINE_MESSAGE_SUCCESS_VALUE = 19;
       /**
-       * <code>C10020 = 20;</code>
+       * <pre>
+       * TIM status: bind failed
+       * </pre>
+       *
+       * <code>BIND_FAILED = 20;</code>
        */
-      public static final int C10020_VALUE = 20;
+      public static final int BIND_FAILED_VALUE = 20;
       /**
-       * <code>C10021 = 21;</code>
+       * <pre>
+       * TIM status: bind success
+       * </pre>
+       *
+       * <code>BIND_SUCCESS = 21;</code>
        */
-      public static final int C10021_VALUE = 21;
+      public static final int BIND_SUCCESS_VALUE = 21;
       /**
-       * <code>C10022 = 22;</code>
+       * <pre>
+       * TIM status: unbind failed
+       * </pre>
+       *
+       * <code>UNBIND_FAILED = 22;</code>
        */
-      public static final int C10022_VALUE = 22;
+      public static final int UNBIND_FAILED_VALUE = 22;
       /**
-       * <code>C10023 = 23;</code>
+       * <pre>
+       * TIM status: unbind success
+       * </pre>
+       *
+       * <code>UNBIND_SUCCESS = 23;</code>
        */
-      public static final int C10023_VALUE = 23;
+      public static final int UNBIND_SUCCESS_VALUE = 23;
       /**
        * <code>C10024 = 24;</code>
        */
@@ -532,10 +564,10 @@ public final class RespPacketProto {
           case 17: return GET_USER_HISTORY_MESSAGE_SUCCESS;
           case 18: return GET_USER_OFFLINE_MESSAGE_FAILED;
           case 19: return GET_USER_OFFLINE_MESSAGE_SUCCESS;
-          case 20: return C10020;
-          case 21: return C10021;
-          case 22: return C10022;
-          case 23: return C10023;
+          case 20: return BIND_FAILED;
+          case 21: return BIND_SUCCESS;
+          case 22: return UNBIND_FAILED;
+          case 23: return UNBIND_SUCCESS;
           case 24: return C10024;
           case 25: return C10025;
           case 26: return C10026;
@@ -1072,8 +1104,8 @@ public final class RespPacketProto {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\020RespPacket.proto\"\305\005\n\nRespPacket\022&\n\010imS" +
-      "tatus\030\001 \001(\0162\024.RespPacket.ImStatus\"\216\005\n\010Im" +
+      "\n\020RespPacket.proto\"\337\005\n\nRespPacket\022&\n\010imS" +
+      "tatus\030\001 \001(\0162\024.RespPacket.ImStatus\"\250\005\n\010Im" +
       "Status\022\017\n\013SEND_FAILED\020\000\022\020\n\014SEND_SUCCESS\020" +
       "\001\022\017\n\013AUTH_FAILED\020\002\022\020\n\014AUTH_SUCCESS\020\003\022\020\n\014" +
       "LOGIN_FAILED\020\004\022\021\n\rLOGIN_SUCCESS\020\005\022\021\n\rCLO" +
@@ -1087,11 +1119,12 @@ public final class RespPacketProto {
       "_MESSAGE_FAILED\020\020\022$\n GET_USER_HISTORY_ME" +
       "SSAGE_SUCCESS\020\021\022#\n\037GET_USER_OFFLINE_MESS" +
       "AGE_FAILED\020\022\022$\n GET_USER_OFFLINE_MESSAGE" +
-      "_SUCCESS\020\023\022\n\n\006C10020\020\024\022\n\n\006C10021\020\025\022\n\n\006C1" +
-      "0022\020\026\022\n\n\006C10023\020\027\022\n\n\006C10024\020\030\022\n\n\006C10025" +
-      "\020\031\022\n\n\006C10026\020\032\022\n\n\006C10027\020\033\022\n\n\006C10028\020\034\022\n" +
-      "\n\006C10029\020\035B6\n#cn.starboot.tim.common.pac" +
-      "ket.protoB\017RespPacketProtob\006proto3"
+      "_SUCCESS\020\023\022\017\n\013BIND_FAILED\020\024\022\020\n\014BIND_SUCC" +
+      "ESS\020\025\022\021\n\rUNBIND_FAILED\020\026\022\022\n\016UNBIND_SUCCE" +
+      "SS\020\027\022\n\n\006C10024\020\030\022\n\n\006C10025\020\031\022\n\n\006C10026\020\032" +
+      "\022\n\n\006C10027\020\033\022\n\n\006C10028\020\034\022\n\n\006C10029\020\035B6\n#" +
+      "cn.starboot.tim.common.packet.protoB\017Res" +
+      "pPacketProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

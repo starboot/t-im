@@ -49,10 +49,14 @@ message RespPacket{
 		GET_USER_OFFLINE_MESSAGE_FAILED = 18;
 		// TIM status: get user offline message success
 		GET_USER_OFFLINE_MESSAGE_SUCCESS = 19;
-		C10020 = 20;
-		C10021 = 21;
-		C10022 = 22;
-		C10023 = 23;
+		// TIM status: bind failed
+		BIND_FAILED = 20;
+		// TIM status: bind success
+		BIND_SUCCESS = 21;
+		// TIM status: unbind failed
+		UNBIND_FAILED = 22;
+		// TIM status: unbind success
+		UNBIND_SUCCESS = 23;
 		C10024 = 24;
 		C10025 = 25;
 		C10026 = 26;

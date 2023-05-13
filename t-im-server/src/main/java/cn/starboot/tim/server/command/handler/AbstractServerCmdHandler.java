@@ -6,6 +6,7 @@ import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.TIM;
 
@@ -29,5 +30,12 @@ public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServ
 
 	protected void sendToGroup(ImConfig imConfig, String toGroupId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		TIM.sendToGroup(imConfig, toGroupId, imPacket, channelContextFilter);
+	}
+
+	protected void setRespPacketImStatus(ImPacket packet, RespPacketProto.RespPacket.ImStatus imStatus) {
+		packet.setData(RespPacketProto.RespPacket.newBuilder()
+				.setImStatus(imStatus)
+				.build()
+				.toByteArray());
 	}
 }
