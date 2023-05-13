@@ -38,4 +38,13 @@ public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServ
 				.build()
 				.toByteArray());
 	}
+
+	protected boolean verify(boolean ...booleans) {
+		boolean r = true;
+		for (boolean b:
+			 booleans) {
+			r &= b;
+		}
+		return r;
+	}
 }
