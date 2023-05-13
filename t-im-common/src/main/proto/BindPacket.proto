@@ -11,10 +11,16 @@ message BindPacket{
     enum BindType {
         // 绑定用户（可以解除或者绑定用户的某一设备）
         USER = 0;
-        // 绑定群组
+        // 绑定到群组
         GROUP = 1;
-        // 绑定token
+        // 绑定到token
         TOKEN = 2;
+		// 绑定到IP
+		IP = 3;
+		// 绑定到业务ID
+		BS_ID = 4;
+		// 绑定到ID
+		ID = 5;
     };
     // bind类型
     BindType bindType = 3;

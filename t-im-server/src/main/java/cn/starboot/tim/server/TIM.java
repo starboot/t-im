@@ -33,11 +33,11 @@ public class TIM {
 		return bind(MaintainEnum.ID, id, imChannelContext);
 	}
 
-	public static ChannelContext getChannelContextById(ImConfig imConfig, String id) {
+	public static ChannelContext getChannelContextById(ImConfig<?> imConfig, String id) {
 		return Aio.getChannelContextById(imConfig.getAioConfig(), id);
 	}
 
-	public static SetWithLock<ChannelContext> getChannelContextByUserId(ImConfig imConfig, String userId) {
+	public static SetWithLock<ChannelContext> getChannelContextByUserId(ImConfig<?> imConfig, String userId) {
 		return Aio.getByUser(imConfig.getAioConfig(), userId);
 	}
 
@@ -45,22 +45,22 @@ public class TIM {
         Aio.send(channelContext.getChannelContext(), packet);
     }
 
-	public static void sendToId(ImConfig imConfig, String toId, ImPacket imPacket) {
+	public static void sendToId(ImConfig<?> imConfig, String toId, ImPacket imPacket) {
 		singleObjectiveSend(MaintainEnum.ID, imConfig, toId, imPacket);
 	}
 
-	public static void sendToGroup(ImConfig imConfig, String toId, ImPacket imPacket) {
+	public static void sendToGroup(ImConfig<?> imConfig, String toId, ImPacket imPacket) {
 		sendToGroup(imConfig, toId, imPacket, null);
 	}
-	public static void sendToGroup(ImConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+	public static void sendToGroup(ImConfig<?> imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		multiObjectiveSend(MaintainEnum.GROUP_ID, imConfig, toId, imPacket, channelContextFilter);
 	}
 
-	public static void sendToUser(ImConfig imConfig, String toId, ImPacket imPacket) {
+	public static void sendToUser(ImConfig<?> imConfig, String toId, ImPacket imPacket) {
 		sendToUser(imConfig, toId, imPacket, null);
 	}
 
-    public static void sendToUser(ImConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+    public static void sendToUser(ImConfig<?> imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		multiObjectiveSend(MaintainEnum.USER, imConfig, toId, imPacket, channelContextFilter);
     }
 
@@ -73,19 +73,19 @@ public class TIM {
 		close(imChannelContext, closeCode);
     }
 
-	public static void removeGroup(ImConfig imConfig, String maintainId) {
+	public static void removeGroup(ImConfig<?> imConfig, String maintainId) {
 		removeGroup(imConfig, maintainId, null);
 	}
 
-	public static void removeGroup(ImConfig imConfig, String maintainId, CloseCode closeCode) {
+	public static void removeGroup(ImConfig<?> imConfig, String maintainId, CloseCode closeCode) {
 		close(MaintainEnum.GROUP_ID, imConfig, maintainId, closeCode);
 	}
 
-	public static void removeUser(ImConfig imConfig, String maintainId) {
+	public static void removeUser(ImConfig<?> imConfig, String maintainId) {
 		removeUser(imConfig, maintainId, null);
 	}
 
-	public static void removeUser(ImConfig imConfig, String maintainId, CloseCode closeCode) {
+	public static void removeUser(ImConfig<?> imConfig, String maintainId, CloseCode closeCode) {
 		close(MaintainEnum.USER, imConfig, maintainId, closeCode);
 	}
 
@@ -136,7 +136,7 @@ public class TIM {
 		Aio.close(imChannelContext.getChannelContext(), closeCode);
 	}
 
-	private static void close(MaintainEnum maintainEnum, ImConfig imConfig, String maintainId, CloseCode closeCode) {
+	private static void close(MaintainEnum maintainEnum, ImConfig<?> imConfig, String maintainId, CloseCode closeCode) {
 		switch (maintainEnum) {
 			case Bs_ID: {
 				Aio.closeBsId(imConfig.getAioConfig(), maintainId, closeCode);
@@ -176,7 +176,7 @@ public class TIM {
 		}
 	}
 
-	private static void multiObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+	private static void multiObjectiveSend(MaintainEnum maintainEnum, ImConfig<?> imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		switch (maintainEnum) {
 			case CLU_ID: {
 				Aio.sendToCluId(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
@@ -204,7 +204,7 @@ public class TIM {
 		}
 	}
 
-	private static void singleObjectiveSend(MaintainEnum maintainEnum, ImConfig imConfig, String toId, ImPacket imPacket) {
+	private static void singleObjectiveSend(MaintainEnum maintainEnum, ImConfig<?> imConfig, String toId, ImPacket imPacket) {
 		switch (maintainEnum) {
 			case Bs_ID: {
 				Aio.sendToBsId(imConfig.getAioConfig(), toId, imPacket);
@@ -224,7 +224,7 @@ public class TIM {
 		}
 	}
 
-	private static boolean unbind(MaintainEnum maintainEnum,ImConfig imConfig, String maintainId, ImChannelContext imChannelContext) {
+	private static boolean unbind(MaintainEnum maintainEnum,ImConfig<?> imConfig, String maintainId, ImChannelContext imChannelContext) {
 		boolean result = false;
 		switch (maintainEnum) {
 			case Bs_ID: {

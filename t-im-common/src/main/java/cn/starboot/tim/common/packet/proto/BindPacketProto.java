@@ -110,63 +110,6 @@ public final class BindPacketProto {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private BindPacket(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              String s = input.readStringRequireUtf8();
-
-              bindId_ = s;
-              break;
-            }
-            case 24: {
-              int rawValue = input.readEnum();
-
-              bindType_ = rawValue;
-              break;
-            }
-            case 32: {
-              int rawValue = input.readEnum();
-
-              optionType_ = rawValue;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (com.google.protobuf.UninitializedMessageException e) {
-        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return BindPacketProto.internal_static_BindPacket_descriptor;
@@ -195,7 +138,7 @@ public final class BindPacketProto {
       USER(0),
       /**
        * <pre>
-       * 绑定群组
+       * 绑定到群组
        * </pre>
        *
        * <code>GROUP = 1;</code>
@@ -203,12 +146,36 @@ public final class BindPacketProto {
       GROUP(1),
       /**
        * <pre>
-       * 绑定token
+       * 绑定到token
        * </pre>
        *
        * <code>TOKEN = 2;</code>
        */
       TOKEN(2),
+      /**
+       * <pre>
+       * 绑定到IP
+       * </pre>
+       *
+       * <code>IP = 3;</code>
+       */
+      IP(3),
+      /**
+       * <pre>
+       * 绑定到业务ID
+       * </pre>
+       *
+       * <code>BS_ID = 4;</code>
+       */
+      BS_ID(4),
+      /**
+       * <pre>
+       * 绑定到ID
+       * </pre>
+       *
+       * <code>ID = 5;</code>
+       */
+      ID(5),
       UNRECOGNIZED(-1),
       ;
 
@@ -222,7 +189,7 @@ public final class BindPacketProto {
       public static final int USER_VALUE = 0;
       /**
        * <pre>
-       * 绑定群组
+       * 绑定到群组
        * </pre>
        *
        * <code>GROUP = 1;</code>
@@ -230,12 +197,36 @@ public final class BindPacketProto {
       public static final int GROUP_VALUE = 1;
       /**
        * <pre>
-       * 绑定token
+       * 绑定到token
        * </pre>
        *
        * <code>TOKEN = 2;</code>
        */
       public static final int TOKEN_VALUE = 2;
+      /**
+       * <pre>
+       * 绑定到IP
+       * </pre>
+       *
+       * <code>IP = 3;</code>
+       */
+      public static final int IP_VALUE = 3;
+      /**
+       * <pre>
+       * 绑定到业务ID
+       * </pre>
+       *
+       * <code>BS_ID = 4;</code>
+       */
+      public static final int BS_ID_VALUE = 4;
+      /**
+       * <pre>
+       * 绑定到ID
+       * </pre>
+       *
+       * <code>ID = 5;</code>
+       */
+      public static final int ID_VALUE = 5;
 
 
       public final int getNumber() {
@@ -265,6 +256,9 @@ public final class BindPacketProto {
           case 0: return USER;
           case 1: return GROUP;
           case 2: return TOKEN;
+          case 3: return IP;
+          case 4: return BS_ID;
+          case 5: return ID;
           default: return null;
         }
       }
@@ -446,7 +440,8 @@ public final class BindPacketProto {
     }
 
     public static final int BINDID_FIELD_NUMBER = 1;
-    private volatile Object bindId_;
+    @SuppressWarnings("serial")
+    private volatile Object bindId_ = "";
     /**
      * <pre>
      * 绑定ID
@@ -461,7 +456,7 @@ public final class BindPacketProto {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         bindId_ = s;
@@ -481,7 +476,7 @@ public final class BindPacketProto {
         getBindIdBytes() {
       Object ref = bindId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         bindId_ = b;
@@ -492,7 +487,7 @@ public final class BindPacketProto {
     }
 
     public static final int BINDTYPE_FIELD_NUMBER = 3;
-    private int bindType_;
+    private int bindType_ = 0;
     /**
      * <pre>
      * bind类型
@@ -513,13 +508,12 @@ public final class BindPacketProto {
      * @return The bindType.
      */
     @Override public BindType getBindType() {
-      @SuppressWarnings("deprecation")
-      BindType result = BindType.valueOf(bindType_);
+      BindType result = BindType.forNumber(bindType_);
       return result == null ? BindType.UNRECOGNIZED : result;
     }
 
     public static final int OPTIONTYPE_FIELD_NUMBER = 4;
-    private int optionType_;
+    private int optionType_ = 0;
     /**
      * <pre>
      * 绑定、解绑
@@ -540,8 +534,7 @@ public final class BindPacketProto {
      * @return The optionType.
      */
     @Override public OptionType getOptionType() {
-      @SuppressWarnings("deprecation")
-      OptionType result = OptionType.valueOf(optionType_);
+      OptionType result = OptionType.forNumber(optionType_);
       return result == null ? OptionType.UNRECOGNIZED : result;
     }
 
@@ -568,7 +561,7 @@ public final class BindPacketProto {
       if (optionType_ != OptionType.BIND.getNumber()) {
         output.writeEnum(4, optionType_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
     @Override
@@ -588,7 +581,7 @@ public final class BindPacketProto {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, optionType_);
       }
-      size += unknownFields.getSerializedSize();
+      size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
@@ -607,7 +600,7 @@ public final class BindPacketProto {
           .equals(other.getBindId())) return false;
       if (bindType_ != other.bindType_) return false;
       if (optionType_ != other.optionType_) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
 
@@ -624,7 +617,7 @@ public final class BindPacketProto {
       hash = (53 * hash) + bindType_;
       hash = (37 * hash) + OPTIONTYPE_FIELD_NUMBER;
       hash = (53 * hash) + optionType_;
-      hash = (29 * hash) + unknownFields.hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
@@ -745,28 +738,21 @@ public final class BindPacketProto {
 
       // Construct using cn.starboot.tim.common.packet.proto.BindPacketProto.BindPacket.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+
       }
       @Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         bindId_ = "";
-
         bindType_ = 0;
-
         optionType_ = 0;
-
         return this;
       }
 
@@ -793,11 +779,22 @@ public final class BindPacketProto {
       @Override
       public BindPacket buildPartial() {
         BindPacket result = new BindPacket(this);
-        result.bindId_ = bindId_;
-        result.bindType_ = bindType_;
-        result.optionType_ = optionType_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(BindPacket result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.bindId_ = bindId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.bindType_ = bindType_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.optionType_ = optionType_;
+        }
       }
 
       @Override
@@ -846,6 +843,7 @@ public final class BindPacketProto {
         if (other == BindPacket.getDefaultInstance()) return this;
         if (!other.getBindId().isEmpty()) {
           bindId_ = other.bindId_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
         if (other.bindType_ != 0) {
@@ -854,7 +852,7 @@ public final class BindPacketProto {
         if (other.optionType_ != 0) {
           setOptionTypeValue(other.getOptionTypeValue());
         }
-        this.mergeUnknownFields(other.unknownFields);
+        this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
@@ -869,19 +867,48 @@ public final class BindPacketProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        BindPacket parsedMessage = null;
+        if (extensionRegistry == null) {
+          throw new NullPointerException();
+        }
         try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                bindId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 24: {
+                bindType_ = input.readEnum();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 24
+              case 32: {
+                optionType_ = input.readEnum();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 32
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (BindPacket) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
+          onChanged();
+        } // finally
         return this;
       }
+      private int bitField0_;
 
       private Object bindId_ = "";
       /**
@@ -916,7 +943,7 @@ public final class BindPacketProto {
           getBindIdBytes() {
         Object ref = bindId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           bindId_ = b;
@@ -936,11 +963,9 @@ public final class BindPacketProto {
        */
       public Builder setBindId(
           String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         bindId_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -953,8 +978,8 @@ public final class BindPacketProto {
        * @return This builder for chaining.
        */
       public Builder clearBindId() {
-        
         bindId_ = getDefaultInstance().getBindId();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -969,12 +994,10 @@ public final class BindPacketProto {
        */
       public Builder setBindIdBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         bindId_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -1001,8 +1024,8 @@ public final class BindPacketProto {
        * @return This builder for chaining.
        */
       public Builder setBindTypeValue(int value) {
-        
         bindType_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -1016,8 +1039,7 @@ public final class BindPacketProto {
        */
       @Override
       public BindType getBindType() {
-        @SuppressWarnings("deprecation")
-        BindType result = BindType.valueOf(bindType_);
+        BindType result = BindType.forNumber(bindType_);
         return result == null ? BindType.UNRECOGNIZED : result;
       }
       /**
@@ -1033,7 +1055,7 @@ public final class BindPacketProto {
         if (value == null) {
           throw new NullPointerException();
         }
-        
+        bitField0_ |= 0x00000002;
         bindType_ = value.getNumber();
         onChanged();
         return this;
@@ -1047,7 +1069,7 @@ public final class BindPacketProto {
        * @return This builder for chaining.
        */
       public Builder clearBindType() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         bindType_ = 0;
         onChanged();
         return this;
@@ -1075,8 +1097,8 @@ public final class BindPacketProto {
        * @return This builder for chaining.
        */
       public Builder setOptionTypeValue(int value) {
-        
         optionType_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -1090,8 +1112,7 @@ public final class BindPacketProto {
        */
       @Override
       public OptionType getOptionType() {
-        @SuppressWarnings("deprecation")
-        OptionType result = OptionType.valueOf(optionType_);
+        OptionType result = OptionType.forNumber(optionType_);
         return result == null ? OptionType.UNRECOGNIZED : result;
       }
       /**
@@ -1107,7 +1128,7 @@ public final class BindPacketProto {
         if (value == null) {
           throw new NullPointerException();
         }
-        
+        bitField0_ |= 0x00000004;
         optionType_ = value.getNumber();
         onChanged();
         return this;
@@ -1121,7 +1142,7 @@ public final class BindPacketProto {
        * @return This builder for chaining.
        */
       public Builder clearOptionType() {
-        
+        bitField0_ = (bitField0_ & ~0x00000004);
         optionType_ = 0;
         onChanged();
         return this;
@@ -1159,7 +1180,18 @@ public final class BindPacketProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new BindPacket(input, extensionRegistry);
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
       }
     };
 
@@ -1181,7 +1213,7 @@ public final class BindPacketProto {
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_BindPacket_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_BindPacket_fieldAccessorTable;
 
@@ -1193,13 +1225,14 @@ public final class BindPacketProto {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\020BindPacket.proto\"\300\001\n\nBindPacket\022\016\n\006bin" +
+      "\n\020BindPacket.proto\"\333\001\n\nBindPacket\022\016\n\006bin" +
       "dId\030\001 \001(\t\022&\n\010bindType\030\003 \001(\0162\024.BindPacket" +
       ".BindType\022*\n\noptionType\030\004 \001(\0162\026.BindPack" +
-      "et.OptionType\"*\n\010BindType\022\010\n\004USER\020\000\022\t\n\005G" +
-      "ROUP\020\001\022\t\n\005TOKEN\020\002\"\"\n\nOptionType\022\010\n\004BIND\020" +
-      "\000\022\n\n\006UNBIND\020\001B6\n#cn.starboot.tim.common." +
-      "packet.protoB\017BindPacketProtob\006proto3"
+      "et.OptionType\"E\n\010BindType\022\010\n\004USER\020\000\022\t\n\005G" +
+      "ROUP\020\001\022\t\n\005TOKEN\020\002\022\006\n\002IP\020\003\022\t\n\005BS_ID\020\004\022\006\n\002" +
+      "ID\020\005\"\"\n\nOptionType\022\010\n\004BIND\020\000\022\n\n\006UNBIND\020\001" +
+      "B6\n#cn.starboot.tim.common.packet.protoB" +
+      "\017BindPacketProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
