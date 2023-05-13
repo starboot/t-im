@@ -2,7 +2,10 @@ package cn.starboot.tim.server.command.handler;
 
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
+import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.server.ImServerChannelContext;
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +22,8 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
         return TIMCommandType.COMMAND_AUTH_REQ;
     }
 
-    @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) {
+	@Override
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext channelContext) {
 
 //        AuthReqBody authReqBody = new AuthReqBody();
 //        if (ObjectUtil.isEmpty(authReqBody)) {

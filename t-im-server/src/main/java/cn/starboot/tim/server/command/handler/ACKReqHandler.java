@@ -4,6 +4,7 @@ import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +23,9 @@ public class ACKReqHandler extends AbstractServerCmdHandler {
         return TIMCommandType.COMMAND_ACK_REQ;
     }
 
-    @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
+
+	@Override
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
         return null;
     }
 }

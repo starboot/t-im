@@ -43,7 +43,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 						&& handler(packet, imChannelContext)
 						? RespPacketProto.RespPacket.ImStatus.BIND_SUCCESS
 						: RespPacketProto.RespPacket.ImStatus.BIND_FAILED);
-		return build;
+		return imChannelContext.getConfig().getProcessor().beforeSend(build) ? build : null;
 	}
 
 	private boolean handler(BindPacketProto.BindPacket packet, ImServerChannelContext imChannelContext) {
