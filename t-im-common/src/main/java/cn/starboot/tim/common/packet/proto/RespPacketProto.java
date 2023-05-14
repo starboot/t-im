@@ -28,6 +28,40 @@ public final class RespPacketProto {
      * @return The imStatus.
      */
     RespPacket.ImStatus getImStatus();
+
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    int getExtraCount();
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    boolean containsExtra(
+        String key);
+    /**
+     * Use {@link #getExtraMap()} instead.
+     */
+    @Deprecated
+    java.util.Map<String, String>
+    getExtra();
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    java.util.Map<String, String>
+    getExtraMap();
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    /* nullable */
+String getExtraOrDefault(
+        String key,
+        /* nullable */
+String defaultValue);
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    String getExtraOrThrow(
+        String key);
   }
   /**
    * <pre>
@@ -66,6 +100,18 @@ public final class RespPacketProto {
       return RespPacketProto.internal_static_RespPacket_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    @Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 2:
+          return internalGetExtra();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -85,439 +131,455 @@ public final class RespPacketProto {
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
        * <pre>
+       * TIM status: default
+       * </pre>
+       *
+       * <code>NONE = 0;</code>
+       */
+      NONE(0),
+      /**
+       * <pre>
        * TIM status: send success
        * </pre>
        *
-       * <code>SEND_FAILED = 0;</code>
+       * <code>SEND_FAILED = 100;</code>
        */
-      SEND_FAILED(0),
+      SEND_FAILED(100),
       /**
        * <pre>
        * TIM status: send failed
        * </pre>
        *
-       * <code>SEND_SUCCESS = 1;</code>
+       * <code>SEND_SUCCESS = 101;</code>
        */
-      SEND_SUCCESS(1),
+      SEND_SUCCESS(101),
       /**
        * <pre>
        * TIM status: auth failed
        * </pre>
        *
-       * <code>AUTH_FAILED = 2;</code>
+       * <code>AUTH_FAILED = 102;</code>
        */
-      AUTH_FAILED(2),
+      AUTH_FAILED(102),
       /**
        * <pre>
        * TIM status: auth success
        * </pre>
        *
-       * <code>AUTH_SUCCESS = 3;</code>
+       * <code>AUTH_SUCCESS = 103;</code>
        */
-      AUTH_SUCCESS(3),
+      AUTH_SUCCESS(103),
       /**
        * <pre>
        * TIM status: login failed
        * </pre>
        *
-       * <code>LOGIN_FAILED = 4;</code>
+       * <code>LOGIN_FAILED = 104;</code>
        */
-      LOGIN_FAILED(4),
+      LOGIN_FAILED(104),
       /**
        * <pre>
        * TIM status: login success
        * </pre>
        *
-       * <code>LOGIN_SUCCESS = 5;</code>
+       * <code>LOGIN_SUCCESS = 105;</code>
        */
-      LOGIN_SUCCESS(5),
+      LOGIN_SUCCESS(105),
       /**
        * <pre>
        * TIM status: close success
        * </pre>
        *
-       * <code>CLOSE_SUCCESS = 6;</code>
+       * <code>CLOSE_SUCCESS = 106;</code>
        */
-      CLOSE_SUCCESS(6),
+      CLOSE_SUCCESS(106),
       /**
        * <pre>
        * TIM status: join group failed
        * </pre>
        *
-       * <code>JOIN_GROUP_FAILED = 7;</code>
+       * <code>JOIN_GROUP_FAILED = 107;</code>
        */
-      JOIN_GROUP_FAILED(7),
+      JOIN_GROUP_FAILED(107),
       /**
        * <pre>
        * TIM status: join group success
        * </pre>
        *
-       * <code>JOIN_GROUP_SUCCESS = 8;</code>
+       * <code>JOIN_GROUP_SUCCESS = 108;</code>
        */
-      JOIN_GROUP_SUCCESS(8),
+      JOIN_GROUP_SUCCESS(108),
       /**
        * <pre>
        * TIM status: exit group failed
        * </pre>
        *
-       * <code>EXIT_GROUP_FAILED = 9;</code>
+       * <code>EXIT_GROUP_FAILED = 109;</code>
        */
-      EXIT_GROUP_FAILED(9),
+      EXIT_GROUP_FAILED(109),
       /**
        * <pre>
        * TIM status: exit group success
        * </pre>
        *
-       * <code>EXIT_GROUP_SUCCESS = 10;</code>
+       * <code>EXIT_GROUP_SUCCESS = 110;</code>
        */
-      EXIT_GROUP_SUCCESS(10),
+      EXIT_GROUP_SUCCESS(110),
       /**
        * <pre>
        * TIM status: unsupported cmd command
        * </pre>
        *
-       * <code>UNSUPPORTED_CMD_COMMAND = 11;</code>
+       * <code>UNSUPPORTED_CMD_COMMAND = 111;</code>
        */
-      UNSUPPORTED_CMD_COMMAND(11),
+      UNSUPPORTED_CMD_COMMAND(111),
       /**
        * <pre>
        * TIM status: invalid verification
        * </pre>
        *
-       * <code>INVALID_VERIFICATION = 12;</code>
+       * <code>INVALID_VERIFICATION = 112;</code>
        */
-      INVALID_VERIFICATION(12),
+      INVALID_VERIFICATION(112),
       /**
        * <pre>
        * TIM status: get user information failed
        * </pre>
        *
-       * <code>GET_USER_INFORMATION_FAILED = 13;</code>
+       * <code>GET_USER_INFORMATION_FAILED = 113;</code>
        */
-      GET_USER_INFORMATION_FAILED(13),
+      GET_USER_INFORMATION_FAILED(113),
       /**
        * <pre>
        * TIM status: get user information success
        * </pre>
        *
-       * <code>GET_USER_INFORMATION_SUCCESS = 14;</code>
+       * <code>GET_USER_INFORMATION_SUCCESS = 114;</code>
        */
-      GET_USER_INFORMATION_SUCCESS(14),
+      GET_USER_INFORMATION_SUCCESS(114),
       /**
        * <pre>
        * TIM status: protocol version not match
        * </pre>
        *
-       * <code>PROTOCOL_VERSION_NOT_MATCH = 15;</code>
+       * <code>PROTOCOL_VERSION_NOT_MATCH = 115;</code>
        */
-      PROTOCOL_VERSION_NOT_MATCH(15),
+      PROTOCOL_VERSION_NOT_MATCH(115),
       /**
        * <pre>
        * TIM status: get user history message failed
        * </pre>
        *
-       * <code>GET_USER_HISTORY_MESSAGE_FAILED = 16;</code>
+       * <code>GET_USER_HISTORY_MESSAGE_FAILED = 116;</code>
        */
-      GET_USER_HISTORY_MESSAGE_FAILED(16),
+      GET_USER_HISTORY_MESSAGE_FAILED(116),
       /**
        * <pre>
        * TIM status: get user history message success
        * </pre>
        *
-       * <code>GET_USER_HISTORY_MESSAGE_SUCCESS = 17;</code>
+       * <code>GET_USER_HISTORY_MESSAGE_SUCCESS = 117;</code>
        */
-      GET_USER_HISTORY_MESSAGE_SUCCESS(17),
+      GET_USER_HISTORY_MESSAGE_SUCCESS(117),
       /**
        * <pre>
        * TIM status: get user offline message failed
        * </pre>
        *
-       * <code>GET_USER_OFFLINE_MESSAGE_FAILED = 18;</code>
+       * <code>GET_USER_OFFLINE_MESSAGE_FAILED = 118;</code>
        */
-      GET_USER_OFFLINE_MESSAGE_FAILED(18),
+      GET_USER_OFFLINE_MESSAGE_FAILED(118),
       /**
        * <pre>
        * TIM status: get user offline message success
        * </pre>
        *
-       * <code>GET_USER_OFFLINE_MESSAGE_SUCCESS = 19;</code>
+       * <code>GET_USER_OFFLINE_MESSAGE_SUCCESS = 119;</code>
        */
-      GET_USER_OFFLINE_MESSAGE_SUCCESS(19),
+      GET_USER_OFFLINE_MESSAGE_SUCCESS(119),
       /**
        * <pre>
        * TIM status: bind failed
        * </pre>
        *
-       * <code>BIND_FAILED = 20;</code>
+       * <code>BIND_FAILED = 120;</code>
        */
-      BIND_FAILED(20),
+      BIND_FAILED(120),
       /**
        * <pre>
        * TIM status: bind success
        * </pre>
        *
-       * <code>BIND_SUCCESS = 21;</code>
+       * <code>BIND_SUCCESS = 121;</code>
        */
-      BIND_SUCCESS(21),
+      BIND_SUCCESS(121),
       /**
        * <pre>
        * TIM status: unbind failed
        * </pre>
        *
-       * <code>UNBIND_FAILED = 22;</code>
+       * <code>UNBIND_FAILED = 122;</code>
        */
-      UNBIND_FAILED(22),
+      UNBIND_FAILED(122),
       /**
        * <pre>
        * TIM status: unbind success
        * </pre>
        *
-       * <code>UNBIND_SUCCESS = 23;</code>
+       * <code>UNBIND_SUCCESS = 123;</code>
        */
-      UNBIND_SUCCESS(23),
+      UNBIND_SUCCESS(123),
       /**
-       * <code>C10024 = 24;</code>
+       * <code>C10024 = 124;</code>
        */
-      C10024(24),
+      C10024(124),
       /**
-       * <code>C10025 = 25;</code>
+       * <code>C10025 = 125;</code>
        */
-      C10025(25),
+      C10025(125),
       /**
-       * <code>C10026 = 26;</code>
+       * <code>C10026 = 126;</code>
        */
-      C10026(26),
+      C10026(126),
       /**
-       * <code>C10027 = 27;</code>
+       * <code>C10027 = 127;</code>
        */
-      C10027(27),
+      C10027(127),
       /**
-       * <code>C10028 = 28;</code>
+       * <code>C10028 = 128;</code>
        */
-      C10028(28),
+      C10028(128),
       /**
-       * <code>C10029 = 29;</code>
+       * <code>C10029 = 129;</code>
        */
-      C10029(29),
+      C10029(129),
       UNRECOGNIZED(-1),
       ;
 
       /**
        * <pre>
+       * TIM status: default
+       * </pre>
+       *
+       * <code>NONE = 0;</code>
+       */
+      public static final int NONE_VALUE = 0;
+      /**
+       * <pre>
        * TIM status: send success
        * </pre>
        *
-       * <code>SEND_FAILED = 0;</code>
+       * <code>SEND_FAILED = 100;</code>
        */
-      public static final int SEND_FAILED_VALUE = 0;
+      public static final int SEND_FAILED_VALUE = 100;
       /**
        * <pre>
        * TIM status: send failed
        * </pre>
        *
-       * <code>SEND_SUCCESS = 1;</code>
+       * <code>SEND_SUCCESS = 101;</code>
        */
-      public static final int SEND_SUCCESS_VALUE = 1;
+      public static final int SEND_SUCCESS_VALUE = 101;
       /**
        * <pre>
        * TIM status: auth failed
        * </pre>
        *
-       * <code>AUTH_FAILED = 2;</code>
+       * <code>AUTH_FAILED = 102;</code>
        */
-      public static final int AUTH_FAILED_VALUE = 2;
+      public static final int AUTH_FAILED_VALUE = 102;
       /**
        * <pre>
        * TIM status: auth success
        * </pre>
        *
-       * <code>AUTH_SUCCESS = 3;</code>
+       * <code>AUTH_SUCCESS = 103;</code>
        */
-      public static final int AUTH_SUCCESS_VALUE = 3;
+      public static final int AUTH_SUCCESS_VALUE = 103;
       /**
        * <pre>
        * TIM status: login failed
        * </pre>
        *
-       * <code>LOGIN_FAILED = 4;</code>
+       * <code>LOGIN_FAILED = 104;</code>
        */
-      public static final int LOGIN_FAILED_VALUE = 4;
+      public static final int LOGIN_FAILED_VALUE = 104;
       /**
        * <pre>
        * TIM status: login success
        * </pre>
        *
-       * <code>LOGIN_SUCCESS = 5;</code>
+       * <code>LOGIN_SUCCESS = 105;</code>
        */
-      public static final int LOGIN_SUCCESS_VALUE = 5;
+      public static final int LOGIN_SUCCESS_VALUE = 105;
       /**
        * <pre>
        * TIM status: close success
        * </pre>
        *
-       * <code>CLOSE_SUCCESS = 6;</code>
+       * <code>CLOSE_SUCCESS = 106;</code>
        */
-      public static final int CLOSE_SUCCESS_VALUE = 6;
+      public static final int CLOSE_SUCCESS_VALUE = 106;
       /**
        * <pre>
        * TIM status: join group failed
        * </pre>
        *
-       * <code>JOIN_GROUP_FAILED = 7;</code>
+       * <code>JOIN_GROUP_FAILED = 107;</code>
        */
-      public static final int JOIN_GROUP_FAILED_VALUE = 7;
+      public static final int JOIN_GROUP_FAILED_VALUE = 107;
       /**
        * <pre>
        * TIM status: join group success
        * </pre>
        *
-       * <code>JOIN_GROUP_SUCCESS = 8;</code>
+       * <code>JOIN_GROUP_SUCCESS = 108;</code>
        */
-      public static final int JOIN_GROUP_SUCCESS_VALUE = 8;
+      public static final int JOIN_GROUP_SUCCESS_VALUE = 108;
       /**
        * <pre>
        * TIM status: exit group failed
        * </pre>
        *
-       * <code>EXIT_GROUP_FAILED = 9;</code>
+       * <code>EXIT_GROUP_FAILED = 109;</code>
        */
-      public static final int EXIT_GROUP_FAILED_VALUE = 9;
+      public static final int EXIT_GROUP_FAILED_VALUE = 109;
       /**
        * <pre>
        * TIM status: exit group success
        * </pre>
        *
-       * <code>EXIT_GROUP_SUCCESS = 10;</code>
+       * <code>EXIT_GROUP_SUCCESS = 110;</code>
        */
-      public static final int EXIT_GROUP_SUCCESS_VALUE = 10;
+      public static final int EXIT_GROUP_SUCCESS_VALUE = 110;
       /**
        * <pre>
        * TIM status: unsupported cmd command
        * </pre>
        *
-       * <code>UNSUPPORTED_CMD_COMMAND = 11;</code>
+       * <code>UNSUPPORTED_CMD_COMMAND = 111;</code>
        */
-      public static final int UNSUPPORTED_CMD_COMMAND_VALUE = 11;
+      public static final int UNSUPPORTED_CMD_COMMAND_VALUE = 111;
       /**
        * <pre>
        * TIM status: invalid verification
        * </pre>
        *
-       * <code>INVALID_VERIFICATION = 12;</code>
+       * <code>INVALID_VERIFICATION = 112;</code>
        */
-      public static final int INVALID_VERIFICATION_VALUE = 12;
+      public static final int INVALID_VERIFICATION_VALUE = 112;
       /**
        * <pre>
        * TIM status: get user information failed
        * </pre>
        *
-       * <code>GET_USER_INFORMATION_FAILED = 13;</code>
+       * <code>GET_USER_INFORMATION_FAILED = 113;</code>
        */
-      public static final int GET_USER_INFORMATION_FAILED_VALUE = 13;
+      public static final int GET_USER_INFORMATION_FAILED_VALUE = 113;
       /**
        * <pre>
        * TIM status: get user information success
        * </pre>
        *
-       * <code>GET_USER_INFORMATION_SUCCESS = 14;</code>
+       * <code>GET_USER_INFORMATION_SUCCESS = 114;</code>
        */
-      public static final int GET_USER_INFORMATION_SUCCESS_VALUE = 14;
+      public static final int GET_USER_INFORMATION_SUCCESS_VALUE = 114;
       /**
        * <pre>
        * TIM status: protocol version not match
        * </pre>
        *
-       * <code>PROTOCOL_VERSION_NOT_MATCH = 15;</code>
+       * <code>PROTOCOL_VERSION_NOT_MATCH = 115;</code>
        */
-      public static final int PROTOCOL_VERSION_NOT_MATCH_VALUE = 15;
+      public static final int PROTOCOL_VERSION_NOT_MATCH_VALUE = 115;
       /**
        * <pre>
        * TIM status: get user history message failed
        * </pre>
        *
-       * <code>GET_USER_HISTORY_MESSAGE_FAILED = 16;</code>
+       * <code>GET_USER_HISTORY_MESSAGE_FAILED = 116;</code>
        */
-      public static final int GET_USER_HISTORY_MESSAGE_FAILED_VALUE = 16;
+      public static final int GET_USER_HISTORY_MESSAGE_FAILED_VALUE = 116;
       /**
        * <pre>
        * TIM status: get user history message success
        * </pre>
        *
-       * <code>GET_USER_HISTORY_MESSAGE_SUCCESS = 17;</code>
+       * <code>GET_USER_HISTORY_MESSAGE_SUCCESS = 117;</code>
        */
-      public static final int GET_USER_HISTORY_MESSAGE_SUCCESS_VALUE = 17;
+      public static final int GET_USER_HISTORY_MESSAGE_SUCCESS_VALUE = 117;
       /**
        * <pre>
        * TIM status: get user offline message failed
        * </pre>
        *
-       * <code>GET_USER_OFFLINE_MESSAGE_FAILED = 18;</code>
+       * <code>GET_USER_OFFLINE_MESSAGE_FAILED = 118;</code>
        */
-      public static final int GET_USER_OFFLINE_MESSAGE_FAILED_VALUE = 18;
+      public static final int GET_USER_OFFLINE_MESSAGE_FAILED_VALUE = 118;
       /**
        * <pre>
        * TIM status: get user offline message success
        * </pre>
        *
-       * <code>GET_USER_OFFLINE_MESSAGE_SUCCESS = 19;</code>
+       * <code>GET_USER_OFFLINE_MESSAGE_SUCCESS = 119;</code>
        */
-      public static final int GET_USER_OFFLINE_MESSAGE_SUCCESS_VALUE = 19;
+      public static final int GET_USER_OFFLINE_MESSAGE_SUCCESS_VALUE = 119;
       /**
        * <pre>
        * TIM status: bind failed
        * </pre>
        *
-       * <code>BIND_FAILED = 20;</code>
+       * <code>BIND_FAILED = 120;</code>
        */
-      public static final int BIND_FAILED_VALUE = 20;
+      public static final int BIND_FAILED_VALUE = 120;
       /**
        * <pre>
        * TIM status: bind success
        * </pre>
        *
-       * <code>BIND_SUCCESS = 21;</code>
+       * <code>BIND_SUCCESS = 121;</code>
        */
-      public static final int BIND_SUCCESS_VALUE = 21;
+      public static final int BIND_SUCCESS_VALUE = 121;
       /**
        * <pre>
        * TIM status: unbind failed
        * </pre>
        *
-       * <code>UNBIND_FAILED = 22;</code>
+       * <code>UNBIND_FAILED = 122;</code>
        */
-      public static final int UNBIND_FAILED_VALUE = 22;
+      public static final int UNBIND_FAILED_VALUE = 122;
       /**
        * <pre>
        * TIM status: unbind success
        * </pre>
        *
-       * <code>UNBIND_SUCCESS = 23;</code>
+       * <code>UNBIND_SUCCESS = 123;</code>
        */
-      public static final int UNBIND_SUCCESS_VALUE = 23;
+      public static final int UNBIND_SUCCESS_VALUE = 123;
       /**
-       * <code>C10024 = 24;</code>
+       * <code>C10024 = 124;</code>
        */
-      public static final int C10024_VALUE = 24;
+      public static final int C10024_VALUE = 124;
       /**
-       * <code>C10025 = 25;</code>
+       * <code>C10025 = 125;</code>
        */
-      public static final int C10025_VALUE = 25;
+      public static final int C10025_VALUE = 125;
       /**
-       * <code>C10026 = 26;</code>
+       * <code>C10026 = 126;</code>
        */
-      public static final int C10026_VALUE = 26;
+      public static final int C10026_VALUE = 126;
       /**
-       * <code>C10027 = 27;</code>
+       * <code>C10027 = 127;</code>
        */
-      public static final int C10027_VALUE = 27;
+      public static final int C10027_VALUE = 127;
       /**
-       * <code>C10028 = 28;</code>
+       * <code>C10028 = 128;</code>
        */
-      public static final int C10028_VALUE = 28;
+      public static final int C10028_VALUE = 128;
       /**
-       * <code>C10029 = 29;</code>
+       * <code>C10029 = 129;</code>
        */
-      public static final int C10029_VALUE = 29;
+      public static final int C10029_VALUE = 129;
 
 
       public final int getNumber() {
@@ -544,36 +606,37 @@ public final class RespPacketProto {
        */
       public static ImStatus forNumber(int value) {
         switch (value) {
-          case 0: return SEND_FAILED;
-          case 1: return SEND_SUCCESS;
-          case 2: return AUTH_FAILED;
-          case 3: return AUTH_SUCCESS;
-          case 4: return LOGIN_FAILED;
-          case 5: return LOGIN_SUCCESS;
-          case 6: return CLOSE_SUCCESS;
-          case 7: return JOIN_GROUP_FAILED;
-          case 8: return JOIN_GROUP_SUCCESS;
-          case 9: return EXIT_GROUP_FAILED;
-          case 10: return EXIT_GROUP_SUCCESS;
-          case 11: return UNSUPPORTED_CMD_COMMAND;
-          case 12: return INVALID_VERIFICATION;
-          case 13: return GET_USER_INFORMATION_FAILED;
-          case 14: return GET_USER_INFORMATION_SUCCESS;
-          case 15: return PROTOCOL_VERSION_NOT_MATCH;
-          case 16: return GET_USER_HISTORY_MESSAGE_FAILED;
-          case 17: return GET_USER_HISTORY_MESSAGE_SUCCESS;
-          case 18: return GET_USER_OFFLINE_MESSAGE_FAILED;
-          case 19: return GET_USER_OFFLINE_MESSAGE_SUCCESS;
-          case 20: return BIND_FAILED;
-          case 21: return BIND_SUCCESS;
-          case 22: return UNBIND_FAILED;
-          case 23: return UNBIND_SUCCESS;
-          case 24: return C10024;
-          case 25: return C10025;
-          case 26: return C10026;
-          case 27: return C10027;
-          case 28: return C10028;
-          case 29: return C10029;
+          case 0: return NONE;
+          case 100: return SEND_FAILED;
+          case 101: return SEND_SUCCESS;
+          case 102: return AUTH_FAILED;
+          case 103: return AUTH_SUCCESS;
+          case 104: return LOGIN_FAILED;
+          case 105: return LOGIN_SUCCESS;
+          case 106: return CLOSE_SUCCESS;
+          case 107: return JOIN_GROUP_FAILED;
+          case 108: return JOIN_GROUP_SUCCESS;
+          case 109: return EXIT_GROUP_FAILED;
+          case 110: return EXIT_GROUP_SUCCESS;
+          case 111: return UNSUPPORTED_CMD_COMMAND;
+          case 112: return INVALID_VERIFICATION;
+          case 113: return GET_USER_INFORMATION_FAILED;
+          case 114: return GET_USER_INFORMATION_SUCCESS;
+          case 115: return PROTOCOL_VERSION_NOT_MATCH;
+          case 116: return GET_USER_HISTORY_MESSAGE_FAILED;
+          case 117: return GET_USER_HISTORY_MESSAGE_SUCCESS;
+          case 118: return GET_USER_OFFLINE_MESSAGE_FAILED;
+          case 119: return GET_USER_OFFLINE_MESSAGE_SUCCESS;
+          case 120: return BIND_FAILED;
+          case 121: return BIND_SUCCESS;
+          case 122: return UNBIND_FAILED;
+          case 123: return UNBIND_SUCCESS;
+          case 124: return C10024;
+          case 125: return C10025;
+          case 126: return C10026;
+          case 127: return C10027;
+          case 128: return C10028;
+          case 129: return C10029;
           default: return null;
         }
       }
@@ -648,6 +711,85 @@ public final class RespPacketProto {
       return result == null ? ImStatus.UNRECOGNIZED : result;
     }
 
+    public static final int EXTRA_FIELD_NUMBER = 2;
+    private static final class ExtraDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          String, String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<String, String>newDefaultInstance(
+                  RespPacketProto.internal_static_RespPacket_ExtraEntry_descriptor,
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
+    }
+    @SuppressWarnings("serial")
+    private com.google.protobuf.MapField<
+        String, String> extra_;
+    private com.google.protobuf.MapField<String, String>
+    internalGetExtra() {
+      if (extra_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            ExtraDefaultEntryHolder.defaultEntry);
+      }
+      return extra_;
+    }
+    public int getExtraCount() {
+      return internalGetExtra().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    @Override
+    public boolean containsExtra(
+        String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetExtra().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getExtraMap()} instead.
+     */
+    @Override
+    @Deprecated
+    public java.util.Map<String, String> getExtra() {
+      return getExtraMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    @Override
+    public java.util.Map<String, String> getExtraMap() {
+      return internalGetExtra().getMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    @Override
+    public /* nullable */
+String getExtraOrDefault(
+        String key,
+        /* nullable */
+String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<String, String> map =
+          internalGetExtra().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, string&gt; extra = 2;</code>
+     */
+    @Override
+    public String getExtraOrThrow(
+        String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<String, String> map =
+          internalGetExtra().getMap();
+      if (!map.containsKey(key)) {
+        throw new IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
     private byte memoizedIsInitialized = -1;
     @Override
     public final boolean isInitialized() {
@@ -662,9 +804,15 @@ public final class RespPacketProto {
     @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (imStatus_ != ImStatus.SEND_FAILED.getNumber()) {
+      if (imStatus_ != ImStatus.NONE.getNumber()) {
         output.writeEnum(1, imStatus_);
       }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetExtra(),
+          ExtraDefaultEntryHolder.defaultEntry,
+          2);
       getUnknownFields().writeTo(output);
     }
 
@@ -674,9 +822,19 @@ public final class RespPacketProto {
       if (size != -1) return size;
 
       size = 0;
-      if (imStatus_ != ImStatus.SEND_FAILED.getNumber()) {
+      if (imStatus_ != ImStatus.NONE.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, imStatus_);
+      }
+      for (java.util.Map.Entry<String, String> entry
+           : internalGetExtra().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<String, String>
+        extra__ = ExtraDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(2, extra__);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -694,6 +852,8 @@ public final class RespPacketProto {
       RespPacket other = (RespPacket) obj;
 
       if (imStatus_ != other.imStatus_) return false;
+      if (!internalGetExtra().equals(
+          other.internalGetExtra())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -707,6 +867,10 @@ public final class RespPacketProto {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + IMSTATUS_FIELD_NUMBER;
       hash = (53 * hash) + imStatus_;
+      if (!internalGetExtra().getMap().isEmpty()) {
+        hash = (37 * hash) + EXTRA_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetExtra().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -818,6 +982,28 @@ public final class RespPacketProto {
         return RespPacketProto.internal_static_RespPacket_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 2:
+            return internalGetExtra();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 2:
+            return internalGetMutableExtra();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -841,6 +1027,7 @@ public final class RespPacketProto {
         super.clear();
         bitField0_ = 0;
         imStatus_ = 0;
+        internalGetMutableExtra().clear();
         return this;
       }
 
@@ -876,6 +1063,10 @@ public final class RespPacketProto {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.imStatus_ = imStatus_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.extra_ = internalGetExtra();
+          result.extra_.makeImmutable();
         }
       }
 
@@ -926,6 +1117,9 @@ public final class RespPacketProto {
         if (other.imStatus_ != 0) {
           setImStatusValue(other.getImStatusValue());
         }
+        internalGetMutableExtra().mergeFrom(
+            other.internalGetExtra());
+        bitField0_ |= 0x00000002;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -957,6 +1151,15 @@ public final class RespPacketProto {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 8
+              case 18: {
+                com.google.protobuf.MapEntry<String, String>
+                extra__ = input.readMessage(
+                    ExtraDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableExtra().getMutableMap().put(
+                    extra__.getKey(), extra__.getValue());
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1024,6 +1227,133 @@ public final class RespPacketProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         imStatus_ = 0;
         onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          String, String> extra_;
+      private com.google.protobuf.MapField<String, String>
+          internalGetExtra() {
+        if (extra_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              ExtraDefaultEntryHolder.defaultEntry);
+        }
+        return extra_;
+      }
+      private com.google.protobuf.MapField<String, String>
+          internalGetMutableExtra() {
+        if (extra_ == null) {
+          extra_ = com.google.protobuf.MapField.newMapField(
+              ExtraDefaultEntryHolder.defaultEntry);
+        }
+        if (!extra_.isMutable()) {
+          extra_ = extra_.copy();
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return extra_;
+      }
+      public int getExtraCount() {
+        return internalGetExtra().getMap().size();
+      }
+      /**
+       * <code>map&lt;string, string&gt; extra = 2;</code>
+       */
+      @Override
+      public boolean containsExtra(
+          String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetExtra().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getExtraMap()} instead.
+       */
+      @Override
+      @Deprecated
+      public java.util.Map<String, String> getExtra() {
+        return getExtraMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; extra = 2;</code>
+       */
+      @Override
+      public java.util.Map<String, String> getExtraMap() {
+        return internalGetExtra().getMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; extra = 2;</code>
+       */
+      @Override
+      public /* nullable */
+String getExtraOrDefault(
+          String key,
+          /* nullable */
+String defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<String, String> map =
+            internalGetExtra().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, string&gt; extra = 2;</code>
+       */
+      @Override
+      public String getExtraOrThrow(
+          String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<String, String> map =
+            internalGetExtra().getMap();
+        if (!map.containsKey(key)) {
+          throw new IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+      public Builder clearExtra() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        internalGetMutableExtra().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; extra = 2;</code>
+       */
+      public Builder removeExtra(
+          String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableExtra().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @Deprecated
+      public java.util.Map<String, String>
+          getMutableExtra() {
+        bitField0_ |= 0x00000002;
+        return internalGetMutableExtra().getMutableMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; extra = 2;</code>
+       */
+      public Builder putExtra(
+          String key,
+          String value) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        if (value == null) { throw new NullPointerException("map value"); }
+        internalGetMutableExtra().getMutableMap()
+            .put(key, value);
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; extra = 2;</code>
+       */
+      public Builder putAllExtra(
+          java.util.Map<String, String> values) {
+        internalGetMutableExtra().getMutableMap()
+            .putAll(values);
+        bitField0_ |= 0x00000002;
         return this;
       }
       @Override
@@ -1095,6 +1425,11 @@ public final class RespPacketProto {
   private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_RespPacket_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RespPacket_ExtraEntry_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RespPacket_ExtraEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1104,27 +1439,29 @@ public final class RespPacketProto {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\020RespPacket.proto\"\337\005\n\nRespPacket\022&\n\010imS" +
-      "tatus\030\001 \001(\0162\024.RespPacket.ImStatus\"\250\005\n\010Im" +
-      "Status\022\017\n\013SEND_FAILED\020\000\022\020\n\014SEND_SUCCESS\020" +
-      "\001\022\017\n\013AUTH_FAILED\020\002\022\020\n\014AUTH_SUCCESS\020\003\022\020\n\014" +
-      "LOGIN_FAILED\020\004\022\021\n\rLOGIN_SUCCESS\020\005\022\021\n\rCLO" +
-      "SE_SUCCESS\020\006\022\025\n\021JOIN_GROUP_FAILED\020\007\022\026\n\022J" +
-      "OIN_GROUP_SUCCESS\020\010\022\025\n\021EXIT_GROUP_FAILED" +
-      "\020\t\022\026\n\022EXIT_GROUP_SUCCESS\020\n\022\033\n\027UNSUPPORTE" +
-      "D_CMD_COMMAND\020\013\022\030\n\024INVALID_VERIFICATION\020" +
-      "\014\022\037\n\033GET_USER_INFORMATION_FAILED\020\r\022 \n\034GE" +
-      "T_USER_INFORMATION_SUCCESS\020\016\022\036\n\032PROTOCOL" +
-      "_VERSION_NOT_MATCH\020\017\022#\n\037GET_USER_HISTORY" +
-      "_MESSAGE_FAILED\020\020\022$\n GET_USER_HISTORY_ME" +
-      "SSAGE_SUCCESS\020\021\022#\n\037GET_USER_OFFLINE_MESS" +
-      "AGE_FAILED\020\022\022$\n GET_USER_OFFLINE_MESSAGE" +
-      "_SUCCESS\020\023\022\017\n\013BIND_FAILED\020\024\022\020\n\014BIND_SUCC" +
-      "ESS\020\025\022\021\n\rUNBIND_FAILED\020\026\022\022\n\016UNBIND_SUCCE" +
-      "SS\020\027\022\n\n\006C10024\020\030\022\n\n\006C10025\020\031\022\n\n\006C10026\020\032" +
-      "\022\n\n\006C10027\020\033\022\n\n\006C10028\020\034\022\n\n\006C10029\020\035B6\n#" +
-      "cn.starboot.tim.common.packet.protoB\017Res" +
-      "pPacketProtob\006proto3"
+      "\n\020RespPacket.proto\"\300\006\n\nRespPacket\022&\n\010imS" +
+      "tatus\030\001 \001(\0162\024.RespPacket.ImStatus\022%\n\005ext" +
+      "ra\030\002 \003(\0132\026.RespPacket.ExtraEntry\032,\n\nExtr" +
+      "aEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\264" +
+      "\005\n\010ImStatus\022\010\n\004NONE\020\000\022\017\n\013SEND_FAILED\020d\022\020" +
+      "\n\014SEND_SUCCESS\020e\022\017\n\013AUTH_FAILED\020f\022\020\n\014AUT" +
+      "H_SUCCESS\020g\022\020\n\014LOGIN_FAILED\020h\022\021\n\rLOGIN_S" +
+      "UCCESS\020i\022\021\n\rCLOSE_SUCCESS\020j\022\025\n\021JOIN_GROU" +
+      "P_FAILED\020k\022\026\n\022JOIN_GROUP_SUCCESS\020l\022\025\n\021EX" +
+      "IT_GROUP_FAILED\020m\022\026\n\022EXIT_GROUP_SUCCESS\020" +
+      "n\022\033\n\027UNSUPPORTED_CMD_COMMAND\020o\022\030\n\024INVALI" +
+      "D_VERIFICATION\020p\022\037\n\033GET_USER_INFORMATION" +
+      "_FAILED\020q\022 \n\034GET_USER_INFORMATION_SUCCES" +
+      "S\020r\022\036\n\032PROTOCOL_VERSION_NOT_MATCH\020s\022#\n\037G" +
+      "ET_USER_HISTORY_MESSAGE_FAILED\020t\022$\n GET_" +
+      "USER_HISTORY_MESSAGE_SUCCESS\020u\022#\n\037GET_US" +
+      "ER_OFFLINE_MESSAGE_FAILED\020v\022$\n GET_USER_" +
+      "OFFLINE_MESSAGE_SUCCESS\020w\022\017\n\013BIND_FAILED" +
+      "\020x\022\020\n\014BIND_SUCCESS\020y\022\021\n\rUNBIND_FAILED\020z\022" +
+      "\022\n\016UNBIND_SUCCESS\020{\022\n\n\006C10024\020|\022\n\n\006C1002" +
+      "5\020}\022\n\n\006C10026\020~\022\n\n\006C10027\020\177\022\013\n\006C10028\020\200\001" +
+      "\022\013\n\006C10029\020\201\001B6\n#cn.starboot.tim.common." +
+      "packet.protoB\017RespPacketProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1135,7 +1472,13 @@ public final class RespPacketProto {
     internal_static_RespPacket_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RespPacket_descriptor,
-        new String[] { "ImStatus", });
+        new String[] { "ImStatus", "Extra", });
+    internal_static_RespPacket_ExtraEntry_descriptor =
+      internal_static_RespPacket_descriptor.getNestedTypes().get(0);
+    internal_static_RespPacket_ExtraEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RespPacket_ExtraEntry_descriptor,
+        new String[] { "Key", "Value", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -1,7 +1,6 @@
 package cn.starboot.tim.common.packet;
 
 import cn.starboot.socket.Packet;
-import cn.starboot.socket.utils.json.JsonUtil;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 

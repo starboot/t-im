@@ -9,61 +9,62 @@ message RespPacket{
 
 	// IM状态响应
 	enum ImStatus {
+		// TIM status: default
+		NONE = 0;
 		// TIM status: send success
-		SEND_FAILED = 0;
+		SEND_FAILED = 100;
 		// TIM status: send failed
-		SEND_SUCCESS = 1;
+		SEND_SUCCESS = 101;
 		// TIM status: auth failed
-		AUTH_FAILED = 2;
+		AUTH_FAILED = 102;
 		// TIM status: auth success
-		AUTH_SUCCESS = 3;
+		AUTH_SUCCESS = 103;
 		// TIM status: login failed
-		LOGIN_FAILED = 4;
+		LOGIN_FAILED = 104;
 		// TIM status: login success
-		LOGIN_SUCCESS = 5;
+		LOGIN_SUCCESS = 105;
 		// TIM status: close success
-		CLOSE_SUCCESS = 6;
+		CLOSE_SUCCESS = 106;
 		// TIM status: join group failed
-		JOIN_GROUP_FAILED = 7;
+		JOIN_GROUP_FAILED = 107;
 		// TIM status: join group success
-		JOIN_GROUP_SUCCESS = 8;
+		JOIN_GROUP_SUCCESS = 108;
 		// TIM status: exit group failed
-		EXIT_GROUP_FAILED = 9;
+		EXIT_GROUP_FAILED = 109;
 		// TIM status: exit group success
-		EXIT_GROUP_SUCCESS = 10;
+		EXIT_GROUP_SUCCESS = 110;
 		// TIM status: unsupported cmd command
-		UNSUPPORTED_CMD_COMMAND = 11;
+		UNSUPPORTED_CMD_COMMAND = 111;
 		// TIM status: invalid verification
-		INVALID_VERIFICATION = 12;
+		INVALID_VERIFICATION = 112;
 		// TIM status: get user information failed
-		GET_USER_INFORMATION_FAILED = 13;
+		GET_USER_INFORMATION_FAILED = 113;
 		// TIM status: get user information success
-		GET_USER_INFORMATION_SUCCESS = 14;
+		GET_USER_INFORMATION_SUCCESS = 114;
 		// TIM status: protocol version not match
-		PROTOCOL_VERSION_NOT_MATCH = 15;
+		PROTOCOL_VERSION_NOT_MATCH = 115;
 		// TIM status: get user history message failed
-		GET_USER_HISTORY_MESSAGE_FAILED = 16;
+		GET_USER_HISTORY_MESSAGE_FAILED = 116;
 		// TIM status: get user history message success
-		GET_USER_HISTORY_MESSAGE_SUCCESS = 17;
+		GET_USER_HISTORY_MESSAGE_SUCCESS = 117;
 		// TIM status: get user offline message failed
-		GET_USER_OFFLINE_MESSAGE_FAILED = 18;
+		GET_USER_OFFLINE_MESSAGE_FAILED = 118;
 		// TIM status: get user offline message success
-		GET_USER_OFFLINE_MESSAGE_SUCCESS = 19;
+		GET_USER_OFFLINE_MESSAGE_SUCCESS = 119;
 		// TIM status: bind failed
-		BIND_FAILED = 20;
+		BIND_FAILED = 120;
 		// TIM status: bind success
-		BIND_SUCCESS = 21;
+		BIND_SUCCESS = 121;
 		// TIM status: unbind failed
-		UNBIND_FAILED = 22;
+		UNBIND_FAILED = 122;
 		// TIM status: unbind success
-		UNBIND_SUCCESS = 23;
-		// 留作默认
-		C10024 = 24;
-		C10025 = 25;
-		C10026 = 26;
-		C10027 = 27;
-		C10028 = 28;
-		C10029 = 29;
+		UNBIND_SUCCESS = 123;
+		C10024 = 124;
+		C10025 = 125;
+		C10026 = 126;
+		C10027 = 127;
+		C10028 = 128;
+		C10029 = 129;
 	};
 	ImStatus imStatus = 1;
 
