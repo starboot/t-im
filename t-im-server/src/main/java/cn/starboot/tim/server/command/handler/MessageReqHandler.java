@@ -2,8 +2,6 @@ package cn.starboot.tim.server.command.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImStatus;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.HistoryMessageProto;
@@ -20,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MessageReqHandler extends AbstractServerCmdHandler {
 
-	private static final Logger log = LoggerFactory.getLogger(MessageReqHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MessageReqHandler.class);
 
 	@Override
 	public TIMCommandType command() {
@@ -32,7 +30,7 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 
 		MessagePacketProto.MessagePacket messagePacket = MessagePacketProto.MessagePacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(messagePacket)) {
-			log.error("消息包格式化出错");
+			TIMLogUtil.error(LOGGER, "消息包格式化出错");
 			return null;
 		}
 		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_MESSAGE_RESP).build();
@@ -45,10 +43,13 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 		String fromUserId = messagePacket.getFromUserId();
 		// 消息类型;
 		MessagePacketProto.MessagePacket.MessageType messageType = messagePacket.getMessageType();
-		// 消息日期
+		// 消息开始日期
 		long beginTime = messagePacket.getBeginTime();
+		// 结束日期
 		long endTime = messagePacket.getEndTime();
+		// 分页偏移量
 		int offset = messagePacket.getOffset();
+		// 显示消息数量
 		int count = messagePacket.getCount();
 		if (StrUtil.isBlank(userId) && StrUtil.isNotBlank(imChannelContext.getImChannelContextId())) {
 			userId = imChannelContext.getImChannelContextId();
@@ -65,33 +66,31 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 						? RespPacketProto.RespPacket.ImStatus.GET_USER_HISTORY_MESSAGE_FAILED
 						: RespPacketProto.RespPacket.ImStatus.GET_USER_OFFLINE_MESSAGE_FAILED);
 		HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder = HistoryMessageProto.HistoryMessage.newBuilder().setUserId(userId);
-		imChannelContext.getConfig().getTimPersistentHelper().getOfflineMessage(null, null);
 		switch (messageType) {
-			case HISTORY_MESSAGE: break;
-			case OFF_LINE_MESSAGE: {
+			case HISTORY_MESSAGE: {
+				build.setData(StrUtil.isNotBlank(groupId) ?
+						imChannelContext
+								.getConfig()
+								.getTimPersistentHelper()
+								.getGroupHistoryMessage(groupId, beginTime, endTime, offset, count, historyMessageBuilder)
+								.toByteArray() :
+						imChannelContext
+								.getConfig()
+								.getTimPersistentHelper()
+								.getFriendHistoryMessage(userId, fromUserId, beginTime, endTime, offset, count, historyMessageBuilder)
+								.toByteArray());
 
-				break;
+			}
+			case OFF_LINE_MESSAGE: {
+				build.setData(imChannelContext
+						.getConfig()
+						.getTimPersistentHelper()
+						.getOfflineMessage(userId, historyMessageBuilder)
+						.toByteArray());
 			}
 			default:
-				TIMLogUtil.error(log, "错误");
+				TIMLogUtil.error(LOGGER, "错误：未知查询类型");
 		}
-		imChannelContext.getConfig().getProcessor().handleMessagePacket(imChannelContext, messagePacket);
-		return getMessageFailedPacket(imChannelContext, ImStatus.C10022);
-
-	}
-
-	private void getHistoryMessage(HistoryMessageProto.HistoryMessage historyMessage, MessagePacketProto.MessagePacket messagePacket) {
-
-	}
-
-	private void getOffLineMessage(HistoryMessageProto.HistoryMessage historyMessage, MessagePacketProto.MessagePacket messagePacket) {
-
-	}
-
-
-	public ImPacket getMessageFailedPacket(ImChannelContext channelContext, ImStatus status) {
-//        RespBody resPacket = new RespBody(Command.COMMAND_GET_MESSAGE_RESP, status);
-//        TIM.send(channelContext, new ImPacket(Command.COMMAND_GET_MESSAGE_RESP, resPacket.toByte()));
-		return null;
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build) ? build : null;
 	}
 }

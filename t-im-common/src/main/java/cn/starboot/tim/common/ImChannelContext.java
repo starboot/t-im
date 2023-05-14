@@ -20,7 +20,7 @@ public abstract class ImChannelContext {
         return this.channelContext;
     }
 
-	public abstract ImConfig getConfig();
+	public abstract ImConfig<?, ?> getConfig();
 
 	public String getImChannelContextId() {
 		return this.channelContext.getId();

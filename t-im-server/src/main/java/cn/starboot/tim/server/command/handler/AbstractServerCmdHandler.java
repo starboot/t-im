@@ -33,10 +33,7 @@ public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServ
 	}
 
 	protected void setRespPacketImStatus(ImPacket packet, RespPacketProto.RespPacket.ImStatus imStatus) {
-		packet.setData(RespPacketProto.RespPacket.newBuilder()
-				.setImStatus(imStatus)
-				.build()
-				.toByteArray());
+		packet.setImStatus(imStatus);
 	}
 
 	protected boolean verify(boolean ...booleans) {

@@ -34,18 +34,18 @@ public interface TIMPersistentHelper {
     /**
      * 获取指定群聊的历史消息
      * @param groupId 群聊ID
-     * @param timelineId 日期 2022-01-05
+     * @param beginTime 日期 2022-01-05
      * @return 历史消息集合
      */
-    HistoryMessageProto.HistoryMessage getGroupHistoryMessage(String groupId, String timelineId);
+    HistoryMessageProto.HistoryMessage getGroupHistoryMessage(String groupId, long beginTime, long endTime, int offset, int count, HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder);
 
     /**
      * 获取离线消息
      * @param userId 用户ID
-     * @param timelineId 日期
+     * @param historyMessageBuilder 日期
      * @return 离线消息集合
      */
-	HistoryMessageProto.HistoryMessage getOfflineMessage(String userId, String timelineId);
+	HistoryMessageProto.HistoryMessage getOfflineMessage(String userId, HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder);
 
     /**
      * 获取历史消息
@@ -54,5 +54,5 @@ public interface TIMPersistentHelper {
      * @param timelineId 获取日期;  如 "2022-01-05"; 如果获取所有则为 "*"
      * @return 历史消息的数据结构
      */
-	HistoryMessageProto.HistoryMessage getFriendHistoryMessage(String userId, String fromUserId, String timelineId);
+	HistoryMessageProto.HistoryMessage getFriendHistoryMessage(String userId, String fromUserId, long beginTime, long endTime, int offset, int count, HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder);
 }

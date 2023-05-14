@@ -82,8 +82,7 @@ public abstract class RedisTIMPersistentHelper implements TIMPersistentHelper {
     }
 
     @Override
-    public HistoryMessageProto.HistoryMessage getOfflineMessage(String userId, String timelineId) {
-		HistoryMessageProto.HistoryMessage historyMessage = HistoryMessageProto.HistoryMessage.newBuilder().setUserId(userId).build();
+    public HistoryMessageProto.HistoryMessage getOfflineMessage(String userId, HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder) {
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
 //        RMap<Object, Object> timMessage = redissonClient.getMap("TIMOfflineMessage:" + timelineId);
         List<ChatPacketProto.ChatPacket> chatBodies;
@@ -103,7 +102,7 @@ public abstract class RedisTIMPersistentHelper implements TIMPersistentHelper {
 //        }
 //        map.put(userId, chatBodies);
 //        historyMessage.setFriends(map);
-        return historyMessage;
+        return historyMessageBuilder.build();
     }
 
 
