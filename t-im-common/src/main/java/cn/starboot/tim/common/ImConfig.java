@@ -1,7 +1,9 @@
 package cn.starboot.tim.common;
 
 import cn.starboot.socket.core.AioConfig;
+import cn.starboot.tim.common.factory.ImPacketFactory;
 import cn.starboot.tim.common.intf.TIMProcessor;
+import cn.starboot.tim.common.packet.ImPacket;
 
 /**
  * Created by DELL(mxd) on 2022/1/6 17:07
@@ -33,6 +35,8 @@ public abstract class ImConfig<P extends TIMProcessor, H> {
 	 */
 	public static boolean isUseSSL;
 
+	private final ImPacketFactory imPacketFactory = (timCommandType, imStatus, data) -> ImPacket.newBuilder().setTIMCommandType(timCommandType).setImStatus(imStatus).setData(data).build();
+
 	public void setAioConfig(AioConfig aioConfig) {
 		this.aioConfig = aioConfig;
 	}
@@ -43,6 +47,10 @@ public abstract class ImConfig<P extends TIMProcessor, H> {
 
 	public boolean isServer() {
 		return this.aioConfig.isServer();
+	}
+
+	public ImPacketFactory getImPacketFactory() {
+		return imPacketFactory;
 	}
 
 	public abstract P getProcessor();

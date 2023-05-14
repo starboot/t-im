@@ -94,18 +94,16 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 				TIMServerCommandManager
 						.getTIMServerCommandManagerInstance()
 						.getCommand(TIMCommandType.COMMAND_BIND_REQ)
-						.handler(ImPacket
+						.handler(getImPacket(imChannelContext, TIMCommandType.COMMAND_BIND_REQ,
+								RespPacketProto.RespPacket.ImStatus.NONE,
+								BindPacketProto
+										.BindPacket
 										.newBuilder()
-										.setTIMCommandType(TIMCommandType.COMMAND_BIND_REQ)
-										.setData(BindPacketProto
-												.BindPacket
-												.newBuilder()
-												.setBindId(group)
-												.setBindType(BindPacketProto.BindPacket.BindType.GROUP)
-												.setOptionType(BindPacketProto.BindPacket.OptionType.BIND)
-												.build()
-												.toByteArray())
-										.build(),
+										.setBindId(group)
+										.setBindType(BindPacketProto.BindPacket.BindType.GROUP)
+										.setOptionType(BindPacketProto.BindPacket.OptionType.BIND)
+										.build()
+										.toByteArray()),
 								imChannelContext);
 			} catch (Exception e) {
 				TIMLogUtil.error(LOGGER, e.getMessage());

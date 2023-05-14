@@ -15,11 +15,6 @@ import cn.starboot.tim.server.TIM;
  */
 public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServerChannelContext> {
 
-//	@Override
-	protected void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data) {
-		TIM.send(imChannelContext, getImPacket(TIMCommandType, data));
-	}
-
 	protected void sendToId(ImConfig imConfig, String toId, ImPacket imPacket) {
 		TIM.sendToId(imConfig, toId, imPacket);
 	}
