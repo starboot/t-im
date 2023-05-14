@@ -18,5 +18,7 @@ public interface ServerTIMProcessor extends TIMProcessor {
 
 	boolean handleClosePacket(ImServerChannelContext imChannelContext, ClosePacketProto.ClosePacket closePacket);
 
+	boolean handleAuthPacket(ImServerChannelContext imChannelContext, ClosePacketProto.ClosePacket closePacket);
+
 	User getUserByProcessor(ImServerChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket);
 }
