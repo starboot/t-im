@@ -17,15 +17,15 @@ import org.slf4j.LoggerFactory;
  */
 public class AuthReqHandler extends AbstractServerCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthReqHandler.class);
-
-    @Override
-    public TIMCommandType command() {
-        return TIMCommandType.COMMAND_AUTH_REQ;
-    }
+	private static final Logger log = LoggerFactory.getLogger(AuthReqHandler.class);
 
 	@Override
-    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
+	public TIMCommandType command() {
+		return TIMCommandType.COMMAND_AUTH_REQ;
+	}
+
+	@Override
+	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 
 		AuthPacketProto.AuthPacket authPacket = AuthPacketProto.AuthPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(authPacket)) {
@@ -37,9 +37,9 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
 				verify(StrUtil.isNotBlank(authPacket.getUserId()),
 						StrUtil.isNotBlank(authPacket.getToken()),
 						imChannelContext.getConfig().getProcessor().handleAuthPacket(imChannelContext, authPacket))
-				? RespPacketProto.RespPacket.ImStatus.AUTH_SUCCESS : RespPacketProto.RespPacket.ImStatus.AUTH_FAILED);
+						? RespPacketProto.RespPacket.ImStatus.AUTH_SUCCESS : RespPacketProto.RespPacket.ImStatus.AUTH_FAILED);
 
-        return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build) ? build : null;
-    }
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build) ? build : null;
+	}
 
 }

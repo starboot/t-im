@@ -10,6 +10,7 @@ import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.common.packet.proto.TIMEnumProto;
 import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
+import cn.starboot.tim.server.TIM;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +45,9 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 				) ? RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS : RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED);
 
 		UserPacketProto.UserPacket user = imChannelContext.getConfig().getProcessor().getUserByProcessor(imChannelContext, loginPacket);
+		// 进行绑定
 		if (ObjectUtil.isNotEmpty(user)) {
-			if (StrUtil.isNotBlank(user.getUserId())) {
-//				user.setUserId(loginPacket.getUserId());
-			}
-//            TIM.bindUser(channelContext, user.getUserId());
+            TIM.bindUser(user.getUserId(), imChannelContext);
 			//初始化绑定或者解绑群组;
 			initGroup(imChannelContext, user);
 //            LoginRespBody respBody = new LoginRespBody(ImStatus.C10007, user, "t-im token");
@@ -61,12 +60,6 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 //                TIM.bindGroup(channelContext, "clusterGroup");
 				return null;
 			}
-//            if (IMServer.cluster && IMServer.isStore) {
-			// 将用户注册进集群中间件
-//                IMServer.clusterHelper.pushCluster(Long.decode(user.getUserId()),
-//                        IMServer.ip + ":" + IMServer.port);
-//            }
-
 		}
 
 		return build;
@@ -103,7 +96,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 	/**
 	 * 初始化绑定或者解绑群组;
 	 */
-	public void initGroup(ImChannelContext imChannelContext, UserPacketProto.UserPacket user) {
+	private void initGroup(ImChannelContext imChannelContext, UserPacketProto.UserPacket user) {
 		String userId = user.getUserId();
 		List<String> groups = user.getGroupIdList();
 		if (groups == null || groups.isEmpty()) {
