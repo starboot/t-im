@@ -1,16 +1,15 @@
 syntax = "proto3";
 option java_package = "cn.starboot.tim.common.packet.proto";
 option java_outer_classname="UserPacketProto";
-import "GroupPacket.proto";
 
 // IM私有协议包: 用户拉取消息
 message UserPacket {
 	// 用户名ID
-	string userId = 0;
+	string userId = 1;
 	// 好友消息
-	string nick = 1;
+	string nick = 2;
 	// 用户头像
-	string avatar = 2;
+	string avatar = 3;
 	enum UsersType {
 		// 在线
 		ONLINE = 0;
@@ -18,9 +17,9 @@ message UserPacket {
 		OFFLINE = 1;
 	};
 	// 用户状态
-	UsersType status = 3;
+	UsersType status = 4;
 	// 个性签名
-	string sign = 4;
+	string sign = 5;
 	enum Terminal {
 		MAC = 0;
 		WIN = 1;
@@ -36,13 +35,13 @@ message UserPacket {
 		HARMONY_WATCH = 11;
 	};
 	// 所属终端
-	Terminal terminal = 5;
+	Terminal terminal = 6;
 	// 好友列表
-	repeated UserPacket friends = 6;
+	repeated UserPacket friends = 7;
 	// 群组列表
-	repeated GroupPacket groups = 7;
+	repeated string groupId = 8;
 	// 用户昵称拼音
-	string pinyin = 8;
+	string pinyin = 9;
 	// 拼音首字母
-	string firstLetter = 9;
+	string firstLetter = 10;
 }

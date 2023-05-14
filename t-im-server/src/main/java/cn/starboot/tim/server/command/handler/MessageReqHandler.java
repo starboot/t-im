@@ -5,10 +5,9 @@ import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImStatus;
 import cn.starboot.tim.common.command.TIMCommandType;
-import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.proto.HistoryMessageProto;
 import cn.starboot.tim.common.packet.proto.MessagePacketProto;
-import cn.starboot.tim.common.packet.proto.UserMessagePacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -38,10 +37,11 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
             log.error("消息包格式化出错");
             return null;
         }
-        UserMessagePacketProto.UserMessagePacket.Builder builder = UserMessagePacketProto.UserMessagePacket.newBuilder();
-        UserMessagePacketProto.UserMessagePacket build = builder.setUserId("1191998028")
-                .build();
-        List<UserMessagePacketProto.ChatPacket> list= new ArrayList<>();
+		HistoryMessageProto.HistoryMessage.Builder builder1 = HistoryMessageProto.HistoryMessage.newBuilder();
+//		UserMessagePacketProto.UserMessagePacket.Builder builder = UserMessagePacketProto.UserMessagePacket.newBuilder();
+		HistoryMessageProto.HistoryMessage build = builder1.setUserId("1191998028")
+				.build();
+//		List<UserMessagePacketProto.ChatPacket> list= new ArrayList<>();
 //        build.getFriendsMap().put("1", list);
 //        TIMCacheHelper cacheHelper = IMServer.cacheHelper;
         //群组ID;

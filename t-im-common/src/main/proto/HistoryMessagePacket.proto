@@ -6,15 +6,13 @@ import "ChatPacket.proto";
 // IM私有协议包: 用户拉取消息
 message HistoryMessage {
 	// 用户名ID
-	string userId = 0;
+	string userId = 1;
 	// 好友消息
-	map<string, HistoryMessageList> friendHistoryMessage = 1;
+	map<string, HistoryMessageList> friendHistoryMessage = 2;
 	// 群组消息
-	map<string, HistoryMessageList> groupHistoryMessage = 2;
-	// 附加消息
-	map<string, string> extras = 3;
+	map<string, HistoryMessageList> groupHistoryMessage = 3;
 }
 
 message HistoryMessageList {
-	repeated ChatPacket historyMessage= 1;
+	repeated ChatPacket chatPacketList= 4;
 }
