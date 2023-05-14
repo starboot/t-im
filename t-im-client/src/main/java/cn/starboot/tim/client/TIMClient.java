@@ -11,10 +11,10 @@ import cn.starboot.tim.client.intf.Callback;
 import cn.starboot.tim.client.intf.DefaultClientTIMProcessor;
 import cn.starboot.tim.client.intf.ClientTIMProcessor;
 import cn.starboot.tim.client.protocol.ImClientProtocolHandler;
-import cn.starboot.tim.common.entity.User;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
+import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +37,7 @@ public class TIMClient {
 	//    private static Options options;
 	private static TIMClient client;
 	//    private static ackSendRunnable ackSendRunnable;
-	private User user;
+	private UserPacketProto.UserPacket user;
 	private final List<String> list = new ArrayList<>();
 	private final Map<String, Map<String, String>> map = new HashMap<>();
 	private List<Object> extraList;
@@ -230,11 +230,11 @@ public class TIMClient {
 	}
 
 
-	public User getUser() {
+	public UserPacketProto.UserPacket getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserPacketProto.UserPacket user) {
 		this.user = user;
 	}
 

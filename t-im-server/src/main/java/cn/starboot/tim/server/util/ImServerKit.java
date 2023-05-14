@@ -1,7 +1,7 @@
 package cn.starboot.tim.server.util;
 
 import cn.starboot.socket.core.ChannelContext;
-import cn.starboot.tim.common.entity.User;
+import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,9 +20,9 @@ public class ImServerKit {
      * @param groupId 群组ID
      * @return 群组用户集合列表
      */
-    public static List<User> getUsersByGroup(String groupId){
+    public static List<UserPacketProto.UserPacket> getUsersByGroup(String groupId){
 //        SetWithLock<ChannelContext> channelContexts = Tio.getByGroup(TCPSocketServer.getServerTioConfig(), groupId);
-        List<User> users = new ArrayList<>();
+        List<UserPacketProto.UserPacket> users = new ArrayList<>();
 //        if(CollUtil.isEmpty((Iterable<?>) channelContexts)){
 //            log.error("群组为：{}的通道上下文为空", groupId);
 //        }

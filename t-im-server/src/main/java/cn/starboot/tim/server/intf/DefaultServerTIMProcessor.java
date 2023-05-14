@@ -1,7 +1,6 @@
 package cn.starboot.tim.server.intf;
 
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.entity.User;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.*;
 import cn.starboot.tim.server.ImServerChannelContext;
@@ -29,7 +28,7 @@ public class DefaultServerTIMProcessor implements ServerTIMProcessor {
 	}
 
 	@Override
-	public User getUserByProcessor(ImServerChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket) {
+	public UserPacketProto.UserPacket getUserByProcessor(ImServerChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket) {
 		return null;
 	}
 

@@ -3,13 +3,11 @@ package cn.starboot.tim.server.command.handler;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.entity.Group;
-import cn.starboot.tim.common.entity.User;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
-import cn.starboot.tim.common.packet.UserStatusType;
 import cn.starboot.tim.common.packet.proto.LoginPacketProto;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
+import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -44,10 +42,10 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 						imChannelContext.getConfig().getProcessor().handleLoginPacket(imChannelContext, loginPacket)
 				) ? RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS : RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED);
 
-		User user = imChannelContext.getConfig().getProcessor().getUserByProcessor(imChannelContext, loginPacket);
+		UserPacketProto.UserPacket user = imChannelContext.getConfig().getProcessor().getUserByProcessor(imChannelContext, loginPacket);
 		if (ObjectUtil.isNotEmpty(user)) {
 			if (StrUtil.isNotBlank(user.getUserId())) {
-				user.setUserId(loginPacket.getUserId());
+//				user.setUserId(loginPacket.getUserId());
 			}
 //            TIM.bindUser(channelContext, user.getUserId());
 			//初始化绑定或者解绑群组;
@@ -81,33 +79,32 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 	 *                         //     * @param loginRespBody 登录响应体
 	 * @return 用户组装的User信息
 	 */
-	private User getUserByProcessor(ImChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket) {
+	private UserPacketProto.UserPacket getUserByProcessor(ImChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket) {
 //        if (ObjectUtil.isEmpty(loginRespBody) || loginRespBody.getStatus() != ImStatus.C10007.getCode()) {
 //            log.error("login failed, userId:{}, password:{}", loginReqBody.getUserId(), loginReqBody.getToken());
 //            return null;
 //        }
-		return User.newBuilder()
-				.userId(loginPacket.getUserId())
-				.status(UserStatusType.ONLINE.getStatus())
-				.nick("t-im user")
-				.sign("让天下没有难开发的即时通讯---米")
-				.addFriend(User.newBuilder()
-						.userId("15511090451")
-						.nick("t-im author")
-						.build())
-				.addGroup(Group.newBuilder()
-						.groupId("100")
-						.name("t-im group with organization")
-						.build())
+		return UserPacketProto.UserPacket.newBuilder().setUserId(loginPacket.getUserId())
+				.setNick("t-im user")
+				.setAvatar("")
+				.setStatus(UserPacketProto.UserPacket.UsersType.ONLINE)
+				.setSign("让天下没有难开发的即时通讯---米")
+				.setTerminal(UserPacketProto.UserPacket.Terminal.IOS)
+				.addFriends(UserPacketProto.UserPacket.newBuilder().setUserId("")
+						.setAvatar(""))
+				.addGroupId("111")
+				.addGroupId("222")
+				.setPinyin("")
+				.setFirstLetter("")
 				.build();
 	}
 
 	/**
 	 * 初始化绑定或者解绑群组;
 	 */
-	public void initGroup(ImChannelContext imChannelContext, User user) {
+	public void initGroup(ImChannelContext imChannelContext, UserPacketProto.UserPacket user) {
 		String userId = user.getUserId();
-		List<Group> groups = user.getGroups();
+		List<String> groups = user.getGroupIdList();
 		if (groups == null || groups.isEmpty()) {
 			return;
 		}
@@ -117,7 +114,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 //            log.debug("从存储介质中读取groupIds");
 //        }
 		//绑定群组
-		for (Group group : groups) {
+		for (String group : groups) {
 //            ImPacket groupPacket = new ImPacket(Command.COMMAND_JOIN_GROUP_REQ, JsonKit.toJsonBytes(group));
 			try {
 //                BindReqHandler bindReqHandler = TIMServerCommandManager.getCommand(TIMCommandType.COMMAND_BIND_REQ, BindReqHandler.class);

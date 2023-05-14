@@ -1,7 +1,7 @@
 package cn.starboot.tim.server.cache;
 
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
-import cn.starboot.tim.common.entity.HistoryMessage;
+import cn.starboot.tim.common.packet.proto.HistoryMessageProto;
 
 import java.util.Set;
 
@@ -37,7 +37,7 @@ public interface TIMCacheHelper {
      * @param timelineId 日期 2022-01-05
      * @return 历史消息集合
      */
-    HistoryMessage getGroupHistoryMessage(String groupId, String timelineId);
+    HistoryMessageProto.HistoryMessage getGroupHistoryMessage(String groupId, String timelineId);
 
     /**
      * 获取离线消息
@@ -45,7 +45,7 @@ public interface TIMCacheHelper {
      * @param timelineId 日期
      * @return 离线消息集合
      */
-    HistoryMessage getOfflineMessage(String userId, String timelineId);
+	HistoryMessageProto.HistoryMessage getOfflineMessage(String userId, String timelineId);
 
     /**
      * 获取历史消息
@@ -54,5 +54,5 @@ public interface TIMCacheHelper {
      * @param timelineId 获取日期;  如 "2022-01-05"; 如果获取所有则为 "*"
      * @return 历史消息的数据结构
      */
-    HistoryMessage getFriendHistoryMessage(String userId, String fromUserId, String timelineId);
+	HistoryMessageProto.HistoryMessage getFriendHistoryMessage(String userId, String fromUserId, String timelineId);
 }
