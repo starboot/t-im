@@ -39,6 +39,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_LOGIN_RESP).build();
 		setRespPacketImStatus(build,
 				verify(StrUtil.isNotBlank(loginPacket.getUserId()),
+						StrUtil.isNotBlank(loginPacket.getPassword()),
 						StrUtil.isNotBlank(loginPacket.getToken()),
 						imChannelContext.getConfig().getProcessor().handleLoginPacket(imChannelContext, loginPacket)
 				) ? RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS : RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED);

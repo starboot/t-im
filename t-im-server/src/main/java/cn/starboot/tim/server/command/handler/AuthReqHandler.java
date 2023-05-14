@@ -1,8 +1,13 @@
 package cn.starboot.tim.server.command.handler;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.proto.AuthPacketProto;
+import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,38 +25,21 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
     }
 
 	@Override
-    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) {
+    public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 
-//        AuthReqBody authReqBody = new AuthReqBody();
-//        if (ObjectUtil.isEmpty(authReqBody)) {
-//            log.error("消息包格式化出错");
-//            return null;
-//        }
-//        if (ObjectUtil.isNotEmpty(authReqBody) && authReqBody.getToken() != null && authReqBody.getToken().length() > 0) {
-//            String token = authReqBody.getToken() == null ? "" : authReqBody.getToken();
-//            String data = token +  ImConst.AUTH_KEY;
-//            authReqBody.setToken(data);
-//            authReqBody.setCmd(Command.COMMAND_AUTH_RESP.getNumber());
-//            RespBody respBody = new RespBody(Command.COMMAND_AUTH_RESP,ImStatus.C10009).setData(authReqBody);
-//            TIM.send(channelContext, new ImPacket(Command.COMMAND_AUTH_RESP, respBody.toByte()));
-//        }else {
-//            RespBody respBody = new RespBody(Command.COMMAND_AUTH_RESP, ImStatus.C10010);
-//            TIM.send(channelContext, new ImPacket(Command.COMMAND_AUTH_RESP, respBody.toByte()));
-//        }
+		AuthPacketProto.AuthPacket authPacket = AuthPacketProto.AuthPacket.parseFrom(imPacket.getData());
+		if (ObjectUtil.isEmpty(authPacket)) {
+			log.error("消息包格式化出错");
+			return null;
+		}
+		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_AUTH_RESP).build();
+		setRespPacketImStatus(build,
+				verify(StrUtil.isNotBlank(authPacket.getUserId()),
+						StrUtil.isNotBlank(authPacket.getToken()),
+						imChannelContext.getConfig().getProcessor().handleAuthPacket(imChannelContext, authPacket))
+				? RespPacketProto.RespPacket.ImStatus.AUTH_SUCCESS : RespPacketProto.RespPacket.ImStatus.AUTH_FAILED);
 
-//        return ImPacket
-//				.newBuilder()
-//				.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP)
-//				.setData(RespPacketProto
-//						.RespPacket
-//						.newBuilder()
-//						.setIsSyn(false)
-//						.setCode(1)
-//						.setMsg("")
-//						.build()
-//						.toByteArray())
-//				.build();
-        return null;
+        return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build) ? build : null;
     }
 
 }

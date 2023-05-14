@@ -2,6 +2,7 @@ package cn.starboot.tim.server.intf;
 
 import cn.starboot.tim.common.entity.User;
 import cn.starboot.tim.common.intf.TIMProcessor;
+import cn.starboot.tim.common.packet.proto.AuthPacketProto;
 import cn.starboot.tim.common.packet.proto.BindPacketProto;
 import cn.starboot.tim.common.packet.proto.ClosePacketProto;
 import cn.starboot.tim.common.packet.proto.LoginPacketProto;
@@ -18,7 +19,7 @@ public interface ServerTIMProcessor extends TIMProcessor {
 
 	boolean handleClosePacket(ImServerChannelContext imChannelContext, ClosePacketProto.ClosePacket closePacket);
 
-	boolean handleAuthPacket(ImServerChannelContext imChannelContext, ClosePacketProto.ClosePacket closePacket);
+	boolean handleAuthPacket(ImServerChannelContext imChannelContext, AuthPacketProto.AuthPacket authPacket);
 
 	User getUserByProcessor(ImServerChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket);
 }
