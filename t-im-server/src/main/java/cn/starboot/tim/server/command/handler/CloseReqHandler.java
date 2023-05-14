@@ -34,7 +34,6 @@ public class CloseReqHandler extends AbstractServerCmdHandler {
         if (imChannelContext.getConfig().getProcessor().handleClosePacket(imChannelContext, closePacket)) {
 			TIM.remove(imChannelContext, CloseCode.NO_CODE);
 		}
-        // 执行断开操作
         return null;
     }
 }

@@ -1,0 +1,20 @@
+syntax = "proto3";
+option java_package = "cn.starboot.tim.common.packet.proto";
+option java_outer_classname="HistoryMessageProto";
+import "ChatPacket.proto";
+
+// IM私有协议包: 用户拉取消息
+message HistoryMessage {
+	// 用户名ID
+	string userId = 0;
+	// 好友消息
+	map<string, HistoryMessageList> friendHistoryMessage = 1;
+	// 群组消息
+	map<string, HistoryMessageList> groupHistoryMessage = 2;
+	// 附加消息
+	map<string, string> extras = 3;
+}
+
+message HistoryMessageList {
+	repeated ChatPacket historyMessage= 1;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+option java_package = "cn.starboot.tim.common.packet.proto";
+option java_outer_classname="GroupPacketProto";
+import "UserPacket.proto";
+
+message GroupPacket {
+	string groupId = 0;
+	string groupName = 1;
+	string groupAvatar = 2;
+	// 在线人数
+	int32 online = 3;
+	repeated UserPacket users = 4;
+}
