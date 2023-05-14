@@ -37,7 +37,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 		}
 		ImPacket packet = ImPacket.newBuilder()
 				.setReq(null)
-				.setResp(imPacket.getResp())
+				.setResp(imPacket.getReq())
 				.setTIMCommandType(TIMCommandType.COMMAND_CHAT_RESP)
 				.build();
 		// 聊天类型类型 (私聊, 群聊, 未知)
@@ -84,6 +84,6 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 				break;
 			}
 		}
-		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket) ? packet : null;
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, packet) ? packet : null;
 	}
 }

@@ -18,7 +18,6 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 
 	private static final Logger log = LoggerFactory.getLogger(UserReqHandler.class);
 
-
 	@Override
 	public TIMCommandType command() {
 		return TIMCommandType.COMMAND_USERS_REQ;

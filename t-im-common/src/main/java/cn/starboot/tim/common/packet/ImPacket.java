@@ -12,7 +12,7 @@ public class ImPacket extends Packet {
     // 消息命令码
     private TIMCommandType TIMCommandType;
 
-    // 状态码
+    // 状态码 int
     private RespPacketProto.RespPacket.ImStatus imStatus;
 
     // 消息体

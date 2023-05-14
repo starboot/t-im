@@ -13,10 +13,12 @@ import cn.starboot.socket.utils.pool.memory.MemoryUnit;
 import cn.starboot.tim.common.ImConst;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.ByteBuffer;
+import java.util.Objects;
 
 /**
  * 使用aio-socket，对Google的Protobuf进行解编码
@@ -66,7 +68,7 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
             return null;
         }
         // 获取命令码数字索引
-        final int commandType = buffer.getInt();
+        final byte commandType = buffer.get();
         // 获取命令码
         TIMCommandType command = TIMCommandType.getCommandTypeByCode(commandType);
         // 判断是否为异常命令
@@ -78,6 +80,8 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
             // 关闭其连接
             Aio.close(channelContext);
         }
+        // 取IM状态码
+		int imStatusCode = buffer.get() > 0 ? buffer.getInt() : 0;
         // 获取消息体长度
         final int dataLength = buffer.getInt();
         // 获取剩余报文长度
@@ -87,24 +91,26 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
             buffer.reset();
             return null;
         }
-        // 获取消息体
-        byte[] b = AIOUtil.getBytesFromByteBuffer(readBuffer, dataLength, 10, channelContext);
-        if (b == null) {
-            buffer.reset();
-            return null;
-        }
+		byte[] b = null;
+		if (dataLength > 0) {
+			// 获取消息体
+			b = AIOUtil.getBytesFromByteBuffer(readBuffer, dataLength, 10, channelContext);
+			if (b == null) {
+				buffer.reset();
+				return null;
+			}
+		}
         // 解码成功
-        return ImPacket.newBuilder().setTIMCommandType(command).setData(b).build();
+        return ImPacket.newBuilder().setTIMCommandType(command).setImStatus(RespPacketProto.RespPacket.ImStatus.forNumber(imStatusCode)).setData(b).build();
     }
 
     @Override
     public void encode(Packet packet, ChannelContext channelContext) throws AioEncoderException {
-
         if (packet instanceof ImPacket) {
             // 开始编码
             ImPacket imPacket = (ImPacket) packet;
             // 消息命令码
-            TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
+            TIMCommandType timCommandType = imPacket.getTIMCommandType();
             // 消息体
             byte[] data = imPacket.getData();
             // 拿到输入流
@@ -113,13 +119,25 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
             writeBuffer.writeByte(timProtocolVersion);
             // 写入协议的特殊标识
             writeBuffer.writeByte(timProtocolMark);
+            if (Objects.isNull(timCommandType)) {
+            	throw new AioEncoderException("TIM private TCP protocol encode failed because of the TIMCommandType is not defined.");
+			}
             // 写入命令码
-            writeBuffer.writeInt(TIMCommandType.getCode());
+            writeBuffer.writeByte(timCommandType.getCode());
+            // 写入状态码
+			RespPacketProto.RespPacket.ImStatus imStatus = imPacket.getImStatus();
+			if (Objects.isNull(imStatus)) {
+				writeBuffer.write(0);
+			} else {
+				writeBuffer.write(1);
+				writeBuffer.writeInt(imPacket.getImStatus().getNumber());
+			}
             // 写入消息体长度
             writeBuffer.writeInt(data.length);
             // 写入消息体
-            writeBuffer.write(data);
-
+            if (data.length > 0) {
+				writeBuffer.write(data);
+			}
         }else {
             throw new AioEncoderException("TIM private TCP protocol encode failed because of the Packet is not ImPacket.");
         }
