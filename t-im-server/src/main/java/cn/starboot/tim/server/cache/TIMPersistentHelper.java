@@ -9,7 +9,7 @@ import java.util.Set;
  * 持久化助手
  * Created by DELL(mxd) on 2021/12/25 19:50
  */
-public interface TIMCacheHelper {
+public interface TIMPersistentHelper {
 
     /**
      * 持久化消息

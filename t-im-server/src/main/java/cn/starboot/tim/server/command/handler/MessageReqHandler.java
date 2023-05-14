@@ -35,10 +35,8 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 			log.error("消息包格式化出错");
 			return null;
 		}
-		ImPacket build1 = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_MESSAGE_RESP).build();
-		HistoryMessageProto.HistoryMessage.Builder builder1 = HistoryMessageProto.HistoryMessage.newBuilder();
-		HistoryMessageProto.HistoryMessage build = builder1.setUserId("1191998028")
-				.build();
+		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_MESSAGE_RESP).build();
+
 		// 群组ID;
 		String groupId = messagePacket.getGroupId();
 		// 当前用户ID;
@@ -52,24 +50,28 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 		long endTime = messagePacket.getEndTime();
 		int offset = messagePacket.getOffset();
 		int count = messagePacket.getCount();
-		setRespPacketImStatus(build1,
+		if (StrUtil.isBlank(userId) && StrUtil.isNotBlank(imChannelContext.getImChannelContextId())) {
+			userId = imChannelContext.getImChannelContextId();
+		}
+		setRespPacketImStatus(build,
 				verify(StrUtil.isNotBlank(userId),
 						ObjectUtil.isNotNull(messageType),
-						beginTime > 0,
-						endTime > 0,
-						offset >= 0,
-						count > 0,
-						(StrUtil.isNotBlank(groupId) || StrUtil.isNotBlank(fromUserId))
+						ObjectUtil.equal(messagePacket, MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE)
+								|| (StrUtil.isNotBlank(groupId) || StrUtil.isNotBlank(fromUserId))
 				) ? ObjectUtil.equal(messagePacket, MessagePacketProto.MessagePacket.MessageType.HISTORY_MESSAGE)
 						? RespPacketProto.RespPacket.ImStatus.GET_USER_HISTORY_MESSAGE_SUCCESS
 						: RespPacketProto.RespPacket.ImStatus.GET_USER_OFFLINE_MESSAGE_SUCCESS
 				: ObjectUtil.isNotEmpty(messageType) && ObjectUtil.equal(messagePacket, MessagePacketProto.MessagePacket.MessageType.HISTORY_MESSAGE)
 						? RespPacketProto.RespPacket.ImStatus.GET_USER_HISTORY_MESSAGE_FAILED
 						: RespPacketProto.RespPacket.ImStatus.GET_USER_OFFLINE_MESSAGE_FAILED);
-		HistoryMessageProto.HistoryMessage historyMessage = HistoryMessageProto.HistoryMessage.newBuilder().setUserId(userId).build();
+		HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder = HistoryMessageProto.HistoryMessage.newBuilder().setUserId(userId);
+		imChannelContext.getConfig().getTimPersistentHelper().getOfflineMessage(null, null);
 		switch (messageType) {
 			case HISTORY_MESSAGE: break;
-			case OFF_LINE_MESSAGE: break;
+			case OFF_LINE_MESSAGE: {
+
+				break;
+			}
 			default:
 				TIMLogUtil.error(log, "错误");
 		}

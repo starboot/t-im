@@ -4,7 +4,7 @@ import cn.starboot.socket.utils.cache.ICache;
 import cn.starboot.socket.utils.cache.redis.RedisCache;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.HistoryMessageProto;
-import cn.starboot.tim.server.cache.TIMCacheHelper;
+import cn.starboot.tim.server.cache.TIMPersistentHelper;
 import cn.starboot.tim.server.cluster.ClusterData;
 
 import java.util.*;
@@ -13,7 +13,7 @@ import java.util.*;
  * 持久到 redis
  * Created by DELL(mxd) on 2021/12/25 21:26
  */
-public class RedisTIMCacheHelper implements TIMCacheHelper {
+public abstract class RedisTIMPersistentHelper implements TIMPersistentHelper {
 
     private static final ICache cache;
 

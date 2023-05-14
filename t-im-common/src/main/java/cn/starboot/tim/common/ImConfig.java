@@ -6,7 +6,7 @@ import cn.starboot.tim.common.intf.TIMProcessor;
 /**
  * Created by DELL(mxd) on 2022/1/6 17:07
  */
-public abstract class ImConfig<P extends TIMProcessor> {
+public abstract class ImConfig<P extends TIMProcessor, H> {
 
 	public static final String name = "TIM";
 
@@ -46,4 +46,6 @@ public abstract class ImConfig<P extends TIMProcessor> {
 	}
 
 	public abstract P getProcessor();
+
+	public abstract H getTimPersistentHelper();
 }

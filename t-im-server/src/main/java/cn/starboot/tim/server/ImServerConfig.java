@@ -1,11 +1,12 @@
 package cn.starboot.tim.server;
 
 import cn.starboot.tim.common.ImConfig;
+import cn.starboot.tim.server.cache.TIMPersistentHelper;
 import cn.starboot.tim.server.cluster.ICluster;
 import cn.starboot.tim.server.intf.DefaultServerTIMProcessor;
 import cn.starboot.tim.server.intf.ServerTIMProcessor;
 
-public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
+public class ImServerConfig extends ImConfig<ServerTIMProcessor, TIMPersistentHelper> {
 
 	private final ServerTIMProcessor serverProcessor;
 
@@ -19,6 +20,8 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 	 */
 	public static ICluster clusterHelper;
 
+	private TIMPersistentHelper timPersistentHelper;
+
 	/**
 	 * 开启集群
 	 */
@@ -31,6 +34,11 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 
 	public ImServerConfig(ServerTIMProcessor serverProcessor) {
 		this.serverProcessor = serverProcessor;
+	}
+
+	@Override
+	public TIMPersistentHelper getTimPersistentHelper() {
+		return timPersistentHelper;
 	}
 
 	@Override
