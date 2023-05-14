@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class BindReqHandler extends AbstractServerCmdHandler {
 
-	private static final Logger log = LoggerFactory.getLogger(BindReqHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BindReqHandler.class);
 
 	@Override
 	public TIMCommandType command() {
@@ -29,7 +29,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		BindPacketProto.BindPacket packet = BindPacketProto.BindPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(packet)) {
-			log.error("消息包格式化出错");
+			LOGGER.error("消息包格式化出错");
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_BIND_RESP);
@@ -53,7 +53,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			case UNBIND:
 				return unbindHandler(packet, imChannelContext);
 			default:
-				TIMLogUtil.error(log, "绑定处理器异常：未指明处理操作类型");
+				TIMLogUtil.error(LOGGER, "绑定处理器异常：未指明处理操作类型");
 				return false;
 		}
 	}
@@ -74,7 +74,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			case TOKEN:
 				return false;
 			default:
-				TIMLogUtil.error(log, "");
+				TIMLogUtil.error(LOGGER, "");
 				return false;
 		}
 	}
@@ -94,7 +94,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			case TOKEN:
 				break;
 			default:
-				TIMLogUtil.error(log, "");
+				TIMLogUtil.error(LOGGER, "");
 		}
 		return false;
 	}

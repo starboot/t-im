@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AuthReqHandler extends AbstractServerCmdHandler {
 
-	private static final Logger log = LoggerFactory.getLogger(AuthReqHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthReqHandler.class);
 
 	@Override
 	public TIMCommandType command() {
@@ -29,7 +29,7 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
 
 		AuthPacketProto.AuthPacket authPacket = AuthPacketProto.AuthPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(authPacket)) {
-			log.error("消息包格式化出错");
+			LOGGER.error("消息包格式化出错");
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_AUTH_RESP);

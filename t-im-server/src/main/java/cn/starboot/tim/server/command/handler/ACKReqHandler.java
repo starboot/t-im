@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ACKReqHandler extends AbstractServerCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ACKReqHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ACKReqHandler.class);
 
     @Override
     public TIMCommandType command() {

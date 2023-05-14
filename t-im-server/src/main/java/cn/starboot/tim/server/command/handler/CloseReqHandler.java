@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CloseReqHandler extends AbstractServerCmdHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(CloseReqHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CloseReqHandler.class);
 
     @Override
     public TIMCommandType command() {
@@ -28,7 +28,7 @@ public class CloseReqHandler extends AbstractServerCmdHandler {
     public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
         ClosePacketProto.ClosePacket closePacket = ClosePacketProto.ClosePacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(closePacket) || StrUtil.isBlank(closePacket.getUserId())) {
-            log.error("用户发送异常关闭请求，将其强行断开");
+			LOGGER.error("用户发送异常关闭请求，将其强行断开");
             TIM.remove(imChannelContext);
         }
         if (imChannelContext.getConfig().getProcessor().handleClosePacket(imChannelContext, closePacket)) {

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class UserReqHandler extends AbstractServerCmdHandler {
 
-	private static final Logger log = LoggerFactory.getLogger(UserReqHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserReqHandler.class);
 
 	@Override
 	public TIMCommandType command() {
@@ -28,7 +28,7 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 
 		UserPacketProto.UserPacket userPacket = UserPacketProto.UserPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(userPacket)) {
-			log.error("消息包格式化出错");
+			LOGGER.error("消息包格式化出错");
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_USERS_RESP);
