@@ -5,6 +5,7 @@ option java_package = "cn.starboot.tim.common.packet.proto";
 // 指定模板类的名称，名称必须是有实际业务意义的
 option java_outer_classname = "ChatPacketProto";
 
+import "TIMEnum.proto";
 // IM消息体
 /*
    "from": "来源ID",
@@ -23,38 +24,10 @@ message ChatPacket{
     string toId = 2;
     // 消息创建时间
     int64 createTime = 3;
-    // 消息类型
-    enum MsgType {
-        // 文本消息
-        TEXT = 0;
-        // 图片消息
-        IMAGE = 1;
-        // 语音消息
-        VOICE = 2;
-        // 视频消息
-        VIDEO = 3;
-        // 音乐消息
-        MUSIC = 4;
-        // 新闻消息
-        NEWS = 5;
-        // 语音通话
-        ONLINE_VOICE = 6;
-        // 视频通话
-        ONLINE_VIDEO = 7;
-        // 视频会议
-        ONLINE_MEETING = 8;
-    };
-    MsgType msgType = 4;
+	// 消息类型
+	TIMEnum.MsgType msgType = 4;
     // 聊天类型
-    enum ChatType {
-        // 未知消息
-        UNKNOWN = 0;
-        // 群聊消息
-        GROUP = 1;
-        // 私聊消息
-        PRIVATE = 2;
-    };
-    ChatType chatType = 5;
+	TIMEnum.ChatType chatType = 5;
     // 消息内容
     string content = 6;
     // 群组ID

@@ -7,6 +7,7 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.LoginPacketProto;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
+import cn.starboot.tim.common.packet.proto.TIMEnumProto;
 import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -87,9 +88,9 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 		return UserPacketProto.UserPacket.newBuilder().setUserId(loginPacket.getUserId())
 				.setNick("t-im user")
 				.setAvatar("")
-				.setStatus(UserPacketProto.UserPacket.UsersType.ONLINE)
+				.setStatus(TIMEnumProto.TIMEnum.UserStatusType.ONLINE)
 				.setSign("让天下没有难开发的即时通讯---米")
-				.setTerminal(UserPacketProto.UserPacket.Terminal.IOS)
+				.setTerminal(TIMEnumProto.TIMEnum.Terminal.IOS)
 				.addFriends(UserPacketProto.UserPacket.newBuilder().setUserId("")
 						.setAvatar(""))
 				.addGroupId("111")

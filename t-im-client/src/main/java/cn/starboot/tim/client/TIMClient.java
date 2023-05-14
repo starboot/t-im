@@ -13,8 +13,6 @@ import cn.starboot.tim.client.intf.ClientTIMProcessor;
 import cn.starboot.tim.client.protocol.ImClientProtocolHandler;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
-import cn.starboot.tim.common.packet.proto.ChatPacketProto;
-import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

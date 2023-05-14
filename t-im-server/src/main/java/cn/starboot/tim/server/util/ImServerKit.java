@@ -1,7 +1,6 @@
 package cn.starboot.tim.server.util;
 
 import cn.starboot.socket.core.ChannelContext;
-import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

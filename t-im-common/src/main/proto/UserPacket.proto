@@ -1,6 +1,7 @@
 syntax = "proto3";
 option java_package = "cn.starboot.tim.common.packet.proto";
 option java_outer_classname="UserPacketProto";
+import "TIMEnum.proto";
 
 // IM私有协议包: 用户拉取消息
 message UserPacket {
@@ -10,32 +11,12 @@ message UserPacket {
 	string nick = 2;
 	// 用户头像
 	string avatar = 3;
-	enum UsersType {
-		// 在线
-		ONLINE = 0;
-		// 离线
-		OFFLINE = 1;
-	};
 	// 用户状态
-	UsersType status = 4;
+	TIMEnum.UserStatusType status = 4;
 	// 个性签名
 	string sign = 5;
-	enum Terminal {
-		MAC = 0;
-		WIN = 1;
-		WEB = 2;
-		IOS = 3;
-		IOS_PAD = 4;
-		IOS_WATCH = 5;
-		ANDROID = 6;
-		ANDROID_PAD = 7;
-		ANDROID_WATCH = 8;
-		HARMONY = 9;
-		HARMONY_PAD = 10;
-		HARMONY_WATCH = 11;
-	};
 	// 所属终端
-	Terminal terminal = 6;
+	TIMEnum.Terminal terminal = 6;
 	// 好友列表
 	repeated UserPacket friends = 7;
 	// 群组列表

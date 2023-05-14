@@ -1,0 +1,86 @@
+syntax = "proto3";
+// 指定模板类的包路径
+option java_package = "cn.starboot.tim.common.packet.proto";
+// 指定模板类的名称，名称必须是有实际业务意义的
+option java_outer_classname = "TIMEnumProto";
+
+// IM 枚举
+message TIMEnum {
+
+	// 用户所用终端类型
+	enum Terminal {
+		MAC = 0;
+		WIN = 1;
+		WEB = 2;
+		IOS = 3;
+		IOS_PAD = 4;
+		IOS_WATCH = 5;
+		ANDROID = 6;
+		ANDROID_PAD = 7;
+		ANDROID_WATCH = 8;
+		HARMONY = 9;
+		HARMONY_PAD = 10;
+		HARMONY_WATCH = 11;
+	};
+
+	// 用户状态类型
+	enum UserStatusType {
+		// 在线用户
+		ONLINE = 0;
+		// 离线用户
+		OFFLINE = 1;
+		// 在线、离线用户
+		ALL = 2;
+	};
+//
+//	// 消息类型
+	enum MsgType {
+		// 文本消息
+		TEXT = 0;
+		// 图片消息
+		IMAGE = 1;
+		// 语音消息
+		VOICE = 2;
+		// 视频消息
+		VIDEO = 3;
+		// 音乐消息
+		MUSIC = 4;
+		// 新闻消息
+		NEWS = 5;
+		// 语音通话
+		ONLINE_VOICE = 6;
+		// 视频通话
+		ONLINE_VIDEO = 7;
+		// 视频会议
+		ONLINE_MEETING = 8;
+	};
+//
+//	// 聊天类型
+	enum ChatType {
+		// 未知消息
+		UNKNOWN = 0;
+		// 群聊消息
+		GROUP = 1;
+		// 私聊消息
+		PRIVATE = 2;
+	};
+//
+//	// 加入群组类型
+	enum JoinGroupResult {
+		// 不允许进入，原因为其它
+		JOIN_GROUP_RESULT_UNKNOWN = 0;
+		// 允许进入
+		JOIN_GROUP_RESULT_OK = 1;
+		// 组不存在
+		JOIN_GROUP_RESULT_NOT_EXIST = 2;
+		// 组满
+		JOIN_GROUP_RESULT_GROUP_FULL = 3;
+		// 在黑名单中
+		JOIN_GROUP_RESULT_IN_BACK_LIST = 4;
+		// 被踢
+		JOIN_GROUP_RESULT_KICKED = 5;
+	}
+
+	int32 id = 1;
+
+}

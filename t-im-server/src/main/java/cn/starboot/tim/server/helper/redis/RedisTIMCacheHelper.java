@@ -2,7 +2,6 @@ package cn.starboot.tim.server.helper.redis;
 
 import cn.starboot.socket.utils.cache.ICache;
 import cn.starboot.socket.utils.cache.redis.RedisCache;
-import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.HistoryMessageProto;
 import cn.starboot.tim.server.cache.TIMCacheHelper;
 import cn.starboot.tim.server.cluster.ClusterData;

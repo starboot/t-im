@@ -1,6 +1,5 @@
 package cn.starboot.tim.server.cache;
 
-import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.HistoryMessageProto;
 
 import java.util.Set;

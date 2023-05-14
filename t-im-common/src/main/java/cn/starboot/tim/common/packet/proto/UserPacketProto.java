@@ -83,7 +83,7 @@ public final class UserPacketProto {
      * 用户状态
      * </pre>
      *
-     * <code>.UserPacket.UsersType status = 4;</code>
+     * <code>.TIMEnum.UserStatusType status = 4;</code>
      * @return The enum numeric value on the wire for status.
      */
     int getStatusValue();
@@ -92,10 +92,10 @@ public final class UserPacketProto {
      * 用户状态
      * </pre>
      *
-     * <code>.UserPacket.UsersType status = 4;</code>
+     * <code>.TIMEnum.UserStatusType status = 4;</code>
      * @return The status.
      */
-    UserPacket.UsersType getStatus();
+    TIMEnumProto.TIMEnum.UserStatusType getStatus();
 
     /**
      * <pre>
@@ -122,7 +122,7 @@ public final class UserPacketProto {
      * 所属终端
      * </pre>
      *
-     * <code>.UserPacket.Terminal terminal = 6;</code>
+     * <code>.TIMEnum.Terminal terminal = 6;</code>
      * @return The enum numeric value on the wire for terminal.
      */
     int getTerminalValue();
@@ -131,10 +131,10 @@ public final class UserPacketProto {
      * 所属终端
      * </pre>
      *
-     * <code>.UserPacket.Terminal terminal = 6;</code>
+     * <code>.TIMEnum.Terminal terminal = 6;</code>
      * @return The terminal.
      */
-    UserPacket.Terminal getTerminal();
+    TIMEnumProto.TIMEnum.Terminal getTerminal();
 
     /**
      * <pre>
@@ -315,328 +315,6 @@ public final class UserPacketProto {
               UserPacket.class, Builder.class);
     }
 
-    /**
-     * Protobuf enum {@code UserPacket.UsersType}
-     */
-    public enum UsersType
-        implements com.google.protobuf.ProtocolMessageEnum {
-      /**
-       * <pre>
-       * 在线
-       * </pre>
-       *
-       * <code>ONLINE = 0;</code>
-       */
-      ONLINE(0),
-      /**
-       * <pre>
-       * 离线
-       * </pre>
-       *
-       * <code>OFFLINE = 1;</code>
-       */
-      OFFLINE(1),
-      UNRECOGNIZED(-1),
-      ;
-
-      /**
-       * <pre>
-       * 在线
-       * </pre>
-       *
-       * <code>ONLINE = 0;</code>
-       */
-      public static final int ONLINE_VALUE = 0;
-      /**
-       * <pre>
-       * 离线
-       * </pre>
-       *
-       * <code>OFFLINE = 1;</code>
-       */
-      public static final int OFFLINE_VALUE = 1;
-
-
-      public final int getNumber() {
-        if (this == UNRECOGNIZED) {
-          throw new IllegalArgumentException(
-              "Can't get the number of an unknown enum value.");
-        }
-        return value;
-      }
-
-      /**
-       * @param value The numeric wire value of the corresponding enum entry.
-       * @return The enum associated with the given numeric wire value.
-       * @deprecated Use {@link #forNumber(int)} instead.
-       */
-      @Deprecated
-      public static UsersType valueOf(int value) {
-        return forNumber(value);
-      }
-
-      /**
-       * @param value The numeric wire value of the corresponding enum entry.
-       * @return The enum associated with the given numeric wire value.
-       */
-      public static UsersType forNumber(int value) {
-        switch (value) {
-          case 0: return ONLINE;
-          case 1: return OFFLINE;
-          default: return null;
-        }
-      }
-
-      public static com.google.protobuf.Internal.EnumLiteMap<UsersType>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static final com.google.protobuf.Internal.EnumLiteMap<
-          UsersType> internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<UsersType>() {
-              public UsersType findValueByNumber(int number) {
-                return UsersType.forNumber(number);
-              }
-            };
-
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        if (this == UNRECOGNIZED) {
-          throw new IllegalStateException(
-              "Can't get the descriptor of an unrecognized enum value.");
-        }
-        return getDescriptor().getValues().get(ordinal());
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return UserPacket.getDescriptor().getEnumTypes().get(0);
-      }
-
-      private static final UsersType[] VALUES = values();
-
-      public static UsersType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        if (desc.getIndex() == -1) {
-          return UNRECOGNIZED;
-        }
-        return VALUES[desc.getIndex()];
-      }
-
-      private final int value;
-
-      private UsersType(int value) {
-        this.value = value;
-      }
-
-      // @@protoc_insertion_point(enum_scope:UserPacket.UsersType)
-    }
-
-    /**
-     * Protobuf enum {@code UserPacket.Terminal}
-     */
-    public enum Terminal
-        implements com.google.protobuf.ProtocolMessageEnum {
-      /**
-       * <code>MAC = 0;</code>
-       */
-      MAC(0),
-      /**
-       * <code>WIN = 1;</code>
-       */
-      WIN(1),
-      /**
-       * <code>WEB = 2;</code>
-       */
-      WEB(2),
-      /**
-       * <code>IOS = 3;</code>
-       */
-      IOS(3),
-      /**
-       * <code>IOS_PAD = 4;</code>
-       */
-      IOS_PAD(4),
-      /**
-       * <code>IOS_WATCH = 5;</code>
-       */
-      IOS_WATCH(5),
-      /**
-       * <code>ANDROID = 6;</code>
-       */
-      ANDROID(6),
-      /**
-       * <code>ANDROID_PAD = 7;</code>
-       */
-      ANDROID_PAD(7),
-      /**
-       * <code>ANDROID_WATCH = 8;</code>
-       */
-      ANDROID_WATCH(8),
-      /**
-       * <code>HARMONY = 9;</code>
-       */
-      HARMONY(9),
-      /**
-       * <code>HARMONY_PAD = 10;</code>
-       */
-      HARMONY_PAD(10),
-      /**
-       * <code>HARMONY_WATCH = 11;</code>
-       */
-      HARMONY_WATCH(11),
-      UNRECOGNIZED(-1),
-      ;
-
-      /**
-       * <code>MAC = 0;</code>
-       */
-      public static final int MAC_VALUE = 0;
-      /**
-       * <code>WIN = 1;</code>
-       */
-      public static final int WIN_VALUE = 1;
-      /**
-       * <code>WEB = 2;</code>
-       */
-      public static final int WEB_VALUE = 2;
-      /**
-       * <code>IOS = 3;</code>
-       */
-      public static final int IOS_VALUE = 3;
-      /**
-       * <code>IOS_PAD = 4;</code>
-       */
-      public static final int IOS_PAD_VALUE = 4;
-      /**
-       * <code>IOS_WATCH = 5;</code>
-       */
-      public static final int IOS_WATCH_VALUE = 5;
-      /**
-       * <code>ANDROID = 6;</code>
-       */
-      public static final int ANDROID_VALUE = 6;
-      /**
-       * <code>ANDROID_PAD = 7;</code>
-       */
-      public static final int ANDROID_PAD_VALUE = 7;
-      /**
-       * <code>ANDROID_WATCH = 8;</code>
-       */
-      public static final int ANDROID_WATCH_VALUE = 8;
-      /**
-       * <code>HARMONY = 9;</code>
-       */
-      public static final int HARMONY_VALUE = 9;
-      /**
-       * <code>HARMONY_PAD = 10;</code>
-       */
-      public static final int HARMONY_PAD_VALUE = 10;
-      /**
-       * <code>HARMONY_WATCH = 11;</code>
-       */
-      public static final int HARMONY_WATCH_VALUE = 11;
-
-
-      public final int getNumber() {
-        if (this == UNRECOGNIZED) {
-          throw new IllegalArgumentException(
-              "Can't get the number of an unknown enum value.");
-        }
-        return value;
-      }
-
-      /**
-       * @param value The numeric wire value of the corresponding enum entry.
-       * @return The enum associated with the given numeric wire value.
-       * @deprecated Use {@link #forNumber(int)} instead.
-       */
-      @Deprecated
-      public static Terminal valueOf(int value) {
-        return forNumber(value);
-      }
-
-      /**
-       * @param value The numeric wire value of the corresponding enum entry.
-       * @return The enum associated with the given numeric wire value.
-       */
-      public static Terminal forNumber(int value) {
-        switch (value) {
-          case 0: return MAC;
-          case 1: return WIN;
-          case 2: return WEB;
-          case 3: return IOS;
-          case 4: return IOS_PAD;
-          case 5: return IOS_WATCH;
-          case 6: return ANDROID;
-          case 7: return ANDROID_PAD;
-          case 8: return ANDROID_WATCH;
-          case 9: return HARMONY;
-          case 10: return HARMONY_PAD;
-          case 11: return HARMONY_WATCH;
-          default: return null;
-        }
-      }
-
-      public static com.google.protobuf.Internal.EnumLiteMap<Terminal>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static final com.google.protobuf.Internal.EnumLiteMap<
-          Terminal> internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<Terminal>() {
-              public Terminal findValueByNumber(int number) {
-                return Terminal.forNumber(number);
-              }
-            };
-
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        if (this == UNRECOGNIZED) {
-          throw new IllegalStateException(
-              "Can't get the descriptor of an unrecognized enum value.");
-        }
-        return getDescriptor().getValues().get(ordinal());
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return UserPacket.getDescriptor().getEnumTypes().get(1);
-      }
-
-      private static final Terminal[] VALUES = values();
-
-      public static Terminal valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        if (desc.getIndex() == -1) {
-          return UNRECOGNIZED;
-        }
-        return VALUES[desc.getIndex()];
-      }
-
-      private final int value;
-
-      private Terminal(int value) {
-        this.value = value;
-      }
-
-      // @@protoc_insertion_point(enum_scope:UserPacket.Terminal)
-    }
-
     public static final int USERID_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private volatile Object userId_ = "";
@@ -785,7 +463,7 @@ public final class UserPacketProto {
      * 用户状态
      * </pre>
      *
-     * <code>.UserPacket.UsersType status = 4;</code>
+     * <code>.TIMEnum.UserStatusType status = 4;</code>
      * @return The enum numeric value on the wire for status.
      */
     @Override public int getStatusValue() {
@@ -796,12 +474,12 @@ public final class UserPacketProto {
      * 用户状态
      * </pre>
      *
-     * <code>.UserPacket.UsersType status = 4;</code>
+     * <code>.TIMEnum.UserStatusType status = 4;</code>
      * @return The status.
      */
-    @Override public UsersType getStatus() {
-      UsersType result = UsersType.forNumber(status_);
-      return result == null ? UsersType.UNRECOGNIZED : result;
+    @Override public TIMEnumProto.TIMEnum.UserStatusType getStatus() {
+      TIMEnumProto.TIMEnum.UserStatusType result = TIMEnumProto.TIMEnum.UserStatusType.forNumber(status_);
+      return result == null ? TIMEnumProto.TIMEnum.UserStatusType.UNRECOGNIZED : result;
     }
 
     public static final int SIGN_FIELD_NUMBER = 5;
@@ -858,7 +536,7 @@ public final class UserPacketProto {
      * 所属终端
      * </pre>
      *
-     * <code>.UserPacket.Terminal terminal = 6;</code>
+     * <code>.TIMEnum.Terminal terminal = 6;</code>
      * @return The enum numeric value on the wire for terminal.
      */
     @Override public int getTerminalValue() {
@@ -869,12 +547,12 @@ public final class UserPacketProto {
      * 所属终端
      * </pre>
      *
-     * <code>.UserPacket.Terminal terminal = 6;</code>
+     * <code>.TIMEnum.Terminal terminal = 6;</code>
      * @return The terminal.
      */
-    @Override public Terminal getTerminal() {
-      Terminal result = Terminal.forNumber(terminal_);
-      return result == null ? Terminal.UNRECOGNIZED : result;
+    @Override public TIMEnumProto.TIMEnum.Terminal getTerminal() {
+      TIMEnumProto.TIMEnum.Terminal result = TIMEnumProto.TIMEnum.Terminal.forNumber(terminal_);
+      return result == null ? TIMEnumProto.TIMEnum.Terminal.UNRECOGNIZED : result;
     }
 
     public static final int FRIENDS_FIELD_NUMBER = 7;
@@ -1107,13 +785,13 @@ public final class UserPacketProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(avatar_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, avatar_);
       }
-      if (status_ != UsersType.ONLINE.getNumber()) {
+      if (status_ != TIMEnumProto.TIMEnum.UserStatusType.ONLINE.getNumber()) {
         output.writeEnum(4, status_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sign_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, sign_);
       }
-      if (terminal_ != Terminal.MAC.getNumber()) {
+      if (terminal_ != TIMEnumProto.TIMEnum.Terminal.MAC.getNumber()) {
         output.writeEnum(6, terminal_);
       }
       for (int i = 0; i < friends_.size(); i++) {
@@ -1146,14 +824,14 @@ public final class UserPacketProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(avatar_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, avatar_);
       }
-      if (status_ != UsersType.ONLINE.getNumber()) {
+      if (status_ != TIMEnumProto.TIMEnum.UserStatusType.ONLINE.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, status_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sign_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, sign_);
       }
-      if (terminal_ != Terminal.MAC.getNumber()) {
+      if (terminal_ != TIMEnumProto.TIMEnum.Terminal.MAC.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(6, terminal_);
       }
@@ -1970,7 +1648,7 @@ public final class UserPacketProto {
        * 用户状态
        * </pre>
        *
-       * <code>.UserPacket.UsersType status = 4;</code>
+       * <code>.TIMEnum.UserStatusType status = 4;</code>
        * @return The enum numeric value on the wire for status.
        */
       @Override public int getStatusValue() {
@@ -1981,7 +1659,7 @@ public final class UserPacketProto {
        * 用户状态
        * </pre>
        *
-       * <code>.UserPacket.UsersType status = 4;</code>
+       * <code>.TIMEnum.UserStatusType status = 4;</code>
        * @param value The enum numeric value on the wire for status to set.
        * @return This builder for chaining.
        */
@@ -1996,24 +1674,24 @@ public final class UserPacketProto {
        * 用户状态
        * </pre>
        *
-       * <code>.UserPacket.UsersType status = 4;</code>
+       * <code>.TIMEnum.UserStatusType status = 4;</code>
        * @return The status.
        */
       @Override
-      public UsersType getStatus() {
-        UsersType result = UsersType.forNumber(status_);
-        return result == null ? UsersType.UNRECOGNIZED : result;
+      public TIMEnumProto.TIMEnum.UserStatusType getStatus() {
+        TIMEnumProto.TIMEnum.UserStatusType result = TIMEnumProto.TIMEnum.UserStatusType.forNumber(status_);
+        return result == null ? TIMEnumProto.TIMEnum.UserStatusType.UNRECOGNIZED : result;
       }
       /**
        * <pre>
        * 用户状态
        * </pre>
        *
-       * <code>.UserPacket.UsersType status = 4;</code>
+       * <code>.TIMEnum.UserStatusType status = 4;</code>
        * @param value The status to set.
        * @return This builder for chaining.
        */
-      public Builder setStatus(UsersType value) {
+      public Builder setStatus(TIMEnumProto.TIMEnum.UserStatusType value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -2027,7 +1705,7 @@ public final class UserPacketProto {
        * 用户状态
        * </pre>
        *
-       * <code>.UserPacket.UsersType status = 4;</code>
+       * <code>.TIMEnum.UserStatusType status = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearStatus() {
@@ -2135,7 +1813,7 @@ public final class UserPacketProto {
        * 所属终端
        * </pre>
        *
-       * <code>.UserPacket.Terminal terminal = 6;</code>
+       * <code>.TIMEnum.Terminal terminal = 6;</code>
        * @return The enum numeric value on the wire for terminal.
        */
       @Override public int getTerminalValue() {
@@ -2146,7 +1824,7 @@ public final class UserPacketProto {
        * 所属终端
        * </pre>
        *
-       * <code>.UserPacket.Terminal terminal = 6;</code>
+       * <code>.TIMEnum.Terminal terminal = 6;</code>
        * @param value The enum numeric value on the wire for terminal to set.
        * @return This builder for chaining.
        */
@@ -2161,24 +1839,24 @@ public final class UserPacketProto {
        * 所属终端
        * </pre>
        *
-       * <code>.UserPacket.Terminal terminal = 6;</code>
+       * <code>.TIMEnum.Terminal terminal = 6;</code>
        * @return The terminal.
        */
       @Override
-      public Terminal getTerminal() {
-        Terminal result = Terminal.forNumber(terminal_);
-        return result == null ? Terminal.UNRECOGNIZED : result;
+      public TIMEnumProto.TIMEnum.Terminal getTerminal() {
+        TIMEnumProto.TIMEnum.Terminal result = TIMEnumProto.TIMEnum.Terminal.forNumber(terminal_);
+        return result == null ? TIMEnumProto.TIMEnum.Terminal.UNRECOGNIZED : result;
       }
       /**
        * <pre>
        * 所属终端
        * </pre>
        *
-       * <code>.UserPacket.Terminal terminal = 6;</code>
+       * <code>.TIMEnum.Terminal terminal = 6;</code>
        * @param value The terminal to set.
        * @return This builder for chaining.
        */
-      public Builder setTerminal(Terminal value) {
+      public Builder setTerminal(TIMEnumProto.TIMEnum.Terminal value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -2192,7 +1870,7 @@ public final class UserPacketProto {
        * 所属终端
        * </pre>
        *
-       * <code>.UserPacket.Terminal terminal = 6;</code>
+       * <code>.TIMEnum.Terminal terminal = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearTerminal() {
@@ -2915,24 +2593,20 @@ public final class UserPacketProto {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\020UserPacket.proto\"\300\003\n\nUserPacket\022\016\n\006use" +
-      "rId\030\001 \001(\t\022\014\n\004nick\030\002 \001(\t\022\016\n\006avatar\030\003 \001(\t\022" +
-      "%\n\006status\030\004 \001(\0162\025.UserPacket.UsersType\022\014" +
-      "\n\004sign\030\005 \001(\t\022&\n\010terminal\030\006 \001(\0162\024.UserPac" +
-      "ket.Terminal\022\034\n\007friends\030\007 \003(\0132\013.UserPack" +
-      "et\022\017\n\007groupId\030\010 \003(\t\022\016\n\006pinyin\030\t \001(\t\022\023\n\013f" +
-      "irstLetter\030\n \001(\t\"$\n\tUsersType\022\n\n\006ONLINE\020" +
-      "\000\022\013\n\007OFFLINE\020\001\"\254\001\n\010Terminal\022\007\n\003MAC\020\000\022\007\n\003" +
-      "WIN\020\001\022\007\n\003WEB\020\002\022\007\n\003IOS\020\003\022\013\n\007IOS_PAD\020\004\022\r\n\t" +
-      "IOS_WATCH\020\005\022\013\n\007ANDROID\020\006\022\017\n\013ANDROID_PAD\020" +
-      "\007\022\021\n\rANDROID_WATCH\020\010\022\013\n\007HARMONY\020\t\022\017\n\013HAR" +
-      "MONY_PAD\020\n\022\021\n\rHARMONY_WATCH\020\013B6\n#cn.star" +
-      "boot.tim.common.packet.protoB\017UserPacket" +
-      "Protob\006proto3"
+      "\n\020UserPacket.proto\032\rTIMEnum.proto\"\352\001\n\nUs" +
+      "erPacket\022\016\n\006userId\030\001 \001(\t\022\014\n\004nick\030\002 \001(\t\022\016" +
+      "\n\006avatar\030\003 \001(\t\022\'\n\006status\030\004 \001(\0162\027.TIMEnum" +
+      ".UserStatusType\022\014\n\004sign\030\005 \001(\t\022#\n\010termina" +
+      "l\030\006 \001(\0162\021.TIMEnum.Terminal\022\034\n\007friends\030\007 " +
+      "\003(\0132\013.UserPacket\022\017\n\007groupId\030\010 \003(\t\022\016\n\006pin" +
+      "yin\030\t \001(\t\022\023\n\013firstLetter\030\n \001(\tB6\n#cn.sta" +
+      "rboot.tim.common.packet.protoB\017UserPacke" +
+      "tProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          TIMEnumProto.getDescriptor(),
         });
     internal_static_UserPacket_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2940,6 +2614,7 @@ public final class UserPacketProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_UserPacket_descriptor,
         new String[] { "UserId", "Nick", "Avatar", "Status", "Sign", "Terminal", "Friends", "GroupId", "Pinyin", "FirstLetter", });
+    TIMEnumProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

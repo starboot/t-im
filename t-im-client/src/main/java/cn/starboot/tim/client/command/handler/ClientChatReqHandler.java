@@ -5,6 +5,7 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
+import cn.starboot.tim.common.packet.proto.TIMEnumProto;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,15 +31,15 @@ public class ClientChatReqHandler extends AbstractClientCmdHandler {
             throw new ImException("消息包格式化出错");
         }
         // 聊天类型int类型(0:未知,1:公聊,2:私聊
-        if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.UNKNOWN) {
+        if (chatPacket.getChatType() == TIMEnumProto.TIMEnum.ChatType.UNKNOWN) {
             log.error("用户{}发送未知消息类型", chatPacket.getFromId());
             return null;
         }
-        if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.PRIVATE) {
+        if (chatPacket.getChatType() == TIMEnumProto.TIMEnum.ChatType.PRIVATE) {
             System.out.println("ChatHandler:私聊消息：" + chatPacket.getContent());
         }
 
-        if (chatPacket.getChatType() == ChatPacketProto.ChatPacket.ChatType.GROUP) {
+        if (chatPacket.getChatType() == TIMEnumProto.TIMEnum.ChatType.GROUP) {
             System.out.println("ChatHandler:群聊消息：" + chatPacket.getContent());
         }
 

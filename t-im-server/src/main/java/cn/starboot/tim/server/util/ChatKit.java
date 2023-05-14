@@ -6,7 +6,6 @@ import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.utils.json.JsonUtil;
 import cn.starboot.socket.utils.lock.SetWithLock;
 import cn.starboot.tim.common.ImConfig;
-import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.server.TIM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

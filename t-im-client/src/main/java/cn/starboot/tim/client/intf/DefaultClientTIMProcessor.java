@@ -1,5 +1,6 @@
 package cn.starboot.tim.client.intf;
 
+import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 
@@ -47,12 +48,12 @@ public class DefaultClientTIMProcessor implements ClientTIMProcessor {
     }
 
 	@Override
-	public boolean beforeSend(ImPacket packet) {
+	public boolean beforeSend(ImChannelContext imChannelContext, ImPacket packet) {
 		return true;
 	}
 
 	@Override
-	public boolean handleChatPacket(ChatPacketProto.ChatPacket chatPacket) {
+	public boolean handleChatPacket(ImChannelContext imChannelContext, ChatPacketProto.ChatPacket chatPacket) {
 		return true;
 	}
 }
