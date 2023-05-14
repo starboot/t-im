@@ -32,18 +32,18 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			log.error("消息包格式化出错");
 			return null;
 		}
-		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_BIND_RESP).build();
-		setRespPacketImStatus(build,
-				StrUtil.isNotEmpty(packet.getBindId())
-						&& StrUtil.isNotBlank(packet.getBindId())
-						&& imChannelContext
-						.getConfig()
-						.getProcessor()
-						.handleBindPacket(imChannelContext, packet)
-						&& handler(packet, imChannelContext)
-						? RespPacketProto.RespPacket.ImStatus.BIND_SUCCESS
-						: RespPacketProto.RespPacket.ImStatus.BIND_FAILED);
-		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build) ? build : null;
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_BIND_RESP);
+		setRespPacketImStatus(imPacket,
+				verify(StrUtil.isNotEmpty(packet.getBindId()),
+						StrUtil.isNotBlank(packet.getBindId()),
+						imChannelContext
+								.getConfig()
+								.getProcessor()
+								.handleBindPacket(imChannelContext, packet),
+						handler(packet, imChannelContext)) ?
+						RespPacketProto.RespPacket.ImStatus.BIND_SUCCESS :
+						RespPacketProto.RespPacket.ImStatus.BIND_FAILED);
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket) ? imPacket : null;
 	}
 
 	private boolean handler(BindPacketProto.BindPacket packet, ImServerChannelContext imChannelContext) {

@@ -32,14 +32,18 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
 			log.error("消息包格式化出错");
 			return null;
 		}
-		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_AUTH_RESP).build();
-		setRespPacketImStatus(build,
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_AUTH_RESP);
+		setRespPacketImStatus(imPacket,
 				verify(StrUtil.isNotBlank(authPacket.getUserId()),
 						StrUtil.isNotBlank(authPacket.getToken()),
-						imChannelContext.getConfig().getProcessor().handleAuthPacket(imChannelContext, authPacket))
-						? RespPacketProto.RespPacket.ImStatus.AUTH_SUCCESS : RespPacketProto.RespPacket.ImStatus.AUTH_FAILED);
+						imChannelContext
+								.getConfig()
+								.getProcessor()
+								.handleAuthPacket(imChannelContext, authPacket)) ?
+						RespPacketProto.RespPacket.ImStatus.AUTH_SUCCESS :
+						RespPacketProto.RespPacket.ImStatus.AUTH_FAILED);
 
-		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build) ? build : null;
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket) ? imPacket : null;
 	}
 
 }

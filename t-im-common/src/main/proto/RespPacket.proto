@@ -57,6 +57,7 @@ message RespPacket{
 		UNBIND_FAILED = 22;
 		// TIM status: unbind success
 		UNBIND_SUCCESS = 23;
+		// 留作默认
 		C10024 = 24;
 		C10025 = 25;
 		C10026 = 26;

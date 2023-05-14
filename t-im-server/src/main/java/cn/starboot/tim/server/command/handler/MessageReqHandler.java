@@ -27,14 +27,13 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 
 	@Override
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
-
 		MessagePacketProto.MessagePacket messagePacket = MessagePacketProto.MessagePacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(messagePacket)) {
 			TIMLogUtil.error(LOGGER, "消息包格式化出错");
 			return null;
 		}
-		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_MESSAGE_RESP).build();
-
+		// TIM自研对象重复利用技术
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_MESSAGE_RESP);
 		// 群组ID;
 		String groupId = messagePacket.getGroupId();
 		// 当前用户ID;
@@ -54,7 +53,7 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 		if (StrUtil.isBlank(userId) && StrUtil.isNotBlank(imChannelContext.getImChannelContextId())) {
 			userId = imChannelContext.getImChannelContextId();
 		}
-		setRespPacketImStatus(build,
+		setRespPacketImStatus(imPacket,
 				verify(StrUtil.isNotBlank(userId),
 						ObjectUtil.isNotNull(messageType),
 						ObjectUtil.equal(messagePacket, MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE)
@@ -68,7 +67,7 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 		HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder = HistoryMessageProto.HistoryMessage.newBuilder().setUserId(userId);
 		switch (messageType) {
 			case HISTORY_MESSAGE: {
-				build.setData(StrUtil.isNotBlank(groupId) ?
+				imPacket.setData(StrUtil.isNotBlank(groupId) ?
 						imChannelContext
 								.getConfig()
 								.getTimPersistentHelper()
@@ -82,7 +81,7 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 
 			}
 			case OFF_LINE_MESSAGE: {
-				build.setData(imChannelContext
+				imPacket.setData(imChannelContext
 						.getConfig()
 						.getTimPersistentHelper()
 						.getOfflineMessage(userId, historyMessageBuilder)
@@ -91,6 +90,6 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 			default:
 				TIMLogUtil.error(LOGGER, "错误：未知查询类型");
 		}
-		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build) ? build : null;
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket) ? imPacket : null;
 	}
 }

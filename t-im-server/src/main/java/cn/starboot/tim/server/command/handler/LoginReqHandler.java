@@ -35,25 +35,26 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 			return null;
 		}
 		// 构造登录响应消息包
-		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_LOGIN_RESP).build();
-		setRespPacketImStatus(build,
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_LOGIN_RESP);
+		setRespPacketImStatus(imPacket,
 				verify(StrUtil.isNotBlank(loginPacket.getUserId()),
 						StrUtil.isNotBlank(loginPacket.getPassword()),
 						StrUtil.isNotBlank(loginPacket.getToken()),
-						imChannelContext.getConfig().getProcessor().handleLoginPacket(imChannelContext, loginPacket)
-				) ? RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS : RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED);
+						imChannelContext
+								.getConfig()
+								.getProcessor()
+								.handleLoginPacket(imChannelContext, loginPacket)) ?
+						RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS :
+						RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED);
 		UserPacketProto.UserPacket user = imChannelContext.getConfig().getProcessor().getUserByProcessor(imChannelContext, loginPacket);
-		// 进行绑定
-		if (ObjectUtil.isNotEmpty(user)) {
-			TIM.bindId(user.getUserId(), imChannelContext);
-			if (imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build)) {
-				sendToId(imChannelContext.getConfig(), user.getUserId(), build);
-			}
-			//初始化绑定或者解绑群组;
-			initGroup(imChannelContext, user);
+		if (ObjectUtil.isEmpty(user)) {
+			return null;
 		}
-		ImPacket respPacket = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_USERS_RESP).setData(user.toByteArray()).build();
-		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, respPacket) ? respPacket : null;
+		// 进行绑定
+		TIM.bindId(user.getUserId(), imChannelContext);
+		//初始化绑定或者解绑群组;
+		initGroup(imChannelContext, user);
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket.setData(user.toByteArray())) ? imPacket : null;
 	}
 
 	/**
