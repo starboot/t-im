@@ -65,4 +65,6 @@ message RespPacket{
 		C10029 = 29;
 	};
 	ImStatus imStatus = 1;
+
+	map<string, string> extra = 2;
 }

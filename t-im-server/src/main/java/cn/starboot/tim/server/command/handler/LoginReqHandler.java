@@ -2,15 +2,13 @@ package cn.starboot.tim.server.command.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
-import cn.starboot.tim.common.packet.proto.LoginPacketProto;
-import cn.starboot.tim.common.packet.proto.RespPacketProto;
-import cn.starboot.tim.common.packet.proto.TIMEnumProto;
-import cn.starboot.tim.common.packet.proto.UserPacketProto;
+import cn.starboot.tim.common.packet.proto.*;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.TIM;
+import cn.starboot.tim.server.command.TIMServerCommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,8 @@ import java.util.List;
  * Created by DELL(mxd) on 2021/12/25 15:01
  */
 public class LoginReqHandler extends AbstractServerCmdHandler {
-	private static final Logger log = LoggerFactory.getLogger(LoginReqHandler.class);
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginReqHandler.class);
 
 	@Override
 	public TIMCommandType command() {
@@ -32,7 +31,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		LoginPacketProto.LoginPacket loginPacket = LoginPacketProto.LoginPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(loginPacket)) {
-			log.error("消息包格式化出错");
+			LOGGER.error("消息包格式化出错");
 			return null;
 		}
 		// 构造登录响应消息包
@@ -43,26 +42,18 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 						StrUtil.isNotBlank(loginPacket.getToken()),
 						imChannelContext.getConfig().getProcessor().handleLoginPacket(imChannelContext, loginPacket)
 				) ? RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS : RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED);
-
 		UserPacketProto.UserPacket user = imChannelContext.getConfig().getProcessor().getUserByProcessor(imChannelContext, loginPacket);
 		// 进行绑定
 		if (ObjectUtil.isNotEmpty(user)) {
-            TIM.bindUser(user.getUserId(), imChannelContext);
+			TIM.bindId(user.getUserId(), imChannelContext);
+			if (imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, build)) {
+				sendToId(imChannelContext.getConfig(), user.getUserId(), build);
+			}
 			//初始化绑定或者解绑群组;
 			initGroup(imChannelContext, user);
-//            LoginRespBody respBody = new LoginRespBody(ImStatus.C10007, user, "t-im token");
-//            respBody.setId("1");
-//            respBody.setSyn(false);
-//            Tio.send(channelContext, new ImPacket(Command.COMMAND_LOGIN_RESP, respBody.toByte()));
-			// 用户注册进集群
-			if (user.getUserId().contains(":")) {
-				// 该登录用户为服务器 不注册进集群
-//                TIM.bindGroup(channelContext, "clusterGroup");
-				return null;
-			}
 		}
-
-		return build;
+		ImPacket respPacket = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_USERS_RESP).setData(user.toByteArray()).build();
+		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, respPacket) ? respPacket : null;
 	}
 
 	/**
@@ -70,14 +61,9 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 	 *
 	 * @param imChannelContext 通道上下文
 	 * @param loginPacket      登录请求体
-	 *                         //     * @param loginRespBody 登录响应体
 	 * @return 用户组装的User信息
 	 */
-	private UserPacketProto.UserPacket getUserByProcessor(ImChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket) {
-//        if (ObjectUtil.isEmpty(loginRespBody) || loginRespBody.getStatus() != ImStatus.C10007.getCode()) {
-//            log.error("login failed, userId:{}, password:{}", loginReqBody.getUserId(), loginReqBody.getToken());
-//            return null;
-//        }
+	private UserPacketProto.UserPacket getUserByProcessor(ImServerChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket) {
 		return UserPacketProto.UserPacket.newBuilder().setUserId(loginPacket.getUserId())
 				.setNick("t-im user")
 				.setAvatar("")
@@ -96,27 +82,32 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 	/**
 	 * 初始化绑定或者解绑群组;
 	 */
-	private void initGroup(ImChannelContext imChannelContext, UserPacketProto.UserPacket user) {
-		String userId = user.getUserId();
+	private void initGroup(ImServerChannelContext imChannelContext, UserPacketProto.UserPacket user) {
 		List<String> groups = user.getGroupIdList();
 		if (groups == null || groups.isEmpty()) {
 			return;
 		}
-//        boolean isStore = TCPSocketServer.isStore;
-		List<String> groupIds = null;
-//        if(isStore){
-//            log.debug("从存储介质中读取groupIds");
-//        }
-		//绑定群组
+		//绑定群组（且绑定状态会返回给客户端）
 		for (String group : groups) {
-//            ImPacket groupPacket = new ImPacket(Command.COMMAND_JOIN_GROUP_REQ, JsonKit.toJsonBytes(group));
 			try {
-//                BindReqHandler bindReqHandler = TIMServerCommandManager.getCommand(TIMCommandType.COMMAND_BIND_REQ, BindReqHandler.class);
-//                if (bindReqHandler != null) {
-//                    joinGroupReqHandler.handler(groupPacket, imChannelContext);
-//                }
+				TIMServerCommandManager
+						.getTIMServerCommandManagerInstance()
+						.getCommand(TIMCommandType.COMMAND_BIND_REQ)
+						.handler(ImPacket
+										.newBuilder()
+										.setTIMCommandType(TIMCommandType.COMMAND_BIND_REQ)
+										.setData(BindPacketProto
+												.BindPacket
+												.newBuilder()
+												.setBindId(group)
+												.setBindType(BindPacketProto.BindPacket.BindType.GROUP)
+												.setOptionType(BindPacketProto.BindPacket.OptionType.BIND)
+												.build()
+												.toByteArray())
+										.build(),
+								imChannelContext);
 			} catch (Exception e) {
-				log.error("JoinGroupReqHandler is not contain");
+				TIMLogUtil.error(LOGGER, e.getMessage());
 			}
 		}
 	}
