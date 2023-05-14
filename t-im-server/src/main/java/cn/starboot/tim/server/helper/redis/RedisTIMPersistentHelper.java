@@ -61,16 +61,16 @@ public abstract class RedisTIMPersistentHelper implements TIMPersistentHelper {
     }
 
     @Override
-    public HistoryMessageProto.HistoryMessage getGroupHistoryMessage(String groupId, String timelineId) {
+    public HistoryMessageProto.HistoryMessage getGroupHistoryMessage(String groupId, long beginTime, long endTime, int offset, int count, HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder) {
 		HistoryMessageProto.HistoryMessage historyMessage = HistoryMessageProto.HistoryMessage.newBuilder().setUserId(groupId).build();
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
 //        RMap<Object, Object> timMessage = redissonClient.getMap("TIMGroupMessage:" + timelineId);
         List<ChatPacketProto.ChatPacket> chatBodies;
 //        Object o = timMessage.get(groupId);
-        if ("*".equals(timelineId)) {
+//        if ("*".equals(timelineId)) {
             // 获取所有时间的历史记录
             System.out.println("获取*的群历史记录");
-        }
+//        }
 //        if (ObjectUtil.isEmpty(o)) {
 //            chatBodies = new ArrayList<>();
 //        }else {
@@ -107,7 +107,7 @@ public abstract class RedisTIMPersistentHelper implements TIMPersistentHelper {
 
 
     @Override
-    public HistoryMessageProto.HistoryMessage getFriendHistoryMessage(String userId, String fromUserId, String timelineId) {
+    public HistoryMessageProto.HistoryMessage getFriendHistoryMessage(String userId, String fromUserId, long beginTime, long endTime, int offset, int count, HistoryMessageProto.HistoryMessage.Builder historyMessageBuilder) {
 		HistoryMessageProto.HistoryMessage historyMessage = HistoryMessageProto.HistoryMessage.newBuilder().setUserId(userId).build();
         Map<String, List<ChatPacketProto.ChatPacket>> map = new HashMap<>();
 //        RMap<Object, Object> timMessage = redissonClient.getMap("TIMMessage:" + timelineId);
@@ -115,10 +115,10 @@ public abstract class RedisTIMPersistentHelper implements TIMPersistentHelper {
         String key1 = userId + "-" + fromUserId;
         List<ChatPacketProto.ChatPacket> chatBodies;
 //        Object o = timMessage.get(key);
-        if ("*".equals(timelineId)) {
+//        if ("*".equals(timelineId)) {
             // 获取所有时间的历史记录
             System.out.println("获取*的历史记录");
-        }
+//        }
 //        if (ObjectUtil.isEmpty(o)) {
 //            chatBodies = Convert.toList(ChatPacketProto.ChatPacket.class, timMessage.get(key1));
 //            if (ObjectUtil.isEmpty(chatBodies) || chatBodies == null){
