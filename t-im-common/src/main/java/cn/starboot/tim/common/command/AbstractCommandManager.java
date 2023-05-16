@@ -2,6 +2,7 @@ package cn.starboot.tim.common.command;
 
 import cn.starboot.socket.utils.config.Configuration;
 import cn.starboot.socket.utils.config.ConfigurationFactory;
+import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
 import org.slf4j.Logger;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class AbstractCommandManager<V extends AbstractCmdHandler> {
+public abstract class AbstractCommandManager<V extends AbstractCmdHandler<? extends ImChannelContext>> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCommandManager.class);
 
