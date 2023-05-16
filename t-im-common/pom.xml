@@ -24,10 +24,10 @@
 			<artifactId>fastjson2</artifactId>
 			<version>2.0.29</version>
 		</dependency>
-        <dependency>
-            <groupId>cn.starboot.socket</groupId>
-            <artifactId>aio-socket-all</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.starboot.socket</groupId>-->
+<!--            <artifactId>aio-socket-all</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>

@@ -1,11 +1,12 @@
 package cn.starboot.tim.common;
 
 import cn.starboot.socket.core.ChannelContext;
+import cn.starboot.tim.common.intf.TIMProcessor;
 
 /**
  * Created by DELL(mxd) on 2022/9/4 17:02
  */
-public abstract class ImChannelContext {
+public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor>> {
 
 	/**
 	 * 通讯对象
@@ -20,7 +21,7 @@ public abstract class ImChannelContext {
         return this.channelContext;
     }
 
-	public abstract ImConfig<?, ?> getConfig();
+	public abstract E getConfig();
 
 	public String getImChannelContextId() {
 		return this.channelContext.getId();

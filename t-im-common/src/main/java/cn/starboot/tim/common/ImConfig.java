@@ -8,7 +8,7 @@ import cn.starboot.tim.common.packet.ImPacket;
 /**
  * Created by DELL(mxd) on 2022/1/6 17:07
  */
-public abstract class ImConfig<P extends TIMProcessor, H> {
+public abstract class ImConfig<P extends TIMProcessor> {
 
 	public static final String name = "TIM";
 
@@ -52,6 +52,4 @@ public abstract class ImConfig<P extends TIMProcessor, H> {
 	}
 
 	public abstract P getProcessor();
-
-	public abstract H getTimPersistentHelper();
 }

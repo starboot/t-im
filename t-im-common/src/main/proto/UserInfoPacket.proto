@@ -1,0 +1,12 @@
+syntax = "proto3";
+option java_package = "cn.starboot.tim.common.packet.proto";
+option java_outer_classname="UserInfoPacketProto";
+import "TIMEnum.proto";
+
+// IM私有协议包
+message UserInfoPacket {
+	// 用户名ID
+	string userId = 1;
+	// 查询状态
+	TIMEnum.UserStatusType status = 2;
+}

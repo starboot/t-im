@@ -33,6 +33,11 @@ public class DefaultServerTIMProcessor implements ServerTIMProcessor {
 	}
 
 	@Override
+	public boolean handleGetUserInfoPacket(ImServerChannelContext imChannelContext, UserInfoPacketProto.UserInfoPacket userInfoPacket) {
+		return false;
+	}
+
+	@Override
 	public UserPacketProto.UserPacket getUserByProcessor(ImServerChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket) {
 		return null;
 	}

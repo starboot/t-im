@@ -4,7 +4,7 @@ import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImConfig;
 
-public class ImClientChannelContext extends ImChannelContext {
+public class ImClientChannelContext extends ImChannelContext<ImClientConfig> {
 
 	private final ImClientConfig clientConfig;
 
@@ -14,7 +14,7 @@ public class ImClientChannelContext extends ImChannelContext {
 	}
 
 	@Override
-	public ImConfig getConfig() {
+	public ImClientConfig getConfig() {
 		return this.clientConfig;
 	}
 }

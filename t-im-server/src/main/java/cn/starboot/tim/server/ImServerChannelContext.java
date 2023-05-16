@@ -9,7 +9,7 @@ import cn.starboot.tim.server.intf.ServerTIMProcessor;
 /**
  * 服务器TIM通道上下文
  */
-public class ImServerChannelContext extends ImChannelContext {
+public class ImServerChannelContext extends ImChannelContext<ImServerConfig> {
 
 	/**
 	 * TIM 服务器配置信息
@@ -22,7 +22,7 @@ public class ImServerChannelContext extends ImChannelContext {
 	}
 
 	@Override
-	public ImConfig<ServerTIMProcessor, TIMPersistentHelper> getConfig() {
+	public ImServerConfig getConfig() {
 		return this.config;
 	}
 }

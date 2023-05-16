@@ -6,6 +6,7 @@ import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.utils.json.JsonUtil;
 import cn.starboot.socket.utils.lock.SetWithLock;
 import cn.starboot.tim.common.ImConfig;
+import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.server.TIM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,8 +90,9 @@ public class ChatKit {
       * @return .
       */
      public static boolean isOnline(ImConfig imConfig, String userId){
-		 SetWithLock<ChannelContext> channelContextByUserId = TIM.getChannelContextByUserId(imConfig, userId);
-		 return ObjectUtil.isNotEmpty(channelContextByUserId) && channelContextByUserId.size() > 0;
+//		 SetWithLock<ChannelContext> channelContextByUserId = TIM.getChannelContextByUserId(imConfig, userId);
+//		 return ObjectUtil.isNotEmpty(channelContextByUserId) && channelContextByUserId.size() > 0;
+		 return true;
 	 }
 
 	/**

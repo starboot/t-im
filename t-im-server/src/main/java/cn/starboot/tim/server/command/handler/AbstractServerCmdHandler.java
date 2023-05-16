@@ -6,6 +6,7 @@ import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
+import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.TIM;
 import cn.starboot.tim.server.cache.TIMPersistentHelper;
 import cn.starboot.tim.server.intf.ServerTIMProcessor;
@@ -15,15 +16,15 @@ import cn.starboot.tim.server.intf.ServerTIMProcessor;
  */
 public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServerChannelContext> {
 
-	protected void sendToId(ImConfig<ServerTIMProcessor, TIMPersistentHelper> imConfig, String toId, ImPacket imPacket) {
+	protected void sendToId(ImServerConfig imConfig, String toId, ImPacket imPacket) {
 		TIM.sendToId(imConfig, toId, imPacket);
 	}
 
-	protected void sendToGroup(ImConfig<ServerTIMProcessor, TIMPersistentHelper> imConfig, String toGroupId, ImPacket imPacket) {
+	protected void sendToGroup(ImServerConfig imConfig, String toGroupId, ImPacket imPacket) {
 		TIM.sendToGroup(imConfig, toGroupId, imPacket);
 	}
 
-	protected void sendToGroup(ImConfig<ServerTIMProcessor, TIMPersistentHelper> imConfig, String toGroupId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+	protected void sendToGroup(ImServerConfig imConfig, String toGroupId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		TIM.sendToGroup(imConfig, toGroupId, imPacket, channelContextFilter);
 	}
 
