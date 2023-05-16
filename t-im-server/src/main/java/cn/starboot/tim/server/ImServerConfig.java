@@ -1,5 +1,6 @@
 package cn.starboot.tim.server;
 
+import cn.starboot.socket.core.AioConfig;
 import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.server.cache.TIMPersistentHelper;
 import cn.starboot.tim.server.cluster.ICluster;
@@ -39,6 +40,11 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor, TIMPersistentHe
 	@Override
 	public TIMPersistentHelper getTimPersistentHelper() {
 		return timPersistentHelper;
+	}
+
+	@Override
+	protected void setAioConfig(AioConfig aioConfig) {
+		this.aioConfig = aioConfig;
 	}
 
 	@Override
