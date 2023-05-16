@@ -32,4 +32,13 @@ public abstract class AbstractCmdHandler<C extends ImChannelContext> implements 
 								   byte[] data) {
 		return imChannelContext.getConfig().getImPacketFactory().createImPacket(timCommandType, imStatus, data);
 	}
+
+	protected boolean verify(boolean ...booleans) {
+		boolean r = true;
+		for (boolean b:
+				booleans) {
+			r = r && b;
+		}
+		return r;
+	}
 }
