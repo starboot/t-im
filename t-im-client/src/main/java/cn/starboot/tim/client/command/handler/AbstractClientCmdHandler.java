@@ -4,6 +4,7 @@ package cn.starboot.tim.client.command.handler;
 //import cn.starboot.socket.Packet;
 //import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.client.ImClientChannelContext;
+import cn.starboot.tim.client.ImClientConfig;
 import cn.starboot.tim.client.intf.DefaultClientTIMProcessor;
 import cn.starboot.tim.client.intf.ClientTIMProcessor;
 import cn.starboot.tim.common.ImChannelContext;
@@ -16,16 +17,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:45
  */
-public abstract class AbstractClientCmdHandler extends AbstractCmdHandler<ImClientChannelContext> {
+public abstract class AbstractClientCmdHandler extends AbstractCmdHandler<ImClientChannelContext, ImClientConfig, ClientTIMProcessor> {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractClientCmdHandler.class);
 
 
-	protected void send(ImChannelContext imChannelContext, TIMCommandType TIMCommandType, byte[] data) {
+	protected void send(ImChannelContext<ImClientConfig> imChannelContext, TIMCommandType TIMCommandType, byte[] data) {
 
 	}
 
-	protected ClientTIMProcessor processor(ImChannelContext channelContext){
+	protected ClientTIMProcessor processor(ImChannelContext<ImClientConfig> channelContext){
 //        TioConfig tioConfig = channelContext.getTioConfig();
 //        if (tioConfig instanceof TIMClientConfig) {
 //            TIMClientConfig clientConfig = (TIMClientConfig) tioConfig;

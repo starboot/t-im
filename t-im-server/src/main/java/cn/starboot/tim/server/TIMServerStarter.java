@@ -28,9 +28,6 @@ public class TIMServerStarter {
 
 	private final ImServerConfig imServerConfig;
 
-	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory
-			= channelContext -> new ImServerChannelContext(channelContext, getImServerConfig());
-
 	static {
 		TimBanner timBanner = new TimBanner();
 		timBanner.printBanner(System.out);

@@ -9,7 +9,7 @@ import cn.starboot.tim.common.packet.proto.ChatPacketProto;
  */
 public interface TIMProcessor {
 
-	boolean beforeSend(ImChannelContext imChannelContext, ImPacket packet);
+	boolean beforeSend(ImChannelContext<?> imChannelContext, ImPacket packet);
 
-	boolean handleChatPacket(ImChannelContext imChannelContext, ChatPacketProto.ChatPacket chatPacket);
+	boolean handleChatPacket(ImChannelContext<?> imChannelContext, ChatPacketProto.ChatPacket chatPacket);
 }

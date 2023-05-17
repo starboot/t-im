@@ -14,7 +14,7 @@ import cn.starboot.tim.server.intf.ServerTIMProcessor;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:45
  */
-public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServerChannelContext> {
+public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServerChannelContext, ImServerConfig, ServerTIMProcessor> {
 
 	protected void sendToId(ImServerConfig imConfig, String toId, ImPacket imPacket) {
 		TIM.sendToId(imConfig, toId, imPacket);
