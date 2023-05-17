@@ -6,7 +6,6 @@ import cn.starboot.socket.core.ServerBootstrap;
 import cn.starboot.socket.plugins.HeartPlugin;
 import cn.starboot.socket.plugins.MonitorPlugin;
 import cn.starboot.socket.utils.pool.memory.MemoryPool;
-import cn.starboot.tim.common.factory.ImChannelContextFactory;
 import cn.starboot.tim.common.banner.TimBanner;
 import cn.starboot.tim.server.intf.ServerTIMProcessor;
 import cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler;
@@ -70,8 +69,7 @@ public class TIMServerStarter {
 
     private void init() {
         //加载配置信息
-//        P.use("tim.properties");
-
+		TIMConfigManager.init(this.imServerConfig);
     }
 
 	private void start0() {
@@ -95,10 +93,5 @@ public class TIMServerStarter {
 	public ImServerConfig getImServerConfig() {
 		return this.imServerConfig;
 	}
-
-    public static void main(String[] args) {
-        TIMServerStarter timServerStarter = TIMServerStarter.getInstance();
-        timServerStarter.start();
-    }
 
 }
