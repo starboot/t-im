@@ -1,6 +1,9 @@
 package cn.starboot.tim.client.command;
 
+import cn.starboot.tim.client.ImClientChannelContext;
+import cn.starboot.tim.client.ImClientConfig;
 import cn.starboot.tim.client.command.handler.AbstractClientCmdHandler;
+import cn.starboot.tim.client.intf.ClientTIMProcessor;
 import cn.starboot.tim.common.command.AbstractCommandManager;
 import cn.starboot.tim.common.command.TIMCommandType;
 
@@ -12,7 +15,7 @@ import java.util.*;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:44
  */
-public class TIMClientCommandManager extends AbstractCommandManager<AbstractClientCmdHandler> {
+public class TIMClientCommandManager extends AbstractCommandManager<AbstractClientCmdHandler, ImClientChannelContext, ImClientConfig, ClientTIMProcessor> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TIMClientCommandManager.class);
 

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class TIMPlugin {
 
-	public boolean beforeProcess(ImPacket imPacket, ImChannelContext imChannelContext) {
+	public boolean beforeProcess(ImPacket imPacket, ImChannelContext<?> imChannelContext) {
 		byte[] data = imPacket.getData();
 		return !(Objects.isNull(data) || data.length == 0);
 	}

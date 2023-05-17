@@ -13,7 +13,9 @@ import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.plugin.TIMPlugin;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
+import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.command.TIMServerCommandManager;
+import cn.starboot.tim.server.intf.ServerTIMProcessor;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,17 +53,15 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
 		if (ObjectUtil.isEmpty(imServerChannelContext)) {
 			imServerChannelContext = serverImChannelContextFactory.createImChannelContext(channelContext);
 			if (imServerChannelContext.getConfig() == null) {
-				System.out.println("无");
 				TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：没有加载到配置文件...");
 			}
-			System.out.println("有");
 			channelContext.attr(Key.IM_CHANNEL_CONTEXT_KEY, imServerChannelContext);
 		}
         if (packet instanceof ImPacket) {
             // 消息处理
             ImPacket imPacket = (ImPacket) packet;
             TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
-            AbstractCmdHandler cmdHandler = this.timServerTIMCommandManager.getCommand(TIMCommandType);
+            AbstractCmdHandler<ImServerChannelContext, ImServerConfig, ServerTIMProcessor> cmdHandler = this.timServerTIMCommandManager.getCommand(TIMCommandType);
             try {
             	if (timPlugin.beforeProcess(imPacket, imServerChannelContext)) {
 					cmdHandler.handler(imPacket, imServerChannelContext);
