@@ -7,7 +7,6 @@ import cn.starboot.tim.client.ImClientChannelContext;
 import cn.starboot.tim.client.ImClientConfig;
 import cn.starboot.tim.client.command.handler.AbstractClientCmdHandler;
 import cn.starboot.tim.client.command.TIMClientCommandManager;
-import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.TIMCommandType;

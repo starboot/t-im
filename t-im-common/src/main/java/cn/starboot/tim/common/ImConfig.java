@@ -18,22 +18,12 @@ public abstract class ImConfig<P extends TIMProcessor> {
 
 	public static final String authKey = "authKey";
 
-	private final AioConfig aioConfig;
-
-	/**
-	 * 本机IP
-	 */
-	public static String ip = "127.0.0.1";
-
-	/**
-	 * 本地tcp端口
-	 */
-	public static int port = 8888;
-
 	/**
 	 * 开启SSL
 	 */
 	public static boolean isUseSSL;
+
+	private final AioConfig aioConfig;
 
 	private final ImPacketFactory imPacketFactory = (timCommandType, imStatus, data) -> ImPacket.newBuilder().setTIMCommandType(timCommandType).setImStatus(imStatus).setData(data).build();
 
@@ -54,4 +44,12 @@ public abstract class ImConfig<P extends TIMProcessor> {
 	}
 
 	public abstract P getProcessor();
+
+	public String getHost() {
+		return this.aioConfig.getHost();
+	}
+
+	public int getPort() {
+		return this.aioConfig.getPort();
+	}
 }
