@@ -1,5 +1,6 @@
 package cn.starboot.tim.client.command.handler;
 
+import cn.starboot.tim.client.ImClientChannelContext;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
@@ -20,8 +21,8 @@ public class AuthRespHandler extends AbstractClientCmdHandler {
         return TIMCommandType.COMMAND_AUTH_RESP;
     }
 
-    @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
+	@Override
+    public ImPacket handler(ImPacket imPacket, ImClientChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
 //        RespBody body = TIMClient.processor.instanceofHandler(packet, RespBody.class);
 //
 //        if (Objects.isEmpty(body)) {

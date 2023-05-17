@@ -1,5 +1,6 @@
 package cn.starboot.tim.client.command.handler;
 
+import cn.starboot.tim.client.ImClientChannelContext;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
@@ -25,7 +26,7 @@ public class ClientChatReqHandler extends AbstractClientCmdHandler {
     }
 
     @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
+    public ImPacket handler(ImPacket imPacket, ImClientChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
         ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
         if (Objects.isNull(chatPacket)) {
             throw new ImException("消息包格式化出错");

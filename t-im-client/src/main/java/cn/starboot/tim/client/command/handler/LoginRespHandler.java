@@ -1,6 +1,7 @@
 package cn.starboot.tim.client.command.handler;
 
 
+import cn.starboot.tim.client.ImClientChannelContext;
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
@@ -18,7 +19,7 @@ public class LoginRespHandler extends AbstractClientCmdHandler {
     }
 
     @Override
-    public ImPacket handler(ImPacket imPacket, ImChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
+    public ImPacket handler(ImPacket imPacket, ImClientChannelContext channelContext) throws ImException, InvalidProtocolBufferException {
 //        if (packet instanceof ImPacket) {
 //            ImPacket imPacket = (ImPacket) packet;
 //            byte[] body = imPacket.getBody();

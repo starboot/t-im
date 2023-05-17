@@ -11,13 +11,9 @@ public class ImClientConfig extends ImConfig<ClientTIMProcessor> {
 
     private final ClientTIMProcessor clientProcessor;
 
-	public ImClientConfig(ClientTIMProcessor clientProcessor) {
+	public ImClientConfig(ClientTIMProcessor clientProcessor, AioConfig aioConfig) {
+		super(aioConfig);
 		this.clientProcessor = clientProcessor;
-	}
-
-	@Override
-	protected void setAioConfig(AioConfig aioConfig) {
-		this.aioConfig = aioConfig;
 	}
 
 	@Override

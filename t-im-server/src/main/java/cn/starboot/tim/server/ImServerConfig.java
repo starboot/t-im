@@ -33,17 +33,13 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 	 */
 	public final int HEARTBEAT_TIMEOUT = 1000 * 60;
 
-	public ImServerConfig(ServerTIMProcessor serverProcessor) {
+	public ImServerConfig(ServerTIMProcessor serverProcessor, AioConfig aioConfig) {
+		super(aioConfig);
 		this.serverProcessor = serverProcessor;
 	}
 
 	public TIMPersistentHelper getTimPersistentHelper() {
 		return timPersistentHelper;
-	}
-
-	@Override
-	protected void setAioConfig(AioConfig aioConfig) {
-		this.aioConfig = aioConfig;
 	}
 
 	@Override

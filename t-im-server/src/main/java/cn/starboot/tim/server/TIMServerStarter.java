@@ -22,12 +22,14 @@ public class TIMServerStarter {
 
     private static final Logger log = LoggerFactory.getLogger(TIMServerStarter.class);
 
+    private final ServerBootstrap serverBootstrap;
+
     private static TIMServerStarter timServerStarter;
 
 	private final ImServerConfig imServerConfig;
 
 	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory
-			= (channelContext) -> new ImServerChannelContext(channelContext, getImServerConfig());
+			= channelContext -> new ImServerChannelContext(channelContext, getImServerConfig());
 
 	static {
 		TimBanner timBanner = new TimBanner();
@@ -35,7 +37,11 @@ public class TIMServerStarter {
 	}
 
 	protected TIMServerStarter(ServerTIMProcessor serverProcessor) {
-		this.imServerConfig = new ImServerConfig(serverProcessor);
+		this.serverBootstrap
+				= new ServerBootstrap("127.0.0.1",
+				8888,
+				ImServerProtocolHandler.getInstance(channelContext -> new ImServerChannelContext(channelContext, getImServerConfig())));
+		this.imServerConfig = new ImServerConfig(serverProcessor, this.serverBootstrap.getConfig());
 	}
 
 	public static TIMServerStarter getInstance() {
@@ -72,11 +78,8 @@ public class TIMServerStarter {
     }
 
 	private void start0() {
-		ServerBootstrap serverBootstrap
-				= new ServerBootstrap("127.0.0.1",
-				8888,
-				ImServerProtocolHandler.getInstance(serverImChannelContextFactory));
-		serverBootstrap
+
+		this.serverBootstrap
 				.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
 				.setThreadNum(1, 4)
 				.setReadBufferSize(1024 * 50)
@@ -89,7 +92,6 @@ public class TIMServerStarter {
 					}
 				})
 				.start();
-		getImServerConfig().setAioConfig(serverBootstrap.getConfig());
 		log.info("TCP服务器启动在：{}:{}", "127.0.0.1", 8888);
 	}
 

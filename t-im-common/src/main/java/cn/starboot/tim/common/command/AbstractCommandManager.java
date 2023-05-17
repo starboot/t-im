@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class AbstractCommandManager<V extends AbstractCmdHandler<? extends ImChannelContext>> {
+public abstract class AbstractCommandManager<V extends AbstractCmdHandler<? extends ImChannelContext<?>>> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCommandManager.class);
 

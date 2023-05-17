@@ -13,6 +13,9 @@ import cn.starboot.tim.client.intf.ClientTIMProcessor;
 import cn.starboot.tim.client.protocol.ImClientProtocolHandler;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.proto.ChatPacketProto;
+import cn.starboot.tim.common.packet.proto.TIMEnumProto;
+import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,10 +54,10 @@ public class TIMClient {
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.newBuilder()
 				.setFromId("1191998028")
 				.setToId("2268509287")
-				.setChatType(ChatPacketProto.ChatPacket.ChatType.PRIVATE)
+				.setChatType(TIMEnumProto.TIMEnum.ChatType.PRIVATE)
 				.setCreateTime(System.currentTimeMillis())
 				.setContent("TIM通过aio-socket发送消息")
-				.setMsgType(ChatPacketProto.ChatPacket.MsgType.TEXT)
+				.setMsgType(TIMEnumProto.TIMEnum.MsgType.TEXT)
 				.build();
 		TIMClient.getInstance().sendChatBody(chatPacket, null);
 	}

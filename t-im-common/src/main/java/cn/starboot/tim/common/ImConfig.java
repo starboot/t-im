@@ -18,7 +18,7 @@ public abstract class ImConfig<P extends TIMProcessor> {
 
 	public static final String authKey = "authKey";
 
-	protected AioConfig aioConfig;
+	private final AioConfig aioConfig;
 
 	/**
 	 * 本机IP
@@ -37,7 +37,9 @@ public abstract class ImConfig<P extends TIMProcessor> {
 
 	private final ImPacketFactory imPacketFactory = (timCommandType, imStatus, data) -> ImPacket.newBuilder().setTIMCommandType(timCommandType).setImStatus(imStatus).setData(data).build();
 
-	protected abstract void setAioConfig(AioConfig aioConfig);
+	public ImConfig(AioConfig aioConfig) {
+		this.aioConfig = aioConfig;
+	}
 
 	public AioConfig getAioConfig() {
 		return this.aioConfig;

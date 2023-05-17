@@ -51,8 +51,10 @@ public class ImServerProtocolHandler extends TIMPrivateTcpProtocol {
 		if (ObjectUtil.isEmpty(imServerChannelContext)) {
 			imServerChannelContext = serverImChannelContextFactory.createImChannelContext(channelContext);
 			if (imServerChannelContext.getConfig() == null) {
+				System.out.println("无");
 				TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：没有加载到配置文件...");
 			}
+			System.out.println("有");
 			channelContext.attr(Key.IM_CHANNEL_CONTEXT_KEY, imServerChannelContext);
 		}
         if (packet instanceof ImPacket) {
