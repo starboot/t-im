@@ -9,7 +9,7 @@ import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.TIM;
+import cn.starboot.tim.server.TIMServer;
 import cn.starboot.tim.server.util.ChatKit;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(chatPacket)) {
 			TIMLogUtil.error(LOGGER, "消息包格式化出错");
-			TIM.remove(imChannelContext, CloseCode.READ_ERROR);
+			TIMServer.remove(imChannelContext, CloseCode.READ_ERROR);
 			return null;
 		}
 		ImPacket packet = getImPacket(imChannelContext, TIMCommandType.COMMAND_CHAT_RESP);

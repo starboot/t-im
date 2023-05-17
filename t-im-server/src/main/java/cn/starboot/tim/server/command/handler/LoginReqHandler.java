@@ -7,7 +7,7 @@ import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.*;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.TIM;
+import cn.starboot.tim.server.TIMServer;
 import cn.starboot.tim.server.command.TIMServerCommandManager;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -51,7 +51,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 			return null;
 		}
 		// 进行绑定
-		TIM.bindId(user.getUserId(), imChannelContext);
+		TIMServer.bindId(user.getUserId(), imChannelContext);
 		//初始化绑定或者解绑群组;
 		initGroup(imChannelContext, user);
 		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket.setData(user.toByteArray())) ? imPacket : null;

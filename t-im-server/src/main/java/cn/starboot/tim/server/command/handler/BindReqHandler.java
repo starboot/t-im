@@ -8,7 +8,7 @@ import cn.starboot.tim.common.packet.proto.BindPacketProto;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.TIM;
+import cn.starboot.tim.server.TIMServer;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,15 +62,15 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 		// 进行绑定操作
 		switch (packet.getBindType()) {
 			case ID:
-				return TIM.bindId(packet.getBindId(), imChannelContext);
+				return TIMServer.bindId(packet.getBindId(), imChannelContext);
 			case IP:
-				return TIM.bindId(packet.getBindId(), imChannelContext);
+				return TIMServer.bindId(packet.getBindId(), imChannelContext);
 			case BS_ID:
 				return false;
 			case GROUP:
-				return TIM.bindGroup(packet.getBindId(), imChannelContext);
+				return TIMServer.bindGroup(packet.getBindId(), imChannelContext);
 			case USER:
-				return TIM.bindUser(packet.getBindId(), imChannelContext);
+				return TIMServer.bindUser(packet.getBindId(), imChannelContext);
 			case TOKEN:
 				return false;
 			default:

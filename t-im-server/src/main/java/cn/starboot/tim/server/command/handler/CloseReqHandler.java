@@ -7,7 +7,7 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ClosePacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.TIM;
+import cn.starboot.tim.server.TIMServer;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +29,10 @@ public class CloseReqHandler extends AbstractServerCmdHandler {
         ClosePacketProto.ClosePacket closePacket = ClosePacketProto.ClosePacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(closePacket) || StrUtil.isBlank(closePacket.getUserId())) {
 			LOGGER.error("用户发送异常关闭请求，将其强行断开");
-            TIM.remove(imChannelContext);
+            TIMServer.remove(imChannelContext);
         }
         if (imChannelContext.getConfig().getProcessor().handleClosePacket(imChannelContext, closePacket)) {
-			TIM.remove(imChannelContext, CloseCode.NO_CODE);
+			TIMServer.remove(imChannelContext, CloseCode.NO_CODE);
 		}
         return null;
     }

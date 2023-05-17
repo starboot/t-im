@@ -7,11 +7,8 @@ import cn.starboot.socket.enums.CloseCode;
 import cn.starboot.socket.enums.MaintainEnum;
 import cn.starboot.socket.utils.lock.SetWithLock;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.util.TIMLogUtil;
-import cn.starboot.tim.server.cache.TIMPersistentHelper;
-import cn.starboot.tim.server.intf.ServerTIMProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,19 +16,19 @@ import org.slf4j.LoggerFactory;
  * 封装AIO实体类，使得集群发送和单体发送集中管理
  * Created by DELL(mxd) on 2021/12/25 23:21
  */
-public class TIM {
+public class TIMServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TIM.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TIMServer.class);
 
-	public static boolean bindUser(String userId, ImChannelContext imChannelContext) {
+	public static boolean bindUser(String userId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return bind(MaintainEnum.USER, userId, imChannelContext);
 	}
 
-	public static boolean bindGroup(String groupId, ImChannelContext imChannelContext) {
+	public static boolean bindGroup(String groupId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return bind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
 	}
 
-	public static boolean bindId(String id, ImChannelContext imChannelContext) {
+	public static boolean bindId(String id, ImChannelContext<ImServerConfig> imChannelContext) {
 		return bind(MaintainEnum.ID, id, imChannelContext);
 	}
 
@@ -43,7 +40,7 @@ public class TIM {
 		return Aio.getByUser(imConfig.getAioConfig(), userId);
 	}
 
-    public static void send(ImChannelContext channelContext, ImPacket packet) {
+    public static void send(ImChannelContext<ImServerConfig> channelContext, ImPacket packet) {
         Aio.send(channelContext.getChannelContext(), packet);
     }
 
@@ -67,11 +64,11 @@ public class TIM {
     }
 
 
-	public static void remove(ImChannelContext imChannelContext) {
+	public static void remove(ImChannelContext<ImServerConfig> imChannelContext) {
 		remove(imChannelContext, null);
 	}
 
-    public static void remove(ImChannelContext imChannelContext, CloseCode closeCode) {
+    public static void remove(ImChannelContext<ImServerConfig> imChannelContext, CloseCode closeCode) {
 		close(imChannelContext, closeCode);
     }
 
@@ -91,7 +88,7 @@ public class TIM {
 		close(MaintainEnum.USER, imConfig, maintainId, closeCode);
 	}
 
-	private static boolean bind(MaintainEnum maintainEnum, String maintainId, ImChannelContext imChannelContext) {
+	private static boolean bind(MaintainEnum maintainEnum, String maintainId, ImChannelContext<ImServerConfig> imChannelContext) {
 		ChannelContext channelContext = imChannelContext.getChannelContext();
 		boolean result = false;
 		switch (maintainEnum) {
@@ -134,7 +131,7 @@ public class TIM {
 		return result;
 	}
 
-	private static void close(ImChannelContext imChannelContext, CloseCode closeCode) {
+	private static void close(ImChannelContext<ImServerConfig> imChannelContext, CloseCode closeCode) {
 		Aio.close(imChannelContext.getChannelContext(), closeCode);
 	}
 
@@ -226,7 +223,7 @@ public class TIM {
 		}
 	}
 
-	private static boolean unbind(MaintainEnum maintainEnum, ImServerConfig imConfig, String maintainId, ImChannelContext imChannelContext) {
+	private static boolean unbind(MaintainEnum maintainEnum, ImServerConfig imConfig, String maintainId, ImChannelContext<ImServerConfig> imChannelContext) {
 		boolean result = false;
 		switch (maintainEnum) {
 			case Bs_ID: {
@@ -268,7 +265,7 @@ public class TIM {
 		return result;
 	}
 
-	private static boolean unbindFromAll(MaintainEnum maintainEnum, ImChannelContext imChannelContext) {
+	private static boolean unbindFromAll(MaintainEnum maintainEnum, ImChannelContext<ImServerConfig> imChannelContext) {
 		boolean result = false;
 		switch (maintainEnum) {
 			case CLU_ID: {
@@ -298,6 +295,6 @@ public class TIM {
 		return result;
 	}
 
-	private TIM() {
+	private TIMServer() {
 	}
 }
