@@ -43,26 +43,31 @@ class TIMConfigManager {
 	}
 
 	private static void init0(List<Configuration> configurationList, ImServerConfig imServerConfig) throws InvocationTargetException, IllegalAccessException {
+		Map<String, String> kernelMap = new HashMap<>(configurationList.size());
 
-		Map<String, String> kernelMap = new HashMap<>(20);
+		// 初始化内核配置
 		configurationList.stream().distinct()
 				.filter(configuration -> configuration.getName().contains("tim.kernel"))
 				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.kernel.")[1], configuration.getValue()[0]));
 		mapToObject(imServerConfig.getAioConfig(), kernelMap);
-
-		System.out.println(imServerConfig.getAioConfig().getReadBufferSize());
-
+		TIMLogUtil.info(LOGGER, "kernel Configuration : {}", imServerConfig.getAioConfig());
 		kernelMap.clear();
+
+		// 初始化Redis配置
 		configurationList.stream().distinct()
 				.filter(configuration -> configuration.getName().contains("tim.redis"))
 				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.redis.")[1], configuration.getValue()[0]));
 		mapToObject(imServerConfig.getRedisConfig(), kernelMap);
-
+		TIMLogUtil.info(LOGGER, "Redis Configuration : {}", imServerConfig.getRedisConfig());
 		kernelMap.clear();
+
+		// 初始化TIM Server配置
 		configurationList.stream().distinct()
 				.filter(configuration -> configuration.getName().contains("tim.server"))
 				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.server.")[1], configuration.getValue()[0]));
 		mapToObject(imServerConfig, kernelMap);
+		TIMLogUtil.info(LOGGER, "TIM Server Configuration : {}", imServerConfig);
+		kernelMap.clear();
 	}
 
 	private static void mapToObject(Object object, Map<String, String> map) throws InvocationTargetException, IllegalAccessException {
@@ -74,8 +79,6 @@ class TIMConfigManager {
 				String value = map.get(key);
 				if (value != null) {
 					Class<?>[] parameterTypes = method.getParameterTypes();
-					System.out.println(name + "--" + parameterTypes[0].getName());
-					System.out.println(key + "-" + value);
 					switch (parameterTypes[0].getName()) {
 						case "int":
 						case "java.lang.Integer":

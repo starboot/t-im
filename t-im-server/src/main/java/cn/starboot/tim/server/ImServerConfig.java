@@ -36,7 +36,9 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 	private String sslPassword;
 
 	private int monitorRate;
+
 	private int heartPeriod;
+
 	private int heartTimeout;
 
 	private final RedisConfig redisConfig = new RedisConfig();
@@ -80,11 +82,19 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 	}
 
 	public void setPort(int port) {
-
+		getAioConfig().setPort(port);
 	}
 
 	public void setHost(String host) {
+		getAioConfig().setHost(host);
+	}
 
+	public int getPort() {
+		return getAioConfig().getPort();
+	}
+
+	public String getHost() {
+		return getAioConfig().getHost();
 	}
 
 	public boolean isSsl() {
@@ -133,5 +143,19 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 
 	public void setHeartTimeout(int heartTimeout) {
 		this.heartTimeout = heartTimeout;
+	}
+
+	@Override
+	public String toString() {
+		return "ImServerConfig{" +
+				"store=" + store +
+				", cluster=" + cluster +
+				", ssl=" + ssl +
+				", sslPath='" + sslPath + '\'' +
+				", sslPassword='" + sslPassword + '\'' +
+				", monitorRate=" + monitorRate +
+				", heartPeriod=" + heartPeriod +
+				", heartTimeout=" + heartTimeout +
+				'}';
 	}
 }
