@@ -10,6 +10,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +83,19 @@ class TIMConfigManager {
 					switch (parameterTypes[0].getName()) {
 						case "int":
 						case "java.lang.Integer":
-							method.invoke(object, Integer.valueOf(value));
+							if (value.contains("*")) {
+								int result = 1;
+								for (String s:
+								value.split(" * ")) {
+									if (s.equals("*"))
+										continue;
+									result = result * Integer.parseInt(s);
+								}
+								method.invoke(object, result);
+							} else if (value.contains("/") || value.contains("+") || value.contains("-")) {
+								throw new UnsupportedOperationException("unsupported (/, +, -) operations");
+							} else
+								method.invoke(object, Integer.parseInt(value));
 							break;
 						case "boolean":
 						case "java.lang.Boolean":

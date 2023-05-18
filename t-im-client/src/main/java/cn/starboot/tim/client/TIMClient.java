@@ -79,7 +79,7 @@ public class TIMClient {
 		}
 		ClientBootstrap bootstrap = new ClientBootstrap(option.ip, option.port, ImClientProtocolHandler.getInstance());
 		try {
-			clientChannelContext = bootstrap.setBufferFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
+			clientChannelContext = bootstrap.setBufferFactory(10 * 1024 * 1024, 10, true)
 					.addPlugin(new ReconnectPlugin(bootstrap))
 //                    .addHeartPacket()
 					.setWriteBufferSize(32 * 1024, 128)
