@@ -14,6 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * TIM 配置类映射Java对象
+ *
+ * @author MDong
+ */
 class TIMConfigManager {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TIMConfigManager.class);
