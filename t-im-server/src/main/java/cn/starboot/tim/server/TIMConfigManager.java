@@ -92,8 +92,26 @@ class TIMConfigManager {
 									result = result * Integer.parseInt(s);
 								}
 								method.invoke(object, result);
-							} else if (value.contains("/") || value.contains("+") || value.contains("-")) {
-								throw new UnsupportedOperationException("unsupported (/, +, -) operations");
+							} else if (value.contains("-")) {
+								int result = 0;
+								for (String s:
+										value.split(" - ")) {
+									if (s.equals("-"))
+										continue;
+									result = result - Integer.parseInt(s);
+								}
+								method.invoke(object, result);
+							} else if (value.contains("+")) {
+								int result = 0;
+								for (String s:
+										value.split(" + ")) {
+									if (s.equals("+"))
+										continue;
+									result = result + Integer.parseInt(s);
+								}
+								method.invoke(object, result);
+							} else if (value.contains("/")) {
+								throw new UnsupportedOperationException("tim.properties int various unsupported use '/' operations");
 							} else
 								method.invoke(object, Integer.parseInt(value));
 							break;

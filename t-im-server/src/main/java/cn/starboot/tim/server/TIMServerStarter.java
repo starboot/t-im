@@ -7,6 +7,7 @@ import cn.starboot.socket.plugins.HeartPlugin;
 import cn.starboot.socket.plugins.MonitorPlugin;
 import cn.starboot.socket.utils.pool.memory.MemoryPool;
 import cn.starboot.tim.common.banner.TimBanner;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.intf.ServerTIMProcessor;
 import cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class TIMServerStarter {
 
-    private static final Logger log = LoggerFactory.getLogger(TIMServerStarter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TIMServerStarter.class);
 
     private final ServerBootstrap serverBootstrap;
 
@@ -58,9 +59,7 @@ public class TIMServerStarter {
             start0();
             long end = System.currentTimeMillis();
             long iv = end - start;
-            if (log.isInfoEnabled()) {
-                log.info("Server启动完毕,耗时:{}ms", iv);
-            }
+            TIMLogUtil.info(LOGGER, "TIM server startup completed, taking: {} ms", iv);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,12 +67,12 @@ public class TIMServerStarter {
     }
 
     private void init() {
+		TIMLogUtil.info(LOGGER, "init TIM server configuration");
         //加载配置信息
 		TIMConfigManager.init(this.imServerConfig);
     }
 
 	private void start0() {
-
 		this.serverBootstrap
 				.setMemoryPoolFactory(10 * 1024 * 1024, 10, true)
 				.setThreadNum(1, 4)
@@ -87,7 +86,7 @@ public class TIMServerStarter {
 					}
 				})
 				.start();
-		log.info("TCP服务器启动在：{}:{}", "127.0.0.1", 8888);
+		TIMLogUtil.info(LOGGER, "TIM server started successfully in ：{}:{}", "127.0.0.1", 8888);
 	}
 
 	public ImServerConfig getImServerConfig() {
