@@ -9,13 +9,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 class TIMConfigManager {
 
@@ -47,7 +44,6 @@ class TIMConfigManager {
 
 	private static void init0(List<Configuration> configurationList, ImServerConfig imServerConfig) throws InvocationTargetException, IllegalAccessException {
 
-//		configurationList.stream().distinct().filter(configuration -> configuration.getName().contains("tim.kernel")).forEach(configuration -> System.out.println(configuration.getName()));
 		Map<String, String> kernelMap = new HashMap<>(20);
 		configurationList.stream().distinct()
 				.filter(configuration -> configuration.getName().contains("tim.kernel"))
@@ -56,50 +52,46 @@ class TIMConfigManager {
 
 		System.out.println(imServerConfig.getAioConfig().getReadBufferSize());
 
+		kernelMap.clear();
 		configurationList.stream().distinct()
-				.filter(configuration -> configuration.getName().contains("tim.kernel")).forEach(new Consumer<Configuration>() {
-			@Override
-			public void accept(Configuration configuration) {
-				System.out.println(configuration.getName().split("tim.kernel.")[1]);
-			}
-		});
+				.filter(configuration -> configuration.getName().contains("tim.redis"))
+				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.redis.")[1], configuration.getValue()[0]));
+		mapToObject(imServerConfig.getRedisConfig(), kernelMap);
 
-//		initTIM(configurationList.stream().distinct().filter(configuration -> configuration.getName().contains("tim.server")));
-//		initRedis(configurationList.stream().distinct().filter(configuration -> configuration.getName().contains("tim.redis")));
-	}
-
-	private static Map<String, String> initKernel(Stream<Configuration> kernelConfigurationStream) {
-		Map<String, String> kernelMap = new HashMap<>(new BigDecimal(kernelConfigurationStream.count()).intValue());
-		kernelConfigurationStream.forEach(configuration -> kernelMap.put(configuration.getName(), configuration.getValue()[0]));
-		return kernelMap;
-	}
-
-	private static void initTIM(Stream<Configuration> timConfigurationStream) {
-		Map<String, String> timMap = new HashMap<>(new BigDecimal(timConfigurationStream.count()).intValue());
-		timConfigurationStream.forEach(configuration -> timMap.put(configuration.getName().split("tim.kernel.")[0], configuration.getValue()[0]));
-	}
-
-	private static void initRedis(Stream<Configuration> redisConfigurationStream) {
-		Map<String, String> redisMap = new HashMap<>(new BigDecimal(redisConfigurationStream.count()).intValue());
-		redisConfigurationStream.forEach(configuration -> redisMap.put(configuration.getName(), configuration.getValue()[0]));
+		kernelMap.clear();
+		configurationList.stream().distinct()
+				.filter(configuration -> configuration.getName().contains("tim.server"))
+				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.server.")[1], configuration.getValue()[0]));
+		mapToObject(imServerConfig, kernelMap);
 	}
 
 	private static void mapToObject(Object object, Map<String, String> map) throws InvocationTargetException, IllegalAccessException {
-		System.out.println(map.size());
-		map.keySet().forEach(System.out::println);
 		for (Method method : object.getClass().getMethods()) {
 			String name = method.getName();
 			if (name.startsWith("set")) {
 				String temp = name.substring(3);
 				String key = temp.substring(0,1).toLowerCase() + temp.substring(1);
-				System.out.println(key);
 				String value = map.get(key);
 				if (value != null) {
+					Class<?>[] parameterTypes = method.getParameterTypes();
+					System.out.println(name + "--" + parameterTypes[0].getName());
 					System.out.println(key + "-" + value);
-					method.invoke(object, Integer.valueOf(value));
-					break;
+					switch (parameterTypes[0].getName()) {
+						case "int":
+						case "java.lang.Integer":
+							method.invoke(object, Integer.valueOf(value));
+							break;
+						case "boolean":
+						case "java.lang.Boolean":
+							method.invoke(object, Boolean.getBoolean(value));
+							break;
+						case "java.lang.String":
+							method.invoke(object, value);
+							break;
+						default:
+							break;
+					}
 				}
-
 			}
 		}
 	}
