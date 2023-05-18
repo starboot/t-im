@@ -50,12 +50,22 @@ class TIMConfigManager {
 	private static void init0(List<Configuration> configurationList, ImServerConfig imServerConfig) throws InvocationTargetException, IllegalAccessException {
 		Map<String, String> kernelMap = new HashMap<>(configurationList.size());
 
+		// 初始化TIM Server配置
+		configurationList.stream().distinct()
+				.filter(configuration -> configuration.getName().contains("tim.server"))
+				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.server.")[1], configuration.getValue()[0]));
+		mapToObject(imServerConfig, kernelMap);
+		if (imServerConfig.isOut())
+			TIMLogUtil.info(LOGGER, "TIM Server Configuration : {}", imServerConfig);
+		kernelMap.clear();
+
 		// 初始化内核配置
 		configurationList.stream().distinct()
 				.filter(configuration -> configuration.getName().contains("tim.kernel"))
 				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.kernel.")[1], configuration.getValue()[0]));
 		mapToObject(imServerConfig.getAioConfig(), kernelMap);
-		TIMLogUtil.info(LOGGER, "kernel Configuration : {}", imServerConfig.getAioConfig());
+		if (imServerConfig.isOut())
+			TIMLogUtil.info(LOGGER, "kernel Configuration : {}", imServerConfig.getAioConfig());
 		kernelMap.clear();
 
 		// 初始化Redis配置
@@ -63,15 +73,8 @@ class TIMConfigManager {
 				.filter(configuration -> configuration.getName().contains("tim.redis"))
 				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.redis.")[1], configuration.getValue()[0]));
 		mapToObject(imServerConfig.getRedisConfig(), kernelMap);
-		TIMLogUtil.info(LOGGER, "Redis Configuration : {}", imServerConfig.getRedisConfig());
-		kernelMap.clear();
-
-		// 初始化TIM Server配置
-		configurationList.stream().distinct()
-				.filter(configuration -> configuration.getName().contains("tim.server"))
-				.forEach(configuration -> kernelMap.put(configuration.getName().split("tim.server.")[1], configuration.getValue()[0]));
-		mapToObject(imServerConfig, kernelMap);
-		TIMLogUtil.info(LOGGER, "TIM Server Configuration : {}", imServerConfig);
+		if (imServerConfig.isOut())
+			TIMLogUtil.info(LOGGER, "Redis Configuration : {}", imServerConfig.getRedisConfig());
 		kernelMap.clear();
 	}
 
@@ -121,7 +124,7 @@ class TIMConfigManager {
 							break;
 						case "boolean":
 						case "java.lang.Boolean":
-							method.invoke(object, Boolean.getBoolean(value));
+							method.invoke(object, Boolean.parseBoolean(value));
 							break;
 						case "java.lang.String":
 							method.invoke(object, value);

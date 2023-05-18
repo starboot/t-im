@@ -24,6 +24,7 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 
 	private TIMPersistentHelper timPersistentHelper;
 
+	private boolean out;
 	/**
 	 * 开启集群
 	 */
@@ -143,6 +144,14 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 
 	public void setHeartTimeout(int heartTimeout) {
 		this.heartTimeout = heartTimeout;
+	}
+
+	public boolean isOut() {
+		return out;
+	}
+
+	public void setOut(boolean out) {
+		this.out = out;
 	}
 
 	@Override
