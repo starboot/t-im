@@ -75,7 +75,7 @@ public class TIMServerStarter {
 	private void start0() {
 
 		this.serverBootstrap
-				.setMemoryPoolFactory(() -> new MemoryPool(10 * 1024 * 1024, 10, true))
+				.setMemoryPoolFactory(10 * 1024 * 1024, 10, true)
 				.setThreadNum(1, 4)
 				.setReadBufferSize(1024 * 50)
 				.setWriteBufferSize(1024 * 10, 128)

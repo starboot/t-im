@@ -40,7 +40,7 @@
         </developer>
     </developers>
     <properties>
-        <aio-socket.version>2.0.2</aio-socket.version>
+        <aio-socket.version>2.0.3</aio-socket.version>
         <tim.version>3.0.0.v20221001-RELEASE</tim.version>
         <logback.version>1.2.9</logback.version>
         <lombok.version>1.18.20</lombok.version>
