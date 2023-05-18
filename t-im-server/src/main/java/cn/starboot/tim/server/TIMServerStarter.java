@@ -35,8 +35,8 @@ public class TIMServerStarter {
 
 	protected TIMServerStarter(ServerTIMProcessor serverProcessor) {
 		this.serverBootstrap
-				= new ServerBootstrap("127.0.0.1",
-				8888,
+				= new ServerBootstrap(TIMConfigManager.getHost(),
+				TIMConfigManager.getPort(),
 				ImServerProtocolHandler.getInstance(channelContext -> new ImServerChannelContext(channelContext, getImServerConfig())));
 		this.imServerConfig = new ImServerConfig(serverProcessor, this.serverBootstrap.getConfig());
 	}
@@ -68,8 +68,12 @@ public class TIMServerStarter {
 
 	private void init() {
 		TIMLogUtil.info(LOGGER, "init TIM server configuration");
-		//加载配置信息
-		TIMConfigManager.init(this.imServerConfig);
+		try {
+			//加载配置信息
+			TIMConfigManager.Builder.build(this.imServerConfig).initTIMServerConfiguration().initRedisConfiguration().initKernelConfiguration();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void start0() {
