@@ -2,6 +2,7 @@ package cn.starboot.tim.server;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.Packet;
+import cn.starboot.socket.core.AioConfig;
 import cn.starboot.socket.core.ServerBootstrap;
 import cn.starboot.socket.plugins.HeartPlugin;
 import cn.starboot.socket.plugins.MonitorPlugin;
@@ -20,11 +21,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class TIMServerStarter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TIMServerStarter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TIMServerStarter.class);
 
-    private final ServerBootstrap serverBootstrap;
+	private final ServerBootstrap serverBootstrap;
 
-    private static TIMServerStarter timServerStarter;
+	private static TIMServerStarter timServerStarter;
 
 	private final ImServerConfig imServerConfig;
 
@@ -45,48 +46,54 @@ public class TIMServerStarter {
 		return getInstance(null);
 	}
 
-    public static synchronized TIMServerStarter getInstance(ServerTIMProcessor serverProcessor) {
-        if (ObjectUtil.isNull(timServerStarter)){
-            timServerStarter = new TIMServerStarter(serverProcessor);
-        }
-        return timServerStarter;
-    }
+	public static synchronized TIMServerStarter getInstance(ServerTIMProcessor serverProcessor) {
+		if (ObjectUtil.isNull(timServerStarter)) {
+			timServerStarter = new TIMServerStarter(serverProcessor);
+		}
+		return timServerStarter;
+	}
 
-    public void start() {
-        try {
+	public void start() {
+		try {
 			init();
 			long start = System.currentTimeMillis();
-            start0();
-            long end = System.currentTimeMillis();
-            long iv = end - start;
-            TIMLogUtil.info(LOGGER, "TIM server startup completed, taking: {} ms", iv);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			start0();
+			long end = System.currentTimeMillis();
+			long iv = end - start;
+			TIMLogUtil.info(LOGGER, "TIM server startup completed, taking: {} ms", iv);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    }
+	}
 
-    private void init() {
+	private void init() {
 		TIMLogUtil.info(LOGGER, "init TIM server configuration");
-        //加载配置信息
+		//加载配置信息
 		TIMConfigManager.init(this.imServerConfig);
-    }
+	}
 
 	private void start0() {
+		AioConfig aioConfig = getImServerConfig().getAioConfig();
 		this.serverBootstrap
-				.setMemoryPoolFactory(10 * 1024 * 1024, 10, true)
-				.setThreadNum(1, 4)
-				.setReadBufferSize(1024 * 50)
-				.setWriteBufferSize(1024 * 10, 128)
-				.addPlugin(new MonitorPlugin(60))
-				.addPlugin(new HeartPlugin(60, 20, TimeUnit.SECONDS) {
+				.setMemoryPoolFactory(aioConfig.getMemoryBlockSize(),
+						aioConfig.getMemoryBlockNum(),
+						aioConfig.isDirect())
+				.setThreadNum(aioConfig.getBossThreadNumber(),
+						aioConfig.getWorkerThreadNumber())
+				.setReadBufferSize(aioConfig.getReadBufferSize())
+				.setWriteBufferSize(aioConfig.getWriteBufferSize(), 128)
+				.addPlugin(new MonitorPlugin(getImServerConfig().getMonitorRate()))
+				.addPlugin(new HeartPlugin(getImServerConfig().getHeartTimeout(),
+						getImServerConfig().getHeartPeriod(),
+						TimeUnit.SECONDS) {
 					@Override
 					public boolean isHeartMessage(Packet packet) {
 						return false;
 					}
 				})
 				.start();
-		TIMLogUtil.info(LOGGER, "TIM server started successfully in ：{}:{}", "127.0.0.1", 8888);
+		TIMLogUtil.info(LOGGER, "TIM server started successfully in ：{}:{}", aioConfig.getHost(), aioConfig.getPort());
 	}
 
 	public ImServerConfig getImServerConfig() {

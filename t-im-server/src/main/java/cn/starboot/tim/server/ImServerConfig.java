@@ -15,19 +15,19 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 	/**
 	 * 开启持久化
 	 */
-	public boolean store;
+	private boolean store;
 
 	/**
 	 * 集群助手
 	 */
-	public ICluster clusterHelper;
+	private ICluster clusterHelper;
 
 	private TIMPersistentHelper timPersistentHelper;
 
 	/**
 	 * 开启集群
 	 */
-	public boolean cluster;
+	private boolean cluster;
 
 	private boolean ssl;
 
