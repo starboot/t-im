@@ -3,7 +3,6 @@ package cn.starboot.tim.server.intf;
 import cn.starboot.tim.common.intf.TIMProcessor;
 import cn.starboot.tim.common.packet.proto.*;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.plugin.AbstractTIMServerProcessorPlugin;
 
 /**
  * 服务器处理器
@@ -23,6 +22,4 @@ public interface TIMServerProcessor extends TIMProcessor {
 	boolean handleGetUserInfoPacket(ImServerChannelContext imChannelContext, UserInfoPacketProto.UserInfoPacket userInfoPacket);
 
 	UserPacketProto.UserPacket getUserByProcessor(ImServerChannelContext imChannelContext, LoginPacketProto.LoginPacket loginPacket);
-
-	default void addProcessor(AbstractTIMServerProcessorPlugin timServerProcessor) {}
 }

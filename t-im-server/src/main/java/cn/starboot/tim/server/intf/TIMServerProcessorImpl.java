@@ -1,4 +1,4 @@
-package cn.starboot.tim.server.plugin;
+package cn.starboot.tim.server.intf;
 
 import cn.starboot.tim.common.ImChannelContext;
 import cn.starboot.tim.common.ImConfig;
@@ -6,9 +6,12 @@ import cn.starboot.tim.common.intf.TIMProcessor;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.*;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.intf.TIMServerProcessor;
 
-public class AbstractTIMServerProcessorPlugin implements TIMServerProcessor {
+import java.util.ArrayList;
+import java.util.List;
+
+public final class TIMServerProcessorImpl implements TIMServerProcessor {
+
 
 	@Override
 	public boolean handleBindPacket(ImServerChannelContext imChannelContext, BindPacketProto.BindPacket bindPacket) {
@@ -47,11 +50,13 @@ public class AbstractTIMServerProcessorPlugin implements TIMServerProcessor {
 
 	@Override
 	public boolean beforeSend(ImChannelContext<? extends ImConfig<? extends TIMProcessor>> imChannelContext, ImPacket packet) {
+		System.out.println(packet.toJsonString());
 		return true;
 	}
 
 	@Override
 	public boolean handleChatPacket(ImChannelContext<? extends ImConfig<? extends TIMProcessor>> imChannelContext, ChatPacketProto.ChatPacket chatPacket) {
+		System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
 		return true;
 	}
 }
