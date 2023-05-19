@@ -20,4 +20,6 @@ public interface TIMProcessor {
 	 * @return 是否处理成功，若返回false则终止发送操作
 	 */
 	boolean handleChatPacket(ImChannelContext<? extends ImConfig<? extends TIMProcessor>> imChannelContext, ChatPacketProto.ChatPacket chatPacket);
+
+
 }

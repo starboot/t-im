@@ -10,6 +10,7 @@ import cn.starboot.tim.common.banner.TimBanner;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.intf.TIMServerProcessor;
 import cn.starboot.tim.server.intf.TIMServerProcessorAdapter;
+import cn.starboot.tim.server.plugin.TIMInherentServerProcessor;
 import cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,8 +67,10 @@ public class TIMServerStarter {
 	private void init() {
 		TIMLogUtil.info(LOGGER, "init TIM server configuration");
 		try {
-			//加载配置信息
+			// 加载配置信息
 			TIMConfigManager.Builder.build(this.imServerConfig).initTIMServerConfiguration().initRedisConfiguration().initKernelConfiguration();
+			// 设置持久化组件
+			this.imServerConfig.getProcessor().addProcessor(new TIMInherentServerProcessor());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

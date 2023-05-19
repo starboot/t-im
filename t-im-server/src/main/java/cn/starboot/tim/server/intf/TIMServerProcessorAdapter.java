@@ -13,7 +13,7 @@ import java.util.List;
 
 public final class TIMServerProcessorAdapter implements TIMServerProcessor {
 
-	private final List<TIMServerProcessor> processorList = new ArrayList<>();
+	private final List<AbstractTIMServerProcessorPlugin> processorList = new ArrayList<>();
 
 	@Override
 	public boolean handleBindPacket(ImServerChannelContext imChannelContext, BindPacketProto.BindPacket bindPacket) {
@@ -98,7 +98,8 @@ public final class TIMServerProcessorAdapter implements TIMServerProcessor {
 		return flag;
 	}
 
-	public void addProcessor(TIMServerProcessor timServerProcessor) {
+	@Override
+	public void addProcessor(AbstractTIMServerProcessorPlugin timServerProcessor) {
 		processorList.add(timServerProcessor);
 	}
 }
