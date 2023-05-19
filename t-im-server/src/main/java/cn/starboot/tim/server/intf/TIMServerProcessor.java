@@ -7,7 +7,7 @@ import cn.starboot.tim.server.ImServerChannelContext;
 /**
  * 服务器处理器
  */
-public interface ServerTIMProcessor extends TIMProcessor {
+public interface TIMServerProcessor extends TIMProcessor {
 
 	boolean handleBindPacket(ImServerChannelContext imChannelContext, BindPacketProto.BindPacket bindPacket);
 

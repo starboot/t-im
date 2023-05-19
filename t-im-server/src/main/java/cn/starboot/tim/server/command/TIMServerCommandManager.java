@@ -6,7 +6,7 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.command.handler.AbstractServerCmdHandler;
-import cn.starboot.tim.server.intf.ServerTIMProcessor;
+import cn.starboot.tim.server.intf.TIMServerProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created by DELL(mxd) on 2021/12/24 16:44
  */
-public class TIMServerCommandManager extends AbstractCommandManager<AbstractServerCmdHandler, ImServerChannelContext, ImServerConfig, ServerTIMProcessor> {
+public class TIMServerCommandManager extends AbstractCommandManager<AbstractServerCmdHandler, ImServerChannelContext, ImServerConfig, TIMServerProcessor> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TIMServerCommandManager.class);
 

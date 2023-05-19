@@ -2,9 +2,6 @@ package cn.starboot.tim.server;
 
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImConfig;
-import cn.starboot.tim.server.cache.TIMPersistentHelper;
-import cn.starboot.tim.server.intf.ServerTIMProcessor;
 
 /**
  * 服务器TIM通道上下文

@@ -5,11 +5,11 @@ import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.server.cache.RedisConfig;
 import cn.starboot.tim.server.cache.TIMPersistentHelper;
 import cn.starboot.tim.server.cluster.ICluster;
-import cn.starboot.tim.server.intf.ServerTIMProcessor;
+import cn.starboot.tim.server.intf.TIMServerProcessor;
 
-public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
+public class ImServerConfig extends ImConfig<TIMServerProcessor> {
 
-	private final ServerTIMProcessor serverProcessor;
+	private final TIMServerProcessor serverProcessor;
 
 	/**
 	 * 开启持久化
@@ -43,7 +43,7 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 
 	private final RedisConfig redisConfig = new RedisConfig();
 
-	public ImServerConfig(ServerTIMProcessor serverProcessor, AioConfig aioConfig) {
+	public ImServerConfig(TIMServerProcessor serverProcessor, AioConfig aioConfig) {
 		super(aioConfig);
 		this.serverProcessor = serverProcessor;
 	}
@@ -53,7 +53,7 @@ public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
 	}
 
 	@Override
-	public ServerTIMProcessor getProcessor() {
+	public TIMServerProcessor getProcessor() {
 		return this.serverProcessor;
 	}
 

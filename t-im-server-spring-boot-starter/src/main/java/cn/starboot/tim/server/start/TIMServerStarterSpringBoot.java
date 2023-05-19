@@ -1,7 +1,7 @@
 package cn.starboot.tim.server.start;
 
 import cn.starboot.tim.server.TIMServerStarter;
-import cn.starboot.tim.server.intf.ServerTIMProcessor;
+import cn.starboot.tim.server.intf.TIMServerProcessor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -13,7 +13,7 @@ import org.springframework.core.io.ResourceLoader;
  * Created by DELL(mxd) on 2022/1/6 11:11
  */
 public class TIMServerStarterSpringBoot extends TIMServerStarter implements SmartInitializingSingleton, BeanFactoryAware, ResourceLoaderAware {
-	protected TIMServerStarterSpringBoot(ServerTIMProcessor serverProcessor) {
+	protected TIMServerStarterSpringBoot(TIMServerProcessor serverProcessor) {
 		super(serverProcessor);
 	}
 
