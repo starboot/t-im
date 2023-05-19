@@ -59,7 +59,7 @@ public class TIMServerStarter {
 			start0();
 			long end = System.currentTimeMillis();
 			long iv = end - start;
-			TIMLogUtil.info(LOGGER, "TIM server startup completed, taking: {} ms", iv);
+			TIMLogUtil.info(LOGGER, "TIM server startup completed, taking {} ms", iv);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
