@@ -15,7 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 获取在线用户集合
+ * 获取当前用户下在线好友集合
+ *
  * Created by DELL(mxd) on 2021/12/25 16:31
  */
 public class UserReqHandler extends AbstractServerCmdHandler {

@@ -32,8 +32,8 @@ message TIMEnum {
 		// 在线、离线用户
 		ALL = 2;
 	};
-//
-//	// 消息类型
+
+	// 消息类型
 	enum MsgType {
 		// 文本消息
 		TEXT = 0;
@@ -54,8 +54,8 @@ message TIMEnum {
 		// 视频会议
 		ONLINE_MEETING = 8;
 	};
-//
-//	// 聊天类型
+
+  	// 聊天类型
 	enum ChatType {
 		// 未知消息
 		UNKNOWN = 0;
@@ -64,8 +64,8 @@ message TIMEnum {
 		// 私聊消息
 		PRIVATE = 2;
 	};
-//
-//	// 加入群组类型
+
+	// 加入群组类型
 	enum JoinGroupResult {
 		// 不允许进入，原因为其它
 		JOIN_GROUP_RESULT_UNKNOWN = 0;

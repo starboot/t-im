@@ -43,8 +43,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			case PRIVATE: {
 				if (StrUtil.isNotEmpty(chatPacket.getToId())) {
 					// 私聊
-					if (ChatKit.isOnline(imChannelContext.getConfig(), chatPacket.getToId())
-							&& imChannelContext.getConfig().getProcessor().handleChatPacket(imChannelContext, chatPacket)) {
+					if (imChannelContext.getConfig().getProcessor().handleChatPacket(imChannelContext, chatPacket)) {
 						sendToId(imChannelContext.getConfig(), chatPacket.getToId(), imPacket);
 						setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS);
 					}
