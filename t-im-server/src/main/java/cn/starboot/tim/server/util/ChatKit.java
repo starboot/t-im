@@ -6,6 +6,7 @@ import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.utils.json.JsonUtil;
 import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
+import cn.starboot.tim.server.intf.ServerTIMProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +88,7 @@ public class ChatKit {
       * @param userId 用户ID
       * @return .
       */
-     public static boolean isOnline(ImConfig imConfig, String userId){
+     public static boolean isOnline(ImConfig<ServerTIMProcessor> imConfig, String userId){
 //		 SetWithLock<ChannelContext> channelContextByUserId = TIM.getChannelContextByUserId(imConfig, userId);
 //		 return ObjectUtil.isNotEmpty(channelContextByUserId) && channelContextByUserId.size() > 0;
 		 return true;
