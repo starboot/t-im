@@ -1,6 +1,8 @@
 package cn.starboot.tim.server.intf;
 
 import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.ImConfig;
+import cn.starboot.tim.common.intf.TIMProcessor;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.*;
 import cn.starboot.tim.server.ImServerChannelContext;
@@ -43,13 +45,13 @@ public class DefaultServerTIMProcessor implements ServerTIMProcessor {
 	}
 
 	@Override
-	public boolean beforeSend(ImChannelContext imChannelContext, ImPacket packet) {
+	public boolean beforeSend(ImChannelContext<? extends ImConfig<? extends TIMProcessor>> imChannelContext, ImPacket packet) {
 		System.out.println(packet.toJsonString());
 		return true;
 	}
 
 	@Override
-	public boolean handleChatPacket(ImChannelContext imChannelContext, ChatPacketProto.ChatPacket chatPacket) {
+	public boolean handleChatPacket(ImChannelContext<? extends ImConfig<? extends TIMProcessor>> imChannelContext, ChatPacketProto.ChatPacket chatPacket) {
 		System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
 		return true;
 	}

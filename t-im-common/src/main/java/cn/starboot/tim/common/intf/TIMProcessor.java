@@ -1,6 +1,7 @@
 package cn.starboot.tim.common.intf;
 
 import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 
@@ -9,7 +10,7 @@ import cn.starboot.tim.common.packet.proto.ChatPacketProto;
  */
 public interface TIMProcessor {
 
-	boolean beforeSend(ImChannelContext<?> imChannelContext, ImPacket packet);
+	boolean beforeSend(ImChannelContext<? extends ImConfig<? extends TIMProcessor>> imChannelContext, ImPacket packet);
 
-	boolean handleChatPacket(ImChannelContext<?> imChannelContext, ChatPacketProto.ChatPacket chatPacket);
+	boolean handleChatPacket(ImChannelContext<? extends ImConfig<? extends TIMProcessor>> imChannelContext, ChatPacketProto.ChatPacket chatPacket);
 }
