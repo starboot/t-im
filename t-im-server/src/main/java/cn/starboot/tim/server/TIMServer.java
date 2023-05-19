@@ -20,16 +20,28 @@ public class TIMServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TIMServer.class);
 
-	public static boolean bindUser(String userId, ImChannelContext<ImServerConfig> imChannelContext) {
-		return bind(MaintainEnum.USER, userId, imChannelContext);
+	public static boolean bindBsId(String bsId, ImChannelContext<ImServerConfig> imChannelContext) {
+		return bind(MaintainEnum.Bs_ID, bsId, imChannelContext);
+	}
+
+	public static boolean bindId(String id, ImChannelContext<ImServerConfig> imChannelContext) {
+		return bind(MaintainEnum.ID, id, imChannelContext);
+	}
+
+	public static boolean bindIP(String ip, ImChannelContext<ImServerConfig> imChannelContext) {
+		return bind(MaintainEnum.IP, ip, imChannelContext);
 	}
 
 	public static boolean bindGroup(String groupId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return bind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
 	}
 
-	public static boolean bindId(String id, ImChannelContext<ImServerConfig> imChannelContext) {
-		return bind(MaintainEnum.ID, id, imChannelContext);
+	public static boolean bindToken(String tokenId, ImChannelContext<ImServerConfig> imChannelContext) {
+		return bind(MaintainEnum.TOKEN, tokenId, imChannelContext);
+	}
+
+	public static boolean bindUser(String userId, ImChannelContext<ImServerConfig> imChannelContext) {
+		return bind(MaintainEnum.USER, userId, imChannelContext);
 	}
 
 	public static ChannelContext getChannelContextById(ImServerConfig imConfig, String id) {
@@ -88,6 +100,30 @@ public class TIMServer {
 		close(MaintainEnum.USER, imConfig, maintainId, closeCode);
 	}
 
+	public static boolean unbindBsId(String bsId, ImChannelContext<ImServerConfig> imChannelContext) {
+		return unbind(MaintainEnum.Bs_ID, bsId, imChannelContext);
+	}
+
+	public static boolean unbindId(String id, ImChannelContext<ImServerConfig> imChannelContext) {
+		return unbind(MaintainEnum.ID, id, imChannelContext);
+	}
+
+	public static boolean unbindIP(String ip, ImChannelContext<ImServerConfig> imChannelContext) {
+		return unbind(MaintainEnum.IP, ip, imChannelContext);
+	}
+
+	public static boolean unbindGroup(String groupId, ImChannelContext<ImServerConfig> imChannelContext) {
+		return unbind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
+	}
+
+	public static boolean unbindToken(String tokenId, ImChannelContext<ImServerConfig> imChannelContext) {
+		return unbind(MaintainEnum.TOKEN, tokenId, imChannelContext);
+	}
+
+	public static boolean unbindUser(String userId, ImChannelContext<ImServerConfig> imChannelContext) {
+		return unbind(MaintainEnum.USER, userId, imChannelContext);
+	}
+
 	private static boolean bind(MaintainEnum maintainEnum, String maintainId, ImChannelContext<ImServerConfig> imChannelContext) {
 		ChannelContext channelContext = imChannelContext.getChannelContext();
 		boolean result = false;
@@ -125,7 +161,7 @@ public class TIMServer {
 				break;
 			}
 			default: {
-				TIMLogUtil.error(LOGGER, "绑定类型未知");
+				TIMLogUtil.error(LOGGER, "TIMServer: bind Type not exist");
 			}
 		}
 		return result;
@@ -223,11 +259,11 @@ public class TIMServer {
 		}
 	}
 
-	private static boolean unbind(MaintainEnum maintainEnum, ImServerConfig imConfig, String maintainId, ImChannelContext<ImServerConfig> imChannelContext) {
+	private static boolean unbind(MaintainEnum maintainEnum, String maintainId, ImChannelContext<ImServerConfig> imChannelContext) {
 		boolean result = false;
 		switch (maintainEnum) {
 			case Bs_ID: {
-				result = Aio.unbindBsId(imConfig.getAioConfig(), maintainId, imChannelContext.getChannelContext());
+				result = Aio.unbindBsId(imChannelContext.getConfig().getAioConfig(), maintainId, imChannelContext.getChannelContext());
 				break;
 			}
 			case CLU_ID: {
@@ -243,7 +279,7 @@ public class TIMServer {
 				break;
 			}
 			case ID: {
-				result = Aio.unbindId(imConfig.getAioConfig(), maintainId, imChannelContext.getChannelContext());
+				result = Aio.unbindId(imChannelContext.getConfig().getAioConfig(), maintainId, imChannelContext.getChannelContext());
 				break;
 			}
 			case IP: {
@@ -259,7 +295,7 @@ public class TIMServer {
 				break;
 			}
 			default: {
-				TIMLogUtil.error(LOGGER, "绑定类型未知");
+				TIMLogUtil.error(LOGGER, "TIMServer: unbind Type not exist");
 			}
 		}
 		return result;
@@ -289,7 +325,7 @@ public class TIMServer {
 				break;
 			}
 			default: {
-				TIMLogUtil.error(LOGGER, "绑定类型未知");
+				TIMLogUtil.error(LOGGER, "TIMServer: unbind Type not exist");
 			}
 		}
 		return result;

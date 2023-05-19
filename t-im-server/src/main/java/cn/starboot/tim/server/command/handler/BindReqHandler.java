@@ -29,7 +29,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		BindPacketProto.BindPacket packet = BindPacketProto.BindPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(packet)) {
-			LOGGER.error("消息包格式化出错");
+			LOGGER.error("BindReqHandler: message formatting error");
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_BIND_RESP);
@@ -53,7 +53,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			case UNBIND:
 				return unbindHandler(packet, imChannelContext);
 			default:
-				TIMLogUtil.error(LOGGER, "绑定处理器异常：未指明处理操作类型");
+				TIMLogUtil.error(LOGGER, "BindReqHandler: unknown option type");
 				return false;
 		}
 	}
@@ -64,17 +64,17 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			case ID:
 				return TIMServer.bindId(packet.getBindId(), imChannelContext);
 			case IP:
-				return TIMServer.bindId(packet.getBindId(), imChannelContext);
+				return TIMServer.bindIP(packet.getBindId(), imChannelContext);
 			case BS_ID:
-				return false;
+				return TIMServer.bindBsId(packet.getBindId(), imChannelContext);
 			case GROUP:
 				return TIMServer.bindGroup(packet.getBindId(), imChannelContext);
 			case USER:
 				return TIMServer.bindUser(packet.getBindId(), imChannelContext);
 			case TOKEN:
-				return false;
+				return TIMServer.bindToken(packet.getBindId(), imChannelContext);
 			default:
-				TIMLogUtil.error(LOGGER, "");
+				TIMLogUtil.error(LOGGER, "BindReqHandler: bind Type not exist");
 				return false;
 		}
 	}
@@ -82,19 +82,19 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 	private boolean unbindHandler(BindPacketProto.BindPacket packet, ImServerChannelContext imChannelContext) {
 		switch (packet.getBindType()) {
 			case ID:
-				break;
+				return TIMServer.unbindId(packet.getBindId(), imChannelContext);
 			case IP:
-				break;
+				return TIMServer.unbindIP(packet.getBindId(), imChannelContext);
 			case BS_ID:
-				break;
+				return TIMServer.unbindBsId(packet.getBindId(), imChannelContext);
 			case GROUP:
-				break;
+				return TIMServer.unbindGroup(packet.getBindId(), imChannelContext);
 			case USER:
-				break;
+				return TIMServer.unbindUser(packet.getBindId(), imChannelContext);
 			case TOKEN:
-				break;
+				return TIMServer.unbindToken(packet.getBindId(), imChannelContext);
 			default:
-				TIMLogUtil.error(LOGGER, "");
+				TIMLogUtil.error(LOGGER, "BindReqHandler: unbind Type not exist");
 		}
 		return false;
 	}
