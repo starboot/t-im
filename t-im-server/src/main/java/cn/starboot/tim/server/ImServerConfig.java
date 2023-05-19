@@ -5,7 +5,6 @@ import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.server.cache.RedisConfig;
 import cn.starboot.tim.server.cache.TIMPersistentHelper;
 import cn.starboot.tim.server.cluster.ICluster;
-import cn.starboot.tim.server.intf.DefaultServerTIMProcessor;
 import cn.starboot.tim.server.intf.ServerTIMProcessor;
 
 public class ImServerConfig extends ImConfig<ServerTIMProcessor> {
