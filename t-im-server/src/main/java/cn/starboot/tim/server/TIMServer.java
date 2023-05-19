@@ -14,7 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 封装AIO实体类，使得集群发送和单体发送集中管理
+ * 封装Aio
+ *
  * Created by DELL(mxd) on 2021/12/25 23:21
  */
 public class TIMServer {
@@ -29,19 +30,19 @@ public class TIMServer {
 		return bind(MaintainEnum.ID, id, imChannelContext);
 	}
 
-	public static boolean bindIP(String ip, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean joinIP(String ip, ImChannelContext<ImServerConfig> imChannelContext) {
 		return bind(MaintainEnum.IP, ip, imChannelContext);
 	}
 
-	public static boolean bindGroup(String groupId, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean joinGroup(String groupId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return bind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
 	}
 
-	public static boolean bindToken(String tokenId, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean joinToken(String tokenId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return bind(MaintainEnum.TOKEN, tokenId, imChannelContext);
 	}
 
-	public static boolean bindUser(String userId, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean joinUser(String userId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return bind(MaintainEnum.USER, userId, imChannelContext);
 	}
 
@@ -97,12 +98,12 @@ public class TIMServer {
 		multiObjectiveSend(MaintainEnum.USER, imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
     }
 
-	public static void remove(ImChannelContext<ImServerConfig> imChannelContext) {
-		remove(imChannelContext, null);
+	public static void close(ImChannelContext<ImServerConfig> imChannelContext) {
+		close(imChannelContext, null);
 	}
 
-    public static void remove(ImChannelContext<ImServerConfig> imChannelContext, CloseCode closeCode) {
-		close(imChannelContext, closeCode);
+    public static void close(ImChannelContext<ImServerConfig> imChannelContext, CloseCode closeCode) {
+		close0(imChannelContext, closeCode);
     }
 
 	public static void removeGroup(ImServerConfig imConfig, String maintainId) {
@@ -110,7 +111,7 @@ public class TIMServer {
 	}
 
 	public static void removeGroup(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
-		close(MaintainEnum.GROUP_ID, imConfig, maintainId, closeCode);
+		close0(MaintainEnum.GROUP_ID, imConfig, maintainId, closeCode);
 	}
 
 	public static void removeUser(ImServerConfig imConfig, String maintainId) {
@@ -118,7 +119,7 @@ public class TIMServer {
 	}
 
 	public static void removeUser(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
-		close(MaintainEnum.USER, imConfig, maintainId, closeCode);
+		close0(MaintainEnum.USER, imConfig, maintainId, closeCode);
 	}
 
 	public static boolean unbindBsId(String bsId, ImChannelContext<ImServerConfig> imChannelContext) {
@@ -129,19 +130,19 @@ public class TIMServer {
 		return unbind(MaintainEnum.ID, id, imChannelContext);
 	}
 
-	public static boolean unbindIP(String ip, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean exitIP(String ip, ImChannelContext<ImServerConfig> imChannelContext) {
 		return unbind(MaintainEnum.IP, ip, imChannelContext);
 	}
 
-	public static boolean unbindGroup(String groupId, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean exitGroup(String groupId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return unbind(MaintainEnum.GROUP_ID, groupId, imChannelContext);
 	}
 
-	public static boolean unbindToken(String tokenId, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean exitToken(String tokenId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return unbind(MaintainEnum.TOKEN, tokenId, imChannelContext);
 	}
 
-	public static boolean unbindUser(String userId, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean exitUser(String userId, ImChannelContext<ImServerConfig> imChannelContext) {
 		return unbind(MaintainEnum.USER, userId, imChannelContext);
 	}
 
@@ -188,11 +189,11 @@ public class TIMServer {
 		return result;
 	}
 
-	private static void close(ImChannelContext<ImServerConfig> imChannelContext, CloseCode closeCode) {
+	private static void close0(ImChannelContext<ImServerConfig> imChannelContext, CloseCode closeCode) {
 		Aio.close(imChannelContext.getChannelContext(), closeCode);
 	}
 
-	private static void close(MaintainEnum maintainEnum, ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
+	private static void close0(MaintainEnum maintainEnum, ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
 		switch (maintainEnum) {
 			case Bs_ID: {
 				Aio.closeBsId(imConfig.getAioConfig(), maintainId, closeCode);

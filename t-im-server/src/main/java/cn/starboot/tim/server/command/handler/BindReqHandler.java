@@ -64,15 +64,15 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			case ID:
 				return TIMServer.bindId(packet.getBindId(), imChannelContext);
 			case IP:
-				return TIMServer.bindIP(packet.getBindId(), imChannelContext);
+				return TIMServer.joinIP(packet.getBindId(), imChannelContext);
 			case BS_ID:
 				return TIMServer.bindBsId(packet.getBindId(), imChannelContext);
 			case GROUP:
-				return TIMServer.bindGroup(packet.getBindId(), imChannelContext);
+				return TIMServer.joinGroup(packet.getBindId(), imChannelContext);
 			case USER:
-				return TIMServer.bindUser(packet.getBindId(), imChannelContext);
+				return TIMServer.joinUser(packet.getBindId(), imChannelContext);
 			case TOKEN:
-				return TIMServer.bindToken(packet.getBindId(), imChannelContext);
+				return TIMServer.joinToken(packet.getBindId(), imChannelContext);
 			default:
 				TIMLogUtil.error(LOGGER, "BindReqHandler: bind Type not exist");
 				return false;
@@ -84,15 +84,15 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			case ID:
 				return TIMServer.unbindId(packet.getBindId(), imChannelContext);
 			case IP:
-				return TIMServer.unbindIP(packet.getBindId(), imChannelContext);
+				return TIMServer.exitIP(packet.getBindId(), imChannelContext);
 			case BS_ID:
 				return TIMServer.unbindBsId(packet.getBindId(), imChannelContext);
 			case GROUP:
-				return TIMServer.unbindGroup(packet.getBindId(), imChannelContext);
+				return TIMServer.exitGroup(packet.getBindId(), imChannelContext);
 			case USER:
-				return TIMServer.unbindUser(packet.getBindId(), imChannelContext);
+				return TIMServer.exitUser(packet.getBindId(), imChannelContext);
 			case TOKEN:
-				return TIMServer.unbindToken(packet.getBindId(), imChannelContext);
+				return TIMServer.exitToken(packet.getBindId(), imChannelContext);
 			default:
 				TIMLogUtil.error(LOGGER, "BindReqHandler: unbind Type not exist");
 		}

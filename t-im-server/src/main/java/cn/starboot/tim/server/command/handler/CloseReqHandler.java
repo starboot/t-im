@@ -29,10 +29,10 @@ public class CloseReqHandler extends AbstractServerCmdHandler {
         ClosePacketProto.ClosePacket closePacket = ClosePacketProto.ClosePacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(closePacket) || StrUtil.isBlank(closePacket.getUserId())) {
 			LOGGER.error("用户发送异常关闭请求，将其强行断开");
-            TIMServer.remove(imChannelContext);
+            TIMServer.close(imChannelContext);
         }
         if (imChannelContext.getConfig().getProcessor().handleClosePacket(imChannelContext, closePacket)) {
-			TIMServer.remove(imChannelContext, CloseCode.NO_CODE);
+			TIMServer.close(imChannelContext, CloseCode.NO_CODE);
 		}
         return null;
     }

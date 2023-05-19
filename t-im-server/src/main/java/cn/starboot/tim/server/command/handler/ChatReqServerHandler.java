@@ -32,7 +32,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(chatPacket)) {
 			TIMLogUtil.error(LOGGER, "消息包格式化出错");
-			TIMServer.remove(imChannelContext, CloseCode.READ_ERROR);
+			TIMServer.close(imChannelContext, CloseCode.READ_ERROR);
 			return null;
 		}
 		ImPacket packet = getImPacket(imChannelContext, TIMCommandType.COMMAND_CHAT_RESP);
