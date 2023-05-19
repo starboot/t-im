@@ -29,7 +29,7 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		MessagePacketProto.MessagePacket messagePacket = MessagePacketProto.MessagePacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(messagePacket)) {
-			TIMLogUtil.error(LOGGER, "消息包格式化出错");
+			TIMLogUtil.error(LOGGER, "MessageReqHandler: message formatting error");
 			return null;
 		}
 		// TIM自研对象重复利用技术
@@ -88,7 +88,7 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 						.toByteArray());
 			}
 			default:
-				TIMLogUtil.error(LOGGER, "错误：未知查询类型");
+				TIMLogUtil.error(LOGGER, "unknown select type");
 		}
 		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket) ? imPacket : null;
 	}

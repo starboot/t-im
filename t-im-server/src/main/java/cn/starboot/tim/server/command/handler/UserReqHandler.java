@@ -35,7 +35,7 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		UserInfoPacketProto.UserInfoPacket userInfoPacket = UserInfoPacketProto.UserInfoPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(userInfoPacket)) {
-			LOGGER.error("消息包格式化出错");
+			LOGGER.error("UserReqHandler: message formatting error");
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_USERS_RESP);

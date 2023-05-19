@@ -28,7 +28,6 @@ public class CloseReqHandler extends AbstractServerCmdHandler {
     public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
         ClosePacketProto.ClosePacket closePacket = ClosePacketProto.ClosePacket.parseFrom(imPacket.getData());
         if (ObjectUtil.isEmpty(closePacket) || StrUtil.isBlank(closePacket.getUserId())) {
-			LOGGER.error("用户发送异常关闭请求，将其强行断开");
             TIMServer.close(imChannelContext);
         }
         if (imChannelContext.getConfig().getProcessor().handleClosePacket(imChannelContext, closePacket)) {
