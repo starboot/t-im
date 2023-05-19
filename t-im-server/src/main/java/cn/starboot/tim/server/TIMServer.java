@@ -2,6 +2,7 @@ package cn.starboot.tim.server;
 
 import cn.starboot.socket.ChannelContextFilter;
 import cn.starboot.socket.core.Aio;
+import cn.starboot.socket.core.AioConfig;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.enums.CloseCode;
 import cn.starboot.socket.enums.MaintainEnum;
@@ -57,11 +58,11 @@ public class TIMServer {
     }
 
 	public static void sendToBsId(ImServerConfig imConfig, String toBsId, ImPacket imPacket) {
-		singleObjectiveSend(MaintainEnum.Bs_ID, imConfig, toBsId, imPacket);
+		singleObjectiveSend(MaintainEnum.Bs_ID, imConfig.getAioConfig(), toBsId, imPacket);
 	}
 
 	public static void sendToId(ImServerConfig imConfig, String toId, ImPacket imPacket) {
-		singleObjectiveSend(MaintainEnum.ID, imConfig, toId, imPacket);
+		singleObjectiveSend(MaintainEnum.ID, imConfig.getAioConfig(), toId, imPacket);
 	}
 
 	public static void sendToIP(ImServerConfig imConfig, String toIP, ImPacket imPacket) {
@@ -69,7 +70,7 @@ public class TIMServer {
 	}
 
 	public static void sendToIP(ImServerConfig imConfig, String toIP, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
-		multiObjectiveSend(MaintainEnum.IP, imConfig, toIP, imPacket, channelContextFilter);
+		multiObjectiveSend(MaintainEnum.IP, imConfig.getAioConfig(), toIP, imPacket, channelContextFilter);
 	}
 
 	public static void sendToGroup(ImServerConfig imConfig, String toId, ImPacket imPacket) {
@@ -77,7 +78,7 @@ public class TIMServer {
 	}
 
 	public static void sendToGroup(ImServerConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
-		multiObjectiveSend(MaintainEnum.GROUP_ID, imConfig, toId, imPacket, channelContextFilter);
+		multiObjectiveSend(MaintainEnum.GROUP_ID, imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
 	}
 
 	public static void sendToToken(ImServerConfig imConfig, String toTokenId, ImPacket imPacket) {
@@ -85,7 +86,7 @@ public class TIMServer {
 	}
 
 	public static void sendToToken(ImServerConfig imConfig, String toTokenId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
-		multiObjectiveSend(MaintainEnum.TOKEN, imConfig, toTokenId, imPacket, channelContextFilter);
+		multiObjectiveSend(MaintainEnum.TOKEN, imConfig.getAioConfig(), toTokenId, imPacket, channelContextFilter);
 	}
 
 	public static void sendToUser(ImServerConfig imConfig, String toId, ImPacket imPacket) {
@@ -93,7 +94,7 @@ public class TIMServer {
 	}
 
     public static void sendToUser(ImServerConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
-		multiObjectiveSend(MaintainEnum.USER, imConfig, toId, imPacket, channelContextFilter);
+		multiObjectiveSend(MaintainEnum.USER, imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
     }
 
 	public static void remove(ImChannelContext<ImServerConfig> imChannelContext) {
@@ -231,26 +232,26 @@ public class TIMServer {
 		}
 	}
 
-	private static void multiObjectiveSend(MaintainEnum maintainEnum, ImServerConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+	private static void multiObjectiveSend(MaintainEnum maintainEnum, AioConfig aioConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		switch (maintainEnum) {
 			case CLU_ID: {
-				Aio.sendToCluId(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
+				Aio.sendToCluId(aioConfig, toId, imPacket, channelContextFilter);
 				break;
 			}
 			case GROUP_ID: {
-				Aio.sendToGroup(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
+				Aio.sendToGroup(aioConfig, toId, imPacket, channelContextFilter);
 				break;
 			}
 			case IP: {
-				Aio.sendToIp(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
+				Aio.sendToIp(aioConfig, toId, imPacket, channelContextFilter);
 				break;
 			}
 			case TOKEN: {
-				Aio.sendToToken(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
+				Aio.sendToToken(aioConfig, toId, imPacket, channelContextFilter);
 				break;
 			}
 			case USER: {
-				Aio.sendToUser(imConfig.getAioConfig(), toId, imPacket, channelContextFilter);
+				Aio.sendToUser(aioConfig, toId, imPacket, channelContextFilter);
 				break;
 			}
 			default: {
@@ -259,10 +260,10 @@ public class TIMServer {
 		}
 	}
 
-	private static void singleObjectiveSend(MaintainEnum maintainEnum, ImServerConfig imConfig, String toId, ImPacket imPacket) {
+	private static void singleObjectiveSend(MaintainEnum maintainEnum, AioConfig aioConfig, String toId, ImPacket imPacket) {
 		switch (maintainEnum) {
 			case Bs_ID: {
-				Aio.sendToBsId(imConfig.getAioConfig(), toId, imPacket);
+				Aio.sendToBsId(aioConfig, toId, imPacket);
 				break;
 			}
 			case CLIENT_NODE_ID: {
@@ -270,7 +271,7 @@ public class TIMServer {
 				break;
 			}
 			case ID: {
-				Aio.sendToId(imConfig.getAioConfig(), toId, imPacket);
+				Aio.sendToId(aioConfig, toId, imPacket);
 				break;
 			}
 			default: {
