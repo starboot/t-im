@@ -96,7 +96,7 @@ public class TIMServerStarter {
 					}
 				})
 				.start();
-		TIMLogUtil.info(LOGGER, "TIM server started successfully in ：{}:{}", aioConfig.getHost(), aioConfig.getPort());
+		TIMLogUtil.info(LOGGER, "TIM server started successfully in {}:{}", aioConfig.getHost(), aioConfig.getPort());
 	}
 
 	public ImServerConfig getImServerConfig() {
