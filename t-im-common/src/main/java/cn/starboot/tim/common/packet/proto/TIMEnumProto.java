@@ -417,7 +417,7 @@ public final class TIMEnumProto {
 
     /**
      * <pre>
-     *	// 消息类型
+     * 消息类型
      * </pre>
      *
      * Protobuf enum {@code TIMEnum.MsgType}
@@ -664,7 +664,7 @@ public final class TIMEnumProto {
 
     /**
      * <pre>
-     *	// 聊天类型
+     * 聊天类型
      * </pre>
      *
      * Protobuf enum {@code TIMEnum.ChatType}
@@ -809,7 +809,7 @@ public final class TIMEnumProto {
 
     /**
      * <pre>
-     *	// 加入群组类型
+     * 加入群组类型
      * </pre>
      *
      * Protobuf enum {@code TIMEnum.JoinGroupResult}
@@ -1001,6 +1001,136 @@ public final class TIMEnumProto {
       }
 
       // @@protoc_insertion_point(enum_scope:TIMEnum.JoinGroupResult)
+    }
+
+    /**
+     * <pre>
+     * 系统通知
+     * </pre>
+     *
+     * Protobuf enum {@code TIMEnum.SystemNoticeType}
+     */
+    public enum SystemNoticeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>ADD_FRIEND_REQ = 0;</code>
+       */
+      ADD_FRIEND_REQ(0),
+      /**
+       * <code>ADD_FRIEND_RESP = 1;</code>
+       */
+      ADD_FRIEND_RESP(1),
+      /**
+       * <code>ADD_GROUP_REQ = 2;</code>
+       */
+      ADD_GROUP_REQ(2),
+      /**
+       * <code>ADD_GROUP_RESP = 3;</code>
+       */
+      ADD_GROUP_RESP(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>ADD_FRIEND_REQ = 0;</code>
+       */
+      public static final int ADD_FRIEND_REQ_VALUE = 0;
+      /**
+       * <code>ADD_FRIEND_RESP = 1;</code>
+       */
+      public static final int ADD_FRIEND_RESP_VALUE = 1;
+      /**
+       * <code>ADD_GROUP_REQ = 2;</code>
+       */
+      public static final int ADD_GROUP_REQ_VALUE = 2;
+      /**
+       * <code>ADD_GROUP_RESP = 3;</code>
+       */
+      public static final int ADD_GROUP_RESP_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @Deprecated
+      public static SystemNoticeType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static SystemNoticeType forNumber(int value) {
+        switch (value) {
+          case 0: return ADD_FRIEND_REQ;
+          case 1: return ADD_FRIEND_RESP;
+          case 2: return ADD_GROUP_REQ;
+          case 3: return ADD_GROUP_RESP;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<SystemNoticeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          SystemNoticeType> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<SystemNoticeType>() {
+              public SystemNoticeType findValueByNumber(int number) {
+                return SystemNoticeType.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return TIMEnum.getDescriptor().getEnumTypes().get(5);
+      }
+
+      private static final SystemNoticeType[] VALUES = values();
+
+      public static SystemNoticeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private SystemNoticeType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:TIMEnum.SystemNoticeType)
     }
 
     public static final int ID_FIELD_NUMBER = 1;
@@ -1450,7 +1580,7 @@ public final class TIMEnumProto {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\rTIMEnum.proto\"\377\004\n\007TIMEnum\022\n\n\002id\030\001 \001(\005\"" +
+      "\n\rTIMEnum.proto\"\343\005\n\007TIMEnum\022\n\n\002id\030\001 \001(\005\"" +
       "\254\001\n\010Terminal\022\007\n\003MAC\020\000\022\007\n\003WIN\020\001\022\007\n\003WEB\020\002\022" +
       "\007\n\003IOS\020\003\022\013\n\007IOS_PAD\020\004\022\r\n\tIOS_WATCH\020\005\022\013\n\007" +
       "ANDROID\020\006\022\017\n\013ANDROID_PAD\020\007\022\021\n\rANDROID_WA" +
@@ -1466,8 +1596,11 @@ public final class TIMEnumProto {
       "OK\020\001\022\037\n\033JOIN_GROUP_RESULT_NOT_EXIST\020\002\022 \n" +
       "\034JOIN_GROUP_RESULT_GROUP_FULL\020\003\022\"\n\036JOIN_" +
       "GROUP_RESULT_IN_BACK_LIST\020\004\022\034\n\030JOIN_GROU" +
-      "P_RESULT_KICKED\020\005B3\n#cn.starboot.tim.com" +
-      "mon.packet.protoB\014TIMEnumProtob\006proto3"
+      "P_RESULT_KICKED\020\005\"b\n\020SystemNoticeType\022\022\n" +
+      "\016ADD_FRIEND_REQ\020\000\022\023\n\017ADD_FRIEND_RESP\020\001\022\021" +
+      "\n\rADD_GROUP_REQ\020\002\022\022\n\016ADD_GROUP_RESP\020\003B3\n" +
+      "#cn.starboot.tim.common.packet.protoB\014TI" +
+      "MEnumProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

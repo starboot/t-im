@@ -37,6 +37,9 @@ public enum TIMCommandType {
 	// 请求响应命令码
 	COMMAND_REQ_RESP((byte) -10,  "请求响应命令码"),
 
+	// 系统通知命令码
+	COMMAND_SYSTEM_NOTICE_REQ((byte) -11,  "系统通知命令码"),
+
 	// 保留给用户使用
 	COMMAND_PRIVATE_0_REQ((byte) -50,  "留给TIM用户使用的请求命令码"),
 
@@ -184,6 +187,7 @@ public enum TIMCommandType {
             case -8:  TIMCommandType = COMMAND_USERS_REQ;         break;
             case -9:  TIMCommandType = COMMAND_MESSAGE_REQ;       break;
 			case -10: TIMCommandType = COMMAND_REQ_RESP;          break;
+			case -11: TIMCommandType = COMMAND_SYSTEM_NOTICE_REQ; break;
 			case -50: TIMCommandType = COMMAND_PRIVATE_0_REQ;     break;
 			case -51: TIMCommandType = COMMAND_PRIVATE_1_REQ;     break;
 			case -52: TIMCommandType = COMMAND_PRIVATE_2_REQ;     break;

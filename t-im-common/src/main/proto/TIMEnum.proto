@@ -92,9 +92,6 @@ message TIMEnum {
 		ADD_GROUP_REQ = 2;
 
 		ADD_GROUP_RESP = 3;
-
-
-
 	}
 
 	int32 id = 1;
