@@ -56,15 +56,36 @@ public class TIMServer {
         Aio.send(channelContext.getChannelContext(), packet);
     }
 
+	public static void sendToBsId(ImServerConfig imConfig, String toBsId, ImPacket imPacket) {
+		singleObjectiveSend(MaintainEnum.Bs_ID, imConfig, toBsId, imPacket);
+	}
+
 	public static void sendToId(ImServerConfig imConfig, String toId, ImPacket imPacket) {
 		singleObjectiveSend(MaintainEnum.ID, imConfig, toId, imPacket);
+	}
+
+	public static void sendToIP(ImServerConfig imConfig, String toIP, ImPacket imPacket) {
+		sendToIP(imConfig, toIP, imPacket, null);
+	}
+
+	public static void sendToIP(ImServerConfig imConfig, String toIP, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+		multiObjectiveSend(MaintainEnum.IP, imConfig, toIP, imPacket, channelContextFilter);
 	}
 
 	public static void sendToGroup(ImServerConfig imConfig, String toId, ImPacket imPacket) {
 		sendToGroup(imConfig, toId, imPacket, null);
 	}
+
 	public static void sendToGroup(ImServerConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		multiObjectiveSend(MaintainEnum.GROUP_ID, imConfig, toId, imPacket, channelContextFilter);
+	}
+
+	public static void sendToToken(ImServerConfig imConfig, String toTokenId, ImPacket imPacket) {
+		sendToToken(imConfig, toTokenId, imPacket, null);
+	}
+
+	public static void sendToToken(ImServerConfig imConfig, String toTokenId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+		multiObjectiveSend(MaintainEnum.TOKEN, imConfig, toTokenId, imPacket, channelContextFilter);
 	}
 
 	public static void sendToUser(ImServerConfig imConfig, String toId, ImPacket imPacket) {
@@ -74,7 +95,6 @@ public class TIMServer {
     public static void sendToUser(ImServerConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
 		multiObjectiveSend(MaintainEnum.USER, imConfig, toId, imPacket, channelContextFilter);
     }
-
 
 	public static void remove(ImChannelContext<ImServerConfig> imChannelContext) {
 		remove(imChannelContext, null);
