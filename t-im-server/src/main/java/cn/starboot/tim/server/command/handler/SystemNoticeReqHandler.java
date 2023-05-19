@@ -1,13 +1,18 @@
 package cn.starboot.tim.server.command.handler;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.SystemNoticePacketProto;
 import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SystemNoticeReqHandler extends AbstractServerCmdHandler{
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(SystemNoticeReqHandler.class);
 
 	@Override
 	public TIMCommandType command() {
@@ -17,7 +22,8 @@ public class SystemNoticeReqHandler extends AbstractServerCmdHandler{
 	@Override
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
 		SystemNoticePacketProto.SystemNoticePacket systemNoticePacket = SystemNoticePacketProto.SystemNoticePacket.parseFrom(imPacket.getData());
-		if (systemNoticePacket == null) {
+		if (ObjectUtil.isEmpty(systemNoticePacket)) {
+			LOGGER.error("消息包格式化出错");
 			return null;
 		}
 		switch (systemNoticePacket.getChatType()) {
