@@ -355,7 +355,7 @@ public class TIMServer {
 		return result;
 	}
 
-	private static boolean unbindFromAll(MaintainEnum maintainEnum, ImChannelContext<ImServerConfig> imChannelContext) {
+	public static boolean exitFromAllGroup(MaintainEnum maintainEnum, ImChannelContext<ImServerConfig> imChannelContext) {
 		boolean result = false;
 		switch (maintainEnum) {
 			case CLU_ID: {
