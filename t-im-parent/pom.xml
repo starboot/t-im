@@ -15,6 +15,7 @@
         <module>../t-im-common</module>
         <module>../t-im-client</module>
         <module>../t-im-server-spring-boot-starter</module>
+        <module>../t-im-server-restful</module>
     </modules>
     <licenses>
         <license>
