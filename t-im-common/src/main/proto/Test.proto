@@ -2,7 +2,7 @@
 syntax = "proto3";
 
 // proto 文件包名
-//package com.wxw.notes.protobuf.proto;
+//package cn.starboot.tim.common.packet.proto;
 
 //生成 proto 文件所在包路径，一般来说是和文件包名一致就可以
 option java_package = "cn.starboot.tim.common.packet.proto";

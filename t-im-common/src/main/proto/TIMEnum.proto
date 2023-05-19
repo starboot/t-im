@@ -53,6 +53,7 @@ message TIMEnum {
 		ONLINE_VIDEO = 7;
 		// 视频会议
 		ONLINE_MEETING = 8;
+
 	};
 
   	// 聊天类型
@@ -79,6 +80,17 @@ message TIMEnum {
 		JOIN_GROUP_RESULT_IN_BACK_LIST = 4;
 		// 被踢
 		JOIN_GROUP_RESULT_KICKED = 5;
+	}
+
+	// 系统通知
+	enum SystemNoticeType {
+
+		ADD_FRIEND_REQ = 0;
+
+		ADD_FRIEND_RESP = 1;
+
+		GROUP = 101;
+
 	}
 
 	int32 id = 1;
