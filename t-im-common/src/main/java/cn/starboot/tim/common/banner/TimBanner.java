@@ -1,5 +1,6 @@
 package cn.starboot.tim.common.banner;
 
+import cn.starboot.socket.core.AioConfig;
 import cn.starboot.tim.common.ImConfig;
 
 import java.io.PrintStream;
@@ -25,7 +26,7 @@ public class TimBanner implements Banner {
     }
 
     private String getTimVersion() {
-		return "\033[036m :: "+ ImConfig.name +" :: \033[0m" + ImConfig.version;
+		return "\033[036m :: "+ ImConfig.name +" :: \033[0m" + " version: " + ImConfig.version + " (kernel: aio-socket version: " + AioConfig.VERSION + ")";
 	}
 
 }
