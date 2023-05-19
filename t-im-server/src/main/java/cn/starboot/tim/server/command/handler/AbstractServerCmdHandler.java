@@ -18,6 +18,14 @@ public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServ
 		TIMServer.sendToId(imConfig, toId, imPacket);
 	}
 
+	protected void sendToUser(ImServerConfig imConfig, String toId, ImPacket imPacket) {
+		TIMServer.sendToUser(imConfig, toId, imPacket);
+	}
+
+	protected void sendToUser(ImServerConfig imConfig, String toId, ImPacket imPacket, ChannelContextFilter channelContextFilter) {
+		TIMServer.sendToUser(imConfig, toId, imPacket, channelContextFilter);
+	}
+
 	protected void sendToGroup(ImServerConfig imConfig, String toGroupId, ImPacket imPacket) {
 		TIMServer.sendToGroup(imConfig, toGroupId, imPacket);
 	}

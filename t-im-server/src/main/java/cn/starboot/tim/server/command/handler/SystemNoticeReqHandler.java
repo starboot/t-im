@@ -29,7 +29,7 @@ public class SystemNoticeReqHandler extends AbstractServerCmdHandler{
 		switch (systemNoticePacket.getChatType()) {
 			case PRIVATE: {
 				// 通知到个人
-				sendToId(imChannelContext.getConfig(), systemNoticePacket.getTargetId(), imPacket);
+				sendToUser(imChannelContext.getConfig(), systemNoticePacket.getTargetId(), imPacket);
 				break;
 			}
 			case GROUP: {
