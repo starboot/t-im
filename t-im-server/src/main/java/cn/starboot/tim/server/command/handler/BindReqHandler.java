@@ -59,7 +59,6 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 	}
 
 	private boolean bindHandler(BindPacketProto.BindPacket packet, ImServerChannelContext imChannelContext) {
-		// 进行绑定操作
 		switch (packet.getBindType()) {
 			case ID:
 				return TIMServer.bindId(packet.getBindId(), imChannelContext);

@@ -31,7 +31,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(chatPacket)) {
-			TIMLogUtil.error(LOGGER, "消息包格式化出错");
+			TIMLogUtil.error(LOGGER, "ChatReqServerHandler: message formatting error");
 			TIMServer.close(imChannelContext, CloseCode.READ_ERROR);
 			return null;
 		}
@@ -73,12 +73,12 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			}
 			case UNKNOWN: {
 				setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_FAILED);
-				TIMLogUtil.debug(LOGGER, "用户{}发送未知消息类型", chatPacket.getFromId());
+				TIMLogUtil.debug(LOGGER, "client {} send unknown message type", chatPacket.getFromId());
 				break;
 			}
 			default: {
 				setRespPacketImStatus(packet, RespPacketProto.RespPacket.ImStatus.SEND_FAILED);
-				TIMLogUtil.debug(LOGGER, "用户{}发送消息未携带类型", chatPacket.getFromId());
+				TIMLogUtil.debug(LOGGER, "client {} packet not exist message type", chatPacket.getFromId());
 				break;
 			}
 		}
