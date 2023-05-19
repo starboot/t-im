@@ -17,11 +17,9 @@ message SystemNoticePacket{
 	int64 createTime = 3;
 	// 系统类型
 	TIMEnum.SystemNoticeType msgType = 4;
-	// 聊天类型
-	TIMEnum.ChatType chatType = 5;
 	// 消息内容
-	string content = 6;
+	bytes content = 5;
 	// 扩展字段,JSON对象格式如：{'扩展字段名称':'扩展字段value'}
-	string extras = 8;
+	string extras = 7;
 
 }
