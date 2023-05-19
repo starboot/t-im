@@ -106,19 +106,51 @@ public class TIMServer {
 		close0(imChannelContext, closeCode);
     }
 
-	public static void removeGroup(ImServerConfig imConfig, String maintainId) {
-		removeGroup(imConfig, maintainId, null);
+	public static void closeBsId(ImServerConfig imConfig, String maintainId) {
+		closeBsId(imConfig, maintainId, null);
 	}
 
-	public static void removeGroup(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
+	public static void closeBsId(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
+		close0(MaintainEnum.Bs_ID, imConfig, maintainId, closeCode);
+	}
+
+	public static void closeId(ImServerConfig imConfig, String maintainId) {
+		closeId(imConfig, maintainId, null);
+	}
+
+	public static void closeId(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
+		close0(MaintainEnum.ID, imConfig, maintainId, closeCode);
+	}
+
+	public static void closeIp(ImServerConfig imConfig, String maintainId) {
+		closeIp(imConfig, maintainId, null);
+	}
+
+	public static void closeIp(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
+		close0(MaintainEnum.IP, imConfig, maintainId, closeCode);
+	}
+
+	public static void closeGroup(ImServerConfig imConfig, String maintainId) {
+		closeGroup(imConfig, maintainId, null);
+	}
+
+	public static void closeGroup(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
 		close0(MaintainEnum.GROUP_ID, imConfig, maintainId, closeCode);
 	}
 
-	public static void removeUser(ImServerConfig imConfig, String maintainId) {
-		removeUser(imConfig, maintainId, null);
+	public static void closeToken(ImServerConfig imConfig, String maintainId) {
+		closeToken(imConfig, maintainId, null);
 	}
 
-	public static void removeUser(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
+	public static void closeToken(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
+		close0(MaintainEnum.TOKEN, imConfig, maintainId, closeCode);
+	}
+
+	public static void closeUser(ImServerConfig imConfig, String maintainId) {
+		closeUser(imConfig, maintainId, null);
+	}
+
+	public static void closeUser(ImServerConfig imConfig, String maintainId, CloseCode closeCode) {
 		close0(MaintainEnum.USER, imConfig, maintainId, closeCode);
 	}
 
