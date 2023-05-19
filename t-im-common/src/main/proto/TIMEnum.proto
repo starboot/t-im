@@ -89,7 +89,11 @@ message TIMEnum {
 
 		ADD_FRIEND_RESP = 1;
 
-		GROUP = 101;
+		ADD_GROUP_REQ = 2;
+
+		ADD_GROUP_RESP = 3;
+
+
 
 	}
 
