@@ -94,4 +94,6 @@ public abstract class TIMPacketProtocol {
 			writeBuffer.write(data);
 		}
 	}
+
+	public abstract Packet handle(ChannelContext channelContext, Packet packet);
 }
