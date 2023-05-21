@@ -1,6 +1,5 @@
 package cn.starboot.tim.server;
 
-import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.AioConfig;
 import cn.starboot.socket.core.ServerBootstrap;
@@ -26,13 +25,30 @@ public class TIMServerStarter {
 
 	private final ServerBootstrap serverBootstrap;
 
-	private static TIMServerStarter timServerStarter;
-
 	private final ImServerConfig imServerConfig;
 
 	static {
 		TimBanner timBanner = new TimBanner();
 		timBanner.printBanner(System.out);
+	}
+
+	// 内部类使用枚举
+	private enum TIMServerStarterSingletonEnum {
+		INSTANCE;
+		private final TIMServerStarter timServerStarter;
+		//在枚举类的构造器里初始化singletonObj
+		TIMServerStarterSingletonEnum() {
+			timServerStarter = new TIMServerStarter(new TIMServerProcessorImpl());
+		}
+		private TIMServerStarter getTimServerStarter() {
+			return timServerStarter;
+		}
+	}
+
+	// 对外部提供的获取单例的方法
+	public static TIMServerStarter getInstance() {
+		// 获取单例对象，返回
+		return TIMServerStarterSingletonEnum.INSTANCE.getTimServerStarter();
 	}
 
 	protected TIMServerStarter(TIMServerProcessor serverProcessor) {
@@ -41,13 +57,6 @@ public class TIMServerStarter {
 				TIMConfigManager.getPort(),
 				ImServerProtocolHandler.getInstance(channelContext -> new ImServerChannelContext(channelContext, getImServerConfig())));
 		this.imServerConfig = new ImServerConfig(serverProcessor, this.serverBootstrap.getConfig());
-	}
-
-	public static synchronized TIMServerStarter getInstance() {
-		if (ObjectUtil.isNull(timServerStarter)) {
-			timServerStarter = new TIMServerStarter(new TIMServerProcessorImpl());
-		}
-		return timServerStarter;
 	}
 
 	public void start() {
