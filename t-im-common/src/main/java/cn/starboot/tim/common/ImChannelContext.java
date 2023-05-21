@@ -10,11 +10,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor>> {
 
-	private static final Integer initialValue = 0;
+	private static final int MAX_VALUE = Integer.MAX_VALUE;
 
-	private final AtomicInteger reqInteger = new AtomicInteger(initialValue);
+	private static final int MIN_VALUE = Integer.MIN_VALUE;
 
-	private final AtomicInteger respInteger = new AtomicInteger(initialValue);
+	private final AtomicInteger reqInteger = new AtomicInteger(MIN_VALUE);
+
+	private final AtomicInteger respInteger = new AtomicInteger(MIN_VALUE);
 
 	/**
 	 * 通讯对象
@@ -51,7 +53,21 @@ public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor
 		return reqInteger.get();
 	}
 
+	public Integer updateAndGetReqInteger() {
+		if (reqInteger.get() == MAX_VALUE) {
+			reqInteger.set(MIN_VALUE);
+		}
+		return reqInteger.incrementAndGet();
+	}
+
 	public Integer getRespInteger() {
 		return respInteger.get();
+	}
+
+	public Integer updateAndGetRespInteger() {
+		if (respInteger.get() == MAX_VALUE) {
+			respInteger.set(MIN_VALUE);
+		}
+		return respInteger.incrementAndGet();
 	}
 }
