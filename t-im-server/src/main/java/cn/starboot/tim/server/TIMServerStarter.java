@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.AioConfig;
 import cn.starboot.socket.core.ServerBootstrap;
+import cn.starboot.socket.plugins.ACKPlugin;
 import cn.starboot.socket.plugins.HeartPlugin;
 import cn.starboot.socket.plugins.MonitorPlugin;
 import cn.starboot.tim.common.banner.TimBanner;
@@ -52,11 +53,13 @@ public class TIMServerStarter {
 	public void start() {
 		try {
 			init();
+			AioConfig aioConfig = getImServerConfig().getAioConfig();
 			long start = System.currentTimeMillis();
-			start0();
+			this.serverBootstrap.start();
 			long end = System.currentTimeMillis();
 			long iv = end - start;
 			TIMLogUtil.info(LOGGER, "TIM server startup completed, taking {} ms", iv);
+			TIMLogUtil.info(LOGGER, "TIM server started successfully in {}:{}", aioConfig.getHost(), aioConfig.getPort());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,30 +67,24 @@ public class TIMServerStarter {
 	}
 
 	private void init() {
-		TIMLogUtil.info(LOGGER, "init TIM server configuration");
+		TIMLogUtil.info(LOGGER, "Initialize TIM server configuration");
 		try {
 			// 加载配置信息
 			TIMLogUtil.info(LOGGER, "loading TIM server configuration file");
 			TIMConfigManager.Builder.build(this.imServerConfig).initTIMServerConfiguration().initRedisConfiguration().initKernelConfiguration();
 
 			// 初始化内核设置
-			TIMLogUtil.info(LOGGER, "init TIM server kernel configuration");
+			TIMLogUtil.info(LOGGER, "Initialize TIM server kernel configuration");
 			initKernel(this.serverBootstrap, getImServerConfig().getAioConfig());
 
 			// 初始化插件
-			TIMLogUtil.info(LOGGER, "init TIM server plugin configuration");
+			TIMLogUtil.info(LOGGER, "Initialize TIM server plugin configuration");
 			initPlugin(this.serverBootstrap, getImServerConfig());
 
 			// 初始化集群
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void start0() {
-		AioConfig aioConfig = getImServerConfig().getAioConfig();
-		this.serverBootstrap.start();
-		TIMLogUtil.info(LOGGER, "TIM server started successfully in {}:{}", aioConfig.getHost(), aioConfig.getPort());
 	}
 
 	public ImServerConfig getImServerConfig() {
@@ -108,7 +105,10 @@ public class TIMServerStarter {
 				}
 			});
 		}
-
+		if (imServerConfig.isAckPlugin()) {
+			serverBootstrap.addPlugin(new ACKPlugin(5, 1, TimeUnit.SECONDS));
+		}
+		TIMLogUtil.info(LOGGER, "Initialize TIM server plugin configuration completed");
 	}
 
 	private void initKernel(ServerBootstrap serverBootstrap, AioConfig aioConfig) {
@@ -120,6 +120,7 @@ public class TIMServerStarter {
 						aioConfig.getWorkerThreadNumber())
 				.setReadBufferSize(aioConfig.getReadBufferSize())
 				.setWriteBufferSize(aioConfig.getWriteBufferSize(), 128);
+		TIMLogUtil.info(LOGGER, "Initialize TIM server kernel configuration completed");
 	}
 
 }
