@@ -27,8 +27,17 @@ public abstract class TIMPacketProtocol {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TIMPacketProtocol.class);
 
+	// 1(命令码:commandType) + 1(imStatus标志位: 1存在, 0: 不存在) + 4(imStatus, 不存在时就没有这4字节) + 4(消息体长度:length) + n
+	private static final int minLength = 6;
+
 	public ImPacket decode(MemoryUnit readBuffer, ChannelContext channelContext) throws ImDecodeException {
 		ByteBuffer buffer = readBuffer.buffer();
+		// 获取TCP报文的长度
+		int remaining = buffer.remaining();
+		// 定制TCP消息的最短长度为 minLength
+		if (remaining < minLength) {
+			return null;
+		}
 		// 获取命令码数字索引
 		final byte commandType = buffer.get();
 		// 获取命令码
@@ -41,6 +50,7 @@ public abstract class TIMPacketProtocol {
 			}
 			// 关闭其连接
 			Aio.close(channelContext);
+			return null;
 		}
 		// 取IM状态码
 		int imStatusCode = buffer.get() > 0 ? buffer.getInt() : 0;
@@ -50,7 +60,6 @@ public abstract class TIMPacketProtocol {
 		final int remainingLength = buffer.remaining();
 		// 判断剩余TCP报文还够不够获取消息体
 		if (remainingLength < dataLength) {
-			buffer.reset();
 			return null;
 		}
 		byte[] b = null;
@@ -58,7 +67,6 @@ public abstract class TIMPacketProtocol {
 			// 获取消息体
 			b = AIOUtil.getBytesFromByteBuffer(readBuffer, dataLength, 10, channelContext);
 			if (b == null) {
-				buffer.reset();
 				return null;
 			}
 		}

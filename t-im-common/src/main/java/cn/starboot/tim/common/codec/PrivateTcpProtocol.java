@@ -8,18 +8,14 @@ import cn.starboot.socket.enums.ProtocolEnum;
 import cn.starboot.socket.exception.AioDecoderException;
 import cn.starboot.socket.exception.AioEncoderException;
 import cn.starboot.socket.intf.AioHandler;
-import cn.starboot.socket.utils.AIOUtil;
 import cn.starboot.socket.utils.pool.memory.MemoryUnit;
 import cn.starboot.tim.common.ImConst;
-import cn.starboot.tim.common.command.TIMCommandType;
-import cn.starboot.tim.common.exception.ImEncodeException;
 import cn.starboot.tim.common.packet.ImPacket;
-import cn.starboot.tim.common.packet.proto.RespPacketProto;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.ByteBuffer;
-import java.util.Objects;
 
 /**
  * 使用aio-socket，对Google的Protobuf进行解编码
@@ -40,8 +36,8 @@ public abstract class PrivateTcpProtocol implements AioHandler, ImConst {
     // 此消息为t-im系统的标识
     private static final byte timProtocolMark = (byte) 0xff;
 
-    // TIM定制私有协议最少比特位: 1(版本号:version) + 1(系统标识:mark) + 1(命令码:commandType) + 1(imStatus标志位: 1存在, 0: 不存在) + 4(imStatus) + 4(消息体长度:length) + n
-    private static final int minLength = 8;
+	// 定制私有协议最少比特位: 1(版本号:version) + 1(系统标识:mark)
+	private static final int minLength = 2;
 
 	private final TIMPacketProtocol timPacketProtocol;
 
@@ -70,10 +66,17 @@ public abstract class PrivateTcpProtocol implements AioHandler, ImConst {
         if (version != timProtocolVersion && mark != timProtocolMark) {
             // 重置指针
             buffer.reset();
+			TIMLogUtil.debug(LOGGER, "client send error packet");
+			Aio.close(channelContext);
             return null;
         }
-        // 解码成功
-        return timPacketProtocol.decode(readBuffer, channelContext);
+		ImPacket imPacket = timPacketProtocol.decode(readBuffer, channelContext);
+        if (imPacket == null) {
+        	buffer.reset();
+        	return null;
+		}
+		// 解码成功
+        return imPacket;
     }
 
     @Override
