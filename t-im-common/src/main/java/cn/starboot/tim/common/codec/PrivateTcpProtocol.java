@@ -39,10 +39,10 @@ public abstract class PrivateTcpProtocol implements AioHandler, ImConst {
 	// 定制私有协议最少比特位: 1(版本号:version) + 1(系统标识:mark)
 	private static final int minLength = 2;
 
-	private final TIMPacketProtocol timPacketProtocol;
+	private final TIMPacketProtocol<?> timPacketProtocol;
 
     // 此对象不让用户自己实例化
-    protected PrivateTcpProtocol(TIMPacketProtocol timPacketProtocol) {
+    protected PrivateTcpProtocol(TIMPacketProtocol<?> timPacketProtocol) {
     	this.timPacketProtocol = timPacketProtocol;
     }
 

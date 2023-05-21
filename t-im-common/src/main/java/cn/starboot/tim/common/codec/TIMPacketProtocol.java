@@ -7,9 +7,12 @@ import cn.starboot.socket.core.WriteBuffer;
 import cn.starboot.socket.exception.AioEncoderException;
 import cn.starboot.socket.utils.AIOUtil;
 import cn.starboot.socket.utils.pool.memory.MemoryUnit;
+import cn.starboot.tim.common.ImChannelContext;
+import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImDecodeException;
 import cn.starboot.tim.common.exception.ImEncodeException;
+import cn.starboot.tim.common.intf.TIMProcessor;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import org.slf4j.Logger;
@@ -23,7 +26,7 @@ import java.util.Objects;
  *
  * @author MDong
  */
-public abstract class TIMPacketProtocol {
+public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TIMPacketProtocol.class);
 
@@ -103,5 +106,5 @@ public abstract class TIMPacketProtocol {
 		}
 	}
 
-	public abstract Packet handle(ChannelContext channelContext, Packet packet);
+	public abstract ImPacket handle(T imChannelContext, ImPacket imPacket);
 }

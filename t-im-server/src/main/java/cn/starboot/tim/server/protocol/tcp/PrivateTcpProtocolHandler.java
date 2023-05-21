@@ -16,36 +16,38 @@ import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.command.TIMServerCommandManager;
 import cn.starboot.tim.server.intf.TIMServerProcessor;
+import cn.starboot.tim.server.protocol.ImServerPacketProtocolHandler;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ImServerProtocolHandler extends PrivateTcpProtocol {
+public class PrivateTcpProtocolHandler extends PrivateTcpProtocol {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ImServerProtocolHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PrivateTcpProtocolHandler.class);
 
     // TIM系统定制私有TCP通讯协议的服务器对象
-    private static ImServerProtocolHandler imServerProtocolHandler;
+    private static PrivateTcpProtocolHandler privateTcpProtocolHandler;
 
 	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory;
 
-	private final TIMServerCommandManager timServerTIMCommandManager;
-
-	private final TIMPlugin timPlugin = new TIMPlugin();
+	private final ImServerPacketProtocolHandler imServerPacketProtocolHandler;
 
     // 此对象不让用户自己实例化
-    private ImServerProtocolHandler(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory) {
-		super(null);
+    private PrivateTcpProtocolHandler(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory,
+									  ImServerPacketProtocolHandler imServerPacketProtocolHandler) {
+		super(imServerPacketProtocolHandler);
+		this.imServerPacketProtocolHandler = imServerPacketProtocolHandler;
 		this.serverImChannelContextFactory = serverImChannelContextFactory;
-    	this.timServerTIMCommandManager = TIMServerCommandManager.getTIMServerCommandManagerInstance();
+
     }
 
     // 采用面向对象设计模式的单例模式创建
-    public synchronized static PrivateTcpProtocol getInstance(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory) {
-        if (imServerProtocolHandler == null){
-            imServerProtocolHandler = new ImServerProtocolHandler(serverImChannelContextFactory);
+    public synchronized static PrivateTcpProtocol getInstance(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory,
+															  ImServerPacketProtocolHandler imServerPacketProtocolHandler) {
+        if (privateTcpProtocolHandler == null){
+            privateTcpProtocolHandler = new PrivateTcpProtocolHandler(serverImChannelContextFactory, imServerPacketProtocolHandler);
         }
-        return imServerProtocolHandler;
+        return privateTcpProtocolHandler;
     }
 
     @Override
@@ -54,22 +56,15 @@ public class ImServerProtocolHandler extends PrivateTcpProtocol {
 		if (ObjectUtil.isEmpty(imServerChannelContext)) {
 			imServerChannelContext = serverImChannelContextFactory.createImChannelContext(channelContext);
 			if (imServerChannelContext.getConfig() == null) {
-				TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：没有加载到配置文件...");
+				TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：not find tim.properties ...");
 			}
 			channelContext.attr(Key.IM_CHANNEL_CONTEXT_KEY, imServerChannelContext);
 		}
         if (packet instanceof ImPacket) {
             // 消息处理
             ImPacket imPacket = (ImPacket) packet;
-            TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
-            AbstractCmdHandler<ImServerChannelContext, ImServerConfig, TIMServerProcessor> cmdHandler = this.timServerTIMCommandManager.getCommand(TIMCommandType);
-            try {
-            	if (timPlugin.beforeProcess(imPacket, imServerChannelContext)) {
-					cmdHandler.handler(imPacket, imServerChannelContext);
-				}
-            } catch (ImException | InvalidProtocolBufferException e) {
-                e.printStackTrace();
-            }
+            // 二层协议处理
+			return this.imServerPacketProtocolHandler.handle(imServerChannelContext, imPacket);
         }else {
 			TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：收到异常包裹...");
         }
