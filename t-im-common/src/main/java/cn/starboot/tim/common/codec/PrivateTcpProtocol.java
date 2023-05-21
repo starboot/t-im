@@ -22,15 +22,16 @@ import java.util.Objects;
 
 /**
  * 使用aio-socket，对Google的Protobuf进行解编码
+ * 对标websocket
  *
  * Created by DELL(mxd) on 2021/12/24 20:52
  */
-public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
+public abstract class PrivateTcpProtocol implements AioHandler, ImConst {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TIMPrivateTcpProtocol.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PrivateTcpProtocol.class);
 
     // TIM系统定制私有TCP通讯协议
-    private static TIMPrivateTcpProtocol timPrivateTcpProtocol;
+    private static PrivateTcpProtocol privateTcpProtocol;
 
     // 协议版本号
     private static final byte timProtocolVersion = (byte) 0x01;
@@ -42,7 +43,7 @@ public abstract class TIMPrivateTcpProtocol implements AioHandler, ImConst {
     private static final int minLength = 10;
 
     // 此对象不让用户自己实例化
-    protected TIMPrivateTcpProtocol() {
+    protected PrivateTcpProtocol() {
     }
 
     @Override

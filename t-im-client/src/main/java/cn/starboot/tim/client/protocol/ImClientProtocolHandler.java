@@ -7,7 +7,7 @@ import cn.starboot.tim.client.ImClientChannelContext;
 import cn.starboot.tim.client.ImClientConfig;
 import cn.starboot.tim.client.command.handler.AbstractClientCmdHandler;
 import cn.starboot.tim.client.command.TIMClientCommandManager;
-import cn.starboot.tim.common.codec.TIMPrivateTcpProtocol;
+import cn.starboot.tim.common.codec.PrivateTcpProtocol;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
@@ -15,7 +15,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ImClientProtocolHandler extends TIMPrivateTcpProtocol {
+public class ImClientProtocolHandler extends PrivateTcpProtocol {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ImClientProtocolHandler.class);
 
@@ -27,7 +27,7 @@ public class ImClientProtocolHandler extends TIMPrivateTcpProtocol {
     }
 
     // 采用面向对象设计模式的单例模式创建
-    public static TIMPrivateTcpProtocol getInstance() {
+    public static PrivateTcpProtocol getInstance() {
         if (imServerProtocolHandler == null){
             imServerProtocolHandler = new ImClientProtocolHandler();
         }
