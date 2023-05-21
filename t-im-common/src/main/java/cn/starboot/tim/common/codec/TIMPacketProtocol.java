@@ -3,6 +3,8 @@ package cn.starboot.tim.common.codec;
 import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
+import cn.starboot.socket.core.WriteBuffer;
+import cn.starboot.socket.exception.AioEncoderException;
 import cn.starboot.socket.utils.AIOUtil;
 import cn.starboot.socket.utils.pool.memory.MemoryUnit;
 import cn.starboot.tim.common.command.TIMCommandType;
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.ByteBuffer;
+import java.util.Objects;
 
 /**
  * t-im 专用IM协议，属于上层协议，且基于websocket、HTTP、mqtt、私有TCP等
@@ -63,7 +66,32 @@ public abstract class TIMPacketProtocol {
 		return ImPacket.newBuilder().setTIMCommandType(command).setImStatus(RespPacketProto.RespPacket.ImStatus.forNumber(imStatusCode)).setData(b).build();
 	}
 
-	public void encode(ImPacket imPacket, ChannelContext channelContext) throws ImEncodeException {
-
+	public void encode(ImPacket imPacket, ChannelContext channelContext) throws AioEncoderException {
+		// 消息命令码
+		TIMCommandType timCommandType = imPacket.getTIMCommandType();
+		// 消息体
+		byte[] data = imPacket.getData();
+		// 写入状态码
+		RespPacketProto.RespPacket.ImStatus imStatus = imPacket.getImStatus();
+		// 拿到输入流
+		WriteBuffer writeBuffer = channelContext.getWriteBuffer();
+		if (Objects.isNull(timCommandType)) {
+			throw new ImEncodeException("TIM private TCP protocol encode failed because of the TIMCommandType is not defined.");
+		}
+		// 写入命令码
+		writeBuffer.writeByte(timCommandType.getCode());
+		// 写入状态码
+		if (Objects.isNull(imStatus)) {
+			writeBuffer.write(0);
+		} else {
+			writeBuffer.write(1);
+			writeBuffer.writeInt(imPacket.getImStatus().getNumber());
+		}
+		// 写入消息体长度
+		writeBuffer.writeInt(data.length);
+		// 写入消息体
+		if (data.length > 0) {
+			writeBuffer.write(data);
+		}
 	}
 }

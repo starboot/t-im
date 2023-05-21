@@ -35,7 +35,8 @@ public class ImServerProtocolHandler extends PrivateTcpProtocol {
 
     // 此对象不让用户自己实例化
     private ImServerProtocolHandler(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory) {
-    	this.serverImChannelContextFactory = serverImChannelContextFactory;
+		super(null);
+		this.serverImChannelContextFactory = serverImChannelContextFactory;
     	this.timServerTIMCommandManager = TIMServerCommandManager.getTIMServerCommandManagerInstance();
     }
 

@@ -12,6 +12,7 @@ import cn.starboot.socket.utils.AIOUtil;
 import cn.starboot.socket.utils.pool.memory.MemoryUnit;
 import cn.starboot.tim.common.ImConst;
 import cn.starboot.tim.common.command.TIMCommandType;
+import cn.starboot.tim.common.exception.ImEncodeException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import org.slf4j.Logger;
@@ -42,8 +43,11 @@ public abstract class PrivateTcpProtocol implements AioHandler, ImConst {
     // TIM定制私有协议最少比特位: 1(版本号:version) + 1(系统标识:mark) + 4(命令码:commandType) + 4(消息体长度:length)
     private static final int minLength = 10;
 
+	private final TIMPacketProtocol timPacketProtocol;
+
     // 此对象不让用户自己实例化
-    protected PrivateTcpProtocol() {
+    protected PrivateTcpProtocol(TIMPacketProtocol timPacketProtocol) {
+    	this.timPacketProtocol = timPacketProtocol;
     }
 
     @Override
@@ -68,78 +72,22 @@ public abstract class PrivateTcpProtocol implements AioHandler, ImConst {
             buffer.reset();
             return null;
         }
-        // 获取命令码数字索引
-        final byte commandType = buffer.get();
-        // 获取命令码
-        TIMCommandType command = TIMCommandType.getCommandTypeByCode(commandType);
-        // 判断是否为异常命令
-        if (command == null) {
-            // 用户发送未知命令码
-            if (LOGGER.isErrorEnabled()) {
-                LOGGER.error("用户发送未知命令码");
-            }
-            // 关闭其连接
-            Aio.close(channelContext);
-        }
-        // 取IM状态码
-		int imStatusCode = buffer.get() > 0 ? buffer.getInt() : 0;
-        // 获取消息体长度
-        final int dataLength = buffer.getInt();
-        // 获取剩余报文长度
-        final int remainingLength = buffer.remaining();
-        // 判断剩余TCP报文还够不够获取消息体
-        if (remainingLength < dataLength) {
-            buffer.reset();
-            return null;
-        }
-		byte[] b = null;
-		if (dataLength > 0) {
-			// 获取消息体
-			b = AIOUtil.getBytesFromByteBuffer(readBuffer, dataLength, 10, channelContext);
-			if (b == null) {
-				buffer.reset();
-				return null;
-			}
-		}
         // 解码成功
-        return ImPacket.newBuilder().setTIMCommandType(command).setImStatus(RespPacketProto.RespPacket.ImStatus.forNumber(imStatusCode)).setData(b).build();
+        return timPacketProtocol.decode(readBuffer, channelContext);
     }
 
     @Override
     public void encode(Packet packet, ChannelContext channelContext) throws AioEncoderException {
         if (packet instanceof ImPacket) {
-            // 开始编码
-            ImPacket imPacket = (ImPacket) packet;
-            // 消息命令码
-            TIMCommandType timCommandType = imPacket.getTIMCommandType();
-            // 消息体
-            byte[] data = imPacket.getData();
             // 拿到输入流
             WriteBuffer writeBuffer = channelContext.getWriteBuffer();
             // 写入协议版本号
             writeBuffer.writeByte(timProtocolVersion);
             // 写入协议的特殊标识
             writeBuffer.writeByte(timProtocolMark);
-            if (Objects.isNull(timCommandType)) {
-            	throw new AioEncoderException("TIM private TCP protocol encode failed because of the TIMCommandType is not defined.");
-			}
-            // 写入命令码
-            writeBuffer.writeByte(timCommandType.getCode());
-            // 写入状态码
-			RespPacketProto.RespPacket.ImStatus imStatus = imPacket.getImStatus();
-			if (Objects.isNull(imStatus)) {
-				writeBuffer.write(0);
-			} else {
-				writeBuffer.write(1);
-				writeBuffer.writeInt(imPacket.getImStatus().getNumber());
-			}
-            // 写入消息体长度
-            writeBuffer.writeInt(data.length);
-            // 写入消息体
-            if (data.length > 0) {
-				writeBuffer.write(data);
-			}
-        }else {
+			// t-im协议编码
+			timPacketProtocol.encode((ImPacket) packet, channelContext);
+		}else {
             throw new AioEncoderException("TIM private TCP protocol encode failed because of the Packet is not ImPacket.");
         }
 
