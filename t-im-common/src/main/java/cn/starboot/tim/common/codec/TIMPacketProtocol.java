@@ -38,6 +38,10 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 
 	private static final byte synMark_req_resp = (byte) 0x03;
 
+	private static final byte data_not_exist  = (byte) 0x00;
+
+	private static final byte data_exist  = (byte) 0x01;
+
 	public ImPacket decode(MemoryUnit readBuffer, ChannelContext channelContext) throws ImDecodeException {
 		ByteBuffer buffer = readBuffer.buffer();
 		// 获取TCP报文的长度
@@ -81,20 +85,23 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 				break;
 			}
 		}
-		// 获取消息体长度
-		final int dataLength = buffer.getInt();
-		// 获取剩余报文长度
-		final int remainingLength = buffer.remaining();
-		// 判断剩余TCP报文还够不够获取消息体
-		if (remainingLength < dataLength) {
-			return null;
-		}
+
 		byte[] b = null;
-		if (dataLength > 0) {
-			// 获取消息体
-			b = AIOUtil.getBytesFromByteBuffer(readBuffer, dataLength, 10, channelContext);
-			if (b == null) {
+		if (buffer.get() == data_exist) {
+			// 获取消息体长度
+			final int dataLength = buffer.getInt();
+			// 获取剩余报文长度
+			final int remainingLength = buffer.remaining();
+			// 判断剩余TCP报文还够不够获取消息体
+			if (remainingLength < dataLength) {
 				return null;
+			}
+			if (dataLength > 0) {
+				// 获取消息体
+				b = AIOUtil.getBytesFromByteBuffer(readBuffer, dataLength, 10, channelContext);
+				if (b == null) {
+					return null;
+				}
 			}
 		}
 		// 解码成功
@@ -138,6 +145,11 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 			writeBuffer.writeInt(req);
 			writeBuffer.writeInt(resp);
 		}
+		if (Objects.isNull(data)) {
+			writeBuffer.write(data_not_exist);
+			return;
+		}
+		writeBuffer.write(data_exist);
 		// 写入消息体长度
 		writeBuffer.writeInt(data.length);
 		// 写入消息体

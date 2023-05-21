@@ -47,9 +47,12 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 
 		// 检查是否重复包
 		if (imChannelContext.getReqInteger() > imPacket.getReq()) {
-			imPacket.setResp(imPacket.getReq());
-			imPacket.setReq(null);
-			return imPacket;
+			ImPacket respImPacket = imChannelContext
+					.getConfig()
+					.getImPacketFactory()
+					.createImPacket(TIMCommandType.COMMAND_REQ_RESP, null, null);
+			respImPacket.setResp(imPacket.getReq());
+			return respImPacket;
 		}
 
 		return null;

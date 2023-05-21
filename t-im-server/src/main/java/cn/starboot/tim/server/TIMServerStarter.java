@@ -55,7 +55,7 @@ public class TIMServerStarter {
 		this.serverBootstrap
 				= new ServerBootstrap(TIMConfigManager.getHost(),
 				TIMConfigManager.getPort(),
-				PrivateTcpProtocolHandler.getInstance(channelContext -> new ImServerChannelContext(channelContext, getImServerConfig())));
+				PrivateTcpProtocolHandler.getInstance(channelContext -> new ImServerChannelContext(channelContext, getImServerConfig()), null));
 		this.imServerConfig = new ImServerConfig(serverProcessor, this.serverBootstrap.getConfig());
 	}
 
