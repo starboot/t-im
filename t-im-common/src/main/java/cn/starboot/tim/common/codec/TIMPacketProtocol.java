@@ -1,6 +1,5 @@
 package cn.starboot.tim.common.codec;
 
-import cn.starboot.socket.Packet;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.core.WriteBuffer;
@@ -8,11 +7,9 @@ import cn.starboot.socket.exception.AioEncoderException;
 import cn.starboot.socket.utils.AIOUtil;
 import cn.starboot.socket.utils.pool.memory.MemoryUnit;
 import cn.starboot.tim.common.ImChannelContext;
-import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImDecodeException;
 import cn.starboot.tim.common.exception.ImEncodeException;
-import cn.starboot.tim.common.intf.TIMProcessor;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import org.slf4j.Logger;
@@ -30,8 +27,16 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TIMPacketProtocol.class);
 
-	// 1(命令码:commandType) + 1(imStatus标志位: 1存在, 0: 不存在) + 4(imStatus, 不存在时就没有这4字节) + 4(消息体长度:length) + n
-	private static final int minLength = 6;
+	// 1(命令码:commandType) + 1(imStatus标志位: 1存在, 0: 不存在) + 4(imStatus, 不存在时就没有这4字节) + 1(同步标志位) + 4(消息体长度:length) + n
+	private static final int minLength = 7;
+
+	private static final byte synMark_not_exist = (byte) 0x00;
+
+	private static final byte synMark_only_req = (byte) 0x01;
+
+	private static final byte synMark_only_resp = (byte) 0x02;
+
+	private static final byte synMark_req_resp = (byte) 0x03;
 
 	public ImPacket decode(MemoryUnit readBuffer, ChannelContext channelContext) throws ImDecodeException {
 		ByteBuffer buffer = readBuffer.buffer();
@@ -57,6 +62,25 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 		}
 		// 取IM状态码
 		int imStatusCode = buffer.get() > 0 ? buffer.getInt() : 0;
+		// 获取同部位
+		Integer synReq = null;
+		Integer synResp = null;
+		switch (buffer.get()) {
+			case synMark_not_exist: break;
+			case synMark_only_req: {
+				synReq = buffer.getInt();
+				break;
+			}
+			case synMark_only_resp: {
+				synResp = buffer.getInt();
+				break;
+			}
+			case synMark_req_resp: {
+				synReq = buffer.getInt();
+				synResp = buffer.getInt();
+				break;
+			}
+		}
 		// 获取消息体长度
 		final int dataLength = buffer.getInt();
 		// 获取剩余报文长度
@@ -74,7 +98,7 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 			}
 		}
 		// 解码成功
-		return ImPacket.newBuilder().setTIMCommandType(command).setImStatus(RespPacketProto.RespPacket.ImStatus.forNumber(imStatusCode)).setData(b).build();
+		return ImPacket.newBuilder().setReq(synReq).setResp(synResp).setTIMCommandType(command).setImStatus(RespPacketProto.RespPacket.ImStatus.forNumber(imStatusCode)).setData(b).build();
 	}
 
 	public void encode(ImPacket imPacket, ChannelContext channelContext) throws AioEncoderException {
@@ -97,6 +121,22 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 		} else {
 			writeBuffer.write(1);
 			writeBuffer.writeInt(imPacket.getImStatus().getNumber());
+		}
+		// 同步位
+		Integer req = imPacket.getReq();
+		Integer resp = imPacket.getResp();
+		if (Objects.isNull(req) && Objects.isNull(resp)) {
+			writeBuffer.write(synMark_not_exist);
+		} else if (Objects.isNull(req)) {
+			writeBuffer.write(synMark_only_resp);
+			writeBuffer.writeInt(resp);
+		} else if (Objects.isNull(resp)) {
+			writeBuffer.write(synMark_only_req);
+			writeBuffer.writeInt(req);
+		} else {
+			writeBuffer.write(synMark_req_resp);
+			writeBuffer.writeInt(req);
+			writeBuffer.writeInt(resp);
 		}
 		// 写入消息体长度
 		writeBuffer.writeInt(data.length);

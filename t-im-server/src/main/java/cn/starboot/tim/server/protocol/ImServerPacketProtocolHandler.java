@@ -39,4 +39,19 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 		}
 		return null;
 	}
+
+	/**
+	 * 预处理
+	 */
+	private ImPacket preHandle(ImServerChannelContext imChannelContext, ImPacket imPacket) {
+
+		// 检查是否重复包
+		if (imChannelContext.getReqInteger() > imPacket.getReq()) {
+			imPacket.setResp(imPacket.getReq());
+			imPacket.setReq(null);
+			return imPacket;
+		}
+
+		return null;
+	}
 }
