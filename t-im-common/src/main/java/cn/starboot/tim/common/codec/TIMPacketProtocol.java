@@ -71,7 +71,7 @@ public abstract class TIMPacketProtocol {
 		TIMCommandType timCommandType = imPacket.getTIMCommandType();
 		// 消息体
 		byte[] data = imPacket.getData();
-		// 写入状态码
+		// 状态码
 		RespPacketProto.RespPacket.ImStatus imStatus = imPacket.getImStatus();
 		// 拿到输入流
 		WriteBuffer writeBuffer = channelContext.getWriteBuffer();

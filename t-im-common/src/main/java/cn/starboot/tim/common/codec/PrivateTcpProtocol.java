@@ -40,8 +40,8 @@ public abstract class PrivateTcpProtocol implements AioHandler, ImConst {
     // 此消息为t-im系统的标识
     private static final byte timProtocolMark = (byte) 0xff;
 
-    // TIM定制私有协议最少比特位: 1(版本号:version) + 1(系统标识:mark) + 4(命令码:commandType) + 4(消息体长度:length)
-    private static final int minLength = 10;
+    // TIM定制私有协议最少比特位: 1(版本号:version) + 1(系统标识:mark) + 1(命令码:commandType) + 1(imStatus标志位: 1存在, 0: 不存在) + 4(imStatus) + 4(消息体长度:length) + n
+    private static final int minLength = 8;
 
 	private final TIMPacketProtocol timPacketProtocol;
 
