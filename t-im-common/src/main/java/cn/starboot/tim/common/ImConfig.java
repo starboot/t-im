@@ -23,6 +23,8 @@ public abstract class ImConfig<P extends TIMProcessor> {
 	 */
 	public static boolean isUseSSL;
 
+	private boolean ackPlugin;
+
 	private final AioConfig aioConfig;
 
 	private final ImPacketFactory imPacketFactory = (timCommandType, imStatus, data) -> ImPacket.newBuilder().setTIMCommandType(timCommandType).setImStatus(imStatus).setData(data).build();
@@ -51,5 +53,20 @@ public abstract class ImConfig<P extends TIMProcessor> {
 
 	public int getPort() {
 		return this.aioConfig.getPort();
+	}
+
+	public boolean isAckPlugin() {
+		return ackPlugin;
+	}
+
+	public void setAckPlugin(boolean ackPlugin) {
+		this.ackPlugin = ackPlugin;
+	}
+
+	@Override
+	public String toString() {
+		return "ImConfig{" +
+				"ackPlugin=" + ackPlugin +
+				'}';
 	}
 }

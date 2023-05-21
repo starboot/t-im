@@ -67,7 +67,18 @@ public class TIMServerStarter {
 		TIMLogUtil.info(LOGGER, "init TIM server configuration");
 		try {
 			// 加载配置信息
+			TIMLogUtil.info(LOGGER, "loading TIM server configuration file");
 			TIMConfigManager.Builder.build(this.imServerConfig).initTIMServerConfiguration().initRedisConfiguration().initKernelConfiguration();
+
+			// 初始化内核设置
+			TIMLogUtil.info(LOGGER, "init TIM server kernel configuration");
+			initKernel(this.serverBootstrap, getImServerConfig().getAioConfig());
+
+			// 初始化插件
+			TIMLogUtil.info(LOGGER, "init TIM server plugin configuration");
+			initPlugin(this.serverBootstrap, getImServerConfig());
+
+			// 初始化集群
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,29 +86,40 @@ public class TIMServerStarter {
 
 	private void start0() {
 		AioConfig aioConfig = getImServerConfig().getAioConfig();
-		this.serverBootstrap
+		this.serverBootstrap.start();
+		TIMLogUtil.info(LOGGER, "TIM server started successfully in {}:{}", aioConfig.getHost(), aioConfig.getPort());
+	}
+
+	public ImServerConfig getImServerConfig() {
+		return this.imServerConfig;
+	}
+
+	private void initPlugin(ServerBootstrap serverBootstrap, ImServerConfig imServerConfig) {
+		if (imServerConfig.isMonitorPlugin()) {
+			serverBootstrap.addPlugin(new MonitorPlugin(getImServerConfig().getMonitorRate()));
+		}
+		if (imServerConfig.isHeartPlugin()) {
+			serverBootstrap.addPlugin(new HeartPlugin(getImServerConfig().getHeartTimeout(),
+					getImServerConfig().getHeartPeriod(),
+					TimeUnit.SECONDS) {
+				@Override
+				public boolean isHeartMessage(Packet packet) {
+					return false;
+				}
+			});
+		}
+
+	}
+
+	private void initKernel(ServerBootstrap serverBootstrap, AioConfig aioConfig) {
+		serverBootstrap
 				.setMemoryPoolFactory(aioConfig.getMemoryBlockSize(),
 						aioConfig.getMemoryBlockNum(),
 						aioConfig.isDirect())
 				.setThreadNum(aioConfig.getBossThreadNumber(),
 						aioConfig.getWorkerThreadNumber())
 				.setReadBufferSize(aioConfig.getReadBufferSize())
-				.setWriteBufferSize(aioConfig.getWriteBufferSize(), 128)
-				.addPlugin(new MonitorPlugin(getImServerConfig().getMonitorRate()))
-				.addPlugin(new HeartPlugin(getImServerConfig().getHeartTimeout(),
-						getImServerConfig().getHeartPeriod(),
-						TimeUnit.SECONDS) {
-					@Override
-					public boolean isHeartMessage(Packet packet) {
-						return false;
-					}
-				})
-				.start();
-		TIMLogUtil.info(LOGGER, "TIM server started successfully in {}:{}", aioConfig.getHost(), aioConfig.getPort());
-	}
-
-	public ImServerConfig getImServerConfig() {
-		return this.imServerConfig;
+				.setWriteBufferSize(aioConfig.getWriteBufferSize(), 128);
 	}
 
 }

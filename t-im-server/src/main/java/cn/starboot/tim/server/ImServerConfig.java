@@ -41,6 +41,10 @@ public class ImServerConfig extends ImConfig<TIMServerProcessor> {
 
 	private int heartTimeout;
 
+	private boolean heartPlugin;
+
+	private boolean monitorPlugin;
+
 	private final RedisConfig redisConfig = new RedisConfig();
 
 	public ImServerConfig(TIMServerProcessor serverProcessor, AioConfig aioConfig) {
@@ -153,6 +157,22 @@ public class ImServerConfig extends ImConfig<TIMServerProcessor> {
 		this.out = out;
 	}
 
+	public boolean isMonitorPlugin() {
+		return monitorPlugin;
+	}
+
+	public void setMonitorPlugin(boolean monitorPlugin) {
+		this.monitorPlugin = monitorPlugin;
+	}
+
+	public boolean isHeartPlugin() {
+		return heartPlugin;
+	}
+
+	public void setHeartPlugin(boolean heartPlugin) {
+		this.heartPlugin = heartPlugin;
+	}
+
 	@Override
 	public String toString() {
 		return "ImServerConfig{" +
@@ -164,6 +184,9 @@ public class ImServerConfig extends ImConfig<TIMServerProcessor> {
 				", monitorRate=" + monitorRate +
 				", heartPeriod=" + heartPeriod +
 				", heartTimeout=" + heartTimeout +
+				", monitorPlugin=" + monitorPlugin +
+				", heartPlugin=" + heartPlugin +
+				"," + super.toString() +
 				'}';
 	}
 }

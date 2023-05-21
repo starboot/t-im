@@ -8,9 +8,6 @@ public class ImPacket extends Packet {
 
     private static final long serialVersionUID = -1586364817471781579L;
 
-    // 消息序列号
-	private int num = 0;
-
     // 消息命令码
     private TIMCommandType TIMCommandType;
 

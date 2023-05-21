@@ -3,10 +3,18 @@ package cn.starboot.tim.common;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.common.intf.TIMProcessor;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by DELL(mxd) on 2022/9/4 17:02
  */
 public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor>> {
+
+	private static final Integer initialValue = 0;
+
+	private final AtomicInteger reqInteger = new AtomicInteger(initialValue);
+
+	private final AtomicInteger respInteger = new AtomicInteger(initialValue);
 
 	/**
 	 * 通讯对象
@@ -39,4 +47,11 @@ public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor
 		return this.channelContext.getAttr(key, clazz);
 	}
 
+	public Integer getReqInteger() {
+		return reqInteger.get();
+	}
+
+	public Integer getRespInteger() {
+		return respInteger.get();
+	}
 }
