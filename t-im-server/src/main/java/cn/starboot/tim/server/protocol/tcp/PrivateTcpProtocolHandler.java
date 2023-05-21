@@ -6,18 +6,10 @@ import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.enums.StateMachineEnum;
 import cn.starboot.tim.common.factory.ImChannelContextFactory;
 import cn.starboot.tim.common.codec.PrivateTcpProtocol;
-import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
-import cn.starboot.tim.common.exception.ImException;
-import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
-import cn.starboot.tim.common.plugin.TIMPlugin;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.ImServerConfig;
-import cn.starboot.tim.server.command.TIMServerCommandManager;
-import cn.starboot.tim.server.intf.TIMServerProcessor;
 import cn.starboot.tim.server.protocol.ImServerPacketProtocolHandler;
-import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
