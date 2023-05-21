@@ -7,9 +7,6 @@ import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.*;
 import cn.starboot.tim.server.ImServerChannelContext;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class TIMServerProcessorImpl implements TIMServerProcessor {
 
 

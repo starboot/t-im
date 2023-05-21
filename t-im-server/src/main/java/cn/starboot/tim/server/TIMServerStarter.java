@@ -36,7 +36,7 @@ public class TIMServerStarter {
 	private enum TIMServerStarterSingletonEnum {
 		INSTANCE;
 		private final TIMServerStarter timServerStarter;
-		//在枚举类的构造器里初始化singletonObj
+		// 在枚举类的构造器里初始化 TIMServerStarter
 		TIMServerStarterSingletonEnum() {
 			timServerStarter = new TIMServerStarter(new TIMServerProcessorImpl());
 		}
