@@ -11,8 +11,12 @@ import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.command.TIMServerCommandManager;
 import cn.starboot.tim.server.intf.TIMServerProcessor;
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerChannelContext> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ImServerPacketProtocolHandler.class);
 
 	private final TIMServerCommandManager timServerTIMCommandManager;
 
