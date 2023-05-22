@@ -40,6 +40,10 @@ public class ImClientPacketProtocolHandler extends TIMPacketProtocol<ImClientCha
 			case VALID: {
 				TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
 				AbstractClientCmdHandler cmdHandler = this.timClientCommandManager.getCommand(TIMCommandType);
+				if (cmdHandler == null) {
+					TIMLogUtil.error(LOGGER, "无效cmd");
+					break;
+				}
 				try {
 					if (timPlugin.beforeProcess(imPacket, imChannelContext)) {
 						return cmdHandler.handler(imPacket, imChannelContext);

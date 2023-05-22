@@ -38,8 +38,12 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 			case VALID: {
 				TIMCommandType timCommandType = imPacket.getTIMCommandType();
 				AbstractServerCmdHandler cmdHandler = this.timServerTIMCommandManager.getCommand(timCommandType);
+				if (cmdHandler == null) {
+					TIMLogUtil.error(LOGGER, "无效cmd");
+					break;
+				}
 				try {
-					if (timPlugin.beforeProcess(imPacket, imChannelContext) && cmdHandler != null) {
+					if (timPlugin.beforeProcess(imPacket, imChannelContext)) {
 						return cmdHandler.handler(imPacket, imChannelContext);
 					}
 				} catch (ImException | InvalidProtocolBufferException e) {
