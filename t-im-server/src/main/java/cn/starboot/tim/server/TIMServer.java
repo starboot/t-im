@@ -304,7 +304,10 @@ public class TIMServer {
 				break;
 			}
 			case ID: {
-				Aio.sendToId(aioConfig, toId, imPacket);
+				if (Aio.getChannelContextById(aioConfig, toId) != null) {
+					// 在线呢
+					Aio.sendToId(aioConfig, toId, imPacket);
+				}
 				break;
 			}
 			default: {

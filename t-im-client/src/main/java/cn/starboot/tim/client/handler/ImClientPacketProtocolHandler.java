@@ -38,10 +38,10 @@ public class ImClientPacketProtocolHandler extends TIMPacketProtocol<ImClientCha
 				break;
 			}
 			case VALID: {
-				TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
-				AbstractClientCmdHandler cmdHandler = this.timClientCommandManager.getCommand(TIMCommandType);
+				TIMCommandType timCommandType = imPacket.getTIMCommandType();
+				AbstractClientCmdHandler cmdHandler = this.timClientCommandManager.getCommand(timCommandType);
 				if (cmdHandler == null) {
-					TIMLogUtil.error(LOGGER, "无效cmd");
+					TIMLogUtil.error(LOGGER, "unknown cmd instruct : {}", timCommandType);
 					break;
 				}
 				try {

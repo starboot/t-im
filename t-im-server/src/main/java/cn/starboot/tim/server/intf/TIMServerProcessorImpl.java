@@ -53,7 +53,7 @@ public final class TIMServerProcessorImpl implements TIMServerProcessor {
 
 	@Override
 	public boolean handleChatPacket(ImChannelContext<? extends ImConfig<? extends TIMProcessor>> imChannelContext, ChatPacketProto.ChatPacket chatPacket) {
-		System.out.println("ChatReqHandler: 消息内容为-》" + chatPacket.getContent());
+		System.out.println("ChatReqHandler: 消息内容为 -> " + chatPacket.getContent());
 		return true;
 	}
 }

@@ -12,6 +12,7 @@ import cn.starboot.tim.client.intf.Callback;
 import cn.starboot.tim.client.intf.DefaultClientTIMProcessor;
 import cn.starboot.tim.client.intf.ClientTIMProcessor;
 import cn.starboot.tim.client.protocol.ClientPrivateTcpProtocol;
+import cn.starboot.tim.common.banner.TimBanner;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
@@ -48,6 +49,11 @@ public class TIMClient {
 
 	private final ClientBootstrap clientBootstrap;
 	private final ImClientConfig imClientConfig;
+
+	static {
+		TimBanner timBanner = new TimBanner();
+		timBanner.printBanner(System.out);
+	}
 
 	// 使用枚举构建单例模式
 	private enum TIMClientStarterSingletonEnum {
