@@ -81,20 +81,22 @@ public class TIMClient {
 		init();
 
 		try {
-			clientChannelContext = clientBootstrap.setBufferFactory(10 * 1024 * 1024, 10, true)
-//					.addPlugin(new ReconnectPlugin(clientBootstrap))
-//                    .addHeartPacket()
-					.setWriteBufferSize(32 * 1024, 128)
-					.setReadBufferSize(32 * 1024)
-					.setThreadNum(1)
-					.start();
+			do {
+				clientChannelContext = clientBootstrap.start();
+			} while (clientChannelContext == null);
 		} catch (IOException e) {
 			imClientConfig.getProcessor().connectException(e.getMessage());
 		}
 	}
 
-	private static void init() {
+	private void init() {
 		// 配置类
+		clientBootstrap.setBufferFactory(10 * 1024 * 1024, 10, true)
+//					.addPlugin(new ReconnectPlugin(clientBootstrap))
+//                    .addHeartPacket()
+				.setWriteBufferSize(32 * 1024, 128)
+				.setReadBufferSize(32 * 1024)
+				.setThreadNum(1);
 	}
 
 	public synchronized void login(String userId, String password, Callback callback) {
