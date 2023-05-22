@@ -33,7 +33,7 @@ public class TIMClient {
 	public static ThreadPoolExecutor executor;
 	//    public static SynThreadPoolExecutor synExecutor;
 	private static final Logger log = LoggerFactory.getLogger(TIMClient.class);
-	private static ChannelContext clientChannelContext;
+	private ChannelContext clientChannelContext;
 	//    private static Options options;
 	private static TIMClient client;
 	//    private static ackSendRunnable ackSendRunnable;
@@ -184,6 +184,7 @@ public class TIMClient {
 	}
 
 	private void send0(Packet packet) {
+		setExtraObject(clientChannelContext.isInvalid());
 		Aio.send(clientChannelContext, packet);
 	}
 
