@@ -48,20 +48,6 @@ public class TIMClient {
 
 	private static Options options = new Options();
 
-	public static void main(String[] args) {
-		TIMClient.start();
-
-		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.newBuilder()
-				.setFromId("1191998028")
-				.setToId("2268509287")
-				.setChatType(TIMEnumProto.TIMEnum.ChatType.PRIVATE)
-				.setCreateTime(System.currentTimeMillis())
-				.setContent("TIM通过aio-socket发送消息")
-				.setMsgType(TIMEnumProto.TIMEnum.MsgType.TEXT)
-				.build();
-		TIMClient.getInstance().sendChatBody(chatPacket, null);
-	}
-
 	private static class Options {
 		public String ip = "127.0.0.1";
 		public int port = 8888;
