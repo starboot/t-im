@@ -1,7 +1,5 @@
 package cn.starboot.tim.client;
 
-
-
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.TIMEnumProto;
 
@@ -30,7 +28,7 @@ public class TioSocketClient {
 //        TIMClient.getInstance().set("","");
 //
 //        // 初始化并登录
-//        Options options = new Options(new Node("mixiaodong.xyz", 8888)); // mixiaodong.xyz  192.168.79.1
+//        Options options = new Options(new Node("starboot.cn", 8888)); // starboot.cn  192.168.79.1
 //        TIMClient.start(options);
 //        TIMClient.getInstance().login("888", "mi191919", new Callback() {
 //            @Override
