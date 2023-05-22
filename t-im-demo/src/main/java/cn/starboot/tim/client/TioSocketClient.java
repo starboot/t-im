@@ -22,6 +22,7 @@ public class TioSocketClient {
 				.setCreateTime(System.currentTimeMillis())
 				.setContent("TIM通过aio-socket发送消息")
 				.setMsgType(TIMEnumProto.TIMEnum.MsgType.TEXT)
+				.setChatType(TIMEnumProto.TIMEnum.ChatType.PRIVATE)
 				.build();
 		TIMClient.getInstance().sendChatBody(chatPacket, null);
 
