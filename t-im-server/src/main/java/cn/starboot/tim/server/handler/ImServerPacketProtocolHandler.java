@@ -1,4 +1,4 @@
-package cn.starboot.tim.server.protocol;
+package cn.starboot.tim.server.handler;
 
 import cn.starboot.tim.common.codec.TIMPacketProtocol;
 import cn.starboot.tim.common.command.TIMCommandType;

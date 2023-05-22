@@ -10,8 +10,8 @@ import cn.starboot.tim.common.banner.TimBanner;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.intf.TIMServerProcessor;
 import cn.starboot.tim.server.intf.TIMServerProcessorImpl;
-import cn.starboot.tim.server.protocol.ImServerPacketProtocolHandler;
-import cn.starboot.tim.server.protocol.tcp.PrivateTcpProtocolHandler;
+import cn.starboot.tim.server.handler.ImServerPacketProtocolHandler;
+import cn.starboot.tim.server.protocol.tcp.ServerPrivateTcpProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +56,7 @@ public class TIMServerStarter {
 		this.serverBootstrap
 				= new ServerBootstrap(TIMConfigManager.getHost(),
 				TIMConfigManager.getPort(),
-				PrivateTcpProtocolHandler.getInstance(channelContext -> new ImServerChannelContext(channelContext, getImServerConfig()), new ImServerPacketProtocolHandler()));
+				ServerPrivateTcpProtocol.getInstance(channelContext -> new ImServerChannelContext(channelContext, getImServerConfig()), new ImServerPacketProtocolHandler()));
 		this.imServerConfig = new ImServerConfig(serverProcessor, this.serverBootstrap.getConfig());
 	}
 

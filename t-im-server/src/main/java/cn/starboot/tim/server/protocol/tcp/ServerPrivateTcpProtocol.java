@@ -9,24 +9,24 @@ import cn.starboot.tim.common.codec.PrivateTcpProtocol;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.protocol.ImServerPacketProtocolHandler;
+import cn.starboot.tim.server.handler.ImServerPacketProtocolHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PrivateTcpProtocolHandler extends PrivateTcpProtocol {
+public class ServerPrivateTcpProtocol extends PrivateTcpProtocol {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PrivateTcpProtocolHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerPrivateTcpProtocol.class);
 
     // TIM系统定制私有TCP通讯协议的服务器对象
-    private static PrivateTcpProtocolHandler privateTcpProtocolHandler;
+    private static ServerPrivateTcpProtocol serverPrivateTcpProtocol;
 
 	private final ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory;
 
 	private final ImServerPacketProtocolHandler imServerPacketProtocolHandler;
 
     // 此对象不让用户自己实例化
-    private PrivateTcpProtocolHandler(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory,
-									  ImServerPacketProtocolHandler imServerPacketProtocolHandler) {
+    private ServerPrivateTcpProtocol(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory,
+									 ImServerPacketProtocolHandler imServerPacketProtocolHandler) {
 		super(imServerPacketProtocolHandler);
 		this.imServerPacketProtocolHandler = imServerPacketProtocolHandler;
 		this.serverImChannelContextFactory = serverImChannelContextFactory;
@@ -36,10 +36,10 @@ public class PrivateTcpProtocolHandler extends PrivateTcpProtocol {
     // 采用面向对象设计模式的单例模式创建
     public synchronized static PrivateTcpProtocol getInstance(ImChannelContextFactory<ImServerChannelContext> serverImChannelContextFactory,
 															  ImServerPacketProtocolHandler imServerPacketProtocolHandler) {
-        if (privateTcpProtocolHandler == null){
-            privateTcpProtocolHandler = new PrivateTcpProtocolHandler(serverImChannelContextFactory, imServerPacketProtocolHandler);
+        if (serverPrivateTcpProtocol == null){
+            serverPrivateTcpProtocol = new ServerPrivateTcpProtocol(serverImChannelContextFactory, imServerPacketProtocolHandler);
         }
-        return privateTcpProtocolHandler;
+        return serverPrivateTcpProtocol;
     }
 
     @Override
