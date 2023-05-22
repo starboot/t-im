@@ -6,8 +6,10 @@ import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.plugin.TIMPlugin;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.ImServerConfig;
+import cn.starboot.tim.server.TIMServer;
 import cn.starboot.tim.server.command.TIMServerCommandManager;
 import cn.starboot.tim.server.intf.TIMServerProcessor;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -43,7 +45,11 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 	public ImPacket handle(ImServerChannelContext imChannelContext, ImPacket imPacket) {
 		// 预处理，验证报文是否合法
 		switch (preHandle(imChannelContext, imPacket)) {
-			case INVALID: break;
+			case INVALID: {
+				// 投递非法包裹，直接将其断开连接
+				TIMServer.close(imChannelContext);
+				break;
+			}
 			case VALID: {
 				TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
 				AbstractCmdHandler<ImServerChannelContext, ImServerConfig, TIMServerProcessor> cmdHandler = this.timServerTIMCommandManager.getCommand(TIMCommandType);
@@ -57,11 +63,13 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 				break;
 			}
 			case REPEAT: {
+				Integer req = imPacket.getReq();
+				TIMLogUtil.debug(LOGGER, "Received duplicate packages that req: {}", req);
 				ImPacket respImPacket = imChannelContext
 						.getConfig()
 						.getImPacketFactory()
 						.createImPacket(TIMCommandType.COMMAND_REQ_RESP, null, null);
-				respImPacket.setResp(imPacket.getReq());
+				respImPacket.setResp(req);
 				return respImPacket;
 			}
 		}
