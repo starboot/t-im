@@ -13,7 +13,7 @@ public class TioSocketClient {
 
     public static void main(String[] args) {
 
-		TIMClient.start();
+		TIMClient.getInstance().start();
 
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.newBuilder()
 				.setFromId("1191998028")

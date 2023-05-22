@@ -48,7 +48,7 @@ public class ServerPrivateTcpProtocol extends PrivateTcpProtocol {
 		if (ObjectUtil.isEmpty(imServerChannelContext)) {
 			imServerChannelContext = serverImChannelContextFactory.createImChannelContext(channelContext);
 			if (imServerChannelContext.getConfig() == null) {
-				TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ImServerProtocolHandler：not find tim.properties ...");
+				TIMLogUtil.error(LOGGER, "cn.starboot.tim.server.protocol.tcp.ServerPrivateTcpProtocol：not find tim.properties ...");
 			}
 			channelContext.attr(Key.IM_CHANNEL_CONTEXT_KEY, imServerChannelContext);
 		}

@@ -6,15 +6,14 @@ import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.core.ClientBootstrap;
 import cn.starboot.socket.plugins.ReconnectPlugin;
-import cn.starboot.socket.utils.pool.memory.MemoryPool;
+import cn.starboot.tim.client.handler.ImClientPacketProtocolHandler;
 import cn.starboot.tim.client.intf.Callback;
 import cn.starboot.tim.client.intf.DefaultClientTIMProcessor;
 import cn.starboot.tim.client.intf.ClientTIMProcessor;
-import cn.starboot.tim.client.protocol.ImClientProtocolHandler;
+import cn.starboot.tim.client.protocol.ClientPrivateTcpProtocol;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
-import cn.starboot.tim.common.packet.proto.TIMEnumProto;
 import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,58 +45,53 @@ public class TIMClient {
 	private Object extraObject;
 	private Set<Object> extraSet;
 
-	private static Options options = new Options();
+	private final ClientBootstrap clientBootstrap;
+	private final ImClientConfig imClientConfig;
 
-	private static class Options {
-		public String ip = "127.0.0.1";
-		public int port = 8888;
-	}
-
-
-	public static void start() {
-		start(options, null);
-	}
-
-	public static void start(Options option, ClientTIMProcessor processor) {
-		init(option);
-		if (Objects.isNull(processor)) {
-			processor = new DefaultClientTIMProcessor();
+	// 使用枚举构建单例模式
+	private enum TIMClientStarterSingletonEnum {
+		INSTANCE;
+		private final TIMClient timServerStarter;
+		TIMClientStarterSingletonEnum() {
+			timServerStarter = new TIMClient(new DefaultClientTIMProcessor());
 		}
-		ClientBootstrap bootstrap = new ClientBootstrap(option.ip, option.port, ImClientProtocolHandler.getInstance());
+		private TIMClient getTimServerStarter() {
+			return timServerStarter;
+		}
+	}
+
+	// 对外部提供的获取单例的方法
+	public static TIMClient getInstance() {
+		return TIMClientStarterSingletonEnum.INSTANCE.getTimServerStarter();
+	}
+
+	public TIMClient(ClientTIMProcessor processor) {
+		this.clientBootstrap = new ClientBootstrap("127.0.0.1", 8888, ClientPrivateTcpProtocol.getInstance(channelContext -> new ImClientChannelContext(channelContext, getImClientConfig()) ,new ImClientPacketProtocolHandler()));
+		this.imClientConfig = new ImClientConfig(processor, clientBootstrap.getConfig());
+	}
+
+	public void start() {
+		init();
+
 		try {
-			clientChannelContext = bootstrap.setBufferFactory(10 * 1024 * 1024, 10, true)
-					.addPlugin(new ReconnectPlugin(bootstrap))
+			clientChannelContext = clientBootstrap.setBufferFactory(10 * 1024 * 1024, 10, true)
+					.addPlugin(new ReconnectPlugin(clientBootstrap))
 //                    .addHeartPacket()
 					.setWriteBufferSize(32 * 1024, 128)
 					.setReadBufferSize(32 * 1024)
 					.setThreadNum(1)
 					.start();
 		} catch (IOException e) {
-			processor.connectException(e.getMessage());
+			imClientConfig.getProcessor().connectException(e.getMessage());
 		}
 	}
 
-	private static void init(Options option) {
+	private static void init() {
 		// 配置类
-//        ImConfig.DEFAULT_CLASSPATH_CONFIGURATION_FILE = "org\\tim\\client\\command\\command.properties";
-//        if (option.getExecutor() != null) {
-//            executor = option.getExecutor();
-//        }else {
-//            executor = Threads.getGroupExecutor();
-//        }
-//        if (option.getSynExecutor() != null) {
-//            synExecutor = option.getSynExecutor();
-//        }else {
-//            synExecutor = Threads.getTioExecutor();
-//        }
-		options = option;
 	}
 
 	public synchronized void login(String userId, String password, Callback callback) {
 
-		if (Objects.isNull(client)) {
-			client = new TIMClient();
-		}
 //        clientChannelContext.setUserid(userId);
 //        clientChannelContext.set(userId, client);
 //        LoginReqBody body = new LoginReqBody(userId, password);
@@ -206,14 +200,8 @@ public class TIMClient {
 	}
 
 
-	private TIMClient() {
-	}
-
-	public static synchronized TIMClient getInstance() {
-		if (client == null) {
-			client = new TIMClient();
-		}
-		return client;
+	public ImClientConfig getImClientConfig() {
+		return imClientConfig;
 	}
 
 

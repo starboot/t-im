@@ -35,7 +35,7 @@ public class TIMClientCommandManager extends AbstractCommandManager<AbstractClie
 		init(TIMClientCommandManager.class.getResource(DEFAULT_CLASSPATH_CONFIGURATION_FILE));
 	}
 
-	public synchronized static TIMClientCommandManager getTIMServerCommandManagerInstance() {
+	public synchronized static TIMClientCommandManager getTIMClientCommandManagerInstance() {
 		if (Objects.isNull(timServerTIMCommandManager)) {
 			timServerTIMCommandManager = new TIMClientCommandManager();
 		}
