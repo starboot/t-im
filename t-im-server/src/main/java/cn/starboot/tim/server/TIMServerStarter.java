@@ -33,11 +33,10 @@ public class TIMServerStarter {
 		timBanner.printBanner(System.out);
 	}
 
-	// 内部类使用枚举
+	// 使用枚举构建单例模式
 	private enum TIMServerStarterSingletonEnum {
 		INSTANCE;
 		private final TIMServerStarter timServerStarter;
-		// 在枚举类的构造器里初始化 TIMServerStarter
 		TIMServerStarterSingletonEnum() {
 			timServerStarter = new TIMServerStarter(new TIMServerProcessorImpl());
 		}
@@ -48,7 +47,6 @@ public class TIMServerStarter {
 
 	// 对外部提供的获取单例的方法
 	public static TIMServerStarter getInstance() {
-		// 获取单例对象，返回
 		return TIMServerStarterSingletonEnum.INSTANCE.getTimServerStarter();
 	}
 
