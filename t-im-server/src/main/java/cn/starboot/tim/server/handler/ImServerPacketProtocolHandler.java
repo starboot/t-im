@@ -2,16 +2,14 @@ package cn.starboot.tim.server.handler;
 
 import cn.starboot.tim.common.codec.TIMPacketProtocol;
 import cn.starboot.tim.common.command.TIMCommandType;
-import cn.starboot.tim.common.command.handler.AbstractCmdHandler;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.plugin.TIMPlugin;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
-import cn.starboot.tim.server.ImServerConfig;
 import cn.starboot.tim.server.TIMServer;
 import cn.starboot.tim.server.command.TIMServerCommandManager;
-import cn.starboot.tim.server.intf.TIMServerProcessor;
+import cn.starboot.tim.server.command.handler.AbstractServerCmdHandler;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,9 +37,9 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 			}
 			case VALID: {
 				TIMCommandType timCommandType = imPacket.getTIMCommandType();
-				AbstractCmdHandler<ImServerChannelContext, ImServerConfig, TIMServerProcessor> cmdHandler = this.timServerTIMCommandManager.getCommand(timCommandType);
+				AbstractServerCmdHandler cmdHandler = this.timServerTIMCommandManager.getCommand(timCommandType);
 				try {
-					if (timPlugin.beforeProcess(imPacket, imChannelContext)) {
+					if (timPlugin.beforeProcess(imPacket, imChannelContext) && cmdHandler != null) {
 						return cmdHandler.handler(imPacket, imChannelContext);
 					}
 				} catch (ImException | InvalidProtocolBufferException e) {
