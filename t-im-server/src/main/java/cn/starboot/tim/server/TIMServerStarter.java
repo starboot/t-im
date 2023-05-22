@@ -61,19 +61,21 @@ public class TIMServerStarter {
 	}
 
 	public void start() {
+		init();
+		AioConfig aioConfig = getImServerConfig().getAioConfig();
 		try {
-			init();
-			AioConfig aioConfig = getImServerConfig().getAioConfig();
 			long start = System.currentTimeMillis();
 			this.serverBootstrap.start();
 			long end = System.currentTimeMillis();
 			long iv = end - start;
 			TIMLogUtil.info(LOGGER, "TIM server startup completed, taking {} ms", iv);
-			TIMLogUtil.info(LOGGER, "TIM server started successfully in {}:{}", aioConfig.getHost(), aioConfig.getPort());
 		} catch (Exception e) {
+			this.serverBootstrap.shutdown();
+			TIMLogUtil.info(LOGGER, "TIM server started failed.");
 			e.printStackTrace();
+			return;
 		}
-
+		TIMLogUtil.info(LOGGER, "TIM server started successfully in {}:{}", aioConfig.getHost(), aioConfig.getPort());
 	}
 
 	private void init() {
