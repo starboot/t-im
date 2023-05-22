@@ -66,6 +66,8 @@ public class ServerPrivateTcpProtocol extends PrivateTcpProtocol {
 
     @Override
     public void stateEvent(ChannelContext channelContext, StateMachineEnum stateMachineEnum, Throwable throwable) {
-
+		if (stateMachineEnum == StateMachineEnum.DECODE_EXCEPTION || stateMachineEnum == StateMachineEnum.PROCESS_EXCEPTION) {
+			throwable.printStackTrace();
+		}
     }
 }
