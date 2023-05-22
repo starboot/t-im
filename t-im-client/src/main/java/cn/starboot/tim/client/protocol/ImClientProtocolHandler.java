@@ -24,7 +24,8 @@ public class ImClientProtocolHandler extends PrivateTcpProtocol {
 
     // 此对象不让用户自己实例化
     private ImClientProtocolHandler() {
-    }
+		super(null);
+	}
 
     // 采用面向对象设计模式的单例模式创建
     public static PrivateTcpProtocol getInstance() {

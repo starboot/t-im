@@ -42,15 +42,28 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 	@Override
 	public ImPacket handle(ImServerChannelContext imChannelContext, ImPacket imPacket) {
 		// 预处理，验证报文是否合法
-
-		TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
-		AbstractCmdHandler<ImServerChannelContext, ImServerConfig, TIMServerProcessor> cmdHandler = this.timServerTIMCommandManager.getCommand(TIMCommandType);
-		try {
-			if (timPlugin.beforeProcess(imPacket, imChannelContext)) {
-				return cmdHandler.handler(imPacket, imChannelContext);
+		switch (preHandle(imChannelContext, imPacket)) {
+			case INVALID: break;
+			case VALID: {
+				TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
+				AbstractCmdHandler<ImServerChannelContext, ImServerConfig, TIMServerProcessor> cmdHandler = this.timServerTIMCommandManager.getCommand(TIMCommandType);
+				try {
+					if (timPlugin.beforeProcess(imPacket, imChannelContext)) {
+						return cmdHandler.handler(imPacket, imChannelContext);
+					}
+				} catch (ImException | InvalidProtocolBufferException e) {
+					e.printStackTrace();
+				}
+				break;
 			}
-		} catch (ImException | InvalidProtocolBufferException e) {
-			e.printStackTrace();
+			case REPEAT: {
+				ImPacket respImPacket = imChannelContext
+						.getConfig()
+						.getImPacketFactory()
+						.createImPacket(TIMCommandType.COMMAND_REQ_RESP, null, null);
+				respImPacket.setResp(imPacket.getReq());
+				return respImPacket;
+			}
 		}
 		return null;
 	}
@@ -85,7 +98,7 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 					return ImPacketEnum.REPEAT;
 			}
 			// 收到大于理论顺序的消息包（存在丢包现象，先处理，将丢失的ack进行保存）
-			if (req - minSynMessagePoolNum > synMessagePool.size()) {
+			if (req - reqInteger + 1 > imChannelContext.getConfig().getMaximumInterval() - synMessagePool.size()) {
 				// 收到的消息包 丢失严重。
 				return ImPacketEnum.INVALID;
 			} else {
@@ -98,15 +111,4 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 		return ImPacketEnum.VALID;
 	}
 
-	private void test(ImServerChannelContext imChannelContext, ImPacket imPacket) {
-		// 检查是否重复包
-		if (imChannelContext.getReqInteger() > imPacket.getReq()) {
-			ImPacket respImPacket = imChannelContext
-					.getConfig()
-					.getImPacketFactory()
-					.createImPacket(TIMCommandType.COMMAND_REQ_RESP, null, null);
-			respImPacket.setResp(imPacket.getReq());
-//			return respImPacket;
-		}
-	}
 }

@@ -2,6 +2,7 @@ package cn.starboot.tim.common;
 
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.tim.common.intf.TIMProcessor;
+import cn.starboot.tim.common.util.SetWithLimitedCapacity;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -13,7 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor>> {
 
-	private static final int maximumInterval = 10;
 
 	private static final int MAX_VALUE = Integer.MAX_VALUE;
 
@@ -23,9 +23,7 @@ public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor
 
 	private final AtomicInteger respInteger = new AtomicInteger(MIN_VALUE);
 
-	private final Set<Integer> synMessagePool = new HashSet<>(maximumInterval);
-
-
+	private final Set<Integer> synMessagePool = new SetWithLimitedCapacity<>(getConfig().getMaximumInterval());
 
 	/**
 	 * 通讯对象
@@ -34,6 +32,7 @@ public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor
 
 	public ImChannelContext(ChannelContext channelContext) {
 		this.channelContext = channelContext;
+		System.out.println("cn.starboot.tim.common.ImChannelContext" + synMessagePool.size());
 	}
 
 	public ChannelContext getChannelContext() {

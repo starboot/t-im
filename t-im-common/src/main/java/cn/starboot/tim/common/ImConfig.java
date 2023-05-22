@@ -18,6 +18,8 @@ public abstract class ImConfig<P extends TIMProcessor> {
 
 	public static final String authKey = "authKey";
 
+	private int maximumInterval = 10;
+
 	/**
 	 * 开启SSL
 	 */
@@ -63,10 +65,19 @@ public abstract class ImConfig<P extends TIMProcessor> {
 		this.ackPlugin = ackPlugin;
 	}
 
+	public int getMaximumInterval() {
+		return maximumInterval;
+	}
+
+	public void setMaximumInterval(int maximumInterval) {
+		this.maximumInterval = maximumInterval;
+	}
+
 	@Override
 	public String toString() {
 		return "ImConfig{" +
 				"ackPlugin=" + ackPlugin +
+				", maximumInterval=" + maximumInterval +
 				'}';
 	}
 }
