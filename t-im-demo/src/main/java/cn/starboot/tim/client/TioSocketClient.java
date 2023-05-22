@@ -3,8 +3,6 @@ package cn.starboot.tim.client;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.TIMEnumProto;
 
-import java.util.Date;
-
 /**
  * Created by DELL(mxd) on 2021/12/23 20:33
  */
@@ -14,6 +12,12 @@ public class TioSocketClient {
     public static void main(String[] args) {
 
 		TIMClient.getInstance().start();
+
+        // 试试功能
+        doThing();
+    }
+
+    public static void doThing() {
 
 		ChatPacketProto.ChatPacket chatPacket = ChatPacketProto.ChatPacket.newBuilder()
 				.setFromId("1191998028")
@@ -26,28 +30,7 @@ public class TioSocketClient {
 				.build();
 		TIMClient.getInstance().sendChatBody(chatPacket, null);
 
-//        TIMClient.getInstance().set("","");
-//
-//        // 初始化并登录
-//        Options options = new Options(new Node("starboot.cn", 8888)); // starboot.cn  192.168.79.1
-//        TIMClient.start(options);
-//        TIMClient.getInstance().login("888", "mi191919", new Callback() {
-//            @Override
-//            public void success() {
-//                System.out.println("登陆成功");
-//            }
-//
-//            @Override
-//            public void fail() {
-//                System.out.println("登陆失败");
-//            }
-//        });
 
-        // 试试功能
-        doThing();
-    }
-
-    public static void doThing() {
 //        TIMClient.getInstance().authReq();
 //        TIMClient.getInstance().joinGroup("200");
 //        ChatBody.Builder builder = ChatBody.newBuilder();
