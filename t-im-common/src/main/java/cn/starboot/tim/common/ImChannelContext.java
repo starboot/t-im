@@ -23,16 +23,16 @@ public abstract class ImChannelContext<E extends ImConfig<? extends TIMProcessor
 
 	private final AtomicInteger respInteger = new AtomicInteger(MIN_VALUE);
 
-	private final Set<Integer> synMessagePool = new SetWithLimitedCapacity<>(getConfig().getMaximumInterval());
+	private final Set<Integer> synMessagePool;
 
 	/**
 	 * 通讯对象
 	 */
     private final ChannelContext channelContext;
 
-	public ImChannelContext(ChannelContext channelContext) {
+	public ImChannelContext(ChannelContext channelContext, int initialCapacity) {
 		this.channelContext = channelContext;
-		System.out.println("cn.starboot.tim.common.ImChannelContext" + synMessagePool.size());
+		this.synMessagePool = new SetWithLimitedCapacity<>(initialCapacity);
 	}
 
 	public ChannelContext getChannelContext() {

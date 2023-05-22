@@ -2,6 +2,7 @@ package cn.starboot.tim.client;
 
 
 import cn.starboot.socket.Packet;
+import cn.starboot.socket.codec.string.StringPacket;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.core.ClientBootstrap;
@@ -66,7 +67,7 @@ public class TIMClient {
 	}
 
 	public TIMClient(ClientTIMProcessor processor) {
-		this.clientBootstrap = new ClientBootstrap("127.0.0.1", 8888, ClientPrivateTcpProtocol.getInstance(channelContext -> new ImClientChannelContext(channelContext, getImClientConfig()) ,new ImClientPacketProtocolHandler()));
+		this.clientBootstrap = new ClientBootstrap("localhost", 8888, ClientPrivateTcpProtocol.getInstance(channelContext -> new ImClientChannelContext(channelContext, getImClientConfig()) ,new ImClientPacketProtocolHandler()));
 		this.imClientConfig = new ImClientConfig(processor, clientBootstrap.getConfig());
 	}
 
@@ -75,7 +76,7 @@ public class TIMClient {
 
 		try {
 			clientChannelContext = clientBootstrap.setBufferFactory(10 * 1024 * 1024, 10, true)
-					.addPlugin(new ReconnectPlugin(clientBootstrap))
+//					.addPlugin(new ReconnectPlugin(clientBootstrap))
 //                    .addHeartPacket()
 					.setWriteBufferSize(32 * 1024, 128)
 					.setReadBufferSize(32 * 1024)
@@ -184,7 +185,6 @@ public class TIMClient {
 	}
 
 	private void send0(Packet packet) {
-		setExtraObject(clientChannelContext.isInvalid());
 		Aio.send(clientChannelContext, packet);
 	}
 

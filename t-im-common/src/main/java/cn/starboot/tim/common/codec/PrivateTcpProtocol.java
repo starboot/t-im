@@ -1,6 +1,7 @@
 package cn.starboot.tim.common.codec;
 
 import cn.starboot.socket.Packet;
+import cn.starboot.socket.codec.string.StringPacket;
 import cn.starboot.socket.core.Aio;
 import cn.starboot.socket.core.ChannelContext;
 import cn.starboot.socket.core.WriteBuffer;
@@ -82,18 +83,17 @@ public abstract class PrivateTcpProtocol implements AioHandler, ImConst {
     @Override
     public void encode(Packet packet, ChannelContext channelContext) throws AioEncoderException {
         if (packet instanceof ImPacket) {
-            // 拿到输入流
+//            // 拿到输入流
             WriteBuffer writeBuffer = channelContext.getWriteBuffer();
-            // 写入协议版本号
+//            // 写入协议版本号
             writeBuffer.writeByte(timProtocolVersion);
-            // 写入协议的特殊标识
+//            // 写入协议的特殊标识
             writeBuffer.writeByte(timProtocolMark);
-			// t-im协议编码
+//			// t-im协议编码
 			timPacketProtocol.encode((ImPacket) packet, channelContext);
 		}else {
             throw new AioEncoderException("TIM private TCP protocol encode failed because of the Packet is not ImPacket.");
         }
-
     }
 
     @Override

@@ -176,10 +176,11 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 	 * 预处理
 	 */
 	protected ImPacketEnum preHandle(ImChannelContext<?> imChannelContext, ImPacket imPacket) {
+		Integer req = imPacket.getReq();
 		// 启用ACK
-		if (imChannelContext.getConfig().isAckPlugin()) {
+		if (imChannelContext.getConfig().isAckPlugin() && req != null) {
 			Integer reqInteger = imChannelContext.getReqInteger();
-			Integer req = imPacket.getReq();
+
 			Integer minSynMessagePoolNum = imChannelContext.getMinSynMessagePoolNum();
 			Set<Integer> synMessagePool = imChannelContext.getSynMessagePool();
 			// 收到理论顺序消息包

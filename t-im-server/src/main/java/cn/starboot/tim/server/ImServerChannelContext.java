@@ -16,7 +16,7 @@ public class ImServerChannelContext extends ImChannelContext<ImServerConfig> {
 	private final ImServerConfig config;
 
 	public ImServerChannelContext(ChannelContext channelContext, ImServerConfig config) {
-		super(channelContext);
+		super(channelContext, config.getMaximumInterval());
 		this.config = config;
 	}
 

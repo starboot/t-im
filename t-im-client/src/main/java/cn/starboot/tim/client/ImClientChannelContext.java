@@ -21,7 +21,7 @@ public class ImClientChannelContext extends ImChannelContext<ImClientConfig> {
 	private int imOutMessageTotal = 0;
 
 	public ImClientChannelContext(ChannelContext channelContext, ImClientConfig config) {
-		super(channelContext);
+		super(channelContext, config.getMaximumInterval());
 		this.clientConfig = config;
 	}
 
