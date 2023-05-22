@@ -51,8 +51,8 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 				break;
 			}
 			case VALID: {
-				TIMCommandType TIMCommandType = imPacket.getTIMCommandType();
-				AbstractCmdHandler<ImServerChannelContext, ImServerConfig, TIMServerProcessor> cmdHandler = this.timServerTIMCommandManager.getCommand(TIMCommandType);
+				TIMCommandType timCommandType = imPacket.getTIMCommandType();
+				AbstractCmdHandler<ImServerChannelContext, ImServerConfig, TIMServerProcessor> cmdHandler = this.timServerTIMCommandManager.getCommand(timCommandType);
 				try {
 					if (timPlugin.beforeProcess(imPacket, imChannelContext)) {
 						return cmdHandler.handler(imPacket, imChannelContext);
