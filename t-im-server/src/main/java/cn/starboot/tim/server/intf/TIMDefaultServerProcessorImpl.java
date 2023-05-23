@@ -10,6 +10,15 @@ import cn.starboot.tim.server.ImServerChannelContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 对整个t-im服务端的消息进行监控+二次处理
+ * 在这里可以进行控制消息是否转发等一系列
+ * 消息持久化也在这里进行处理
+ * ;;;;;;;;;;;;;;;;;;;;;
+ * 用户可以自行实现 TIMServerProcessor ,便可以进行任意二次开发
+ *
+ * @author MDong
+ */
 public final class TIMDefaultServerProcessorImpl implements TIMServerProcessor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TIMDefaultServerProcessorImpl.class);
