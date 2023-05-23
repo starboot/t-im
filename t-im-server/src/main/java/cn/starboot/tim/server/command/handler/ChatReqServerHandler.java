@@ -35,7 +35,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 			TIMServer.close(imChannelContext, CloseCode.READ_ERROR);
 			return null;
 		}
-		ImPacket packet = getImPacket(imChannelContext, TIMCommandType.COMMAND_CHAT_RESP);
+		ImPacket packet = getImPacket(imChannelContext, TIMCommandType.COMMAND_REQ_RESP);
 		packet.setResp(imPacket.getReq());
 		packet.setReq(null);
 		// 聊天类型类型 (私聊, 群聊, 未知)

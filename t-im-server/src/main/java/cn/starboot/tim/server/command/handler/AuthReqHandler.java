@@ -32,7 +32,7 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
 			LOGGER.error("消息包格式化出错");
 			return null;
 		}
-		imPacket.setTIMCommandType(TIMCommandType.COMMAND_AUTH_RESP);
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP);
 		if (verify(StrUtil.isNotBlank(authPacket.getUserId()),
 				StrUtil.isNotBlank(authPacket.getToken()),
 				imChannelContext

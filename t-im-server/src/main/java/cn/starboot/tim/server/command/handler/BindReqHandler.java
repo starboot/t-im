@@ -32,7 +32,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			LOGGER.error("BindReqHandler: message formatting error");
 			return null;
 		}
-		imPacket.setTIMCommandType(TIMCommandType.COMMAND_BIND_RESP);
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP);
 		if (verify(StrUtil.isNotEmpty(packet.getBindId()),
 				StrUtil.isNotBlank(packet.getBindId()),
 				imChannelContext

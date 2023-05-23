@@ -33,7 +33,7 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 			return null;
 		}
 		// TIM自研对象重复利用技术
-		imPacket.setTIMCommandType(TIMCommandType.COMMAND_MESSAGE_RESP);
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP);
 		// 群组ID;
 		String groupId = messagePacket.getGroupId();
 		// 当前用户ID;

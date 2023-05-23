@@ -39,7 +39,7 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 			LOGGER.error("UserReqHandler: message formatting error");
 			return null;
 		}
-		imPacket.setTIMCommandType(TIMCommandType.COMMAND_USERS_RESP);
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP);
 		if (verify(StrUtil.isNotBlank(userInfoPacket.getUserId()),
 				ObjectUtil.isNotNull(userInfoPacket.getStatus()),
 				imChannelContext

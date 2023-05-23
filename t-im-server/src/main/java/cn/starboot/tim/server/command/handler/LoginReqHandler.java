@@ -35,7 +35,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 			return null;
 		}
 		// 构造登录响应消息包
-		imPacket.setTIMCommandType(TIMCommandType.COMMAND_LOGIN_RESP);
+		imPacket.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP);
 		if (verify(StrUtil.isNotBlank(loginPacket.getUserId()),
 				StrUtil.isNotBlank(loginPacket.getPassword()),
 				StrUtil.isNotBlank(loginPacket.getToken()),
