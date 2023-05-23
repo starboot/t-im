@@ -4,6 +4,7 @@ import cn.starboot.socket.core.AioConfig;
 import cn.starboot.tim.common.factory.ImPacketFactory;
 import cn.starboot.tim.common.intf.TIMProcessor;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.proto.RespPacketProto;
 
 /**
  * Created by DELL(mxd) on 2022/1/6 17:07
@@ -28,6 +29,8 @@ public abstract class ImConfig<P extends TIMProcessor> {
 	private boolean ackPlugin;
 
 	private final AioConfig aioConfig;
+
+	private final RespPacketProto.RespPacket.MessagePacket messagePacket = RespPacketProto.RespPacket.MessagePacket.newBuilder().build();
 
 	private final ImPacketFactory imPacketFactory = (timCommandType, imStatus, data) -> ImPacket.newBuilder().setTIMCommandType(timCommandType).setImStatus(imStatus).setData(data).build();
 

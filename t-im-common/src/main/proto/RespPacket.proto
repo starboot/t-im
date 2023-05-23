@@ -68,5 +68,9 @@ message RespPacket{
 	};
 	ImStatus imStatus = 1;
 
-	map<string, string> extra = 2;
+	MessagePacket message = 2;
+
+	message MessagePacket {
+		map<int32 , string> msg = 1;
+	}
 }
