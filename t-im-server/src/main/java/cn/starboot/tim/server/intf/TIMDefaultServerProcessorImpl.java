@@ -5,10 +5,18 @@ import cn.starboot.tim.common.ImConfig;
 import cn.starboot.tim.common.intf.TIMProcessor;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.*;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public final class TIMServerProcessorImpl implements TIMServerProcessor {
+public final class TIMDefaultServerProcessorImpl implements TIMServerProcessor {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(TIMDefaultServerProcessorImpl.class);
+
+	{
+		TIMLogUtil.info(LOGGER, "load default server processor: " + LOGGER.getName());
+	}
 
 	@Override
 	public boolean handleBindPacket(ImServerChannelContext imChannelContext, BindPacketProto.BindPacket bindPacket) {

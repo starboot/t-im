@@ -9,7 +9,7 @@ import cn.starboot.socket.plugins.MonitorPlugin;
 import cn.starboot.tim.common.banner.TimBanner;
 import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.intf.TIMServerProcessor;
-import cn.starboot.tim.server.intf.TIMServerProcessorImpl;
+import cn.starboot.tim.server.intf.TIMDefaultServerProcessorImpl;
 import cn.starboot.tim.server.handler.ImServerPacketProtocolHandler;
 import cn.starboot.tim.server.protocol.tcp.ServerPrivateTcpProtocol;
 import org.slf4j.Logger;
@@ -24,6 +24,8 @@ public class TIMServerStarter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TIMServerStarter.class);
 
+	private static TIMServerProcessor defaultServerProcessor;
+
 	private final ServerBootstrap serverBootstrap;
 
 	private final ImServerConfig imServerConfig;
@@ -31,6 +33,7 @@ public class TIMServerStarter {
 	static {
 		TimBanner timBanner = new TimBanner();
 		timBanner.printBanner(System.out);
+		defaultServerProcessor = new TIMDefaultServerProcessorImpl();
 	}
 
 	// 使用枚举构建单例模式
@@ -38,7 +41,7 @@ public class TIMServerStarter {
 		INSTANCE;
 		private final TIMServerStarter timServerStarter;
 		TIMServerStarterSingletonEnum() {
-			timServerStarter = new TIMServerStarter(new TIMServerProcessorImpl());
+			timServerStarter = new TIMServerStarter(defaultServerProcessor);
 		}
 		private TIMServerStarter getTimServerStarter() {
 			return timServerStarter;
@@ -47,6 +50,13 @@ public class TIMServerStarter {
 
 	// 对外部提供的获取单例的方法
 	public static TIMServerStarter getInstance() {
+		return getInstance(null);
+	}
+
+	public static TIMServerStarter getInstance(TIMServerProcessor serverProcessor) {
+		if (serverProcessor != null) {
+			defaultServerProcessor = serverProcessor;
+		}
 		return TIMServerStarterSingletonEnum.INSTANCE.getTimServerStarter();
 	}
 

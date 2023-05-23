@@ -7,9 +7,8 @@ public class TIMServerStarterDemo {
 
     public static void main(String[] args) {
 
-        TIMServerStarter instance = TIMServerStarter.getInstance();
+        TIMServerStarter.getInstance().start();
 
-        instance.start();
     }
 
 
