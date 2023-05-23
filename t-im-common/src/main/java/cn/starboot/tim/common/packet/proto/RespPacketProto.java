@@ -30,19 +30,16 @@ public final class RespPacketProto {
     cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.ImStatus getImStatus();
 
     /**
-     * <code>.RespPacket.MessagePacket message = 2;</code>
-     * @return Whether the message field is set.
-     */
-    boolean hasMessage();
-    /**
-     * <code>.RespPacket.MessagePacket message = 2;</code>
+     * <code>string message = 2;</code>
      * @return The message.
      */
-    cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket getMessage();
+    java.lang.String getMessage();
     /**
-     * <code>.RespPacket.MessagePacket message = 2;</code>
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
      */
-    cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacketOrBuilder getMessageOrBuilder();
+    com.google.protobuf.ByteString
+        getMessageBytes();
   }
   /**
    * <pre>
@@ -62,6 +59,7 @@ public final class RespPacketProto {
     }
     private RespPacket() {
       imStatus_ = 0;
+      message_ = "";
     }
 
     @java.lang.Override
@@ -662,726 +660,6 @@ public final class RespPacketProto {
       // @@protoc_insertion_point(enum_scope:RespPacket.ImStatus)
     }
 
-    public interface MessagePacketOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:RespPacket.MessagePacket)
-        com.google.protobuf.MessageOrBuilder {
-
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      int getMsgCount();
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      boolean containsMsg(
-          int key);
-      /**
-       * Use {@link #getMsgMap()} instead.
-       */
-      @java.lang.Deprecated
-      java.util.Map<java.lang.Integer, java.lang.String>
-      getMsg();
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      java.util.Map<java.lang.Integer, java.lang.String>
-      getMsgMap();
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      /* nullable */
-java.lang.String getMsgOrDefault(
-          int key,
-          /* nullable */
-java.lang.String defaultValue);
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      java.lang.String getMsgOrThrow(
-          int key);
-    }
-    /**
-     * Protobuf type {@code RespPacket.MessagePacket}
-     */
-    public static final class MessagePacket extends
-        com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:RespPacket.MessagePacket)
-        MessagePacketOrBuilder {
-    private static final long serialVersionUID = 0L;
-      // Use MessagePacket.newBuilder() to construct.
-      private MessagePacket(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-        super(builder);
-      }
-      private MessagePacket() {
-      }
-
-      @java.lang.Override
-      @SuppressWarnings({"unused"})
-      protected java.lang.Object newInstance(
-          UnusedPrivateParameter unused) {
-        return new MessagePacket();
-      }
-
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
-        return this.unknownFields;
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cn.starboot.tim.common.packet.proto.RespPacketProto.internal_static_RespPacket_MessagePacket_descriptor;
-      }
-
-      @SuppressWarnings({"rawtypes"})
-      @java.lang.Override
-      protected com.google.protobuf.MapField internalGetMapField(
-          int number) {
-        switch (number) {
-          case 1:
-            return internalGetMsg();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cn.starboot.tim.common.packet.proto.RespPacketProto.internal_static_RespPacket_MessagePacket_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.class, cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.Builder.class);
-      }
-
-      public static final int MSG_FIELD_NUMBER = 1;
-      private static final class MsgDefaultEntryHolder {
-        static final com.google.protobuf.MapEntry<
-            java.lang.Integer, java.lang.String> defaultEntry =
-                com.google.protobuf.MapEntry
-                .<java.lang.Integer, java.lang.String>newDefaultInstance(
-                    cn.starboot.tim.common.packet.proto.RespPacketProto.internal_static_RespPacket_MessagePacket_MsgEntry_descriptor, 
-                    com.google.protobuf.WireFormat.FieldType.INT32,
-                    0,
-                    com.google.protobuf.WireFormat.FieldType.STRING,
-                    "");
-      }
-      @SuppressWarnings("serial")
-      private com.google.protobuf.MapField<
-          java.lang.Integer, java.lang.String> msg_;
-      private com.google.protobuf.MapField<java.lang.Integer, java.lang.String>
-      internalGetMsg() {
-        if (msg_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              MsgDefaultEntryHolder.defaultEntry);
-        }
-        return msg_;
-      }
-      public int getMsgCount() {
-        return internalGetMsg().getMap().size();
-      }
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      @java.lang.Override
-      public boolean containsMsg(
-          int key) {
-        
-        return internalGetMsg().getMap().containsKey(key);
-      }
-      /**
-       * Use {@link #getMsgMap()} instead.
-       */
-      @java.lang.Override
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.Integer, java.lang.String> getMsg() {
-        return getMsgMap();
-      }
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      @java.lang.Override
-      public java.util.Map<java.lang.Integer, java.lang.String> getMsgMap() {
-        return internalGetMsg().getMap();
-      }
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      @java.lang.Override
-      public /* nullable */
-java.lang.String getMsgOrDefault(
-          int key,
-          /* nullable */
-java.lang.String defaultValue) {
-        
-        java.util.Map<java.lang.Integer, java.lang.String> map =
-            internalGetMsg().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
-      }
-      /**
-       * <code>map&lt;int32, string&gt; msg = 1;</code>
-       */
-      @java.lang.Override
-      public java.lang.String getMsgOrThrow(
-          int key) {
-        
-        java.util.Map<java.lang.Integer, java.lang.String> map =
-            internalGetMsg().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
-        }
-        return map.get(key);
-      }
-
-      private byte memoizedIsInitialized = -1;
-      @java.lang.Override
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      @java.lang.Override
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        com.google.protobuf.GeneratedMessageV3
-          .serializeIntegerMapTo(
-            output,
-            internalGetMsg(),
-            MsgDefaultEntryHolder.defaultEntry,
-            1);
-        getUnknownFields().writeTo(output);
-      }
-
-      @java.lang.Override
-      public int getSerializedSize() {
-        int size = memoizedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        for (java.util.Map.Entry<java.lang.Integer, java.lang.String> entry
-             : internalGetMsg().getMap().entrySet()) {
-          com.google.protobuf.MapEntry<java.lang.Integer, java.lang.String>
-          msg__ = MsgDefaultEntryHolder.defaultEntry.newBuilderForType()
-              .setKey(entry.getKey())
-              .setValue(entry.getValue())
-              .build();
-          size += com.google.protobuf.CodedOutputStream
-              .computeMessageSize(1, msg__);
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSize = size;
-        return size;
-      }
-
-      @java.lang.Override
-      public boolean equals(final java.lang.Object obj) {
-        if (obj == this) {
-         return true;
-        }
-        if (!(obj instanceof cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket)) {
-          return super.equals(obj);
-        }
-        cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket other = (cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket) obj;
-
-        if (!internalGetMsg().equals(
-            other.internalGetMsg())) return false;
-        if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-        return true;
-      }
-
-      @java.lang.Override
-      public int hashCode() {
-        if (memoizedHashCode != 0) {
-          return memoizedHashCode;
-        }
-        int hash = 41;
-        hash = (19 * hash) + getDescriptor().hashCode();
-        if (!internalGetMsg().getMap().isEmpty()) {
-          hash = (37 * hash) + MSG_FIELD_NUMBER;
-          hash = (53 * hash) + internalGetMsg().hashCode();
-        }
-        hash = (29 * hash) + getUnknownFields().hashCode();
-        memoizedHashCode = hash;
-        return hash;
-      }
-
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(
-          java.nio.ByteBuffer data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(
-          java.nio.ByteBuffer data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-
-      @java.lang.Override
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder() {
-        return DEFAULT_INSTANCE.toBuilder();
-      }
-      public static Builder newBuilder(cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket prototype) {
-        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-      }
-      @java.lang.Override
-      public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-            ? new Builder() : new Builder().mergeFrom(this);
-      }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code RespPacket.MessagePacket}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:RespPacket.MessagePacket)
-          cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacketOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return cn.starboot.tim.common.packet.proto.RespPacketProto.internal_static_RespPacket_MessagePacket_descriptor;
-        }
-
-        @SuppressWarnings({"rawtypes"})
-        protected com.google.protobuf.MapField internalGetMapField(
-            int number) {
-          switch (number) {
-            case 1:
-              return internalGetMsg();
-            default:
-              throw new RuntimeException(
-                  "Invalid map field number: " + number);
-          }
-        }
-        @SuppressWarnings({"rawtypes"})
-        protected com.google.protobuf.MapField internalGetMutableMapField(
-            int number) {
-          switch (number) {
-            case 1:
-              return internalGetMutableMsg();
-            default:
-              throw new RuntimeException(
-                  "Invalid map field number: " + number);
-          }
-        }
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return cn.starboot.tim.common.packet.proto.RespPacketProto.internal_static_RespPacket_MessagePacket_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.class, cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.Builder.class);
-        }
-
-        // Construct using cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.newBuilder()
-        private Builder() {
-
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-          super(parent);
-
-        }
-        @java.lang.Override
-        public Builder clear() {
-          super.clear();
-          bitField0_ = 0;
-          internalGetMutableMsg().clear();
-          return this;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return cn.starboot.tim.common.packet.proto.RespPacketProto.internal_static_RespPacket_MessagePacket_descriptor;
-        }
-
-        @java.lang.Override
-        public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket getDefaultInstanceForType() {
-          return cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.getDefaultInstance();
-        }
-
-        @java.lang.Override
-        public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket build() {
-          cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        @java.lang.Override
-        public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket buildPartial() {
-          cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket result = new cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket(this);
-          if (bitField0_ != 0) { buildPartial0(result); }
-          onBuilt();
-          return result;
-        }
-
-        private void buildPartial0(cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket result) {
-          int from_bitField0_ = bitField0_;
-          if (((from_bitField0_ & 0x00000001) != 0)) {
-            result.msg_ = internalGetMsg();
-            result.msg_.makeImmutable();
-          }
-        }
-
-        @java.lang.Override
-        public Builder clone() {
-          return super.clone();
-        }
-        @java.lang.Override
-        public Builder setField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return super.setField(field, value);
-        }
-        @java.lang.Override
-        public Builder clearField(
-            com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return super.clearField(field);
-        }
-        @java.lang.Override
-        public Builder clearOneof(
-            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return super.clearOneof(oneof);
-        }
-        @java.lang.Override
-        public Builder setRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            int index, java.lang.Object value) {
-          return super.setRepeatedField(field, index, value);
-        }
-        @java.lang.Override
-        public Builder addRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return super.addRepeatedField(field, value);
-        }
-        @java.lang.Override
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket) {
-            return mergeFrom((cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket other) {
-          if (other == cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.getDefaultInstance()) return this;
-          internalGetMutableMsg().mergeFrom(
-              other.internalGetMsg());
-          bitField0_ |= 0x00000001;
-          this.mergeUnknownFields(other.getUnknownFields());
-          onChanged();
-          return this;
-        }
-
-        @java.lang.Override
-        public final boolean isInitialized() {
-          return true;
-        }
-
-        @java.lang.Override
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          if (extensionRegistry == null) {
-            throw new java.lang.NullPointerException();
-          }
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                case 10: {
-                  com.google.protobuf.MapEntry<java.lang.Integer, java.lang.String>
-                  msg__ = input.readMessage(
-                      MsgDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-                  internalGetMutableMsg().getMutableMap().put(
-                      msg__.getKey(), msg__.getValue());
-                  bitField0_ |= 0x00000001;
-                  break;
-                } // case 10
-                default: {
-                  if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                    done = true; // was an endgroup tag
-                  }
-                  break;
-                } // default:
-              } // switch (tag)
-            } // while (!done)
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw e.unwrapIOException();
-          } finally {
-            onChanged();
-          } // finally
-          return this;
-        }
-        private int bitField0_;
-
-        private com.google.protobuf.MapField<
-            java.lang.Integer, java.lang.String> msg_;
-        private com.google.protobuf.MapField<java.lang.Integer, java.lang.String>
-            internalGetMsg() {
-          if (msg_ == null) {
-            return com.google.protobuf.MapField.emptyMapField(
-                MsgDefaultEntryHolder.defaultEntry);
-          }
-          return msg_;
-        }
-        private com.google.protobuf.MapField<java.lang.Integer, java.lang.String>
-            internalGetMutableMsg() {
-          if (msg_ == null) {
-            msg_ = com.google.protobuf.MapField.newMapField(
-                MsgDefaultEntryHolder.defaultEntry);
-          }
-          if (!msg_.isMutable()) {
-            msg_ = msg_.copy();
-          }
-          bitField0_ |= 0x00000001;
-          onChanged();
-          return msg_;
-        }
-        public int getMsgCount() {
-          return internalGetMsg().getMap().size();
-        }
-        /**
-         * <code>map&lt;int32, string&gt; msg = 1;</code>
-         */
-        @java.lang.Override
-        public boolean containsMsg(
-            int key) {
-          
-          return internalGetMsg().getMap().containsKey(key);
-        }
-        /**
-         * Use {@link #getMsgMap()} instead.
-         */
-        @java.lang.Override
-        @java.lang.Deprecated
-        public java.util.Map<java.lang.Integer, java.lang.String> getMsg() {
-          return getMsgMap();
-        }
-        /**
-         * <code>map&lt;int32, string&gt; msg = 1;</code>
-         */
-        @java.lang.Override
-        public java.util.Map<java.lang.Integer, java.lang.String> getMsgMap() {
-          return internalGetMsg().getMap();
-        }
-        /**
-         * <code>map&lt;int32, string&gt; msg = 1;</code>
-         */
-        @java.lang.Override
-        public /* nullable */
-java.lang.String getMsgOrDefault(
-            int key,
-            /* nullable */
-java.lang.String defaultValue) {
-          
-          java.util.Map<java.lang.Integer, java.lang.String> map =
-              internalGetMsg().getMap();
-          return map.containsKey(key) ? map.get(key) : defaultValue;
-        }
-        /**
-         * <code>map&lt;int32, string&gt; msg = 1;</code>
-         */
-        @java.lang.Override
-        public java.lang.String getMsgOrThrow(
-            int key) {
-          
-          java.util.Map<java.lang.Integer, java.lang.String> map =
-              internalGetMsg().getMap();
-          if (!map.containsKey(key)) {
-            throw new java.lang.IllegalArgumentException();
-          }
-          return map.get(key);
-        }
-        public Builder clearMsg() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          internalGetMutableMsg().getMutableMap()
-              .clear();
-          return this;
-        }
-        /**
-         * <code>map&lt;int32, string&gt; msg = 1;</code>
-         */
-        public Builder removeMsg(
-            int key) {
-          
-          internalGetMutableMsg().getMutableMap()
-              .remove(key);
-          return this;
-        }
-        /**
-         * Use alternate mutation accessors instead.
-         */
-        @java.lang.Deprecated
-        public java.util.Map<java.lang.Integer, java.lang.String>
-            getMutableMsg() {
-          bitField0_ |= 0x00000001;
-          return internalGetMutableMsg().getMutableMap();
-        }
-        /**
-         * <code>map&lt;int32, string&gt; msg = 1;</code>
-         */
-        public Builder putMsg(
-            int key,
-            java.lang.String value) {
-          
-          if (value == null) { throw new NullPointerException("map value"); }
-          internalGetMutableMsg().getMutableMap()
-              .put(key, value);
-          bitField0_ |= 0x00000001;
-          return this;
-        }
-        /**
-         * <code>map&lt;int32, string&gt; msg = 1;</code>
-         */
-        public Builder putAllMsg(
-            java.util.Map<java.lang.Integer, java.lang.String> values) {
-          internalGetMutableMsg().getMutableMap()
-              .putAll(values);
-          bitField0_ |= 0x00000001;
-          return this;
-        }
-        @java.lang.Override
-        public final Builder setUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.setUnknownFields(unknownFields);
-        }
-
-        @java.lang.Override
-        public final Builder mergeUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.mergeUnknownFields(unknownFields);
-        }
-
-
-        // @@protoc_insertion_point(builder_scope:RespPacket.MessagePacket)
-      }
-
-      // @@protoc_insertion_point(class_scope:RespPacket.MessagePacket)
-      private static final cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket DEFAULT_INSTANCE;
-      static {
-        DEFAULT_INSTANCE = new cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket();
-      }
-
-      public static cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket getDefaultInstance() {
-        return DEFAULT_INSTANCE;
-      }
-
-      private static final com.google.protobuf.Parser<MessagePacket>
-          PARSER = new com.google.protobuf.AbstractParser<MessagePacket>() {
-        @java.lang.Override
-        public MessagePacket parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          Builder builder = newBuilder();
-          try {
-            builder.mergeFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw e.setUnfinishedMessage(builder.buildPartial());
-          } catch (com.google.protobuf.UninitializedMessageException e) {
-            throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-          } catch (java.io.IOException e) {
-            throw new com.google.protobuf.InvalidProtocolBufferException(e)
-                .setUnfinishedMessage(builder.buildPartial());
-          }
-          return builder.buildPartial();
-        }
-      };
-
-      public static com.google.protobuf.Parser<MessagePacket> parser() {
-        return PARSER;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<MessagePacket> getParserForType() {
-        return PARSER;
-      }
-
-      @java.lang.Override
-      public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket getDefaultInstanceForType() {
-        return DEFAULT_INSTANCE;
-      }
-
-    }
-
     public static final int IMSTATUS_FIELD_NUMBER = 1;
     private int imStatus_ = 0;
     /**
@@ -1401,29 +679,42 @@ java.lang.String defaultValue) {
     }
 
     public static final int MESSAGE_FIELD_NUMBER = 2;
-    private cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket message_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object message_ = "";
     /**
-     * <code>.RespPacket.MessagePacket message = 2;</code>
-     * @return Whether the message field is set.
-     */
-    @java.lang.Override
-    public boolean hasMessage() {
-      return message_ != null;
-    }
-    /**
-     * <code>.RespPacket.MessagePacket message = 2;</code>
+     * <code>string message = 2;</code>
      * @return The message.
      */
     @java.lang.Override
-    public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket getMessage() {
-      return message_ == null ? cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.getDefaultInstance() : message_;
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        message_ = s;
+        return s;
+      }
     }
     /**
-     * <code>.RespPacket.MessagePacket message = 2;</code>
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
      */
     @java.lang.Override
-    public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacketOrBuilder getMessageOrBuilder() {
-      return message_ == null ? cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.getDefaultInstance() : message_;
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1443,8 +734,8 @@ java.lang.String defaultValue) {
       if (imStatus_ != cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.ImStatus.NONE.getNumber()) {
         output.writeEnum(1, imStatus_);
       }
-      if (message_ != null) {
-        output.writeMessage(2, getMessage());
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1459,9 +750,8 @@ java.lang.String defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, imStatus_);
       }
-      if (message_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getMessage());
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1479,11 +769,8 @@ java.lang.String defaultValue) {
       cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket other = (cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket) obj;
 
       if (imStatus_ != other.imStatus_) return false;
-      if (hasMessage() != other.hasMessage()) return false;
-      if (hasMessage()) {
-        if (!getMessage()
-            .equals(other.getMessage())) return false;
-      }
+      if (!getMessage()
+          .equals(other.getMessage())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1497,10 +784,8 @@ java.lang.String defaultValue) {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + IMSTATUS_FIELD_NUMBER;
       hash = (53 * hash) + imStatus_;
-      if (hasMessage()) {
-        hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-        hash = (53 * hash) + getMessage().hashCode();
-      }
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1635,11 +920,7 @@ java.lang.String defaultValue) {
         super.clear();
         bitField0_ = 0;
         imStatus_ = 0;
-        message_ = null;
-        if (messageBuilder_ != null) {
-          messageBuilder_.dispose();
-          messageBuilder_ = null;
-        }
+        message_ = "";
         return this;
       }
 
@@ -1677,9 +958,7 @@ java.lang.String defaultValue) {
           result.imStatus_ = imStatus_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.message_ = messageBuilder_ == null
-              ? message_
-              : messageBuilder_.build();
+          result.message_ = message_;
         }
       }
 
@@ -1730,8 +1009,10 @@ java.lang.String defaultValue) {
         if (other.imStatus_ != 0) {
           setImStatusValue(other.getImStatusValue());
         }
-        if (other.hasMessage()) {
-          mergeMessage(other.getMessage());
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
+          bitField0_ |= 0x00000002;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -1765,9 +1046,7 @@ java.lang.String defaultValue) {
                 break;
               } // case 8
               case 18: {
-                input.readMessage(
-                    getMessageFieldBuilder().getBuilder(),
-                    extensionRegistry);
+                message_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
@@ -1841,123 +1120,76 @@ java.lang.String defaultValue) {
         return this;
       }
 
-      private cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket message_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket, cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.Builder, cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacketOrBuilder> messageBuilder_;
+      private java.lang.Object message_ = "";
       /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
-       * @return Whether the message field is set.
-       */
-      public boolean hasMessage() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
+       * <code>string message = 2;</code>
        * @return The message.
        */
-      public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket getMessage() {
-        if (messageBuilder_ == null) {
-          return message_ == null ? cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.getDefaultInstance() : message_;
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          message_ = s;
+          return s;
         } else {
-          return messageBuilder_.getMessage();
+          return (java.lang.String) ref;
         }
       }
       /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
+       * <code>string message = 2;</code>
+       * @return The bytes for message.
        */
-      public Builder setMessage(cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket value) {
-        if (messageBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          message_ = value;
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
         } else {
-          messageBuilder_.setMessage(value);
+          return (com.google.protobuf.ByteString) ref;
         }
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
       }
       /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
+       * <code>string message = 2;</code>
+       * @param value The message to set.
+       * @return This builder for chaining.
        */
       public Builder setMessage(
-          cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.Builder builderForValue) {
-        if (messageBuilder_ == null) {
-          message_ = builderForValue.build();
-        } else {
-          messageBuilder_.setMessage(builderForValue.build());
-        }
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        message_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
-       */
-      public Builder mergeMessage(cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket value) {
-        if (messageBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0) &&
-            message_ != null &&
-            message_ != cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.getDefaultInstance()) {
-            getMessageBuilder().mergeFrom(value);
-          } else {
-            message_ = value;
-          }
-        } else {
-          messageBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
+       * <code>string message = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMessage() {
+        message_ = getDefaultInstance().getMessage();
         bitField0_ = (bitField0_ & ~0x00000002);
-        message_ = null;
-        if (messageBuilder_ != null) {
-          messageBuilder_.dispose();
-          messageBuilder_ = null;
-        }
         onChanged();
         return this;
       }
       /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
+       * <code>string message = 2;</code>
+       * @param value The bytes for message to set.
+       * @return This builder for chaining.
        */
-      public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.Builder getMessageBuilder() {
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        message_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
-        return getMessageFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
-       */
-      public cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacketOrBuilder getMessageOrBuilder() {
-        if (messageBuilder_ != null) {
-          return messageBuilder_.getMessageOrBuilder();
-        } else {
-          return message_ == null ?
-              cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.getDefaultInstance() : message_;
-        }
-      }
-      /**
-       * <code>.RespPacket.MessagePacket message = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket, cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.Builder, cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacketOrBuilder> 
-          getMessageFieldBuilder() {
-        if (messageBuilder_ == null) {
-          messageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket, cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacket.Builder, cn.starboot.tim.common.packet.proto.RespPacketProto.RespPacket.MessagePacketOrBuilder>(
-                  getMessage(),
-                  getParentForChildren(),
-                  isClean());
-          message_ = null;
-        }
-        return messageBuilder_;
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -2028,16 +1260,6 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_RespPacket_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_RespPacket_MessagePacket_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_RespPacket_MessagePacket_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_RespPacket_MessagePacket_MsgEntry_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_RespPacket_MessagePacket_MsgEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2047,31 +1269,28 @@ java.lang.String defaultValue) {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020RespPacket.proto\"\205\007\n\nRespPacket\022&\n\010imS" +
-      "tatus\030\001 \001(\0162\024.RespPacket.ImStatus\022*\n\007mes" +
-      "sage\030\002 \001(\0132\031.RespPacket.MessagePacket\032l\n" +
-      "\rMessagePacket\022/\n\003msg\030\001 \003(\0132\".RespPacket" +
-      ".MessagePacket.MsgEntry\032*\n\010MsgEntry\022\013\n\003k" +
-      "ey\030\001 \001(\005\022\r\n\005value\030\002 \001(\t:\0028\001\"\264\005\n\010ImStatus" +
-      "\022\010\n\004NONE\020\000\022\017\n\013SEND_FAILED\020d\022\020\n\014SEND_SUCC" +
-      "ESS\020e\022\017\n\013AUTH_FAILED\020f\022\020\n\014AUTH_SUCCESS\020g" +
-      "\022\020\n\014LOGIN_FAILED\020h\022\021\n\rLOGIN_SUCCESS\020i\022\021\n" +
-      "\rCLOSE_SUCCESS\020j\022\025\n\021JOIN_GROUP_FAILED\020k\022" +
-      "\026\n\022JOIN_GROUP_SUCCESS\020l\022\025\n\021EXIT_GROUP_FA" +
-      "ILED\020m\022\026\n\022EXIT_GROUP_SUCCESS\020n\022\033\n\027UNSUPP" +
-      "ORTED_CMD_COMMAND\020o\022\030\n\024INVALID_VERIFICAT" +
-      "ION\020p\022\037\n\033GET_USER_INFORMATION_FAILED\020q\022 " +
-      "\n\034GET_USER_INFORMATION_SUCCESS\020r\022\036\n\032PROT" +
-      "OCOL_VERSION_NOT_MATCH\020s\022#\n\037GET_USER_HIS" +
-      "TORY_MESSAGE_FAILED\020t\022$\n GET_USER_HISTOR" +
-      "Y_MESSAGE_SUCCESS\020u\022#\n\037GET_USER_OFFLINE_" +
-      "MESSAGE_FAILED\020v\022$\n GET_USER_OFFLINE_MES" +
-      "SAGE_SUCCESS\020w\022\017\n\013BIND_FAILED\020x\022\020\n\014BIND_" +
-      "SUCCESS\020y\022\021\n\rUNBIND_FAILED\020z\022\022\n\016UNBIND_S" +
-      "UCCESS\020{\022\n\n\006C10024\020|\022\n\n\006C10025\020}\022\n\n\006C100" +
-      "26\020~\022\n\n\006C10027\020\177\022\013\n\006C10028\020\200\001\022\013\n\006C10029\020" +
-      "\201\001B6\n#cn.starboot.tim.common.packet.prot" +
-      "oB\017RespPacketProtob\006proto3"
+      "\n\020RespPacket.proto\"\374\005\n\nRespPacket\022&\n\010imS" +
+      "tatus\030\001 \001(\0162\024.RespPacket.ImStatus\022\017\n\007mes" +
+      "sage\030\002 \001(\t\"\264\005\n\010ImStatus\022\010\n\004NONE\020\000\022\017\n\013SEN" +
+      "D_FAILED\020d\022\020\n\014SEND_SUCCESS\020e\022\017\n\013AUTH_FAI" +
+      "LED\020f\022\020\n\014AUTH_SUCCESS\020g\022\020\n\014LOGIN_FAILED\020" +
+      "h\022\021\n\rLOGIN_SUCCESS\020i\022\021\n\rCLOSE_SUCCESS\020j\022" +
+      "\025\n\021JOIN_GROUP_FAILED\020k\022\026\n\022JOIN_GROUP_SUC" +
+      "CESS\020l\022\025\n\021EXIT_GROUP_FAILED\020m\022\026\n\022EXIT_GR" +
+      "OUP_SUCCESS\020n\022\033\n\027UNSUPPORTED_CMD_COMMAND" +
+      "\020o\022\030\n\024INVALID_VERIFICATION\020p\022\037\n\033GET_USER" +
+      "_INFORMATION_FAILED\020q\022 \n\034GET_USER_INFORM" +
+      "ATION_SUCCESS\020r\022\036\n\032PROTOCOL_VERSION_NOT_" +
+      "MATCH\020s\022#\n\037GET_USER_HISTORY_MESSAGE_FAIL" +
+      "ED\020t\022$\n GET_USER_HISTORY_MESSAGE_SUCCESS" +
+      "\020u\022#\n\037GET_USER_OFFLINE_MESSAGE_FAILED\020v\022" +
+      "$\n GET_USER_OFFLINE_MESSAGE_SUCCESS\020w\022\017\n" +
+      "\013BIND_FAILED\020x\022\020\n\014BIND_SUCCESS\020y\022\021\n\rUNBI" +
+      "ND_FAILED\020z\022\022\n\016UNBIND_SUCCESS\020{\022\n\n\006C1002" +
+      "4\020|\022\n\n\006C10025\020}\022\n\n\006C10026\020~\022\n\n\006C10027\020\177\022" +
+      "\013\n\006C10028\020\200\001\022\013\n\006C10029\020\201\001B6\n#cn.starboot" +
+      ".tim.common.packet.protoB\017RespPacketProt" +
+      "ob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2083,18 +1302,6 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RespPacket_descriptor,
         new java.lang.String[] { "ImStatus", "Message", });
-    internal_static_RespPacket_MessagePacket_descriptor =
-      internal_static_RespPacket_descriptor.getNestedTypes().get(0);
-    internal_static_RespPacket_MessagePacket_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_RespPacket_MessagePacket_descriptor,
-        new java.lang.String[] { "Msg", });
-    internal_static_RespPacket_MessagePacket_MsgEntry_descriptor =
-      internal_static_RespPacket_MessagePacket_descriptor.getNestedTypes().get(0);
-    internal_static_RespPacket_MessagePacket_MsgEntry_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_RespPacket_MessagePacket_MsgEntry_descriptor,
-        new java.lang.String[] { "Key", "Value", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

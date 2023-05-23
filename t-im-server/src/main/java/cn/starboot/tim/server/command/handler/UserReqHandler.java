@@ -40,15 +40,16 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_USERS_RESP);
-		setRespPacketImStatus(imPacket,
-				verify(StrUtil.isNotBlank(userInfoPacket.getUserId()),
-						ObjectUtil.isNotNull(userInfoPacket.getStatus()),
-						imChannelContext
-								.getConfig()
-								.getProcessor()
-								.handleGetUserInfoPacket(imChannelContext, userInfoPacket)) ?
-						RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_SUCCESS :
-						RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED);
+		if (verify(StrUtil.isNotBlank(userInfoPacket.getUserId()),
+				ObjectUtil.isNotNull(userInfoPacket.getStatus()),
+				imChannelContext
+						.getConfig()
+						.getProcessor()
+						.handleGetUserInfoPacket(imChannelContext, userInfoPacket))) {
+			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_SUCCESS, "get user info success").toByteArray());
+		} else {
+			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED, "get user info failed").toByteArray());
+		}
 		if (imPacket.getImStatus().equals(RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED)) {
 			return null;
 		}

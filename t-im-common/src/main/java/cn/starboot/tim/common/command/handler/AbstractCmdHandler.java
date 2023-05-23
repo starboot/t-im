@@ -35,6 +35,10 @@ public abstract class AbstractCmdHandler<C extends ImChannelContext<F>, F extend
 		return imChannelContext.getConfig().getImPacketFactory().createImPacket(timCommandType, imStatus, data);
 	}
 
+	protected RespPacketProto.RespPacket getRespPacket(RespPacketProto.RespPacket.ImStatus imStatus, String msg) {
+		return RespPacketProto.RespPacket.newBuilder().setImStatus(imStatus).setMessage(msg).build();
+	}
+
 	protected boolean verify(boolean ...booleans) {
 		boolean r = true;
 		for (boolean b:

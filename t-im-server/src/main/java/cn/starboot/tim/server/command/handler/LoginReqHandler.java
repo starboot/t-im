@@ -36,16 +36,17 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 		}
 		// 构造登录响应消息包
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_LOGIN_RESP);
-		setRespPacketImStatus(imPacket,
-				verify(StrUtil.isNotBlank(loginPacket.getUserId()),
-						StrUtil.isNotBlank(loginPacket.getPassword()),
-						StrUtil.isNotBlank(loginPacket.getToken()),
-						imChannelContext
-								.getConfig()
-								.getProcessor()
-								.handleLoginPacket(imChannelContext, loginPacket)) ?
-						RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS :
-						RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED);
+		if (verify(StrUtil.isNotBlank(loginPacket.getUserId()),
+				StrUtil.isNotBlank(loginPacket.getPassword()),
+				StrUtil.isNotBlank(loginPacket.getToken()),
+				imChannelContext
+						.getConfig()
+						.getProcessor()
+						.handleLoginPacket(imChannelContext, loginPacket))) {
+			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS, "login success").toByteArray());
+		} else {
+			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED, "login failed").toByteArray());
+		}
 		UserPacketProto.UserPacket user = imChannelContext.getConfig().getProcessor().getUserByProcessor(imChannelContext, loginPacket);
 		if (ObjectUtil.isEmpty(user)) {
 			return null;

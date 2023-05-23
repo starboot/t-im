@@ -34,8 +34,4 @@ public abstract class AbstractServerCmdHandler extends AbstractCmdHandler<ImServ
 		TIMServer.sendToGroup(imConfig, toGroupId, imPacket, channelContextFilter);
 	}
 
-	protected void setRespPacketImStatus(ImPacket packet, RespPacketProto.RespPacket.ImStatus imStatus) {
-		packet.setImStatus(imStatus);
-	}
-
 }

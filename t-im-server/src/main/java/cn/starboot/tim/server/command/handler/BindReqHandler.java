@@ -33,16 +33,18 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_BIND_RESP);
-		setRespPacketImStatus(imPacket,
-				verify(StrUtil.isNotEmpty(packet.getBindId()),
-						StrUtil.isNotBlank(packet.getBindId()),
-						imChannelContext
-								.getConfig()
-								.getProcessor()
-								.handleBindPacket(imChannelContext, packet),
-						handler(packet, imChannelContext)) ?
-						RespPacketProto.RespPacket.ImStatus.BIND_SUCCESS :
-						RespPacketProto.RespPacket.ImStatus.BIND_FAILED);
+		if (verify(StrUtil.isNotEmpty(packet.getBindId()),
+				StrUtil.isNotBlank(packet.getBindId()),
+				imChannelContext
+						.getConfig()
+						.getProcessor()
+						.handleBindPacket(imChannelContext, packet),
+				handler(packet, imChannelContext))) {
+			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.BIND_SUCCESS, "bind success").toByteArray());
+		} else {
+			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.BIND_FAILED, "bind failed").toByteArray());
+		}
+
 		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket) ? imPacket : null;
 	}
 
