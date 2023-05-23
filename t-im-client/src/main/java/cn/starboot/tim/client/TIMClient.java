@@ -96,7 +96,7 @@ public class TIMClient {
 //                    .addHeartPacket()
 				.setWriteBufferSize(32 * 1024, 128)
 				.setReadBufferSize(32 * 1024)
-				.setThreadNum(1);
+				.setThreadNum(2);
 	}
 
 	public synchronized void login(String userId, String password, Callback callback) {
