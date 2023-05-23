@@ -73,7 +73,7 @@ public class TIMClient {
 	}
 
 	public TIMClient(ClientTIMProcessor processor) {
-		this.clientBootstrap = new ClientBootstrap("localhost", 8888, ClientPrivateTcpProtocol.getInstance(channelContext -> new ImClientChannelContext(channelContext, getImClientConfig()) ,new ImClientPacketProtocolHandler()));
+		this.clientBootstrap = new ClientBootstrap("127.0.0.1", 8888, ClientPrivateTcpProtocol.getInstance(channelContext -> new ImClientChannelContext(channelContext, getImClientConfig()) ,new ImClientPacketProtocolHandler()));
 		this.imClientConfig = new ImClientConfig(processor, clientBootstrap.getConfig());
 	}
 
@@ -82,6 +82,7 @@ public class TIMClient {
 
 		try {
 			do {
+				// 连接建立超时，则无线重试
 				clientChannelContext = clientBootstrap.start();
 			} while (clientChannelContext == null);
 		} catch (IOException e) {
