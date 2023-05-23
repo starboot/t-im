@@ -44,7 +44,7 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 				if (StrUtil.isNotEmpty(chatPacket.getToId())) {
 					// 私聊
 					if (imChannelContext.getConfig().getProcessor().handleChatPacket(imChannelContext, chatPacket)) {
-						sendToId(imChannelContext.getConfig(), chatPacket.getToId(), imPacket);
+						sendToUser(imChannelContext.getConfig(), chatPacket.getToId(), imPacket);
 						packet.setData(getRespPacket(TIMCommandType.COMMAND_CHAT_RESP, RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS, "send success").toByteArray());
 					}
 				} else {
