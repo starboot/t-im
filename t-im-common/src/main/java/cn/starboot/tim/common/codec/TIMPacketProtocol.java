@@ -65,8 +65,6 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 			Aio.close(channelContext);
 			return null;
 		}
-		// 取IM状态码
-		int imStatusCode = buffer.get() > 0 ? buffer.getInt() : 0;
 		// 获取同部位
 		Integer synReq = null;
 		Integer synResp = null;
@@ -106,7 +104,7 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 			}
 		}
 		// 解码成功
-		return ImPacket.newBuilder().setReq(synReq).setResp(synResp).setTIMCommandType(command).setImStatus(RespPacketProto.RespPacket.ImStatus.forNumber(imStatusCode)).setData(b).build();
+		return ImPacket.newBuilder().setReq(synReq).setResp(synResp).setTIMCommandType(command).setData(b).build();
 	}
 
 	public void encode(ImPacket imPacket, ChannelContext channelContext) throws AioEncoderException {
@@ -114,8 +112,6 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 		TIMCommandType timCommandType = imPacket.getTIMCommandType();
 		// 消息体
 		byte[] data = imPacket.getData();
-		// 状态码
-		RespPacketProto.RespPacket.ImStatus imStatus = imPacket.getImStatus();
 		// 拿到输入流
 		WriteBuffer writeBuffer = channelContext.getWriteBuffer();
 		if (Objects.isNull(timCommandType)) {
@@ -123,13 +119,6 @@ public abstract class TIMPacketProtocol<T extends ImChannelContext<?>> {
 		}
 		// 写入命令码
 		writeBuffer.writeByte(timCommandType.getCode());
-		// 写入状态码
-		if (Objects.isNull(imStatus)) {
-			writeBuffer.write(0);
-		} else {
-			writeBuffer.write(1);
-			writeBuffer.writeInt(imPacket.getImStatus().getNumber());
-		}
 		// 同步位
 		Integer req = imPacket.getReq();
 		Integer resp = imPacket.getResp();

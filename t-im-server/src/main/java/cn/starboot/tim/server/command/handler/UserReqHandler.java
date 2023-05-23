@@ -50,9 +50,10 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 		} else {
 			imPacket.setData(getRespPacket(TIMCommandType.COMMAND_USERS_RESP, RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED, "get user info failed").toByteArray());
 		}
-		if (imPacket.getImStatus().equals(RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED)) {
-			return null;
-		}
+		// 获取用户失败
+//		if (imPacket.getImStatus().equals(RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED)) {
+//			return null;
+//		}
 		// 获取用户信息
 		if (imChannelContext.getConfig().isStore()) {
 			imPacket.setData(persistentUserInfo.getUserInfo(userInfoPacket, imChannelContext).toByteArray());

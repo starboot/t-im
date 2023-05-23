@@ -11,15 +11,11 @@ public class ImPacket extends Packet {
     // 消息命令码
     private TIMCommandType TIMCommandType;
 
-    // 状态码 int
-    private RespPacketProto.RespPacket.ImStatus imStatus;
-
     // 消息体
     private byte[] data;
 
-    private ImPacket(TIMCommandType TIMCommandType, RespPacketProto.RespPacket.ImStatus imStatus, byte[] data) {
+    private ImPacket(TIMCommandType TIMCommandType, byte[] data) {
         this.TIMCommandType = TIMCommandType;
-        this.imStatus = imStatus;
         this.data = data;
     }
 
@@ -36,14 +32,6 @@ public class ImPacket extends Packet {
         return this;
     }
 
-	public RespPacketProto.RespPacket.ImStatus getImStatus() {
-		return imStatus;
-	}
-
-	public void setImStatus(RespPacketProto.RespPacket.ImStatus imStatus) {
-		this.imStatus = imStatus;
-	}
-
 	public byte[] getData() {
         return data;
     }
@@ -57,8 +45,6 @@ public class ImPacket extends Packet {
 
 		private TIMCommandType TIMCommandType;
 
-		private RespPacketProto.RespPacket.ImStatus imStatus;
-
 		private byte[] data;
 
 		private Builder() {
@@ -66,11 +52,6 @@ public class ImPacket extends Packet {
 
 		public Builder setTIMCommandType(TIMCommandType TIMCommandType) {
 			this.TIMCommandType = TIMCommandType;
-			return this;
-		}
-
-		public Builder setImStatus(RespPacketProto.RespPacket.ImStatus imStatus) {
-			this.imStatus = imStatus;
 			return this;
 		}
 
@@ -86,7 +67,7 @@ public class ImPacket extends Packet {
 
 		@Override
 		public ImPacket build(){
-			return new ImPacket(TIMCommandType, imStatus, data);
+			return new ImPacket(TIMCommandType, data);
 		}
 	}
 }

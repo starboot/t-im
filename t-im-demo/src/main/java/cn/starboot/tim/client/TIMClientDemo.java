@@ -6,7 +6,7 @@ import cn.starboot.tim.common.packet.proto.TIMEnumProto;
 /**
  * Created by DELL(mxd) on 2021/12/23 20:33
  */
-public class TioSocketClient {
+public class TIMClientDemo {
 
 
     public static void main(String[] args) {

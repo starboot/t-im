@@ -21,8 +21,6 @@ public class RespServerHandler extends AbstractServerCmdHandler {
 			System.out.println("错误");
 			return null;
 		}
-		System.out.println(respPacket.toString());
-
 		switch (getTIMCommandTypeFromCode((byte) respPacket.getCode())) {
 			case COMMAND_CHAT_RESP:
 				System.out.println("聊天相应");
