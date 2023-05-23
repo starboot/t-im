@@ -123,6 +123,11 @@ public class TIMClient {
 //        send(new ImPacket(Command.COMMAND_AUTH_REQ, authReqBody.toByte()));
 	}
 
+	// 绑定到用户
+	public void bind() {
+		// do thing
+	}
+
 	/**
 	 * 退出
 	 */
