@@ -40,6 +40,12 @@ public final class RespPacketProto {
      */
     com.google.protobuf.ByteString
         getMessageBytes();
+
+    /**
+     * <code>int32 code = 3;</code>
+     * @return The code.
+     */
+    int getCode();
   }
   /**
    * <pre>
@@ -717,6 +723,17 @@ public final class RespPacketProto {
       }
     }
 
+    public static final int CODE_FIELD_NUMBER = 3;
+    private int code_ = 0;
+    /**
+     * <code>int32 code = 3;</code>
+     * @return The code.
+     */
+    @java.lang.Override
+    public int getCode() {
+      return code_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -737,6 +754,9 @@ public final class RespPacketProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
       }
+      if (code_ != 0) {
+        output.writeInt32(3, code_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -752,6 +772,10 @@ public final class RespPacketProto {
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+      }
+      if (code_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, code_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -771,6 +795,8 @@ public final class RespPacketProto {
       if (imStatus_ != other.imStatus_) return false;
       if (!getMessage()
           .equals(other.getMessage())) return false;
+      if (getCode()
+          != other.getCode()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -786,6 +812,8 @@ public final class RespPacketProto {
       hash = (53 * hash) + imStatus_;
       hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
       hash = (53 * hash) + getMessage().hashCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -921,6 +949,7 @@ public final class RespPacketProto {
         bitField0_ = 0;
         imStatus_ = 0;
         message_ = "";
+        code_ = 0;
         return this;
       }
 
@@ -959,6 +988,9 @@ public final class RespPacketProto {
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.message_ = message_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.code_ = code_;
         }
       }
 
@@ -1014,6 +1046,9 @@ public final class RespPacketProto {
           bitField0_ |= 0x00000002;
           onChanged();
         }
+        if (other.getCode() != 0) {
+          setCode(other.getCode());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1050,6 +1085,11 @@ public final class RespPacketProto {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 24: {
+                code_ = input.readInt32();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1191,6 +1231,38 @@ public final class RespPacketProto {
         onChanged();
         return this;
       }
+
+      private int code_ ;
+      /**
+       * <code>int32 code = 3;</code>
+       * @return The code.
+       */
+      @java.lang.Override
+      public int getCode() {
+        return code_;
+      }
+      /**
+       * <code>int32 code = 3;</code>
+       * @param value The code to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCode(int value) {
+        
+        code_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 code = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCode() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        code_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1269,28 +1341,28 @@ public final class RespPacketProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020RespPacket.proto\"\374\005\n\nRespPacket\022&\n\010imS" +
+      "\n\020RespPacket.proto\"\212\006\n\nRespPacket\022&\n\010imS" +
       "tatus\030\001 \001(\0162\024.RespPacket.ImStatus\022\017\n\007mes" +
-      "sage\030\002 \001(\t\"\264\005\n\010ImStatus\022\010\n\004NONE\020\000\022\017\n\013SEN" +
-      "D_FAILED\020d\022\020\n\014SEND_SUCCESS\020e\022\017\n\013AUTH_FAI" +
-      "LED\020f\022\020\n\014AUTH_SUCCESS\020g\022\020\n\014LOGIN_FAILED\020" +
-      "h\022\021\n\rLOGIN_SUCCESS\020i\022\021\n\rCLOSE_SUCCESS\020j\022" +
-      "\025\n\021JOIN_GROUP_FAILED\020k\022\026\n\022JOIN_GROUP_SUC" +
-      "CESS\020l\022\025\n\021EXIT_GROUP_FAILED\020m\022\026\n\022EXIT_GR" +
-      "OUP_SUCCESS\020n\022\033\n\027UNSUPPORTED_CMD_COMMAND" +
-      "\020o\022\030\n\024INVALID_VERIFICATION\020p\022\037\n\033GET_USER" +
-      "_INFORMATION_FAILED\020q\022 \n\034GET_USER_INFORM" +
-      "ATION_SUCCESS\020r\022\036\n\032PROTOCOL_VERSION_NOT_" +
-      "MATCH\020s\022#\n\037GET_USER_HISTORY_MESSAGE_FAIL" +
-      "ED\020t\022$\n GET_USER_HISTORY_MESSAGE_SUCCESS" +
-      "\020u\022#\n\037GET_USER_OFFLINE_MESSAGE_FAILED\020v\022" +
-      "$\n GET_USER_OFFLINE_MESSAGE_SUCCESS\020w\022\017\n" +
-      "\013BIND_FAILED\020x\022\020\n\014BIND_SUCCESS\020y\022\021\n\rUNBI" +
-      "ND_FAILED\020z\022\022\n\016UNBIND_SUCCESS\020{\022\n\n\006C1002" +
-      "4\020|\022\n\n\006C10025\020}\022\n\n\006C10026\020~\022\n\n\006C10027\020\177\022" +
-      "\013\n\006C10028\020\200\001\022\013\n\006C10029\020\201\001B6\n#cn.starboot" +
-      ".tim.common.packet.protoB\017RespPacketProt" +
-      "ob\006proto3"
+      "sage\030\002 \001(\t\022\014\n\004code\030\003 \001(\005\"\264\005\n\010ImStatus\022\010\n" +
+      "\004NONE\020\000\022\017\n\013SEND_FAILED\020d\022\020\n\014SEND_SUCCESS" +
+      "\020e\022\017\n\013AUTH_FAILED\020f\022\020\n\014AUTH_SUCCESS\020g\022\020\n" +
+      "\014LOGIN_FAILED\020h\022\021\n\rLOGIN_SUCCESS\020i\022\021\n\rCL" +
+      "OSE_SUCCESS\020j\022\025\n\021JOIN_GROUP_FAILED\020k\022\026\n\022" +
+      "JOIN_GROUP_SUCCESS\020l\022\025\n\021EXIT_GROUP_FAILE" +
+      "D\020m\022\026\n\022EXIT_GROUP_SUCCESS\020n\022\033\n\027UNSUPPORT" +
+      "ED_CMD_COMMAND\020o\022\030\n\024INVALID_VERIFICATION" +
+      "\020p\022\037\n\033GET_USER_INFORMATION_FAILED\020q\022 \n\034G" +
+      "ET_USER_INFORMATION_SUCCESS\020r\022\036\n\032PROTOCO" +
+      "L_VERSION_NOT_MATCH\020s\022#\n\037GET_USER_HISTOR" +
+      "Y_MESSAGE_FAILED\020t\022$\n GET_USER_HISTORY_M" +
+      "ESSAGE_SUCCESS\020u\022#\n\037GET_USER_OFFLINE_MES" +
+      "SAGE_FAILED\020v\022$\n GET_USER_OFFLINE_MESSAG" +
+      "E_SUCCESS\020w\022\017\n\013BIND_FAILED\020x\022\020\n\014BIND_SUC" +
+      "CESS\020y\022\021\n\rUNBIND_FAILED\020z\022\022\n\016UNBIND_SUCC" +
+      "ESS\020{\022\n\n\006C10024\020|\022\n\n\006C10025\020}\022\n\n\006C10026\020" +
+      "~\022\n\n\006C10027\020\177\022\013\n\006C10028\020\200\001\022\013\n\006C10029\020\201\001B" +
+      "6\n#cn.starboot.tim.common.packet.protoB\017" +
+      "RespPacketProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1301,7 +1373,7 @@ public final class RespPacketProto {
     internal_static_RespPacket_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RespPacket_descriptor,
-        new java.lang.String[] { "ImStatus", "Message", });
+        new java.lang.String[] { "ImStatus", "Message", "Code", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

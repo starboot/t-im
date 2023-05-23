@@ -43,9 +43,9 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 						.getConfig()
 						.getProcessor()
 						.handleLoginPacket(imChannelContext, loginPacket))) {
-			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS, "login success").toByteArray());
+			imPacket.setData(getRespPacket(TIMCommandType.COMMAND_LOGIN_RESP, RespPacketProto.RespPacket.ImStatus.LOGIN_SUCCESS, "login success").toByteArray());
 		} else {
-			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED, "login failed").toByteArray());
+			imPacket.setData(getRespPacket(TIMCommandType.COMMAND_LOGIN_RESP, RespPacketProto.RespPacket.ImStatus.LOGIN_FAILED, "login failed").toByteArray());
 		}
 		UserPacketProto.UserPacket user = imChannelContext.getConfig().getProcessor().getUserByProcessor(imChannelContext, loginPacket);
 		if (ObjectUtil.isEmpty(user)) {

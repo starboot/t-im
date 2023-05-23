@@ -45,10 +45,10 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 					// 私聊
 					if (imChannelContext.getConfig().getProcessor().handleChatPacket(imChannelContext, chatPacket)) {
 						sendToId(imChannelContext.getConfig(), chatPacket.getToId(), imPacket);
-						packet.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS, "send success").toByteArray());
+						packet.setData(getRespPacket(TIMCommandType.COMMAND_CHAT_RESP, RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS, "send success").toByteArray());
 					}
 				} else {
-					packet.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.SEND_FAILED, "target id not empty").toByteArray());
+					packet.setData(getRespPacket(TIMCommandType.COMMAND_CHAT_RESP, RespPacketProto.RespPacket.ImStatus.SEND_FAILED, "target id not empty").toByteArray());
 				}
 				break;
 			}
@@ -63,20 +63,20 @@ public class ChatReqServerHandler extends AbstractServerCmdHandler {
 									// 不发送自己  true:发送， false：不发送
 									return channelContext != imChannelContext.getChannelContext();
 								});
-						packet.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS, "send success").toByteArray());
+						packet.setData(getRespPacket(TIMCommandType.COMMAND_CHAT_RESP, RespPacketProto.RespPacket.ImStatus.SEND_SUCCESS, "send success").toByteArray());
 					}
 				} else {
-					packet.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.SEND_FAILED, "target groupId not empty").toByteArray());
+					packet.setData(getRespPacket(TIMCommandType.COMMAND_CHAT_RESP, RespPacketProto.RespPacket.ImStatus.SEND_FAILED, "target groupId not empty").toByteArray());
 				}
 				break;
 			}
 			case UNKNOWN: {
-				packet.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.SEND_FAILED, "send unknown message type").toByteArray());
+				packet.setData(getRespPacket(TIMCommandType.COMMAND_CHAT_RESP, RespPacketProto.RespPacket.ImStatus.SEND_FAILED, "send unknown message type").toByteArray());
 				TIMLogUtil.debug(LOGGER, "client {} send unknown message type", chatPacket.getFromId());
 				break;
 			}
 			default: {
-				packet.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.SEND_FAILED, "packet not exist message type").toByteArray());
+				packet.setData(getRespPacket(TIMCommandType.COMMAND_CHAT_RESP, RespPacketProto.RespPacket.ImStatus.SEND_FAILED, "packet not exist message type").toByteArray());
 				TIMLogUtil.debug(LOGGER, "client {} packet not exist message type", chatPacket.getFromId());
 				break;
 			}

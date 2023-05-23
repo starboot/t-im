@@ -6,6 +6,7 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.intf.TIMProcessor;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
+import com.google.protobuf.ByteString;
 
 /**
  * 抽象命令处理器
@@ -35,8 +36,8 @@ public abstract class AbstractCmdHandler<C extends ImChannelContext<F>, F extend
 		return imChannelContext.getConfig().getImPacketFactory().createImPacket(timCommandType, imStatus, data);
 	}
 
-	protected RespPacketProto.RespPacket getRespPacket(RespPacketProto.RespPacket.ImStatus imStatus, String msg) {
-		return RespPacketProto.RespPacket.newBuilder().setImStatus(imStatus).setMessage(msg).build();
+	protected RespPacketProto.RespPacket getRespPacket(TIMCommandType timCommandType, RespPacketProto.RespPacket.ImStatus imStatus, String msg) {
+		return RespPacketProto.RespPacket.newBuilder().setCode(timCommandType.getCode()).setImStatus(imStatus).setMessage(msg).build();
 	}
 
 	protected boolean verify(boolean ...booleans) {

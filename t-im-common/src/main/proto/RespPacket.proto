@@ -70,4 +70,6 @@ message RespPacket{
 
 	string message = 2;
 
+	int32 code = 3;
+
 }

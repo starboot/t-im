@@ -58,15 +58,15 @@ public class MessageReqHandler extends AbstractServerCmdHandler {
 				ObjectUtil.equal(messagePacket, MessagePacketProto.MessagePacket.MessageType.OFF_LINE_MESSAGE)
 						|| (StrUtil.isNotBlank(groupId) || StrUtil.isNotBlank(fromUserId)))) {
 			if (ObjectUtil.equal(messagePacket, MessagePacketProto.MessagePacket.MessageType.HISTORY_MESSAGE)) {
-				imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.GET_USER_HISTORY_MESSAGE_SUCCESS, "auth success").toByteArray());
+				imPacket.setData(getRespPacket(TIMCommandType.COMMAND_MESSAGE_RESP, RespPacketProto.RespPacket.ImStatus.GET_USER_HISTORY_MESSAGE_SUCCESS, "auth success").toByteArray());
 			} else {
-				imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.GET_USER_OFFLINE_MESSAGE_SUCCESS, "auth success").toByteArray());
+				imPacket.setData(getRespPacket(TIMCommandType.COMMAND_MESSAGE_RESP, RespPacketProto.RespPacket.ImStatus.GET_USER_OFFLINE_MESSAGE_SUCCESS, "auth success").toByteArray());
 			}
 		} else {
 			if (ObjectUtil.isNotEmpty(messageType) && ObjectUtil.equal(messagePacket, MessagePacketProto.MessagePacket.MessageType.HISTORY_MESSAGE)) {
-				imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.GET_USER_HISTORY_MESSAGE_FAILED, "auth failed").toByteArray());
+				imPacket.setData(getRespPacket(TIMCommandType.COMMAND_MESSAGE_RESP, RespPacketProto.RespPacket.ImStatus.GET_USER_HISTORY_MESSAGE_FAILED, "auth failed").toByteArray());
 			} else {
-				imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.GET_USER_OFFLINE_MESSAGE_FAILED, "auth failed").toByteArray());
+				imPacket.setData(getRespPacket(TIMCommandType.COMMAND_MESSAGE_RESP, RespPacketProto.RespPacket.ImStatus.GET_USER_OFFLINE_MESSAGE_FAILED, "auth failed").toByteArray());
 			}
 		}
 

@@ -46,9 +46,9 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 						.getConfig()
 						.getProcessor()
 						.handleGetUserInfoPacket(imChannelContext, userInfoPacket))) {
-			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_SUCCESS, "get user info success").toByteArray());
+			imPacket.setData(getRespPacket(TIMCommandType.COMMAND_USERS_RESP, RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_SUCCESS, "get user info success").toByteArray());
 		} else {
-			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED, "get user info failed").toByteArray());
+			imPacket.setData(getRespPacket(TIMCommandType.COMMAND_USERS_RESP, RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED, "get user info failed").toByteArray());
 		}
 		if (imPacket.getImStatus().equals(RespPacketProto.RespPacket.ImStatus.GET_USER_INFORMATION_FAILED)) {
 			return null;

@@ -39,9 +39,9 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
 						.getConfig()
 						.getProcessor()
 						.handleAuthPacket(imChannelContext, authPacket))) {
-			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.AUTH_SUCCESS, "auth success").toByteArray());
+			imPacket.setData(getRespPacket(TIMCommandType.COMMAND_AUTH_RESP, RespPacketProto.RespPacket.ImStatus.AUTH_SUCCESS, "auth success").toByteArray());
 		} else {
-			imPacket.setData(getRespPacket(RespPacketProto.RespPacket.ImStatus.AUTH_FAILED, "auth failed").toByteArray());
+			imPacket.setData(getRespPacket(TIMCommandType.COMMAND_AUTH_RESP, RespPacketProto.RespPacket.ImStatus.AUTH_FAILED, "auth failed").toByteArray());
 		}
 		return imChannelContext.getConfig().getProcessor().beforeSend(imChannelContext, imPacket) ? imPacket : null;
 	}
