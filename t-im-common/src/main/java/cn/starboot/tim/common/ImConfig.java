@@ -30,7 +30,7 @@ public abstract class ImConfig<P extends TIMProcessor> {
 
 	private final AioConfig aioConfig;
 
-	private final ImPacketFactory imPacketFactory = (timCommandType, imStatus, data) -> ImPacket.newBuilder().setTIMCommandType(timCommandType).setImStatus(imStatus).setData(data).build();
+	private final ImPacketFactory imPacketFactory = (timCommandType, data) -> ImPacket.newBuilder().setTIMCommandType(timCommandType).setData(data).build();
 
 	public ImConfig(AioConfig aioConfig) {
 		this.aioConfig = aioConfig;

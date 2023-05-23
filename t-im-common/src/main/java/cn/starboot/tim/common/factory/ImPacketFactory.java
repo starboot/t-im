@@ -6,5 +6,5 @@ import cn.starboot.tim.common.packet.proto.RespPacketProto;
 
 public interface ImPacketFactory {
 
-	ImPacket createImPacket(TIMCommandType timCommandType, RespPacketProto.RespPacket.ImStatus imStatus, byte[] data);
+	ImPacket createImPacket(TIMCommandType timCommandType, byte[] data);
 }
