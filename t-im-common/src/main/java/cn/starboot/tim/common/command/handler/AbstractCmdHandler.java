@@ -14,9 +14,6 @@ import com.google.protobuf.ByteString;
  */
 public abstract class AbstractCmdHandler<C extends ImChannelContext<F>, F extends ImConfig<P>, P extends TIMProcessor> implements CmdHandler<C> {
 
-	protected ImPacket getImPacket(ImChannelContext<F> imChannelContext) {
-		return getImPacket(imChannelContext, null);
-	}
 
 	protected ImPacket getImPacket(ImChannelContext<F> imChannelContext,
 								   TIMCommandType timCommandType) {
@@ -25,15 +22,8 @@ public abstract class AbstractCmdHandler<C extends ImChannelContext<F>, F extend
 
 	protected ImPacket getImPacket(ImChannelContext<F> imChannelContext,
 								   TIMCommandType timCommandType,
-								   RespPacketProto.RespPacket.ImStatus imStatus) {
-		return getImPacket(imChannelContext, timCommandType, imStatus, null);
-	}
-
-	protected ImPacket getImPacket(ImChannelContext<F> imChannelContext,
-								   TIMCommandType timCommandType,
-								   RespPacketProto.RespPacket.ImStatus imStatus,
 								   byte[] data) {
-		return imChannelContext.getConfig().getImPacketFactory().createImPacket(timCommandType, imStatus, data);
+		return imChannelContext.getConfig().getImPacketFactory().createImPacket(timCommandType, data);
 	}
 
 	protected RespPacketProto.RespPacket getRespPacket(TIMCommandType timCommandType, RespPacketProto.RespPacket.ImStatus imStatus, String msg) {

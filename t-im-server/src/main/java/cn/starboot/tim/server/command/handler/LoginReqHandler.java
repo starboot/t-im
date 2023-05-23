@@ -96,7 +96,6 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 						.getTIMServerCommandManagerInstance()
 						.getCommand(TIMCommandType.COMMAND_BIND_REQ)
 						.handler(getImPacket(imChannelContext, TIMCommandType.COMMAND_BIND_REQ,
-								RespPacketProto.RespPacket.ImStatus.NONE,
 								BindPacketProto
 										.BindPacket
 										.newBuilder()

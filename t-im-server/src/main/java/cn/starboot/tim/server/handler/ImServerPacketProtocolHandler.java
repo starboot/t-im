@@ -57,7 +57,7 @@ public class ImServerPacketProtocolHandler extends TIMPacketProtocol<ImServerCha
 				ImPacket respImPacket = imChannelContext
 						.getConfig()
 						.getImPacketFactory()
-						.createImPacket(TIMCommandType.COMMAND_REQ_RESP, null, null);
+						.createImPacket(TIMCommandType.COMMAND_REQ_RESP, null);
 				respImPacket.setResp(req);
 				return respImPacket;
 			}
