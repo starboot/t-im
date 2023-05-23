@@ -30,8 +30,6 @@ public abstract class ImConfig<P extends TIMProcessor> {
 
 	private final AioConfig aioConfig;
 
-	private final RespPacketProto.RespPacket.MessagePacket messagePacket = RespPacketProto.RespPacket.MessagePacket.newBuilder().build();
-
 	private final ImPacketFactory imPacketFactory = (timCommandType, imStatus, data) -> ImPacket.newBuilder().setTIMCommandType(timCommandType).setImStatus(imStatus).setData(data).build();
 
 	public ImConfig(AioConfig aioConfig) {
