@@ -15,7 +15,9 @@ import cn.starboot.tim.client.protocol.ClientPrivateTcpProtocol;
 import cn.starboot.tim.common.banner.TimBanner;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
+import cn.starboot.tim.common.packet.proto.AuthPacketProto;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
+import cn.starboot.tim.common.packet.proto.LoginPacketProto;
 import cn.starboot.tim.common.packet.proto.UserPacketProto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,14 +74,13 @@ public class TIMClient {
 		return TIMClientStarterSingletonEnum.INSTANCE.getTimServerStarter();
 	}
 
-	public TIMClient(ClientTIMProcessor processor) {
+	private TIMClient(ClientTIMProcessor processor) {
 		this.clientBootstrap = new ClientBootstrap("127.0.0.1", 8888, ClientPrivateTcpProtocol.getInstance(channelContext -> new ImClientChannelContext(channelContext, getImClientConfig()) ,new ImClientPacketProtocolHandler()));
 		this.imClientConfig = new ImClientConfig(processor, clientBootstrap.getConfig());
 	}
 
 	public void start() {
 		init();
-
 		try {
 			do {
 				// 连接建立超时，则无线重试
@@ -102,18 +103,21 @@ public class TIMClient {
 
 	public synchronized void login(String userId, String password, Callback callback) {
 
-//        clientChannelContext.setUserid(userId);
-//        clientChannelContext.set(userId, client);
-//        LoginReqBody body = new LoginReqBody(userId, password);
-//        body.setCreateTime(DateTime.now().getTime());
-//        body.setCmd(Command.COMMAND_LOGIN_REQ.getNumber());
-//        ImPacket loginPacket = new ImPacket(Command.COMMAND_LOGIN_REQ,body.toByte());
-//        ackSend0(loginPacket, 1);
-//        clientChannelContext.set("loginCallback", callback);
+
+		LoginPacketProto.LoginPacket password1 = LoginPacketProto.LoginPacket.newBuilder().setUserId("15511090450").setPassword("password").setToken("t-im").build();
+
+		ImPacket build = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_LOGIN_REQ).setData(password1.toByteArray()).build();
+
+		send(build);
 	}
 
 	public void authReq() {
 		// 鉴权
+		AuthPacketProto.AuthPacket build = AuthPacketProto.AuthPacket.newBuilder().setUserId("15511090450").setToken("t-im token").build();
+
+		ImPacket build1 = ImPacket.newBuilder().setTIMCommandType(TIMCommandType.COMMAND_AUTH_REQ).setData(build.toByteArray()).build();
+
+		send(build1);
 //        AuthReqBody authReqBody = new AuthReqBody();
 //        authReqBody.setToken("TIM-token");
 //        send(new ImPacket(Command.COMMAND_AUTH_REQ, authReqBody.toByte()));

@@ -1,5 +1,6 @@
 package cn.starboot.tim.client;
 
+import cn.starboot.tim.client.intf.Callback;
 import cn.starboot.tim.common.packet.proto.ChatPacketProto;
 import cn.starboot.tim.common.packet.proto.TIMEnumProto;
 
@@ -29,6 +30,20 @@ public class TIMClientDemo {
 				.setChatType(TIMEnumProto.TIMEnum.ChatType.PRIVATE)
 				.build();
 		TIMClient.getInstance().sendChatBody(chatPacket, null);
+
+		TIMClient.getInstance().authReq();
+
+		TIMClient.getInstance().login("", "", new Callback() {
+			@Override
+			public void success() {
+				System.out.println("111");
+			}
+
+			@Override
+			public void fail() {
+				System.out.println("222");
+			}
+		});
 
 
 //        TIMClient.getInstance().authReq();
