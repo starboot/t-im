@@ -7,7 +7,7 @@ import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.SystemNoticePacketProto;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-public class SystemNoticeReqHandler extends AbstractClientCmdHandler{
+public class SystemNoticeReqHandler extends AbstractClientCmdHandler {
 	@Override
 	public TIMCommandType command() {
 		return TIMCommandType.COMMAND_SYSTEM_NOTICE_REQ;

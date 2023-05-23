@@ -1,21 +1,20 @@
-package cn.starboot.tim.server.command.handler;
+package cn.starboot.tim.client.command.handler;
 
+import cn.starboot.tim.client.ImClientChannelContext;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
-import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-public class RespServerHandler extends AbstractServerCmdHandler {
-
+public class RespClientHandler extends AbstractClientCmdHandler {
 	@Override
 	public TIMCommandType command() {
 		return TIMCommandType.COMMAND_REQ_RESP;
 	}
 
 	@Override
-	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
+	public ImPacket handler(ImPacket imPacket, ImClientChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
 		RespPacketProto.RespPacket respPacket = RespPacketProto.RespPacket.parseFrom(imPacket.getData());
 		if (respPacket == null) {
 			System.out.println("错误");
