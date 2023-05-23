@@ -4,10 +4,15 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.exception.ImException;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RespServerHandler extends AbstractServerCmdHandler {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(RespServerHandler.class);
 
 	@Override
 	public TIMCommandType command() {
@@ -18,7 +23,7 @@ public class RespServerHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws ImException, InvalidProtocolBufferException {
 		RespPacketProto.RespPacket respPacket = RespPacketProto.RespPacket.parseFrom(imPacket.getData());
 		if (respPacket == null) {
-			System.out.println("错误");
+			TIMLogUtil.error(LOGGER, "RespServerHandler: message formatting error");
 			return null;
 		}
 		switch (getTIMCommandTypeFromCode((byte) respPacket.getCode())) {

@@ -31,7 +31,7 @@ public class LoginReqHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		LoginPacketProto.LoginPacket loginPacket = LoginPacketProto.LoginPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(loginPacket)) {
-			LOGGER.error("消息包格式化出错");
+			TIMLogUtil.error(LOGGER, "LoginReqHandler: message formatting error");
 			return null;
 		}
 		// 构造登录响应消息包

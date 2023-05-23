@@ -6,6 +6,7 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.AuthPacketProto;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class AuthReqHandler extends AbstractServerCmdHandler {
 
 		AuthPacketProto.AuthPacket authPacket = AuthPacketProto.AuthPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(authPacket)) {
-			LOGGER.error("消息包格式化出错");
+			TIMLogUtil.error(LOGGER, "AuthReqHandler: message formatting error");
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP);

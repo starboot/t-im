@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.SystemNoticePacketProto;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class SystemNoticeReqHandler extends AbstractServerCmdHandler{
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		SystemNoticePacketProto.SystemNoticePacket systemNoticePacket = SystemNoticePacketProto.SystemNoticePacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(systemNoticePacket)) {
-			LOGGER.error("消息包格式化出错");
+			TIMLogUtil.error(LOGGER, "SystemNoticeReqHandler: message formatting error");
 			return null;
 		}
 		ImPacket packet = getImPacket(imChannelContext, TIMCommandType.COMMAND_CHAT_RESP);

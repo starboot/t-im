@@ -29,7 +29,7 @@ public class BindReqHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		BindPacketProto.BindPacket packet = BindPacketProto.BindPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(packet)) {
-			LOGGER.error("BindReqHandler: message formatting error");
+			TIMLogUtil.error(LOGGER, "BindReqHandler: message formatting error");
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP);

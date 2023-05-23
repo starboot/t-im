@@ -6,6 +6,7 @@ import cn.starboot.tim.common.command.TIMCommandType;
 import cn.starboot.tim.common.packet.ImPacket;
 import cn.starboot.tim.common.packet.proto.RespPacketProto;
 import cn.starboot.tim.common.packet.proto.UserInfoPacketProto;
+import cn.starboot.tim.common.util.TIMLogUtil;
 import cn.starboot.tim.server.ImServerChannelContext;
 import cn.starboot.tim.server.command.handler.userInfo.IUserInfo;
 import cn.starboot.tim.server.command.handler.userInfo.NonPersistentUserInfo;
@@ -36,7 +37,7 @@ public class UserReqHandler extends AbstractServerCmdHandler {
 	public ImPacket handler(ImPacket imPacket, ImServerChannelContext imChannelContext) throws InvalidProtocolBufferException {
 		UserInfoPacketProto.UserInfoPacket userInfoPacket = UserInfoPacketProto.UserInfoPacket.parseFrom(imPacket.getData());
 		if (ObjectUtil.isEmpty(userInfoPacket)) {
-			LOGGER.error("UserReqHandler: message formatting error");
+			TIMLogUtil.error(LOGGER, "UserReqHandler: message formatting error");
 			return null;
 		}
 		imPacket.setTIMCommandType(TIMCommandType.COMMAND_REQ_RESP);
